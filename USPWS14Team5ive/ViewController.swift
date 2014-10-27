@@ -47,7 +47,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             })
             
             var parameters2 =  Dictionary<String, AnyObject>()
-            parameters2 = [ "amount" : "1000.0",
+            parameters2 = [
+                "amount" : "1000.0",
                 "date" : "2014-10-23"
             ]
             oauthswift.client.post("https://api.fitbit.com/1/user/-/foods/log/water.json", parameters: parameters2,
@@ -75,6 +76,30 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         oauthswift.authorizeWithCallbackURL( NSURL(string: "oauth-callback://oauth-callback/withings")!, success: {
             credential, response in
             self.showAlertView("Withings", message: "oauth_token:\(credential.oauth_token)\n\noauth_token_secret:\(credential.oauth_token_secret)")
+            
+            var parameters =  Dictionary<String, AnyObject>()
+            parameters =
+                [
+                "action" : "getactivity",
+                "oauth_consumer_key" : "" + Withings["consumerKey"]!,
+                "oauth_nonce" : "\((NSUUID().UUIDString as NSString).substringToIndex(8))",
+                "oauth_signature" : "\(credential.oauth_signature)",
+                "oauth_signature_method" : "HMAC-SHA1",
+                "oauth_timestamp" : "\(String(Int64(NSDate().timeIntervalSince1970)))",
+                "oauth_token" : "\(credential.oauth_token)",
+                "oauth_version" : "1.0",
+                "userid" : "5064852"
+                ]
+            println(parameters)
+            oauthswift.client.post("https://wbsapi.withings.net/v2/measure", parameters: parameters,
+                success: {
+                    data, response in
+                    let jsonDict: AnyObject! = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil)
+                    println(jsonDict)
+                }, failure: {(error:NSError!) -> Void in
+                    println(error)
+            })
+
             }, failure: {(error:NSError!) -> Void in
                 println(error.localizedDescription)
         })

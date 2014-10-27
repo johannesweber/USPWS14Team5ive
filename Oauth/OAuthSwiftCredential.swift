@@ -14,6 +14,7 @@ class OAuthSwiftCredential {
     var oauth_token: String = String()
     var oauth_token_secret: String = String()
     var oauth_verifier: String = String()
+    var oauth_signature: String = String()
     init(){
         
     }

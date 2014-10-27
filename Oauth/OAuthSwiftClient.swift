@@ -91,6 +91,15 @@ class OAuthSwiftClient {
         
         authorizationParameters["oauth_signature"] = self.oauthSignatureForMethod(method, url: url, parameters: finalParameters, credential: credential)
         
+        for param in authorizationParameters {
+            println("Parameter: \(param)")
+        }
+        
+        //auth. Params added to credentials
+        credential.authorizationParameters = authorizationParameters
+        
+
+        
         var authorizationParameterComponents = authorizationParameters.urlEncodedQueryStringWithEncoding(dataEncoding).componentsSeparatedByString("&") as [String]
         authorizationParameterComponents.sort { $0 < $1 }
         
@@ -126,8 +135,6 @@ class OAuthSwiftClient {
         let signatureBaseStringData = signatureBaseString.dataUsingEncoding(dataEncoding)
         
         let signature = HMACSHA1Signature.signatureForKey(signingKeyData, data: signatureBaseStringData).base64EncodedStringWithOptions(nil)
-        
-        credential.oauth_signature = signature
         
         return signature
     }

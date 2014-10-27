@@ -49,7 +49,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIWebViewDelegate {
     }
     
     func application(application: UIApplication!, openURL url: NSURL!, sourceApplication: String!, annotation: AnyObject!) -> Bool {
-        println(url.query)
+        println("URL: \(url)")
+        
         if (url.host == "oauth-callback") {
             if (url.path!.hasPrefix("/twitter") || url.path!.hasPrefix("/fitbit")) || url.path!.hasPrefix("/withings") {
                 OAuth1Swift.handleOpenURL(url)

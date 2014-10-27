@@ -76,22 +76,29 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         oauthswift.authorizeWithCallbackURL( NSURL(string: "oauth-callback://oauth-callback/withings")!, success: {
             credential, response in
             self.showAlertView("Withings", message: "oauth_token:\(credential.oauth_token)\n\noauth_token_secret:\(credential.oauth_token_secret)")
-            
+
             var parameters =  Dictionary<String, AnyObject>()
-            parameters =
-                [
-                "action" : "getactivity",
-                "oauth_consumer_key" : "" + Withings["consumerKey"]!,
-                "oauth_nonce" : "\((NSUUID().UUIDString as NSString).substringToIndex(8))",
-                "oauth_signature" : "\(credential.oauth_signature)",
-                "oauth_signature_method" : "HMAC-SHA1",
-                "oauth_timestamp" : "\(String(Int64(NSDate().timeIntervalSince1970)))",
-                "oauth_token" : "\(credential.oauth_token)",
-                "oauth_version" : "1.0",
-                "userid" : "5064852"
-                ]
-            println(parameters)
-            oauthswift.client.post("https://wbsapi.withings.net/v2/measure", parameters: parameters,
+            
+            var p2 = credential.authorizationParameters["oauth_consumer_key"] as String
+            var p3 = credential.authorizationParameters["oauth_nonce"] as String
+            var p4 = credential.authorizationParameters["oauth_signature"] as String
+            var p6 = credential.authorizationParameters["oauth_timestamp"] as String
+            var p7 = credential.authorizationParameters["oauth_token"] as String
+            
+            
+            
+            var url: String = "https://wbsapi.withings.net/v2/measure?" +
+            "action=getactivity" +
+            "&oauth_consumer_key=" + p2 +
+            "&oauth_nonce=" + p3 +
+            "&oauth_signature=" + p4 +
+            "&oauth_signature_method=HMAC-SHA1" +
+            "&oauth_timestamp=" + p6 +
+            "&oauth_token=" + p7 +
+            "&oauth_version=1.0" +
+            "&userid=5064852"
+            
+            oauthswift.client.get(url, parameters: parameters,
                 success: {
                     data, response in
                     let jsonDict: AnyObject! = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil)

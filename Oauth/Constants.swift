@@ -19,3 +19,9 @@ let Fitbit =
     "consumerKey": "7c39abf127964bc984aba4020845ff11",
     "consumerSecret": "18c4a92f21f1458e8ac9798567d3d38c"
 ]
+
+let Vitadock =
+[
+    "consumerKey": "qpvX7zc7Rb3AwaDB5jTrluh5Z2b7FS9fCMcEgn7GFYA7Dt71WPvs1f8mkprsLEe",
+    "consumerSecret": "RrjgTMKmzUP59uXZyB0ZAK57g0UDUMy9oCWzWFuDnKrN5PDCSx8N5GYe0S63PXUm"
+]

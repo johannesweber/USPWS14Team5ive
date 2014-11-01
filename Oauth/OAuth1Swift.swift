@@ -50,7 +50,6 @@ class OAuth1Swift {
             
             self.observer = NSNotificationCenter.defaultCenter().addObserverForName(CallbackNotification.notificationName, object: nil, queue: NSOperationQueue.mainQueue(), usingBlock:{
                 notification in
-                //NSNotificationCenter.defaultCenter().removeObserver(self)
                 NSNotificationCenter.defaultCenter().removeObserver(self.observer!)
                 let url = notification.userInfo![CallbackNotification.optionsURLKey] as NSURL
                 let parameters = url.query!.parametersFromQueryString()

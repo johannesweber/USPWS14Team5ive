@@ -81,6 +81,8 @@ class OAuthSwiftHTTPRequest: NSObject, NSURLConnectionDataDelegate {
             
             var nonOAuthParameters = self.parameters.filter { key, _ in !key.hasPrefix("oauth_") }
             
+            println("1. \(self.URL)")
+            
             if nonOAuthParameters.count > 0 {
                 if self.HTTPMethod == "GET" || self.HTTPMethod == "HEAD" || self.HTTPMethod == "DELETE" {
                     let queryString = nonOAuthParameters.urlEncodedQueryStringWithEncoding(self.dataEncoding)
@@ -90,7 +92,6 @@ class OAuthSwiftHTTPRequest: NSObject, NSURLConnectionDataDelegate {
                 else {
                     if self.encodeParameters {
                         let queryString = nonOAuthParameters.urlEncodedQueryStringWithEncoding(self.dataEncoding)
-                        //self.request!.URL = self.URL.URLByAppendingQueryString(queryString)
                         self.request!.setValue("application/x-www-form-urlencoded; charset=\(charset)", forHTTPHeaderField: "Content-Type")
                         self.request!.HTTPBody = queryString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
                     }

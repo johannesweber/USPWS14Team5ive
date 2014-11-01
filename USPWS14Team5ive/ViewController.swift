@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var services = ["Fitbit", "Withings"]
+    var services = ["Fitbit", "Withings", "Vitadock"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +37,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             credential, response in
             self.showAlertView("Fitbit", message: "auth_token:\(credential.oauth_token)\n\noauth_token_secret:\(credential.oauth_token_secret)")
             var parameters =  Dictionary<String, AnyObject>()
-            oauthswift.client.get("https://api.fitbit.com/1/user/-/profile.json", parameters: parameters,
+            oauthswift.client.get("https://api.fitbit.com/1/foods/search.json", parameters: parameters,
                 success: {
                     data, response in
                     let jsonDict: AnyObject! = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil)
@@ -49,7 +49,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             var parameters2 =  Dictionary<String, AnyObject>()
             parameters2 = [
                 "amount" : "1000.0",
-                "date" : "2014-10-23"
+                "date" : "2014-10-29"
             ]
             oauthswift.client.post("https://api.fitbit.com/1/user/-/foods/log/water.json", parameters: parameters2,
                 success: {
@@ -65,6 +65,31 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         })
     }
     
+    func doOAuthVitadock(){
+        let oauthswift = OAuth1Swift(
+            consumerKey:    Vitadock["consumerKey"]!,
+            consumerSecret: Vitadock["consumerSecret"]!,
+            requestTokenUrl: "https://api.fitbit.com/oauth/request_token",
+            authorizeUrl:    "https://www.fitbit.com/oauth/authorize",
+            accessTokenUrl:  "https://api.fitbit.com/oauth/access_token"
+        )
+        oauthswift.authorizeWithCallbackURL( NSURL(string: "oauth-callback://oauth-callback/vitadock")!, success: {
+            credential, response in
+            self.showAlertView("Vitadock", message: "auth_token:\(credential.oauth_token)\n\noauth_token_secret:\(credential.oauth_token_secret)")
+            var parameters =  Dictionary<String, AnyObject>()
+            oauthswift.client.get("https://api.fitbit.com/1/foods/search.json", parameters: parameters,
+                success: {
+                    data, response in
+                    let jsonDict: AnyObject! = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil)
+                    println(jsonDict)
+                }, failure: {(error:NSError!) -> Void in
+                    println(error)
+            })
+            }, failure: {(error:NSError!) -> Void in
+                println(error.localizedDescription)
+        })
+    }
+
     func doOAuthWithings(){
         let oauthswift = OAuth1Swift(
             consumerKey:    Withings["consumerKey"]!,
@@ -84,11 +109,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             var p4 = credential.authorizationParameters["oauth_signature"] as String
             var p6 = credential.authorizationParameters["oauth_timestamp"] as String
             var p7 = credential.authorizationParameters["oauth_token"] as String
-            
-            
-            
-            var url: String = "https://wbsapi.withings.net/v2/measure?" +
-            "action=getactivity" +
+        
+            var url: String = "https://wbsapi.withings.net/measure?" +
+            "action=getmeas" +
             "&oauth_consumer_key=" + p2 +
             "&oauth_nonce=" + p3 +
             "&oauth_signature=" + p4 +
@@ -98,7 +121,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             "&oauth_version=1.0" +
             "&userid=5064852"
             
-            oauthswift.client.get(url, parameters: parameters,
+            println(url)
+            
+            oauthswift.client.getFromWithings(url, parameters: parameters,
                 success: {
                     data, response in
                     let jsonDict: AnyObject! = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil)
@@ -136,6 +161,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             doOAuthFitbit()
         case "Withings":
             doOAuthWithings()
+        case "Vitadock":
+            doOAuthVitadock()
         default:
             println("default")
         }

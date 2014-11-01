@@ -47,6 +47,22 @@ class OAuthSwiftClient {
         request.start()
     }
     
+    func getFromWithings(urlString: String, parameters: Dictionary<String, AnyObject>, success: OAuthSwiftHTTPRequest.SuccessHandler?, failure: OAuthSwiftHTTPRequest.FailureHandler?) {
+        
+        let url = NSURL(string: urlString)
+        
+        let method = "GET"
+        
+        let request = OAuthSwiftHTTPRequest(URL: url!, method: method, parameters: parameters)
+        
+        request.successHandler = success
+        request.failureHandler = failure
+        request.dataEncoding = dataEncoding
+        
+        request.start()
+    }
+
+    
     func post(urlString: String, parameters: Dictionary<String, AnyObject>, success: OAuthSwiftHTTPRequest.SuccessHandler?, failure: OAuthSwiftHTTPRequest.FailureHandler?) {
         let url = NSURL(string: urlString)
         

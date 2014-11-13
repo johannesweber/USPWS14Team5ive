@@ -107,15 +107,6 @@ class OAuthSwiftClient {
         
         authorizationParameters["oauth_signature"] = self.oauthSignatureForMethod(method, url: url, parameters: finalParameters, credential: credential)
         
-        for param in authorizationParameters {
-            println("Parameter: \(param)")
-        }
-        
-        //auth. Params added to credentials
-        credential.authorizationParameters = authorizationParameters
-        
-
-        
         var authorizationParameterComponents = authorizationParameters.urlEncodedQueryStringWithEncoding(dataEncoding).componentsSeparatedByString("&") as [String]
         authorizationParameterComponents.sort { $0 < $1 }
         

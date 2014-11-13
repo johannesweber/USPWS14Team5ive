@@ -52,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIWebViewDelegate {
         println("URL: \(url)")
         
         if (url.host == "oauth-callback") {
-            if (url.path!.hasPrefix("/twitter") || url.path!.hasPrefix("/fitbit")) || url.path!.hasPrefix("/withings") {
+            if (url.path!.hasPrefix("/vitadock") || url.path!.hasPrefix("/fitbit")) || url.path!.hasPrefix("/withings") {
                 OAuth1Swift.handleOpenURL(url)
             }
         }

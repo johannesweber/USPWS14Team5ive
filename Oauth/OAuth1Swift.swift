@@ -81,6 +81,7 @@ class OAuth1Swift {
             let parameters = responseString.parametersFromQueryString()
             self.client.credential.oauth_token = parameters["oauth_token"]!
             self.client.credential.oauth_token_secret = parameters["oauth_token_secret"]!
+            //self.client.credential.user_id = parameters["userid"]!
             success(credential: self.client.credential, response: response)
         }, failure: failure)
     }
@@ -96,11 +97,6 @@ class OAuth1Swift {
             let parameters = responseString.parametersFromQueryString()
             self.client.credential.oauth_token = parameters["oauth_token"]!
             self.client.credential.oauth_token_secret = parameters["oauth_token_secret"]!
-            if (url.host == "oauth-callback") {
-                if (url.path!.hasPrefix("/withings")){
-                    self.client.credential.user_id = parameters["userid"]!
-                }
-            }
             success(credential: self.client.credential, response: response)
         }, failure: failure)
     }

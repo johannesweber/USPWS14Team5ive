@@ -60,7 +60,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         )
         oauthswift.authorizeWithCallbackURL( NSURL(string: "oauth-callback://oauth-callback/vitadock")!, success: {
             credential, response in
-            //self.showAlertView("Vitadock", message: "auth_token:\(credential.oauth_token)\n\noauth_token_secret:\(credential.oauth_token_secret)")
+            self.showAlertView("Vitadock", message: "auth_token:\(credential.oauth_token)\n\noauth_token_secret:\(credential.oauth_token_secret)")
             }, failure: {(error:NSError!) -> Void in
                 println(error.localizedDescription)
         })
@@ -76,11 +76,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         )
         oauthswift.authorizeWithCallbackURL( NSURL(string: "oauth-callback://oauth-callback/withings")!, success: {
             credential, response in
-            //self.showAlertView("Withings", message: "oauth_token:\(credential.oauth_token)\n\noauth_token_secret:\(credential.oauth_token_secret)\n\nuser_id:\(credential.user_id)")
+            self.showAlertView("Withings", message: "oauth_token:\(credential.oauth_token)\n\noauth_token_secret:\(credential.oauth_token_secret)\n\nuser_id:\(credential.user_id)")
             
             // send oauth_token, oauth_token_secret and user_id to server
             var url = NSURL(string:"http://141.19.142.45/~johannes/focusedhealth/withings/receive/")
-            var data = "oauth_token=\(credential.oauth_token)&oauth_token_secret=\(credential.oauth_token_secret)&user_id=\(credential.user_id)"
+            var data = "oauth_consumer_key=\(credential.consumer_key)&oauth_nonce=\(credential.oauth_nonce)&oauth_signature=\(credential.oauth_signature)&oauth_signature_method=HMAC-SHA1&oauth_timestamp=\(credential.oauth_timestamp)&oauth_token=\(credential.oauth_token)&oauth_version=1.0&user_id=\(credential.user_id)"
+            
             DatabaseConnection(url: url!, dataString: data)
             
             }, failure: {(error:NSError!) -> Void in

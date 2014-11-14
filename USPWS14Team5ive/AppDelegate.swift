@@ -55,9 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIWebViewDelegate {
             if (url.path!.hasPrefix("/vitadock") || url.path!.hasPrefix("/fitbit")) || url.path!.hasPrefix("/withings") {
                 OAuth1Swift.handleOpenURL(url)
             }
-            if (url.path!.hasPrefix("/withings")) {
-                
-            }
+            
         }
         return true
     }

@@ -94,9 +94,13 @@ class OAuth1Swift {
             data, response in
             let responseString = NSString(data: data, encoding: NSUTF8StringEncoding) as String
             let parameters = responseString.parametersFromQueryString()
-            self.client.credential.user_id = parameters["userid"]!
             self.client.credential.oauth_token = parameters["oauth_token"]!
             self.client.credential.oauth_token_secret = parameters["oauth_token_secret"]!
+            if (url.host == "oauth-callback") {
+                if (url.path!.hasPrefix("/withings")){
+                    self.client.credential.user_id = parameters["userid"]!
+                }
+            }
             success(credential: self.client.credential, response: response)
         }, failure: failure)
     }

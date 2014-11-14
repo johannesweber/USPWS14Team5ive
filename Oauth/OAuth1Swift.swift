@@ -18,6 +18,7 @@ class OAuth1Swift {
     var request_token_url: String
     var authorize_url: String
     var access_token_url: String
+    var user_id:String
     
     var observer: AnyObject?
     
@@ -28,6 +29,7 @@ class OAuth1Swift {
         self.authorize_url = authorizeUrl
         self.access_token_url = accessTokenUrl
         self.client = OAuthSwiftClient(consumerKey: consumerKey, consumerSecret: consumerSecret)
+        self.user_id = String()
     }
     
     struct CallbackNotification {
@@ -92,6 +94,7 @@ class OAuth1Swift {
             data, response in
             let responseString = NSString(data: data, encoding: NSUTF8StringEncoding) as String
             let parameters = responseString.parametersFromQueryString()
+            self.client.credential.user_id = parameters["userid"]!
             self.client.credential.oauth_token = parameters["oauth_token"]!
             self.client.credential.oauth_token_secret = parameters["oauth_token_secret"]!
             success(credential: self.client.credential, response: response)

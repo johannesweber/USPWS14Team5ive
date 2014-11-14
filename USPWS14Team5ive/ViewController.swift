@@ -24,7 +24,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    //funktioniert
+    //works
     func doOAuthFitbit(){
         let oauthswift = OAuth1Swift(
             consumerKey:    Fitbit["consumerKey"]!,
@@ -36,9 +36,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
         oauthswift.authorizeWithCallbackURL( NSURL(string: "oauth-callback://oauth-callback/fitbit")!, success: {
             credential, response in
-            self.showAlertView("Fitbit", message: "auth_token:\(credential.oauth_token)\n\noauth_token_secret:\(credential.oauth_token_secret)")
+            //self.showAlertView("Fitbit", message: "auth_token:\(credential.oauth_token)\n\noauth_token_secret:\(credential.oauth_token_secret)")
             
-            var url = NSURL(string:"http://192.168.178.20/focusedHealthServer/fitbitphp/receive.php")
+            // send oauth_token, oauth_token_secret to server
+            var url = NSURL(string:"http://141.19.142.45/~johannes/focusedhealth/fitbit/receive/")
             
             var data = "oauth_token=\(credential.oauth_token)&oauth_token_secret=\(credential.oauth_token_secret)"
             
@@ -59,12 +60,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         )
         oauthswift.authorizeWithCallbackURL( NSURL(string: "oauth-callback://oauth-callback/vitadock")!, success: {
             credential, response in
-            self.showAlertView("Vitadock", message: "auth_token:\(credential.oauth_token)\n\noauth_token_secret:\(credential.oauth_token_secret)")
+            //self.showAlertView("Vitadock", message: "auth_token:\(credential.oauth_token)\n\noauth_token_secret:\(credential.oauth_token_secret)")
             }, failure: {(error:NSError!) -> Void in
                 println(error.localizedDescription)
         })
     }
-    //funktioniert
+    //works
     func doOAuthWithings(){
         let oauthswift = OAuth1Swift(
             consumerKey:    Withings["consumerKey"]!,
@@ -75,14 +76,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         )
         oauthswift.authorizeWithCallbackURL( NSURL(string: "oauth-callback://oauth-callback/withings")!, success: {
             credential, response in
-            self.showAlertView("Withings", message: "oauth_token:\(credential.oauth_token)\n\noauth_token_secret:\(credential.oauth_token_secret)")
+            //self.showAlertView("Withings", message: "oauth_token:\(credential.oauth_token)\n\noauth_token_secret:\(credential.oauth_token_secret)\n\nuser_id:\(credential.user_id)")
             
-            var url = NSURL(string:"http://192.168.178.20/focusedHealthServer/withingsphp/receive.php")
-            
-            var data = "oauth_token=\(credential.oauth_token)&oauth_token_secret=\(credential.oauth_token_secret)"
-            
+            // send oauth_token, oauth_token_secret and user_id to server
+            var url = NSURL(string:"http://141.19.142.45/~johannes/focusedhealth/withings/receive/")
+            var data = "oauth_token=\(credential.oauth_token)&oauth_token_secret=\(credential.oauth_token_secret)&user_id=\(credential.user_id)"
             DatabaseConnection(url: url!, dataString: data)
-
             
             }, failure: {(error:NSError!) -> Void in
                 println(error.localizedDescription)

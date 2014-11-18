@@ -45,8 +45,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             var hash = string.digest(HMACAlgorithm.SHA256, key: key)
             
             println(hash)
-            
-            string
 
             }, failure: {(error:NSError!) -> Void in
                 println(error.localizedDescription)

@@ -81,7 +81,6 @@ class OAuth1Swift {
             let parameters = responseString.parametersFromQueryString()
             self.client.credential.oauth_token = parameters["oauth_token"]!
             self.client.credential.oauth_token_secret = parameters["oauth_token_secret"]!
-            //self.client.credential.user_id = parameters["userid"]!
             success(credential: self.client.credential, response: response)
         }, failure: failure)
     }
@@ -97,6 +96,15 @@ class OAuth1Swift {
             let parameters = responseString.parametersFromQueryString()
             self.client.credential.oauth_token = parameters["oauth_token"]!
             self.client.credential.oauth_token_secret = parameters["oauth_token_secret"]!
+            
+            println(parameters)
+            
+            if (parameters["userid"] != nil){
+                //add user_id to OAuthSwiftCredentials
+                self.client.credential.user_id = parameters["userid"]!
+            }
+
+            
             success(credential: self.client.credential, response: response)
         }, failure: failure)
     }

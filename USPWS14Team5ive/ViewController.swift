@@ -36,15 +36,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
         oauthswift.authorizeWithCallbackURL( NSURL(string: "oauth-callback://oauth-callback/fitbit")!, success: {
             credential, response in
-            //self.showAlertView("Fitbit", message: "auth_token:\(credential.oauth_token)\n\noauth_token_secret:\(credential.oauth_token_secret)")
+            self.showAlertView("Fitbit", message: "oauth_token:\(credential.oauth_token)\n\noauth_token_secret:\(credential.oauth_token_secret)")
             
-            // send oauth_token, oauth_token_secret to server
-            var url = NSURL(string:"http://141.19.142.45/~johannes/focusedhealth/fitbit/receive/")
+            var string = "gedfguesgfugesu"
             
-            var data = "oauth_token=\(credential.oauth_token)&oauth_token_secret=\(credential.oauth_token_secret)"
+            var key = "hjk"
             
-            DatabaseConnection(url: url!, dataString: data)
+            var hash = string.digest(HMACAlgorithm.SHA256, key: key)
             
+            println(hash)
+            
+            string
+
             }, failure: {(error:NSError!) -> Void in
                 println(error.localizedDescription)
         })
@@ -55,7 +58,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             consumerKey:    Vitadock["consumerKey"]!,
             consumerSecret: Vitadock["consumerSecret"]!,
             requestTokenUrl: "https://vitacloud.medisanaspace.com/auth/unauthorizedaccesses",
-            authorizeUrl:    "https://vitacloud.medisanaspace.com/request?oauth_token=%s",
+            authorizeUrl:    "https://vitacloud.medisanaspace.com/desiredaccessrights/request",
             accessTokenUrl:  "https://vitacloud.medisanaspace.com/auth/accesses/verify"
         )
         oauthswift.authorizeWithCallbackURL( NSURL(string: "oauth-callback://oauth-callback/vitadock")!, success: {
@@ -77,12 +80,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         oauthswift.authorizeWithCallbackURL( NSURL(string: "oauth-callback://oauth-callback/withings")!, success: {
             credential, response in
             self.showAlertView("Withings", message: "oauth_token:\(credential.oauth_token)\n\noauth_token_secret:\(credential.oauth_token_secret)\n\nuser_id:\(credential.user_id)")
-            
-            // send oauth_token, oauth_token_secret and user_id to server
-            var url = NSURL(string:"http://141.19.142.45/~johannes/focusedhealth/withings/receive/")
-            var data = "oauth_consumer_key=\(credential.consumer_key)&oauth_nonce=\(credential.oauth_nonce)&oauth_signature=\(credential.oauth_signature)&oauth_signature_method=HMAC-SHA1&oauth_timestamp=\(credential.oauth_timestamp)&oauth_token=\(credential.oauth_token)&oauth_version=1.0&user_id=\(credential.user_id)"
-            
-            DatabaseConnection(url: url!, dataString: data)
             
             }, failure: {(error:NSError!) -> Void in
                 println(error.localizedDescription)

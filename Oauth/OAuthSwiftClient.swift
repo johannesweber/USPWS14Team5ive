@@ -46,7 +46,7 @@ class OAuthSwiftClient {
         
         request.start()
     }
-    
+    //get methode für withings selber erstellt
     func getFromWithings(urlString: String, parameters: Dictionary<String, AnyObject>, success: OAuthSwiftHTTPRequest.SuccessHandler?, failure: OAuthSwiftHTTPRequest.FailureHandler?) {
         
         let url = NSURL(string: urlString)
@@ -89,7 +89,7 @@ class OAuthSwiftClient {
         authorizationParameters["oauth_signature_method"] =  OAuth.signatureMethod
         authorizationParameters["oauth_consumer_key"] = credential.consumer_key
         authorizationParameters["oauth_timestamp"] = String(Int64(NSDate().timeIntervalSince1970))
-        authorizationParameters["oauth_nonce"] = (NSUUID().UUIDString as NSString).substringToIndex(8)
+        authorizationParameters["oauth_nonce"] = NSUUID().UUIDString as NSString
         
         if (credential.oauth_token != ""){
             authorizationParameters["oauth_token"] = credential.oauth_token
@@ -101,15 +101,13 @@ class OAuthSwiftClient {
             }
         }
         
+        println(parameters)
+        
         let combinedParameters = authorizationParameters.join(parameters)
         
         let finalParameters = combinedParameters
         
         authorizationParameters["oauth_signature"] = self.oauthSignatureForMethod(method, url: url, parameters: finalParameters, credential: credential)
-        
-        credential.oauth_timestamp = authorizationParameters["oauth_timestamp"] as String
-        credential.oauth_nonce = authorizationParameters["oauth_nonce"] as String
-        credential.oauth_signature = authorizationParameters["oauth_signature"] as String
         
         for param in authorizationParameters {
             println("Parameter: \(param)")
@@ -134,23 +132,47 @@ class OAuthSwiftClient {
         var tokenSecret: NSString = ""
         tokenSecret = credential.oauth_token_secret.urlEncodedStringWithEncoding(dataEncoding)
         
+        println("tokenSecret: \(tokenSecret)")
+        
         let encodedConsumerSecret = credential.consumer_secret.urlEncodedStringWithEncoding(dataEncoding)
+        
+        println("encodedConsumerSecret: \(encodedConsumerSecret)")
         
         let signingKey = "\(encodedConsumerSecret)&\(tokenSecret)"
         let signingKeyData = signingKey.dataUsingEncoding(dataEncoding)
         
+        println("signingKey: \(signingKey)")
+        println("signingKeyData: \(signingKeyData)")
+        
         var parameterComponents = parameters.urlEncodedQueryStringWithEncoding(dataEncoding).componentsSeparatedByString("&") as [String]
+        println("parameterComponents: \(parameterComponents)")
+        
         parameterComponents.sort { $0 < $1 }
+        println("parameterComponents sortiert: \(parameterComponents)")
         
         let parameterString = "&".join(parameterComponents)
         let encodedParameterString = parameterString.urlEncodedStringWithEncoding(dataEncoding)
         
+        println("parameterString: \(parameterString)")
+        println("encodedParameterString: \(encodedParameterString)")
+        
         let encodedURL = url.absoluteString!.urlEncodedStringWithEncoding(dataEncoding)
+        
+        println("URL: \(url)")
+        println("encodedURL: \(encodedURL)")
         
         let signatureBaseString = "\(method)&\(encodedURL)&\(encodedParameterString)"
         let signatureBaseStringData = signatureBaseString.dataUsingEncoding(dataEncoding)
         
+        println("signatureBaseString: \(signatureBaseString)")
+        println("signatureBaseStringData: \(signatureBaseStringData)")
+        
+        
+        //hier klemmt es irgendwie deswegen funktioniert withings nicht (hoffentlich)
         let signature = HMACSHA1Signature.signatureForKey(signingKeyData, data: signatureBaseStringData).base64EncodedStringWithOptions(nil)
+        
+        
+        println("signature: \(signature)")
         
         return signature
     }

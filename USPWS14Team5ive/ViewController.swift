@@ -38,13 +38,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             credential, response in
             self.showAlertView("Fitbit", message: "oauth_token:\(credential.oauth_token)\n\noauth_token_secret:\(credential.oauth_token_secret)")
             
-            var string = "gedfguesgfugesu"
+            var url = NSURL(string: "http://141.19.142.45/~johannes/focusedhealth/fitbit/receive_credentials.php")
             
-            var key = "hjk"
+            var dataString = "oauth_token=\(credential.oauth_token)&oauth_token_secret=\(credential.oauth_token_secret)"
             
-            var hash = string.digest(HMACAlgorithm.SHA256, key: key)
+            DatabaseConnection(url: url!, dataString: dataString);
             
-            println(hash)
+            // HMAC Test
+//            var string = "gedfguesgfugesu"
+//            
+//            var key = "hjk"
+//            
+//            var hash = string.digest(HMACAlgorithm.SHA256, key: key)
+//            
+//            println(hash)
 
             }, failure: {(error:NSError!) -> Void in
                 println(error.localizedDescription)

@@ -46,22 +46,6 @@ class OAuthSwiftClient {
         
         request.start()
     }
-    //get methode für withings selber erstellt
-    func getFromWithings(urlString: String, parameters: Dictionary<String, AnyObject>, success: OAuthSwiftHTTPRequest.SuccessHandler?, failure: OAuthSwiftHTTPRequest.FailureHandler?) {
-        
-        let url = NSURL(string: urlString)
-        
-        let method = "GET"
-        
-        let request = OAuthSwiftHTTPRequest(URL: url!, method: method, parameters: parameters)
-        
-        request.successHandler = success
-        request.failureHandler = failure
-        request.dataEncoding = dataEncoding
-        
-        request.start()
-    }
-
     
     func post(urlString: String, parameters: Dictionary<String, AnyObject>, success: OAuthSwiftHTTPRequest.SuccessHandler?, failure: OAuthSwiftHTTPRequest.FailureHandler?) {
         let url = NSURL(string: urlString)
@@ -101,18 +85,11 @@ class OAuthSwiftClient {
             }
         }
         
-        println(parameters)
-        
         let combinedParameters = authorizationParameters.join(parameters)
         
         let finalParameters = combinedParameters
         
         authorizationParameters["oauth_signature"] = self.oauthSignatureForMethod(method, url: url, parameters: finalParameters, credential: credential)
-        
-        for param in authorizationParameters {
-            println("Parameter: \(param)")
-        }
-
         
         var authorizationParameterComponents = authorizationParameters.urlEncodedQueryStringWithEncoding(dataEncoding).componentsSeparatedByString("&") as [String]
         authorizationParameterComponents.sort { $0 < $1 }
@@ -132,56 +109,25 @@ class OAuthSwiftClient {
         var tokenSecret: NSString = ""
         tokenSecret = credential.oauth_token_secret.urlEncodedStringWithEncoding(dataEncoding)
         
-        println("tokenSecret: \(tokenSecret)")
-        
         let encodedConsumerSecret = credential.consumer_secret.urlEncodedStringWithEncoding(dataEncoding)
-        
-        println("encodedConsumerSecret: \(encodedConsumerSecret)")
         
         let signingKey = "\(encodedConsumerSecret)&\(tokenSecret)"
         let signingKeyData = signingKey.dataUsingEncoding(dataEncoding)
         
-        println("signingKey: \(signingKey)")
-        println("signingKeyData: \(signingKeyData)")
-        
         var parameterComponents = parameters.urlEncodedQueryStringWithEncoding(dataEncoding).componentsSeparatedByString("&") as [String]
-        println("parameterComponents: \(parameterComponents)")
         
         parameterComponents.sort { $0 < $1 }
-        println("parameterComponents sortiert: \(parameterComponents)")
         
         let parameterString = "&".join(parameterComponents)
         let encodedParameterString = parameterString.urlEncodedStringWithEncoding(dataEncoding)
         
-        println("parameterString: \(parameterString)")
-        println("encodedParameterString: \(encodedParameterString)")
-        
         let encodedURL = url.absoluteString!.urlEncodedStringWithEncoding(dataEncoding)
-        
-        println("URL: \(url)")
-        println("encodedURL: \(encodedURL)")
         
         let signatureBaseString = "\(method)&\(encodedURL)&\(encodedParameterString)"
         let signatureBaseStringData = signatureBaseString.dataUsingEncoding(dataEncoding)
-        
-        println("signatureBaseString: \(signatureBaseString)")
-        println("signatureBaseStringData: \(signatureBaseStringData)")
-        var a = signatureBaseString.digest(HMACAlgorithm.SHA1, key: signingKey)
-        
-        println("A: \(a)")
 
-        let utf8str = a.dataUsingEncoding(NSUTF8StringEncoding)
+        let signatureSwift = signatureBaseString.digest(HMACAlgorithm.SHA1, key: signingKey).base64EncodedStringWithOptions(nil)
         
-        println("utf8 \(utf8str)")
-
-        let base64Encoded = utf8str!.base64EncodedStringWithOptions(nil)
-
-        //hier klemmt es irgendwie deswegen funktioniert withings nicht (hoffentlich)
-        let signature = HMACSHA1Signature.signatureForKey(signingKeyData, data: signatureBaseStringData).base64EncodedStringWithOptions(nil)
-        
-        println("base64: \(base64Encoded)")
-        println("signature: \(signature)")
-        
-        return signature
+        return signatureSwift
     }
 }

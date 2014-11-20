@@ -166,12 +166,20 @@ class OAuthSwiftClient {
         
         println("signatureBaseString: \(signatureBaseString)")
         println("signatureBaseStringData: \(signatureBaseStringData)")
+        var a = signatureBaseString.digest(HMACAlgorithm.SHA1, key: signingKey)
         
+        println("A: \(a)")
+
+        let utf8str = a.dataUsingEncoding(NSUTF8StringEncoding)
         
+        println("utf8 \(utf8str)")
+
+        let base64Encoded = utf8str!.base64EncodedStringWithOptions(nil)
+
         //hier klemmt es irgendwie deswegen funktioniert withings nicht (hoffentlich)
         let signature = HMACSHA1Signature.signatureForKey(signingKeyData, data: signatureBaseStringData).base64EncodedStringWithOptions(nil)
         
-        
+        println("base64: \(base64Encoded)")
         println("signature: \(signature)")
         
         return signature

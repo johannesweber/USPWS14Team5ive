@@ -33,25 +33,41 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             authorizeUrl:    "https://www.fitbit.com/oauth/authorize",
             accessTokenUrl:  "https://api.fitbit.com/oauth/access_token"
         )
+        
+//        var signatureBaseString = "HugoGogo"
+//        var signingKey = "HalloWelt"
+//        
+//        let signingKeyData = signingKey.dataUsingEncoding(NSUTF8StringEncoding)
+//        let signatureBaseStringData = signatureBaseString.dataUsingEncoding(NSUTF8StringEncoding)
+//
+//        let signatureObjC = HMACSHA1Signature.signatureForKey(signingKeyData, data: signatureBaseStringData).base64EncodedStringWithOptions(nil)
+//        let signatureSwift = signatureBaseString.digestRaw(HMACAlgorithm.SHA1, key: signingKey).base64EncodedStringWithOptions(nil)
+//        
+//        let signatureSwiftURLEncoded = signatureSwift
+//                .stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
+//                .stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())!
+//                .stringByReplacingOccurrencesOfString("+", withString: "%2B", options: NSStringCompareOptions.LiteralSearch, range: nil)
+//                .stringByReplacingOccurrencesOfString("=", withString: "%3D", options: NSStringCompareOptions.LiteralSearch, range: nil)
+//        
+//        
+//        
+//        
+//        println("--------------------")
+//        println(signatureObjC)
+//        println(signatureSwiftURLEncoded)
+//        println("--------------------")
+
 
         oauthswift.authorizeWithCallbackURL( NSURL(string: "oauth-callback://oauth-callback/fitbit")!, success: {
             credential, response in
             self.showAlertView("Fitbit", message: "oauth_token:\(credential.oauth_token)\n\noauth_token_secret:\(credential.oauth_token_secret)")
-            
-            var url = NSURL(string: "http://141.19.142.45/~johannes/focusedhealth/fitbit/demo.php")
-            
-            var dataString = "oauth_token=\(credential.oauth_token)&oauth_token_secret=\(credential.oauth_token_secret)"
-            
-            DatabaseConnection(url: url!, dataString: dataString);
-            
-            // HMAC Test
-//            var string = "gedfguesgfugesu"
+        
+//            var url = NSURL(string: "http://141.19.142.45/~johannes/focusedhealth/fitbit/demo.php")
 //            
-//            var key = "hjk"
+//            var dataString = "oauth_token=\(credential.oauth_token)&oauth_token_secret=\(credential.oauth_token_secret)"
 //            
-//            var hash = string.digest(HMACAlgorithm.SHA256, key: key)
-//            
-//            println(hash)
+//            DatabaseConnection(url: url!, dataString: dataString);
+        
 
             }, failure: {(error:NSError!) -> Void in
                 println(error.localizedDescription)

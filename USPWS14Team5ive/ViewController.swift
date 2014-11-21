@@ -26,7 +26,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     //works
     func doOAuthFitbit(){
-        let oauthswift = OAuth1Swift(
+        let oauthswift_fitbit = OAuth1Swift_Fitbit(
             consumerKey:    Fitbit["consumerKey"]!,
             consumerSecret: Fitbit["consumerSecret"]!,
             requestTokenUrl: "https://api.fitbit.com/oauth/request_token",
@@ -34,7 +34,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             accessTokenUrl:  "https://api.fitbit.com/oauth/access_token"
         )
 
-        oauthswift.authorizeWithCallbackURL( NSURL(string: "oauth-callback://oauth-callback/fitbit")!, success: {
+        oauthswift_fitbit.authorizeWithCallbackURL( NSURL(string: "oauth-callback://oauth-callback/fitbit")!, success: {
             credential, response in
             self.showAlertView("Fitbit", message: "oauth_token:\(credential.oauth_token)\n\noauth_token_secret:\(credential.oauth_token_secret)")
         
@@ -51,37 +51,66 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     //baustelle
     func doOAuthVitadock(){
-        let oauthswift = OAuth1Swift(
+        let oauthswift_vitadock = OAuth1Swift_Vitadock(
             consumerKey:    Vitadock["consumerKey"]!,
             consumerSecret: Vitadock["consumerSecret"]!,
             requestTokenUrl: "https://vitacloud.medisanaspace.com/auth/unauthorizedaccesses",
             authorizeUrl:    "https://vitacloud.medisanaspace.com/desiredaccessrights/request",
             accessTokenUrl:  "https://vitacloud.medisanaspace.com/auth/accesses/verify"
         )
-        oauthswift.authorizeWithCallbackURL( NSURL(string: "oauth-callback://oauth-callback/vitadock")!, success: {
+        oauthswift_vitadock.authorizeWithCallbackURL( NSURL(string: "oauth-callback://oauth-callback/vitadock")!, success: {
             credential, response in
             self.showAlertView("Vitadock", message: "auth_token:\(credential.oauth_token)\n\noauth_token_secret:\(credential.oauth_token_secret)")
             }, failure: {(error:NSError!) -> Void in
                 println(error.localizedDescription)
         })
     }
-    //works
+    //work in progress
     func doOAuthWithings(){
-        let oauthswift = OAuth1Swift(
+        let oauthswift_withings = OAuth1Swift_Withings(
             consumerKey:    Withings["consumerKey"]!,
             consumerSecret: Withings["consumerSecret"]!,
             requestTokenUrl: "https://oauth.withings.com/account/request_token",
             authorizeUrl:    "https://oauth.withings.com/account/authorize",
             accessTokenUrl:  "https://oauth.withings.com/account/access_token"
         )
-        oauthswift.authorizeWithCallbackURL( NSURL(string: "oauth-callback://oauth-callback/withings")!, success: {
+        oauthswift_withings.authorizeWithCallbackURL( NSURL(string: "oauth-callback://oauth-callback/withings")!, success: {
             credential, response in
             self.showAlertView("Withings", message: "oauth_token:\(credential.oauth_token)\n\noauth_token_secret:\(credential.oauth_token_secret)\n\nuser_id:\(credential.user_id)")
             
-            }, failure: {(error:NSError!) -> Void in
+            //reguläre signature in die Withings konforme Signature umwandeln
+            let signatureWithings = credential.oauth_signature
+                .stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
+                .stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())!
+                .stringByReplacingOccurrencesOfString("+", withString: "%2B", options: NSStringCompareOptions.LiteralSearch, range: nil)
+                .stringByReplacingOccurrencesOfString("=", withString: "%3D", options: NSStringCompareOptions.LiteralSearch, range: nil)
+
+//            //gehört zu DatabaseConnection.swift
+//            //var url = NSURL(string: "http://141.19.142.45/~johannes/focusedhealth/withings/demo.php")
+//            
+//            let parameters :Dictionary = [
+//                "action"              : "getmeas",
+//                "user_id"             : "\(credential.user_id)",
+//                "consumer_key"        : "\(credential.consumer_key)",
+//                "nonce"               : "\(credential.oauth_nonce)",
+//                "signature"           : "\(signatureWithings)",
+//                "signature_method"    : "HMAC-SHA1",
+//                "timestamp"           : "\(credential.oauth_timestamp)",
+//                "token"               : "\(credential.oauth_token)",
+//                "version"             : "1.0"
+//            ]
+//            
+//            oauthswift_withings.client.getFromWithings("http://141.19.142.45/~johannes/focusedhealth/withings/demo.php", parameters: parameters,
+//                success: {
+//                    data, response in
+//                    println(data)
+//                }, failure: {(error:NSError!) -> Void in
+//                    println(error)
+//            })
+            
+                }, failure: {(error:NSError!) -> Void in
                 println(error.localizedDescription)
-        })
-    }
+        })    }
     
     
     func showAlertView(title: String, message: String) {

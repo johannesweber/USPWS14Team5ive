@@ -47,6 +47,21 @@ class OAuthSwiftClient {
         request.start()
     }
     
+    func getFromWithings(urlString: String, parameters: Dictionary<String, AnyObject>, success: OAuthSwiftHTTPRequest.SuccessHandler?, failure: OAuthSwiftHTTPRequest.FailureHandler?) {
+        
+        let url = NSURL(string: urlString)
+        
+        let method = "GET"
+        
+        let request = OAuthSwiftHTTPRequest(URL: url!, method: method, parameters: parameters)
+        
+        request.successHandler = success
+        request.failureHandler = failure
+        request.dataEncoding = dataEncoding
+        
+        request.start()
+    }
+    
     func post(urlString: String, parameters: Dictionary<String, AnyObject>, success: OAuthSwiftHTTPRequest.SuccessHandler?, failure: OAuthSwiftHTTPRequest.FailureHandler?) {
         let url = NSURL(string: urlString)
         
@@ -75,6 +90,9 @@ class OAuthSwiftClient {
         authorizationParameters["oauth_timestamp"] = String(Int64(NSDate().timeIntervalSince1970))
         authorizationParameters["oauth_nonce"] = NSUUID().UUIDString as NSString
         
+        credential.oauth_timestamp = authorizationParameters["oauth_timestamp"] as String
+        credential.oauth_nonce = authorizationParameters["oauth_nonce"] as String
+        
         if (credential.oauth_token != ""){
             authorizationParameters["oauth_token"] = credential.oauth_token
         }
@@ -90,6 +108,8 @@ class OAuthSwiftClient {
         let finalParameters = combinedParameters
         
         authorizationParameters["oauth_signature"] = self.oauthSignatureForMethod(method, url: url, parameters: finalParameters, credential: credential)
+        
+        credential.oauth_signature = authorizationParameters["oauth_signature"] as String
         
         var authorizationParameterComponents = authorizationParameters.urlEncodedQueryStringWithEncoding(dataEncoding).componentsSeparatedByString("&") as [String]
         authorizationParameterComponents.sort { $0 < $1 }
@@ -126,8 +146,8 @@ class OAuthSwiftClient {
         let signatureBaseString = "\(method)&\(encodedURL)&\(encodedParameterString)"
         let signatureBaseStringData = signatureBaseString.dataUsingEncoding(dataEncoding)
 
-        let signatureSwift = signatureBaseString.digest(HMACAlgorithm.SHA1, key: signingKey).base64EncodedStringWithOptions(nil)
+        let signature = signatureBaseString.digest(HMACAlgorithm.SHA1, key: signingKey).base64EncodedStringWithOptions(nil)
         
-        return signatureSwift
+        return signature
     }
 }

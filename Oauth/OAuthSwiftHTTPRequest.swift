@@ -81,6 +81,7 @@ class OAuthSwiftHTTPRequest: NSObject, NSURLConnectionDataDelegate {
             
             var nonOAuthParameters = self.parameters.filter { key, _ in !key.hasPrefix("oauth_") }
             
+            //url ausprinten
             println("1. \(self.URL)")
             
             if nonOAuthParameters.count > 0 {

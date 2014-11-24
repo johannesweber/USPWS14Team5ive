@@ -19,7 +19,7 @@ class DatabaseConnection {
         var result = String()
     
     
-    func post(url: String, query: Dictionary<String, AnyObject>){
+    func post(url: String, params: Dictionary<String, AnyObject>){
         
         var request = HTTPTask()
         //The parameters will be encoding as JSON data and sent.
@@ -43,7 +43,19 @@ class DatabaseConnection {
     func postFitbitCredentialsToServer(credentials: OAuthSwiftCredential){
         
         
-        var url = NSURL(string: "http://141.19.142.45/~christian/focusedhealth/fitbit/demo.php")
+        var url: String = "http://141.19.142.45/~christian/focusedhealth/fitbit/"
+        
+        let parameters :Dictionary<String, AnyObject> = [
+            "action"                    : "getmeas",
+            "user_id"                   : "\(credentials.user_id)",
+            "oauth_consumer_key"        : "\(credentials.consumer_key)",
+            "oauth_nonce"               : "\(credentials.oauth_nonce)",
+            "oauth_signature"           : "\(credentials.signatureWithings)",
+            "oauth_signature_method"    : "HMAC-SHA1",
+            "oauth_timestamp"           : "\(credentials.oauth_timestamp)",
+            "oauth_token"               : "\(credentials.oauth_token)",
+            "oauth_version"             : "1.0"
+        ]
         
         var queryString: String = "oauth_token=\(credentials.oauth_token)&oauth_token_secret=\(credentials.oauth_token_secret)&user_id=\(credentials.user_id)&consumer_key=\(credentials.consumer_key)&oauth_nonce=\(credentials.oauth_nonce)&oauth_signature=\(credentials.oauth_signature)&oauth_signature_method=HMAC-SHA1&oauth_timestamp=\(credentials.oauth_timestamp)&oauth_version=1.0"
         //println(queryString)
@@ -53,10 +65,10 @@ class DatabaseConnection {
     }
 
     func postWithingsCredentialsToServer(credentials: OAuthSwiftCredential){
-        var newUrl: String = "http://141.19.142.45/~christian/focusedhealth/withings/demo.php"
+        var url: String = "http://141.19.142.45/~christian/focusedhealth/withings/demo.php"
         //var url = NSURL(string: "http://141.19.142.45/~christian/focusedhealth/withings/demo.php")
         
-        var queryString: String = "oauth_token=\(credentials.oauth_token)&oauth_token_secret=\(credentials.oauth_token_secret)&user_id=\(credentials.user_id)&consumer_key=\(credentials.consumer_key)&oauth_nonce=\(credentials.oauth_nonce)&oauth_signature=\(credentials.oauth_signature)&oauth_signature_method=HMAC-SHA1&oauth_timestamp=\(credentials.oauth_timestamp)&oauth_version=1.0"
+        //var queryString: String = "oauth_token=\(credentials.oauth_token)&oauth_token_secret=\(credentials.oauth_token_secret)&user_id=\(credentials.user_id)&consumer_key=\(credentials.consumer_key)&oauth_nonce=\(credentials.oauth_nonce)&oauth_signature=\(credentials.oauth_signature)&oauth_signature_method=HMAC-SHA1&oauth_timestamp=\(credentials.oauth_timestamp)&oauth_version=1.0"
         //println(queryString)
         
                     let parameters :Dictionary<String, AnyObject> = [
@@ -71,12 +83,12 @@ class DatabaseConnection {
                     "oauth_version"             : "1.0"
                 ]
         
-        let query: Dictionary<String, AnyObject> = parameters
-        self.post(newUrl, query: query)
+        let params: Dictionary<String, AnyObject> = parameters
+        self.post(url, params: params)
         
     }
 
- 
+    
     
     func getResult(){
         println(self.result)

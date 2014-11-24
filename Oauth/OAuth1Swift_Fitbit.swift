@@ -97,13 +97,6 @@ class OAuth1Swift_Fitbit {
             self.client.credential.oauth_token = parameters["oauth_token"]!
             self.client.credential.oauth_token_secret = parameters["oauth_token_secret"]!
             
-            
-            if (parameters["userid"] != nil){
-                //add user_id to OAuthSwiftCredentials
-                self.client.credential.user_id = parameters["userid"]!
-            }
-            
-            
             for params in parameters{
                 println("Parameter: \(params)")
             }

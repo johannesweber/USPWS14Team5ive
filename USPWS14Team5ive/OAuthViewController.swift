@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  DemoViewController.swift
 //  USPWS14Team5ive
 //
 //  Created by Johannes Weber on 26.10.14.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class OAuthViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var services = ["Fitbit", "Withings", "Vitadock"]
     
@@ -38,7 +38,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             credential, response in
             self.showAlertView("Fitbit", message: "oauth_token:\(credential.oauth_token)\n\noauth_token_secret:\(credential.oauth_token_secret)")
         
-            var url = NSURL(string: "http://141.19.142.45/~johannes/focusedhealth/fitbit/demo.php")
+            var url = NSURL(string: "http://141.19.142.45/~team5ive/focusedhealth/fitbit/demo.php")
             
             var dataString = "oauth_token=\(credential.oauth_token)&oauth_token_secret=\(credential.oauth_token_secret)"
             

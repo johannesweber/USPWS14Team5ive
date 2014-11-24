@@ -9,20 +9,13 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UIWebViewDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
     
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        
-        let viewController: ViewController = ViewController()
-        let naviController: UINavigationController = UINavigationController(rootViewController: viewController)
-        self.window!.rootViewController = naviController
-        self.window!.makeKeyAndVisible()
-        
         return true
     }
     
@@ -48,15 +41,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIWebViewDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-    func application(application: UIApplication!, openURL url: NSURL!, sourceApplication: String!, annotation: AnyObject!) -> Bool {
+    func application(application: UIApplication!, openURL url: NSURL!, sourceApplication:String!, annotation: AnyObject!) -> Bool {
         
         if (url.host == "oauth-callback") {
             if (url.path!.hasPrefix("/vitadock") || url.path!.hasPrefix("/fitbit")) || url.path!.hasPrefix("/withings") {
                 OAuth1Swift_Fitbit.handleOpenURL(url)
             }
-            
+        
         }
+        
         return true
     }
+    
     
 }

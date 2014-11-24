@@ -109,5 +109,13 @@ extension String {
         }
         return x
     }
+    
+    //tests if a string is a valid e mail adress using regex
+    func isValidEmail() -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
+        let range = self.rangeOfString(emailRegEx, options:.RegularExpressionSearch)
+        let result = range != nil ? true : false
+        return result
+    }
 }
 

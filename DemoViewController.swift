@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class DemoViewController: UIViewController {
     
     
@@ -24,13 +25,7 @@ class DemoViewController: UIViewController {
     }
 
     @IBAction func getUserInfo(sender: AnyObject) {
-        self.getUserInfo { (userData) -> Void in
-            let json = JSON(data: userData)
-            println(json)
-            if let userId = json["id"].stringValue {
-                println("NSURLSession: \(userId)")
-            }
-        }
+       
     }
     
     func getUserInfo(success: ((userData: NSData!) -> Void)) {
@@ -76,15 +71,17 @@ class DemoViewController: UIViewController {
         )
         
         oauthswift_fitbit.authorizeWithCallbackURL( NSURL(string: "oauth-callback://oauth-callback/fitbit")!, success: {
-            credential, response in
-            self.showAlertView("Fitbit", message: "oauth_token:\(credential.oauth_token)\n\noauth_token_secret:\(credential.oauth_token_secret)")
+            credentials, response in
+            self.showAlertView("Fitbit", message: "oauth_token:\(credentials.oauth_token)\n\noauth_token_secret:\(credentials.oauth_token_secret)")
             
-            var url = NSURL(string: "http://141.19.142.45/~johannes/focusedhealth/fitbit/")
+            let parameters: Dictionary<String, AnyObject> = [
+                "oauth_token_secret"        : "\(credentials.oauth_token_secret)",
+                "oauth_token"               : "\(credentials.oauth_token)"
+            ]
             
-            var dataString = "oauth_token=\(credential.oauth_token)&oauth_token_secret=\(credential.oauth_token_secret)"
+            var db_connection = DatabaseConnection()
             
-            DatabaseConnection(url: url!, dataString: dataString);
-            
+            db_connection.postFitbitCredentialsToServer(parameters)
             
             }, failure: {(error:NSError!) -> Void in
                 println(error.localizedDescription)

@@ -16,7 +16,6 @@
 		0EAC7F761A21DD0000EA20D5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EAC7F751A21DD0000EA20D5 /* LoginViewController.swift */; };
 		0EFF3AC019FCD22C00AB3C17 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3ABF19FCD22C00AB3C17 /* AppDelegate.swift */; };
 		0EFF3AC319FCD22C00AB3C17 /* USPWS14Team5ive.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3AC119FCD22C00AB3C17 /* USPWS14Team5ive.xcdatamodeld */; };
-		0EFF3AC519FCD22C00AB3C17 /* OAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3AC419FCD22C00AB3C17 /* OAuthViewController.swift */; };
 		0EFF3AC819FCD22C00AB3C17 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EFF3AC619FCD22C00AB3C17 /* Main.storyboard */; };
 		0EFF3ACA19FCD22C00AB3C17 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0EFF3AC919FCD22C00AB3C17 /* Images.xcassets */; };
 		0EFF3ACD19FCD22C00AB3C17 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EFF3ACB19FCD22C00AB3C17 /* LaunchScreen.xib */; };
@@ -31,8 +30,10 @@
 		0EFF3AFB19FCD4C400AB3C17 /* OAuthSwiftCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3AF219FCD4C400AB3C17 /* OAuthSwiftCredential.swift */; };
 		0EFF3AFC19FCD4C400AB3C17 /* OAuthSwiftHTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3AF319FCD4C400AB3C17 /* OAuthSwiftHTTPRequest.swift */; };
 		0EFF3AFE19FCD5D000AB3C17 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3AFD19FCD5D000AB3C17 /* Constants.swift */; };
-		83C671051A1F8995004D58BD /* HTTPResponseSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C671011A1F8995004D58BD /* HTTPResponseSerializer.swift */; };
-		83C671071A1F8995004D58BD /* HTTPUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C671031A1F8995004D58BD /* HTTPUpload.swift */; };
+		8306C90F1A23409D00B00BEE /* HTTPRequestSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8306C90B1A23409D00B00BEE /* HTTPRequestSerializer.swift */; };
+		8306C9101A23409D00B00BEE /* HTTPResponseSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8306C90C1A23409D00B00BEE /* HTTPResponseSerializer.swift */; };
+		8306C9111A23409D00B00BEE /* HTTPTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8306C90D1A23409D00B00BEE /* HTTPTask.swift */; };
+		8306C9121A23409D00B00BEE /* HTTPUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8306C90E1A23409D00B00BEE /* HTTPUpload.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,7 +48,7 @@
 
 /* Begin PBXFileReference section */
 		0E3369911A1B4ABA007F17FD /* HMACAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HMACAlgorithm.swift; path = ../../USPWS14Team5ive/HMACAlgorithm.swift; sourceTree = "<group>"; };
-		0E6135321A1A2E090075D6D0 /* DatabaseConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseConnection.swift; sourceTree = "<group>"; };
+		0E6135321A1A2E090075D6D0 /* DatabaseConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DatabaseConnection.swift; path = Oauth/DatabaseConnection.swift; sourceTree = "<group>"; };
 		0E6161881A1E46C5006E0AD7 /* OAuth1Swift_Withings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth1Swift_Withings.swift; sourceTree = "<group>"; };
 		0E61618A1A1E48B4006E0AD7 /* OAuth1Swift_Vitadock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth1Swift_Vitadock.swift; sourceTree = "<group>"; };
 		0E6161951A1F898D006E0AD7 /* fitbit_logo_dark_1000px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fitbit_logo_dark_1000px.png; sourceTree = "<group>"; };
@@ -58,7 +59,6 @@
 		0EFF3ABE19FCD22C00AB3C17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0EFF3ABF19FCD22C00AB3C17 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = USPWS14Team5ive/AppDelegate.swift; sourceTree = "<group>"; };
 		0EFF3AC219FCD22C00AB3C17 /* USPWS14Team5ive.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = USPWS14Team5ive.xcdatamodel; sourceTree = "<group>"; };
-		0EFF3AC419FCD22C00AB3C17 /* OAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OAuthViewController.swift; path = USPWS14Team5ive/OAuthViewController.swift; sourceTree = "<group>"; };
 		0EFF3AC719FCD22C00AB3C17 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0EFF3AC919FCD22C00AB3C17 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = USPWS14Team5ive/Images.xcassets; sourceTree = "<group>"; };
 		0EFF3ACC19FCD22C00AB3C17 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -76,12 +76,12 @@
 		0EFF3AF219FCD4C400AB3C17 /* OAuthSwiftCredential.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthSwiftCredential.swift; sourceTree = "<group>"; };
 		0EFF3AF319FCD4C400AB3C17 /* OAuthSwiftHTTPRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthSwiftHTTPRequest.swift; sourceTree = "<group>"; };
 		0EFF3AFD19FCD5D000AB3C17 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		8306C90B1A23409D00B00BEE /* HTTPRequestSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPRequestSerializer.swift; sourceTree = "<group>"; };
+		8306C90C1A23409D00B00BEE /* HTTPResponseSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPResponseSerializer.swift; sourceTree = "<group>"; };
+		8306C90D1A23409D00B00BEE /* HTTPTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPTask.swift; sourceTree = "<group>"; };
+		8306C90E1A23409D00B00BEE /* HTTPUpload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPUpload.swift; sourceTree = "<group>"; };
+		8306C9131A2340A700B00BEE /* SwiftHTTP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftHTTP.h; sourceTree = "<group>"; };
 		83C670FE1A1F5735004D58BD /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
-		83C671001A1F8995004D58BD /* HTTPRequestSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPRequestSerializer.swift; sourceTree = "<group>"; };
-		83C671011A1F8995004D58BD /* HTTPResponseSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPResponseSerializer.swift; sourceTree = "<group>"; };
-		83C671021A1F8995004D58BD /* HTTPTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPTask.swift; sourceTree = "<group>"; };
-		83C671031A1F8995004D58BD /* HTTPUpload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPUpload.swift; sourceTree = "<group>"; };
-		83C671081A1F89A4004D58BD /* SwiftHTTP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftHTTP.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,7 +105,8 @@
 		0E04EF331A2326BA008368B7 /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				83C670FF1A1F8978004D58BD /* HTTP */,
+				0E6135321A1A2E090075D6D0 /* DatabaseConnection.swift */,
+				8306C90A1A23407B00B00BEE /* SwiftHTTP */,
 				0EFF3AE719FCD4C400AB3C17 /* OAuth */,
 			);
 			name = Library;
@@ -122,7 +123,6 @@
 		0E6161971A1F8AC8006E0AD7 /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
-				0EFF3AC419FCD22C00AB3C17 /* OAuthViewController.swift */,
 				0E6161981A1F8ADD006E0AD7 /* DemoViewController.swift */,
 				0EAC7F751A21DD0000EA20D5 /* LoginViewController.swift */,
 			);
@@ -187,7 +187,6 @@
 		0EFF3AE719FCD4C400AB3C17 /* OAuth */ = {
 			isa = PBXGroup;
 			children = (
-				0E6135321A1A2E090075D6D0 /* DatabaseConnection.swift */,
 				0EFF3AE819FCD4C400AB3C17 /* extension */,
 				0EFF3AEE19FCD4C400AB3C17 /* OAuth1Swift_Fitbit.swift */,
 				0E6161881A1E46C5006E0AD7 /* OAuth1Swift_Withings.swift */,
@@ -214,17 +213,16 @@
 			path = extension;
 			sourceTree = "<group>";
 		};
-		83C670FF1A1F8978004D58BD /* HTTP */ = {
+		8306C90A1A23407B00B00BEE /* SwiftHTTP */ = {
 			isa = PBXGroup;
 			children = (
-				83C671081A1F89A4004D58BD /* SwiftHTTP.h */,
-				83C671001A1F8995004D58BD /* HTTPRequestSerializer.swift */,
-				83C671011A1F8995004D58BD /* HTTPResponseSerializer.swift */,
-				83C671021A1F8995004D58BD /* HTTPTask.swift */,
-				83C671031A1F8995004D58BD /* HTTPUpload.swift */,
+				8306C9131A2340A700B00BEE /* SwiftHTTP.h */,
+				8306C90B1A23409D00B00BEE /* HTTPRequestSerializer.swift */,
+				8306C90C1A23409D00B00BEE /* HTTPResponseSerializer.swift */,
+				8306C90D1A23409D00B00BEE /* HTTPTask.swift */,
+				8306C90E1A23409D00B00BEE /* HTTPUpload.swift */,
 			);
-			name = HTTP;
-			path = Oauth;
+			name = SwiftHTTP;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -330,12 +328,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8306C9111A23409D00B00BEE /* HTTPTask.swift in Sources */,
 				0EAC7F761A21DD0000EA20D5 /* LoginViewController.swift in Sources */,
 				0E6161991A1F8ADD006E0AD7 /* DemoViewController.swift in Sources */,
-				0EFF3AC519FCD22C00AB3C17 /* OAuthViewController.swift in Sources */,
 				0EFF3AF419FCD4C400AB3C17 /* Dictionary+OAuthSwift.swift in Sources */,
+				8306C9101A23409D00B00BEE /* HTTPResponseSerializer.swift in Sources */,
 				0EFF3AF819FCD4C400AB3C17 /* OAuth1Swift_Fitbit.swift in Sources */,
 				0EFF3AFA19FCD4C400AB3C17 /* OAuthSwiftClient.swift in Sources */,
+				8306C90F1A23409D00B00BEE /* HTTPRequestSerializer.swift in Sources */,
 				0EFF3AFB19FCD4C400AB3C17 /* OAuthSwiftCredential.swift in Sources */,
 				0EFF3AF619FCD4C400AB3C17 /* String+OAuthSwift.swift in Sources */,
 				0EFF3AFE19FCD5D000AB3C17 /* Constants.swift in Sources */,
@@ -345,10 +345,9 @@
 				0EFF3AC319FCD22C00AB3C17 /* USPWS14Team5ive.xcdatamodeld in Sources */,
 				0E3369921A1B4ABA007F17FD /* HMACAlgorithm.swift in Sources */,
 				0E6161891A1E46C5006E0AD7 /* OAuth1Swift_Withings.swift in Sources */,
-				83C671051A1F8995004D58BD /* HTTPResponseSerializer.swift in Sources */,
-				83C671071A1F8995004D58BD /* HTTPUpload.swift in Sources */,
 				0EFF3AFC19FCD4C400AB3C17 /* OAuthSwiftHTTPRequest.swift in Sources */,
 				0EFF3AF519FCD4C400AB3C17 /* NSURL+OAuthSwift.swift in Sources */,
+				8306C9121A23409D00B00BEE /* HTTPUpload.swift in Sources */,
 				0EFF3AF919FCD4C400AB3C17 /* OAuth2Swift.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

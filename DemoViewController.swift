@@ -19,12 +19,12 @@ class DemoViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    @IBAction func getFitbitData(sender: AnyObject) {
+    @IBAction func authenticateFitbitUserData(sender: AnyObject) {
         self.doOAuthFitbit();
         
     }
 
-    @IBAction func getUserInfo(sender: AnyObject) {
+    @IBAction func getFitbitUserInfo(sender: AnyObject) {
        
     }
     

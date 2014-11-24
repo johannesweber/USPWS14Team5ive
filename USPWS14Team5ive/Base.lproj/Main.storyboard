@@ -100,12 +100,20 @@
                                     <constraint firstAttribute="height" constant="600" id="Zl8-Yq-26x"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xjW-K6-OfZ">
+                                <rect key="frame" x="254" y="372" width="92" height="30"/>
+                                <state key="normal" title="Get User Info">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="UQu-Sx-PA3" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="9JB-fv-cLR"/>
+                            <constraint firstItem="Ilc-GI-rMW" firstAttribute="top" secondItem="xjW-K6-OfZ" secondAttribute="bottom" constant="154" id="KAZ-o8-vdC"/>
                             <constraint firstAttribute="trailing" secondItem="UQu-Sx-PA3" secondAttribute="trailing" id="RRD-HU-Xu2"/>
                             <constraint firstItem="Ilc-GI-rMW" firstAttribute="top" secondItem="UQu-Sx-PA3" secondAttribute="bottom" constant="72" id="YKl-k9-d9T"/>
+                            <constraint firstItem="xjW-K6-OfZ" firstAttribute="centerX" secondItem="UQu-Sx-PA3" secondAttribute="centerX" id="z5y-Fa-zEW"/>
                         </constraints>
                     </view>
                     <toolbarItems>
@@ -122,7 +130,7 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="Tgm-zh-8LT"/>
-                        <barButtonItem title="Medisana User Info" id="lZN-rB-z7Y">
+                        <barButtonItem title="Medisana User" id="lZN-rB-z7Y">
                             <connections>
                                 <action selector="authenticateMedisanaUser:" destination="vXZ-lx-hvc" id="EH2-Gd-8gY"/>
                             </connections>

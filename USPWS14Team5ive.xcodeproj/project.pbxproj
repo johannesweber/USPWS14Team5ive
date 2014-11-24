@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0E04EF371A232743008368B7 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E04EF361A232743008368B7 /* SwiftyJSON.swift */; };
 		0E3369921A1B4ABA007F17FD /* HMACAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3369911A1B4ABA007F17FD /* HMACAlgorithm.swift */; };
 		0E6135331A1A2E090075D6D0 /* DatabaseConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6135321A1A2E090075D6D0 /* DatabaseConnection.swift */; };
 		0E6161891A1E46C5006E0AD7 /* OAuth1Swift_Withings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6161881A1E46C5006E0AD7 /* OAuth1Swift_Withings.swift */; };
@@ -32,9 +31,7 @@
 		0EFF3AFB19FCD4C400AB3C17 /* OAuthSwiftCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3AF219FCD4C400AB3C17 /* OAuthSwiftCredential.swift */; };
 		0EFF3AFC19FCD4C400AB3C17 /* OAuthSwiftHTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3AF319FCD4C400AB3C17 /* OAuthSwiftHTTPRequest.swift */; };
 		0EFF3AFE19FCD5D000AB3C17 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3AFD19FCD5D000AB3C17 /* Constants.swift */; };
-		83C671041A1F8995004D58BD /* HTTPRequestSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C671001A1F8995004D58BD /* HTTPRequestSerializer.swift */; };
 		83C671051A1F8995004D58BD /* HTTPResponseSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C671011A1F8995004D58BD /* HTTPResponseSerializer.swift */; };
-		83C671061A1F8995004D58BD /* HTTPTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C671021A1F8995004D58BD /* HTTPTask.swift */; };
 		83C671071A1F8995004D58BD /* HTTPUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C671031A1F8995004D58BD /* HTTPUpload.swift */; };
 /* End PBXBuildFile section */
 
@@ -49,7 +46,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0E04EF361A232743008368B7 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		0E3369911A1B4ABA007F17FD /* HMACAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HMACAlgorithm.swift; path = ../../USPWS14Team5ive/HMACAlgorithm.swift; sourceTree = "<group>"; };
 		0E6135321A1A2E090075D6D0 /* DatabaseConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseConnection.swift; sourceTree = "<group>"; };
 		0E6161881A1E46C5006E0AD7 /* OAuth1Swift_Withings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth1Swift_Withings.swift; sourceTree = "<group>"; };
@@ -109,7 +105,7 @@
 		0E04EF331A2326BA008368B7 /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				0E04EF361A232743008368B7 /* SwiftyJSON.swift */,
+				83C670FF1A1F8978004D58BD /* HTTP */,
 				0EFF3AE719FCD4C400AB3C17 /* OAuth */,
 			);
 			name = Library;
@@ -191,7 +187,6 @@
 		0EFF3AE719FCD4C400AB3C17 /* OAuth */ = {
 			isa = PBXGroup;
 			children = (
-				83C670FF1A1F8978004D58BD /* HTTP */,
 				0E6135321A1A2E090075D6D0 /* DatabaseConnection.swift */,
 				0EFF3AE819FCD4C400AB3C17 /* extension */,
 				0EFF3AEE19FCD4C400AB3C17 /* OAuth1Swift_Fitbit.swift */,
@@ -229,6 +224,7 @@
 				83C671031A1F8995004D58BD /* HTTPUpload.swift */,
 			);
 			name = HTTP;
+			path = Oauth;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -341,7 +337,6 @@
 				0EFF3AF819FCD4C400AB3C17 /* OAuth1Swift_Fitbit.swift in Sources */,
 				0EFF3AFA19FCD4C400AB3C17 /* OAuthSwiftClient.swift in Sources */,
 				0EFF3AFB19FCD4C400AB3C17 /* OAuthSwiftCredential.swift in Sources */,
-				0E04EF371A232743008368B7 /* SwiftyJSON.swift in Sources */,
 				0EFF3AF619FCD4C400AB3C17 /* String+OAuthSwift.swift in Sources */,
 				0EFF3AFE19FCD5D000AB3C17 /* Constants.swift in Sources */,
 				0E6135331A1A2E090075D6D0 /* DatabaseConnection.swift in Sources */,

@@ -20,6 +20,8 @@ class OAuthSwiftCredential {
     var oauth_signature = String()
     var oauth_timestamp = String()
     
+    var signatureWithings = String()
+    
     init(){
         
     }
@@ -31,4 +33,5 @@ class OAuthSwiftCredential {
         self.oauth_token = oauth_token
         self.oauth_token_secret = oauth_token_secret
     }
+    
 }

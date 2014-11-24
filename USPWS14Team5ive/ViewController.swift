@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -19,6 +20,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.delegate = self
         tableView.dataSource = self
         self.view.addSubview(tableView);
+        
+        
+        
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -37,12 +42,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         oauthswift_fitbit.authorizeWithCallbackURL( NSURL(string: "oauth-callback://oauth-callback/fitbit")!, success: {
             credential, response in
             self.showAlertView("Fitbit", message: "oauth_token:\(credential.oauth_token)\n\noauth_token_secret:\(credential.oauth_token_secret)")
-        
-            var url = NSURL(string: "http://141.19.142.45/~johannes/focusedhealth/fitbit/demo.php")
             
-            var dataString = "oauth_token=\(credential.oauth_token)&oauth_token_secret=\(credential.oauth_token_secret)"
+            var db_connection = DatabaseConnection()
             
-            DatabaseConnection(url: url!, dataString: dataString);
+            db_connection.postFitbitCredentialsToServer(credential)
+            
+            db_connection.getResult()
         
 
             }, failure: {(error:NSError!) -> Void in
@@ -79,26 +84,43 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.showAlertView("Withings", message: "oauth_token:\(credential.oauth_token)\n\noauth_token_secret:\(credential.oauth_token_secret)\n\nuser_id:\(credential.user_id)")
             
             //reguläre signature in die Withings konforme Signature umwandeln
-            let signatureWithings = credential.oauth_signature
+            credential.signatureWithings = credential.oauth_signature
                 .stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
                 .stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())!
                 .stringByReplacingOccurrencesOfString("+", withString: "%2B", options: NSStringCompareOptions.LiteralSearch, range: nil)
                 .stringByReplacingOccurrencesOfString("=", withString: "%3D", options: NSStringCompareOptions.LiteralSearch, range: nil)
+            //println("signature Withings: \(signatureWithings)")
+            
+            var db_connection = DatabaseConnection()
+            
+            db_connection.postWithingsCredentialsToServer(credential)
+            
+            db_connection.getResult()
+            
+            }, failure: {(error:NSError!) -> Void in
+                println(error.localizedDescription)
+        })
+    }
+          
 
+            
 //            //gehört zu DatabaseConnection.swift
 //            //var url = NSURL(string: "http://141.19.142.45/~johannes/focusedhealth/withings/demo.php")
+            
+
+//                let parameters :Dictionary = [
+//                    "user_id"             : "\(credential.user_id)",
+//                    "consumer_key"        : "\(credential.consumer_key)",
+//                    "nonce"               : "\(credential.oauth_nonce)",
+//                    "signature"           : "\(signatureWithings)",
+//                    "signature_method"    : "HMAC-SHA1",
+//                    "timestamp"           : "\(credential.oauth_timestamp)",
+//                    "token"               : "\(credential.oauth_token)",
+//                    "version"             : "1.0"
+//                ]
 //            
-//            let parameters :Dictionary = [
-//                "action"              : "getmeas",
-//                "user_id"             : "\(credential.user_id)",
-//                "consumer_key"        : "\(credential.consumer_key)",
-//                "nonce"               : "\(credential.oauth_nonce)",
-//                "signature"           : "\(signatureWithings)",
-//                "signature_method"    : "HMAC-SHA1",
-//                "timestamp"           : "\(credential.oauth_timestamp)",
-//                "token"               : "\(credential.oauth_token)",
-//                "version"             : "1.0"
-//            ]
+//
+//            
 //            
 //            oauthswift_withings.client.getFromWithings("http://141.19.142.45/~johannes/focusedhealth/withings/demo.php", parameters: parameters,
 //                success: {
@@ -107,11 +129,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //                }, failure: {(error:NSError!) -> Void in
 //                    println(error)
 //            })
-            
-                }, failure: {(error:NSError!) -> Void in
-                println(error.localizedDescription)
-        })    }
-    
+//            
+//            }, failure: {(error:NSError!) -> Void in
+//                println(error.localizedDescription)
+//        })
+
     
     func showAlertView(title: String, message: String) {
         var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)

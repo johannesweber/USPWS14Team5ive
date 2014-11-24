@@ -31,6 +31,25 @@ class DatabaseConnection {
             },failure: {(error: NSError, response: HTTPResponse?) in
         })
     }
+    
+    
+    
+    func postWithingsCredentialsToServer(parameter: Dictionary<String,AnyObject>){
+
+        let url: String = "https://wbsapi.withings.net/v2/measure"
+        
+        var request = HTTPTask()
+        //we have to add the explicit type, else the wrong type is inferred. See the vluxe.io article for more info.
+        request.POST(url, parameters: parameter, success: {(response: HTTPResponse) in
+            if let data = response.responseObject as? NSData {
+                let resultStr = NSString(data: data, encoding: NSUTF8StringEncoding)!
+                println(resultStr)
+                
+            }
+            },failure: {(error: NSError, response: HTTPResponse?) in
+        })
+    }
+
 
 }
 

@@ -110,15 +110,21 @@
                     </view>
                     <toolbarItems>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="RHv-0r-JcC"/>
-                        <barButtonItem title="Authenticate User" id="ERK-Hs-VUo">
+                        <barButtonItem title="Fitbit User" id="ERK-Hs-VUo">
                             <connections>
                                 <action selector="getFitbitData:" destination="vXZ-lx-hvc" id="oof-oI-fZE"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="Tgm-zh-8LT"/>
-                        <barButtonItem title="Get User Info" id="lZN-rB-z7Y">
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="n1b-2o-dWF"/>
+                        <barButtonItem title="Withings User" id="HWa-2G-D1p">
                             <connections>
-                                <action selector="getUserInfo:" destination="vXZ-lx-hvc" id="OY8-Kr-z4U"/>
+                                <action selector="authenticateWithingsUser:" destination="vXZ-lx-hvc" id="7Uf-2U-MF8"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="Tgm-zh-8LT"/>
+                        <barButtonItem title="Medisana User Info" id="lZN-rB-z7Y">
+                            <connections>
+                                <action selector="authenticateMedisanaUser:" destination="vXZ-lx-hvc" id="EH2-Gd-8gY"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="6kv-Xc-Kph"/>

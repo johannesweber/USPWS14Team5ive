@@ -8,11 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		0E3369921A1B4ABA007F17FD /* HMACAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3369911A1B4ABA007F17FD /* HMACAlgorithm.swift */; };
-		0E6135331A1A2E090075D6D0 /* DatabaseConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6135321A1A2E090075D6D0 /* DatabaseConnection.swift */; };
 		0E6161891A1E46C5006E0AD7 /* OAuth1Swift_Withings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6161881A1E46C5006E0AD7 /* OAuth1Swift_Withings.swift */; };
 		0E61618B1A1E48B4006E0AD7 /* OAuth1Swift_Vitadock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E61618A1A1E48B4006E0AD7 /* OAuth1Swift_Vitadock.swift */; };
 		0E6161961A1F898D006E0AD7 /* fitbit_logo_dark_1000px.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E6161951A1F898D006E0AD7 /* fitbit_logo_dark_1000px.png */; };
 		0E6161991A1F8ADD006E0AD7 /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6161981A1F8ADD006E0AD7 /* DemoViewController.swift */; };
+		0E7446E61A236B8A00D8B771 /* DatabaseConnectionWithings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7446E51A236B8A00D8B771 /* DatabaseConnectionWithings.swift */; };
+		0E7446E91A2387FA00D8B771 /* DatabaseConnectionFitbit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7446E81A2387FA00D8B771 /* DatabaseConnectionFitbit.swift */; };
+		0E9023661A23D21D004C497C /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9023651A23D21D004C497C /* SignupViewController.swift */; };
 		0EAC7F761A21DD0000EA20D5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EAC7F751A21DD0000EA20D5 /* LoginViewController.swift */; };
 		0EFF3AC019FCD22C00AB3C17 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3ABF19FCD22C00AB3C17 /* AppDelegate.swift */; };
 		0EFF3AC319FCD22C00AB3C17 /* USPWS14Team5ive.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3AC119FCD22C00AB3C17 /* USPWS14Team5ive.xcdatamodeld */; };
@@ -30,8 +32,10 @@
 		0EFF3AFB19FCD4C400AB3C17 /* OAuthSwiftCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3AF219FCD4C400AB3C17 /* OAuthSwiftCredential.swift */; };
 		0EFF3AFC19FCD4C400AB3C17 /* OAuthSwiftHTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3AF319FCD4C400AB3C17 /* OAuthSwiftHTTPRequest.swift */; };
 		0EFF3AFE19FCD5D000AB3C17 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3AFD19FCD5D000AB3C17 /* Constants.swift */; };
-		83C671051A1F8995004D58BD /* HTTPResponseSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C671011A1F8995004D58BD /* HTTPResponseSerializer.swift */; };
-		83C671071A1F8995004D58BD /* HTTPUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C671031A1F8995004D58BD /* HTTPUpload.swift */; };
+		8306C90F1A23409D00B00BEE /* HTTPRequestSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8306C90B1A23409D00B00BEE /* HTTPRequestSerializer.swift */; };
+		8306C9101A23409D00B00BEE /* HTTPResponseSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8306C90C1A23409D00B00BEE /* HTTPResponseSerializer.swift */; };
+		8306C9111A23409D00B00BEE /* HTTPTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8306C90D1A23409D00B00BEE /* HTTPTask.swift */; };
+		8306C9121A23409D00B00BEE /* HTTPUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8306C90E1A23409D00B00BEE /* HTTPUpload.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,11 +50,13 @@
 
 /* Begin PBXFileReference section */
 		0E3369911A1B4ABA007F17FD /* HMACAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HMACAlgorithm.swift; path = ../../USPWS14Team5ive/HMACAlgorithm.swift; sourceTree = "<group>"; };
-		0E6135321A1A2E090075D6D0 /* DatabaseConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseConnection.swift; sourceTree = "<group>"; };
 		0E6161881A1E46C5006E0AD7 /* OAuth1Swift_Withings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth1Swift_Withings.swift; sourceTree = "<group>"; };
 		0E61618A1A1E48B4006E0AD7 /* OAuth1Swift_Vitadock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth1Swift_Vitadock.swift; sourceTree = "<group>"; };
 		0E6161951A1F898D006E0AD7 /* fitbit_logo_dark_1000px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fitbit_logo_dark_1000px.png; sourceTree = "<group>"; };
 		0E6161981A1F8ADD006E0AD7 /* DemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
+		0E7446E51A236B8A00D8B771 /* DatabaseConnectionWithings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseConnectionWithings.swift; sourceTree = "<group>"; };
+		0E7446E81A2387FA00D8B771 /* DatabaseConnectionFitbit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseConnectionFitbit.swift; sourceTree = "<group>"; };
+		0E9023651A23D21D004C497C /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		0EAC7F741A1FE80E00EA20D5 /* FocusedHealthPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = FocusedHealthPlayground.playground; sourceTree = "<group>"; };
 		0EAC7F751A21DD0000EA20D5 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0EFF3ABA19FCD22C00AB3C17 /* USPWS14Team5ive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = USPWS14Team5ive.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -74,12 +80,12 @@
 		0EFF3AF219FCD4C400AB3C17 /* OAuthSwiftCredential.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthSwiftCredential.swift; sourceTree = "<group>"; };
 		0EFF3AF319FCD4C400AB3C17 /* OAuthSwiftHTTPRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthSwiftHTTPRequest.swift; sourceTree = "<group>"; };
 		0EFF3AFD19FCD5D000AB3C17 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		8306C90B1A23409D00B00BEE /* HTTPRequestSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPRequestSerializer.swift; sourceTree = "<group>"; };
+		8306C90C1A23409D00B00BEE /* HTTPResponseSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPResponseSerializer.swift; sourceTree = "<group>"; };
+		8306C90D1A23409D00B00BEE /* HTTPTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPTask.swift; sourceTree = "<group>"; };
+		8306C90E1A23409D00B00BEE /* HTTPUpload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPUpload.swift; sourceTree = "<group>"; };
+		8306C9131A2340A700B00BEE /* SwiftHTTP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftHTTP.h; sourceTree = "<group>"; };
 		83C670FE1A1F5735004D58BD /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
-		83C671001A1F8995004D58BD /* HTTPRequestSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPRequestSerializer.swift; sourceTree = "<group>"; };
-		83C671011A1F8995004D58BD /* HTTPResponseSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPResponseSerializer.swift; sourceTree = "<group>"; };
-		83C671021A1F8995004D58BD /* HTTPTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPTask.swift; sourceTree = "<group>"; };
-		83C671031A1F8995004D58BD /* HTTPUpload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPUpload.swift; sourceTree = "<group>"; };
-		83C671081A1F89A4004D58BD /* SwiftHTTP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftHTTP.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,10 +109,19 @@
 		0E04EF331A2326BA008368B7 /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				83C670FF1A1F8978004D58BD /* HTTP */,
+				8306C90A1A23407B00B00BEE /* SwiftHTTP */,
 				0EFF3AE719FCD4C400AB3C17 /* OAuth */,
 			);
 			name = Library;
+			sourceTree = "<group>";
+		};
+		0E04EF391A236870008368B7 /* DatabaseConnection */ = {
+			isa = PBXGroup;
+			children = (
+				0E7446E81A2387FA00D8B771 /* DatabaseConnectionFitbit.swift */,
+				0E7446E51A236B8A00D8B771 /* DatabaseConnectionWithings.swift */,
+			);
+			name = DatabaseConnection;
 			sourceTree = "<group>";
 		};
 		0E6161941A1F8977006E0AD7 /* Pictures */ = {
@@ -122,6 +137,7 @@
 			children = (
 				0E6161981A1F8ADD006E0AD7 /* DemoViewController.swift */,
 				0EAC7F751A21DD0000EA20D5 /* LoginViewController.swift */,
+				0E9023651A23D21D004C497C /* SignupViewController.swift */,
 			);
 			name = "View Controller";
 			sourceTree = "<group>";
@@ -129,6 +145,7 @@
 		0EFF3AB119FCD22C00AB3C17 = {
 			isa = PBXGroup;
 			children = (
+				0E04EF391A236870008368B7 /* DatabaseConnection */,
 				0E04EF331A2326BA008368B7 /* Library */,
 				0EAC7F741A1FE80E00EA20D5 /* FocusedHealthPlayground.playground */,
 				0E6161971A1F8AC8006E0AD7 /* View Controller */,
@@ -184,7 +201,6 @@
 		0EFF3AE719FCD4C400AB3C17 /* OAuth */ = {
 			isa = PBXGroup;
 			children = (
-				0E6135321A1A2E090075D6D0 /* DatabaseConnection.swift */,
 				0EFF3AE819FCD4C400AB3C17 /* extension */,
 				0EFF3AEE19FCD4C400AB3C17 /* OAuth1Swift_Fitbit.swift */,
 				0E6161881A1E46C5006E0AD7 /* OAuth1Swift_Withings.swift */,
@@ -211,17 +227,16 @@
 			path = extension;
 			sourceTree = "<group>";
 		};
-		83C670FF1A1F8978004D58BD /* HTTP */ = {
+		8306C90A1A23407B00B00BEE /* SwiftHTTP */ = {
 			isa = PBXGroup;
 			children = (
-				83C671081A1F89A4004D58BD /* SwiftHTTP.h */,
-				83C671001A1F8995004D58BD /* HTTPRequestSerializer.swift */,
-				83C671011A1F8995004D58BD /* HTTPResponseSerializer.swift */,
-				83C671021A1F8995004D58BD /* HTTPTask.swift */,
-				83C671031A1F8995004D58BD /* HTTPUpload.swift */,
+				8306C9131A2340A700B00BEE /* SwiftHTTP.h */,
+				8306C90B1A23409D00B00BEE /* HTTPRequestSerializer.swift */,
+				8306C90C1A23409D00B00BEE /* HTTPResponseSerializer.swift */,
+				8306C90D1A23409D00B00BEE /* HTTPTask.swift */,
+				8306C90E1A23409D00B00BEE /* HTTPUpload.swift */,
 			);
-			name = HTTP;
-			path = Oauth;
+			name = SwiftHTTP;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -327,24 +342,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8306C9111A23409D00B00BEE /* HTTPTask.swift in Sources */,
 				0EAC7F761A21DD0000EA20D5 /* LoginViewController.swift in Sources */,
 				0E6161991A1F8ADD006E0AD7 /* DemoViewController.swift in Sources */,
+				0E7446E61A236B8A00D8B771 /* DatabaseConnectionWithings.swift in Sources */,
 				0EFF3AF419FCD4C400AB3C17 /* Dictionary+OAuthSwift.swift in Sources */,
+				8306C9101A23409D00B00BEE /* HTTPResponseSerializer.swift in Sources */,
 				0EFF3AF819FCD4C400AB3C17 /* OAuth1Swift_Fitbit.swift in Sources */,
 				0EFF3AFA19FCD4C400AB3C17 /* OAuthSwiftClient.swift in Sources */,
+				8306C90F1A23409D00B00BEE /* HTTPRequestSerializer.swift in Sources */,
 				0EFF3AFB19FCD4C400AB3C17 /* OAuthSwiftCredential.swift in Sources */,
 				0EFF3AF619FCD4C400AB3C17 /* String+OAuthSwift.swift in Sources */,
 				0EFF3AFE19FCD5D000AB3C17 /* Constants.swift in Sources */,
-				0E6135331A1A2E090075D6D0 /* DatabaseConnection.swift in Sources */,
 				0E61618B1A1E48B4006E0AD7 /* OAuth1Swift_Vitadock.swift in Sources */,
 				0EFF3AC019FCD22C00AB3C17 /* AppDelegate.swift in Sources */,
 				0EFF3AC319FCD22C00AB3C17 /* USPWS14Team5ive.xcdatamodeld in Sources */,
 				0E3369921A1B4ABA007F17FD /* HMACAlgorithm.swift in Sources */,
+				0E7446E91A2387FA00D8B771 /* DatabaseConnectionFitbit.swift in Sources */,
 				0E6161891A1E46C5006E0AD7 /* OAuth1Swift_Withings.swift in Sources */,
-				83C671051A1F8995004D58BD /* HTTPResponseSerializer.swift in Sources */,
-				83C671071A1F8995004D58BD /* HTTPUpload.swift in Sources */,
 				0EFF3AFC19FCD4C400AB3C17 /* OAuthSwiftHTTPRequest.swift in Sources */,
 				0EFF3AF519FCD4C400AB3C17 /* NSURL+OAuthSwift.swift in Sources */,
+				8306C9121A23409D00B00BEE /* HTTPUpload.swift in Sources */,
+				0E9023661A23D21D004C497C /* SignupViewController.swift in Sources */,
 				0EFF3AF919FCD4C400AB3C17 /* OAuth2Swift.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -11,23 +11,66 @@ import UIKit
 
 class DemoViewController: UIViewController {
     
+    var userid = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
+    @IBOutlet weak var useridlabel: UILabel!
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    @IBAction func authenticateFitbitUserData(sender: AnyObject) {
+    @IBAction func authenticateFitbitUser(sender: AnyObject) {
         self.doOAuthFitbit();
         
     }
 
     @IBAction func getFitbitUserInfo(sender: AnyObject) {
-       
+        
+        let url: String = "http://141.19.142.45/~johannes/focusedhealth/fitbit/user_info/"
+        
+        var request = HTTPTask()
+        //The parameters will be encoding as JSON data and sent.
+        request.requestSerializer = JSONRequestSerializer()
+        //The expected response will be JSON and be converted to an object return by NSJSONSerialization instead of a NSData.
+        request.responseSerializer = JSONResponseSerializer()
+        request.GET(url, parameters: nil, success: {(response: HTTPResponse) in
+            if let dict = response.responseObject as? Dictionary<String,AnyObject> {
+            
+//                var id = dict["user_id"] as String
+//                println("ID im Response \(id)")
+//                
+//                self.userid = id
+//
+//                self.useridlabel.text = self.userid
+//
+//                println("ID außerhalb: \(self.userid)")
+                
+                var userid = dict["user_id"] as String
+                var avatar = dict["avatar"] as String
+                var city = dict["city"] as String
+                var dateOfBirth = dict["dateOfBirth"] as String
+                var companyAccountId = dict["company_account_id"] as String
+                var distanceUnit = dict["distanceUnit"] as String
+                var fullName = dict["fullName"] as String
+                var gender = dict["gender"] as String
+                var glucoseUnit = dict["glucoseUnit"] as String
+                var height = dict["height"] as String
+                var heightUnit = dict["heightUnit"] as String
+                var locale = dict["locale"] as String
+                var memberSince = dict["memberSince"] as String
+                var timezone = dict["timezone"] as String
+                var waterUnit = dict["waterUnit"] as String
+                var weightUnit = dict["weightUnit"] as String
+                
+                self.showAlertView("User Info\n", message: "User ID: \(userid)\nCity: \(city)\nDate of Birth: \(dateOfBirth)\nID at Company: \(companyAccountId)\nDistance Unit: \(distanceUnit)\nFull Name: \(fullName)\nGender: \(gender)\nGlucose Unit: \(glucoseUnit)\nHeight: \(height)\nHeight Unit: \(heightUnit)\nLocale: \(locale)\nMember Since: \(memberSince)\nTimezone: \(timezone)\nWater Unit: \(waterUnit)\nWeightUnit: \(weightUnit)")
+            }
+            },failure: {(error: NSError, response: HTTPResponse?) in
+                println("error: \(error)")
+        })
     }
-    
     
     @IBAction func authenticateWithingsUser(sender: AnyObject) {
             println("Hallo")
@@ -37,7 +80,7 @@ class DemoViewController: UIViewController {
     
     
     @IBAction func authenticateMedisanaUser(sender: AnyObject) {
-
+        
     }
     
     func doOAuthFitbit(){
@@ -58,9 +101,9 @@ class DemoViewController: UIViewController {
                 "oauth_token"               : "\(credentials.oauth_token)"
             ]
             
-            var db_connection = DatabaseConnection()
+            var db_connection = DatabaseConnectionFitbit()
             
-            db_connection.postFitbitCredentialsToServer(parameters)
+            db_connection.postCredentialsToServer(parameters)
             
             }, failure: {(error:NSError!) -> Void in
                 println(error.localizedDescription)
@@ -100,7 +143,7 @@ class DemoViewController: UIViewController {
                 "oauth_signature_method"    : "HMAC-SHA1"
             ]
             
-            var db_connection = DatabaseConnection()
+            var db_connection = DatabaseConnectionWithings()
             
             }, failure: {(error:NSError!) -> Void in
                 println(error.localizedDescription)

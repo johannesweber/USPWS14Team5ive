@@ -10,8 +10,6 @@ import UIKit
 
 class SignupViewController: UIViewController {
 
-    @IBOutlet weak var txtFirstName: UITextField!
-    @IBOutlet weak var txtLastName: UITextField!
     @IBOutlet weak var txtMailAddress: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
     @IBOutlet weak var txtRepeatPassword: UITextField!
@@ -29,6 +27,10 @@ class SignupViewController: UIViewController {
     
     @IBAction func signupButton(sender : UIButton) {
         var email:NSString = txtMailAddress.text as NSString
+        var proofEmail = email as String
+        println(email)
+        println(proofEmail)
+        
         var password:NSString = txtPassword.text as NSString
         var confirmPassword:NSString = txtRepeatPassword.text as NSString
         
@@ -40,6 +42,7 @@ class SignupViewController: UIViewController {
             alertView.delegate = self
             alertView.addButtonWithTitle("OK")
             alertView.show()
+            
         } else if ( !password.isEqual(confirmPassword) ) {
             
             var alertView:UIAlertView = UIAlertView()
@@ -48,9 +51,19 @@ class SignupViewController: UIViewController {
             alertView.delegate = self
             alertView.addButtonWithTitle("OK")
             alertView.show()
-        } else {
             
-            var post:NSString = "username=\(email)&password=\(password)&c_password=\(confirmPassword)"
+        } else if !proofEmail.isValidEmail(){
+            
+            var alertView:UIAlertView = UIAlertView()
+            alertView.title = "Sign Up Failed!"
+            alertView.message = "Your E - Mail is not correct"
+            alertView.delegate = self
+            alertView.addButtonWithTitle("OK")
+            alertView.show()
+            
+        } else {
+
+            var post:NSString = "email=\(email)&password=\(password)&c_password=\(confirmPassword)"
             
             NSLog("PostData: %@",post);
             

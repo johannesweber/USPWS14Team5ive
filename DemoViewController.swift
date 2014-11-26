@@ -31,8 +31,8 @@ class DemoViewController: UIViewController {
         if (isLoggedIn != 1) {
             self.performSegueWithIdentifier("goToLogin", sender: self)
         } else {
-            var username = prefs.valueForKey("USERNAME") as NSString
-            self.usernameLabel.text = "Hello \(username)"
+            var email = prefs.valueForKey("EMAIL") as NSString
+            self.usernameLabel.text = "Hello \(email)"
         }
     }
     
@@ -40,15 +40,8 @@ class DemoViewController: UIViewController {
     
         let url: String = "http://141.19.142.45/~johannes/focusedhealth/fitbit/synchronize/"
         
-        var request = HTTPTask()
-        request.GET(url, parameters: nil, success: {(response: HTTPResponse) in
-            if let data = response.responseObject as? NSData {
-                let str = NSString(data: data, encoding: NSUTF8StringEncoding)
-                println("response: \(str)") //prints the HTML of the page
-            }
-            },failure: {(error: NSError, response: HTTPResponse?) in
-                println("error: \(error)")
-        })
+        var db_connection = DatabaseConnection()
+        db_connection.getRequestWithoutParameterAndResponse(url)
         
         
     }
@@ -64,15 +57,6 @@ class DemoViewController: UIViewController {
         request.responseSerializer = JSONResponseSerializer()
         request.GET(url, parameters: nil, success: {(response: HTTPResponse) in
             if let dict = response.responseObject as? Dictionary<String,AnyObject> {
-                
-                //                var id = dict["user_id"] as String
-                //                println("ID im Response \(id)")
-                //
-                //                self.userid = id
-                //
-                //                self.useridlabel.text = self.userid
-                //
-                //                println("ID außerhalb: \(self.userid)")
                 
                 var goalValue = dict["goal_value"] as String
                 var startdate = dict["startdate"] as String
@@ -110,15 +94,6 @@ class DemoViewController: UIViewController {
         request.responseSerializer = JSONResponseSerializer()
         request.GET(url, parameters: nil, success: {(response: HTTPResponse) in
             if let dict = response.responseObject as? Dictionary<String,AnyObject> {
-            
-//                var id = dict["user_id"] as String
-//                println("ID im Response \(id)")
-//                
-//                self.userid = id
-//
-//                self.useridlabel.text = self.userid
-//
-//                println("ID außerhalb: \(self.userid)")
                 
                 var userid = dict["user_id"] as String
                 var avatar = dict["avatar"] as String

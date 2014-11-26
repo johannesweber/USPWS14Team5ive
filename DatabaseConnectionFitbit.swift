@@ -27,4 +27,10 @@ class DatabaseConnectionFitbit {
             },failure: {(error: NSError, response: HTTPResponse?) in
         })
     }
+    
+    func getRequestWithoutParameter(url: String){
+        
+        
+    }
+    
 }

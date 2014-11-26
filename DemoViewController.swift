@@ -86,10 +86,20 @@ class DemoViewController: UIViewController {
         
     }
     
+    @IBAction func authenticateWithingsUser(sender: AnyObject) {
+        doOAuthWithings()
+    }
+    
+    
     @IBAction func authenticateFitbitUser(sender: AnyObject) {
         self.doOAuthFitbit();
         
     }
+    
+    @IBAction func authenticateVitadockUser(sender: AnyObject) {
+       doOAuthVitadock()
+    }
+    
     
     @IBAction func logoutButton(sender : UIButton) {
         
@@ -174,6 +184,90 @@ class DemoViewController: UIViewController {
         var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Default, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func doOAuthWithings(){
+        let oauthswift_withings = OAuth1Swift_Withings(
+            consumerKey:    Withings["consumerKey"]!,
+            consumerSecret: Withings["consumerSecret"]!,
+            requestTokenUrl: "https://oauth.withings.com/account/request_token",
+            authorizeUrl:    "https://oauth.withings.com/account/authorize",
+            accessTokenUrl:  "https://oauth.withings.com/account/access_token"
+        )
+        oauthswift_withings.authorizeWithCallbackURL( NSURL(string: "oauth-callback://oauth-callback/withings")!, success: {
+            credentials, response in
+            self.showAlertView("Withings", message: "oauth_token:\(credentials.oauth_token)\n\noauth_token_secret:\(credentials.oauth_token_secret)\n\nuser_id:\(credentials.user_id)")
+            
+            
+            
+            
+            //reguläre signature in die Withings konforme Signature umwandeln
+            credentials.oauth_signatureWithings = credentials.oauth_signature
+                .stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
+                .stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())!
+                .stringByReplacingOccurrencesOfString("+", withString: "%2B", options: NSStringCompareOptions.LiteralSearch, range: nil)
+                .stringByReplacingOccurrencesOfString("=", withString: "%3D", options: NSStringCompareOptions.LiteralSearch, range: nil)
+            //            println("signature Withings: \(credentials.oauth_signatureWithings)")
+            
+            
+            
+            var parameters: Dictionary<String, AnyObject> = [
+                "action"                    : "getmeas",
+                "oauth_token"               : "\(credentials.oauth_token)",
+                "oauth_consumer_key"        : "\(credentials.consumer_key)",
+                "userid"                    : "\(credentials.user_id)",
+                "oauth_nonce"               : "\(credentials.oauth_nonce)",
+                "oauth_signature"           : "\(credentials.oauth_signatureWithings)",
+                "oauth_timestamp"           : "\(credentials.oauth_timestamp)",
+                "oauth_version"             : "1.0",
+                "oauth_signature_method"    : "HMAC-SHA1"
+            ]
+            
+            println(credentials.oauth_token)
+            println(parameters["oauth_token"])
+            println(credentials.oauth_token_secret)
+            var url: NSURL = NSURL (string:"https://wbsapi.withings.net/measure?")!
+            
+            var tokenSecret: NSString = ""
+            tokenSecret = credentials.oauth_token_secret.urlEncodedStringWithEncoding(dataEncoding)
+            
+            let encodedConsumerSecret = credentials.consumer_secret.urlEncodedStringWithEncoding(dataEncoding)
+            
+            let signingKey = "\(encodedConsumerSecret)&\(tokenSecret)"
+            println("Key:  \(signingKey)")
+            var parameterComponents = parameters.urlEncodedQueryStringWithEncoding(dataEncoding).componentsSeparatedByString("&") as [String]
+            parameterComponents.sort { $0 < $1 }
+            
+            let parameterString = "&".join(parameterComponents)
+            let encodedParameterString = parameterString.urlEncodedStringWithEncoding(dataEncoding)
+            //            println(encodedParameterString)
+            let encodedURL = url.absoluteString!.urlEncodedStringWithEncoding(dataEncoding)
+            
+            //            println("encodedURL: \(encodedURL)")
+            
+            let signatureBaseString = "GET&\(encodedURL)&\(encodedParameterString)"
+            println(signatureBaseString)
+            var signature = signatureBaseString.digest(HMACAlgorithm.SHA1, key: signingKey).base64EncodedStringWithOptions(nil)
+            
+            signature = signature
+                .stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
+                .stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())!
+                .stringByReplacingOccurrencesOfString("+", withString: "%2B", options: NSStringCompareOptions.LiteralSearch, range: nil)
+                .stringByReplacingOccurrencesOfString("=", withString: "%3D", options: NSStringCompareOptions.LiteralSearch, range: nil)
+            
+            parameters["oauth_signature"] = signature
+            println(parameters["oauth_signature"])
+            var db_connection = DatabaseConnectionWithings()
+            
+            db_connection.postWithingsCredentialsToServer(parameters)
+            
+            }, failure: {(error:NSError!) -> Void in
+                println(error.localizedDescription)
+        })
+    }
+    func doOAuthVitadock(){
+    
+    
     }
     
 }

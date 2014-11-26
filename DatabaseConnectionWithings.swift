@@ -8,9 +8,25 @@
 
 import Foundation
 
-class DatabaseConnectionWithings {
-    
-    init(){}
 
-    
-}
+    class DatabaseConnectionWithings {
+        
+        var result = NSString()
+        
+        init(){}
+        
+        func postWithingsCredentialsToServer(parameter: Dictionary<String,AnyObject>){
+            
+            let url: String = "http://141.19.142.45/~christian/focusedhealth/withings/"
+            
+            var request = HTTPTask()
+            request.POST(url, parameters: parameter, success: {(response: HTTPResponse) in
+                if let data = response.responseObject as? NSData {
+                    let resultStr = NSString(data: data, encoding: NSUTF8StringEncoding)!
+                    println("Result: \(resultStr)")
+                }
+                },failure: {(error: NSError, response: HTTPResponse?) in
+            })
+        }
+    }
+

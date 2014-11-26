@@ -14,8 +14,9 @@
 		0E6161991A1F8ADD006E0AD7 /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6161981A1F8ADD006E0AD7 /* DemoViewController.swift */; };
 		0E7446E61A236B8A00D8B771 /* DatabaseConnectionWithings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7446E51A236B8A00D8B771 /* DatabaseConnectionWithings.swift */; };
 		0E7446E91A2387FA00D8B771 /* DatabaseConnectionFitbit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7446E81A2387FA00D8B771 /* DatabaseConnectionFitbit.swift */; };
-		0E9023661A23D21D004C497C /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9023651A23D21D004C497C /* SignupViewController.swift */; };
-		0EAC7F761A21DD0000EA20D5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EAC7F751A21DD0000EA20D5 /* LoginViewController.swift */; };
+		0E818FAE1A2511AD000B9DA6 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E818FAD1A2511AD000B9DA6 /* SignupViewController.swift */; };
+		0E818FB01A25131B000B9DA6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E818FAF1A25131B000B9DA6 /* LoginViewController.swift */; };
+		0EC9ACEE1A253D3B002C6661 /* DatabaseConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC9ACED1A253D3B002C6661 /* DatabaseConnection.swift */; };
 		0EFF3AC019FCD22C00AB3C17 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3ABF19FCD22C00AB3C17 /* AppDelegate.swift */; };
 		0EFF3AC319FCD22C00AB3C17 /* USPWS14Team5ive.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3AC119FCD22C00AB3C17 /* USPWS14Team5ive.xcdatamodeld */; };
 		0EFF3AC819FCD22C00AB3C17 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EFF3AC619FCD22C00AB3C17 /* Main.storyboard */; };
@@ -56,9 +57,10 @@
 		0E6161981A1F8ADD006E0AD7 /* DemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
 		0E7446E51A236B8A00D8B771 /* DatabaseConnectionWithings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseConnectionWithings.swift; sourceTree = "<group>"; };
 		0E7446E81A2387FA00D8B771 /* DatabaseConnectionFitbit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseConnectionFitbit.swift; sourceTree = "<group>"; };
-		0E9023651A23D21D004C497C /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		0E818FAD1A2511AD000B9DA6 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		0E818FAF1A25131B000B9DA6 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0EAC7F741A1FE80E00EA20D5 /* FocusedHealthPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = FocusedHealthPlayground.playground; sourceTree = "<group>"; };
-		0EAC7F751A21DD0000EA20D5 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		0EC9ACED1A253D3B002C6661 /* DatabaseConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseConnection.swift; sourceTree = "<group>"; };
 		0EFF3ABA19FCD22C00AB3C17 /* USPWS14Team5ive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = USPWS14Team5ive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EFF3ABE19FCD22C00AB3C17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0EFF3ABF19FCD22C00AB3C17 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = USPWS14Team5ive/AppDelegate.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 			children = (
 				0E7446E81A2387FA00D8B771 /* DatabaseConnectionFitbit.swift */,
 				0E7446E51A236B8A00D8B771 /* DatabaseConnectionWithings.swift */,
+				0EC9ACED1A253D3B002C6661 /* DatabaseConnection.swift */,
 			);
 			name = DatabaseConnection;
 			sourceTree = "<group>";
@@ -136,8 +139,8 @@
 			isa = PBXGroup;
 			children = (
 				0E6161981A1F8ADD006E0AD7 /* DemoViewController.swift */,
-				0EAC7F751A21DD0000EA20D5 /* LoginViewController.swift */,
-				0E9023651A23D21D004C497C /* SignupViewController.swift */,
+				0E818FAD1A2511AD000B9DA6 /* SignupViewController.swift */,
+				0E818FAF1A25131B000B9DA6 /* LoginViewController.swift */,
 			);
 			name = "View Controller";
 			sourceTree = "<group>";
@@ -343,9 +346,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				8306C9111A23409D00B00BEE /* HTTPTask.swift in Sources */,
-				0EAC7F761A21DD0000EA20D5 /* LoginViewController.swift in Sources */,
 				0E6161991A1F8ADD006E0AD7 /* DemoViewController.swift in Sources */,
 				0E7446E61A236B8A00D8B771 /* DatabaseConnectionWithings.swift in Sources */,
+				0E818FB01A25131B000B9DA6 /* LoginViewController.swift in Sources */,
 				0EFF3AF419FCD4C400AB3C17 /* Dictionary+OAuthSwift.swift in Sources */,
 				8306C9101A23409D00B00BEE /* HTTPResponseSerializer.swift in Sources */,
 				0EFF3AF819FCD4C400AB3C17 /* OAuth1Swift_Fitbit.swift in Sources */,
@@ -358,12 +361,13 @@
 				0EFF3AC019FCD22C00AB3C17 /* AppDelegate.swift in Sources */,
 				0EFF3AC319FCD22C00AB3C17 /* USPWS14Team5ive.xcdatamodeld in Sources */,
 				0E3369921A1B4ABA007F17FD /* HMACAlgorithm.swift in Sources */,
+				0EC9ACEE1A253D3B002C6661 /* DatabaseConnection.swift in Sources */,
 				0E7446E91A2387FA00D8B771 /* DatabaseConnectionFitbit.swift in Sources */,
 				0E6161891A1E46C5006E0AD7 /* OAuth1Swift_Withings.swift in Sources */,
 				0EFF3AFC19FCD4C400AB3C17 /* OAuthSwiftHTTPRequest.swift in Sources */,
 				0EFF3AF519FCD4C400AB3C17 /* NSURL+OAuthSwift.swift in Sources */,
 				8306C9121A23409D00B00BEE /* HTTPUpload.swift in Sources */,
-				0E9023661A23D21D004C497C /* SignupViewController.swift in Sources */,
+				0E818FAE1A2511AD000B9DA6 /* SignupViewController.swift in Sources */,
 				0EFF3AF919FCD4C400AB3C17 /* OAuth2Swift.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

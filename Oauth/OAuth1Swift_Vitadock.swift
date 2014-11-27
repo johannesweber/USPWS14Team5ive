@@ -11,7 +11,7 @@ import UIKit
 
 class OAuth1Swift_Vitadock {
     
-    var client: OAuthSwiftClient
+    var client: OAuthSwiftClient_Vitadock
     
     var consumer_key: String
     var consumer_secret: String
@@ -28,7 +28,7 @@ class OAuth1Swift_Vitadock {
         self.request_token_url = requestTokenUrl
         self.authorize_url = authorizeUrl
         self.access_token_url = accessTokenUrl
-        self.client = OAuthSwiftClient(consumerKey: consumerKey, consumerSecret: consumerSecret)
+        self.client = OAuthSwiftClient_Vitadock(consumerKey: consumerKey, consumerSecret: consumerSecret)
         self.user_id = String()
     }
     
@@ -65,6 +65,7 @@ class OAuth1Swift_Vitadock {
             })
             // 2. Authorize
             let queryURL = NSURL(string: self.authorize_url + "?oauth_token=\(credential.oauth_token)")
+            println(queryURL)
             UIApplication.sharedApplication().openURL(queryURL!)
             }, failure: failure)
     }
@@ -72,9 +73,9 @@ class OAuth1Swift_Vitadock {
     // 1. Request token
     func postOAuthRequestTokenWithCallbackURL(callbackURL: NSURL, success: TokenSuccessHandler, failure: FailureHandler?) {
         var parameters =  Dictionary<String, AnyObject>()
-        if let callbackURLString = callbackURL.absoluteString {
-            parameters["oauth_callback"] = callbackURLString
-        }
+     //   if let callbackURLString = callbackURL.absoluteString {
+       //     parameters["oauth_callback"] = callbackURLString
+        //}
         self.client.post(self.request_token_url, parameters: parameters, success: {
             data, response in
             let responseString = NSString(data: data, encoding: NSUTF8StringEncoding) as String
@@ -83,6 +84,7 @@ class OAuth1Swift_Vitadock {
             self.client.credential.oauth_token_secret = parameters["oauth_token_secret"]!
             success(credential: self.client.credential, response: response)
             }, failure: failure)
+
     }
     
     // 3. Get Access token

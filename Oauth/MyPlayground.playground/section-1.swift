@@ -2,8 +2,10 @@
 
 import Cocoa
 
-var str = "Hello, playground"
+var text : String = "<>/"
 
-let dic: Dictionary = ["asdf": "asd", "qwert" : "hallo welt", "asdfasdf": "asd"]
-
-println(dic)
+var signature = text
+    .stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
+//    .stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())!
+    .stringByReplacingOccurrencesOfString("+", withString: "%2B", options: NSStringCompareOptions.LiteralSearch, range: nil)
+    .stringByReplacingOccurrencesOfString("=", withString: "%3D", options: NSStringCompareOptions.LiteralSearch, range: nil)

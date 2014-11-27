@@ -37,6 +37,9 @@
 		8306C9111A23409D00B00BEE /* HTTPTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8306C90D1A23409D00B00BEE /* HTTPTask.swift */; };
 		8306C9121A23409D00B00BEE /* HTTPUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8306C90E1A23409D00B00BEE /* HTTPUpload.swift */; };
 		83CEEE8E1A26366500092BB7 /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839BBDA71A2635C100851942 /* DemoViewController.swift */; };
+		83CEEE921A263D1F00092BB7 /* DatabaseConnectionWithings2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CEEE911A263D1F00092BB7 /* DatabaseConnectionWithings2.swift */; };
+		83CEEE941A26406500092BB7 /* DatabaseConnectionVitadock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CEEE931A26406500092BB7 /* DatabaseConnectionVitadock.swift */; };
+		83CEEE961A272B5400092BB7 /* OAuthSwiftClient_Vitadock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CEEE951A272B5400092BB7 /* OAuthSwiftClient_Vitadock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +91,9 @@
 		8306C9131A2340A700B00BEE /* SwiftHTTP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftHTTP.h; sourceTree = "<group>"; };
 		839BBDA71A2635C100851942 /* DemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
 		83C670FE1A1F5735004D58BD /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
+		83CEEE911A263D1F00092BB7 /* DatabaseConnectionWithings2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseConnectionWithings2.swift; sourceTree = "<group>"; };
+		83CEEE931A26406500092BB7 /* DatabaseConnectionVitadock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseConnectionVitadock.swift; sourceTree = "<group>"; };
+		83CEEE951A272B5400092BB7 /* OAuthSwiftClient_Vitadock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthSwiftClient_Vitadock.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,8 +127,9 @@
 			isa = PBXGroup;
 			children = (
 				0E7446E81A2387FA00D8B771 /* DatabaseConnectionFitbit.swift */,
-				0E7446E51A236B8A00D8B771 /* DatabaseConnectionWithings.swift */,
 				0EC9ACED1A253D3B002C6661 /* DatabaseConnection.swift */,
+				83CEEE911A263D1F00092BB7 /* DatabaseConnectionWithings2.swift */,
+				83CEEE931A26406500092BB7 /* DatabaseConnectionVitadock.swift */,
 			);
 			name = DatabaseConnection;
 			sourceTree = "<group>";
@@ -148,6 +155,7 @@
 		0EFF3AB119FCD22C00AB3C17 = {
 			isa = PBXGroup;
 			children = (
+				0EFF3AE819FCD4C400AB3C17 /* extension */,
 				0E04EF391A236870008368B7 /* DatabaseConnection */,
 				0E04EF331A2326BA008368B7 /* Library */,
 				0EAC7F741A1FE80E00EA20D5 /* FocusedHealthPlayground.playground */,
@@ -204,12 +212,12 @@
 		0EFF3AE719FCD4C400AB3C17 /* OAuth */ = {
 			isa = PBXGroup;
 			children = (
-				0EFF3AE819FCD4C400AB3C17 /* extension */,
 				0EFF3AEE19FCD4C400AB3C17 /* OAuth1Swift_Fitbit.swift */,
 				0E6161881A1E46C5006E0AD7 /* OAuth1Swift_Withings.swift */,
 				0E61618A1A1E48B4006E0AD7 /* OAuth1Swift_Vitadock.swift */,
 				0EFF3AEF19FCD4C400AB3C17 /* OAuth2Swift.swift */,
 				0EFF3AF119FCD4C400AB3C17 /* OAuthSwiftClient.swift */,
+				83CEEE951A272B5400092BB7 /* OAuthSwiftClient_Vitadock.swift */,
 				0EFF3AF219FCD4C400AB3C17 /* OAuthSwiftCredential.swift */,
 				0EFF3AF319FCD4C400AB3C17 /* OAuthSwiftHTTPRequest.swift */,
 				0EFF3AFD19FCD5D000AB3C17 /* Constants.swift */,
@@ -227,7 +235,8 @@
 				0EFF3AEA19FCD4C400AB3C17 /* NSURL+OAuthSwift.swift */,
 				0EFF3AEB19FCD4C400AB3C17 /* String+OAuthSwift.swift */,
 			);
-			path = extension;
+			name = extension;
+			path = Oauth/extension;
 			sourceTree = "<group>";
 		};
 		8306C90A1A23407B00B00BEE /* SwiftHTTP */ = {
@@ -345,9 +354,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83CEEE921A263D1F00092BB7 /* DatabaseConnectionWithings2.swift in Sources */,
+				83CEEE961A272B5400092BB7 /* OAuthSwiftClient_Vitadock.swift in Sources */,
 				8306C9111A23409D00B00BEE /* HTTPTask.swift in Sources */,
 				0E7446E61A236B8A00D8B771 /* DatabaseConnectionWithings.swift in Sources */,
 				0E818FB01A25131B000B9DA6 /* LoginViewController.swift in Sources */,
+				83CEEE941A26406500092BB7 /* DatabaseConnectionVitadock.swift in Sources */,
 				0EFF3AF419FCD4C400AB3C17 /* Dictionary+OAuthSwift.swift in Sources */,
 				8306C9101A23409D00B00BEE /* HTTPResponseSerializer.swift in Sources */,
 				0EFF3AF819FCD4C400AB3C17 /* OAuth1Swift_Fitbit.swift in Sources */,

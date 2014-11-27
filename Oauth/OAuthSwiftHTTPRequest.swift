@@ -103,11 +103,14 @@ class OAuthSwiftHTTPRequest: NSObject, NSURLConnectionDataDelegate {
                             self.request!.HTTPBody = jsonData
                         }
                         else {
+                            
                             println(error!.localizedDescription)
                         }
                     }
                 }
+                
             }
+    //    println("request: \(self.headers)")
         }
                 
         dispatch_async(dispatch_get_main_queue()) {

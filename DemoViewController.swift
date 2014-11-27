@@ -26,29 +26,22 @@ class DemoViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
         
-        let prefs:NSUserDefaults = NSUserDefaults.standardUserDefaults()
-        let isLoggedIn:Int = prefs.integerForKey("ISLOGGEDIN") as Int
-        if (isLoggedIn != 1) {
-            self.performSegueWithIdentifier("goToLogin", sender: self)
-        } else {
-            var username = prefs.valueForKey("USERNAME") as NSString
-            self.usernameLabel.text = "Hello \(username)"
-        }
+//        let prefs:NSUserDefaults = NSUserDefaults.standardUserDefaults()
+//        let isLoggedIn:Int = prefs.integerForKey("ISLOGGEDIN") as Int
+//        if (isLoggedIn != 1) {
+//            self.performSegueWithIdentifier("goToLogin", sender: self)
+//        } else {
+//            var email = prefs.valueForKey("EMAIL") as NSString
+//            self.usernameLabel.text = "Hello \(email)"
+//        }
     }
     
     @IBAction func synchronizeData(sender: AnyObject) {
     
         let url: String = "http://141.19.142.45/~johannes/focusedhealth/fitbit/synchronize/"
         
-        var request = HTTPTask()
-        request.GET(url, parameters: nil, success: {(response: HTTPResponse) in
-            if let data = response.responseObject as? NSData {
-                let str = NSString(data: data, encoding: NSUTF8StringEncoding)
-                println("response: \(str)") //prints the HTML of the page
-            }
-            },failure: {(error: NSError, response: HTTPResponse?) in
-                println("error: \(error)")
-        })
+        var db_connection = DatabaseConnection()
+        db_connection.getRequestWithoutParameterAndResponse(url)
         
         
     }
@@ -65,15 +58,6 @@ class DemoViewController: UIViewController {
         request.GET(url, parameters: nil, success: {(response: HTTPResponse) in
             if let dict = response.responseObject as? Dictionary<String,AnyObject> {
                 
-                //                var id = dict["user_id"] as String
-                //                println("ID im Response \(id)")
-                //
-                //                self.userid = id
-                //
-                //                self.useridlabel.text = self.userid
-                //
-                //                println("ID außerhalb: \(self.userid)")
-                
                 var goalValue = dict["goal_value"] as String
                 var startdate = dict["startdate"] as String
                 var enddate = dict["enddate"] as String
@@ -86,27 +70,30 @@ class DemoViewController: UIViewController {
         
     }
     
-    @IBAction func authenticateWithingsUser(sender: AnyObject) {
-        doOAuthWithings()
+
+    @IBAction func authenticateVitadockUser(sender: AnyObject) {
+        self.doOAuthVitadock()
+        
     }
     
+    @IBAction func authenticateWithingsUser(sender: AnyObject) {
+        self.doOAuthWithings()
+        
+    }
+
     
+
     @IBAction func authenticateFitbitUser(sender: AnyObject) {
         self.doOAuthFitbit();
         
     }
     
-    @IBAction func authenticateVitadockUser(sender: AnyObject) {
-       doOAuthVitadock()
-    }
-    
-    
     @IBAction func logoutButton(sender : UIButton) {
         
-        let appDomain = NSBundle.mainBundle().bundleIdentifier
-        NSUserDefaults.standardUserDefaults().removePersistentDomainForName(appDomain!)
-        
-        self.performSegueWithIdentifier("goToLogin", sender: self)
+//        let appDomain = NSBundle.mainBundle().bundleIdentifier
+//        NSUserDefaults.standardUserDefaults().removePersistentDomainForName(appDomain!)
+//        
+//        self.performSegueWithIdentifier("goToLogin", sender: self)
     }
     
     @IBAction func getFitbitUserInfo(sender: AnyObject) {
@@ -120,15 +107,6 @@ class DemoViewController: UIViewController {
         request.responseSerializer = JSONResponseSerializer()
         request.GET(url, parameters: nil, success: {(response: HTTPResponse) in
             if let dict = response.responseObject as? Dictionary<String,AnyObject> {
-            
-//                var id = dict["user_id"] as String
-//                println("ID im Response \(id)")
-//                
-//                self.userid = id
-//
-//                self.useridlabel.text = self.userid
-//
-//                println("ID außerhalb: \(self.userid)")
                 
                 var userid = dict["user_id"] as String
                 var avatar = dict["avatar"] as String
@@ -198,76 +176,43 @@ class DemoViewController: UIViewController {
             credentials, response in
             self.showAlertView("Withings", message: "oauth_token:\(credentials.oauth_token)\n\noauth_token_secret:\(credentials.oauth_token_secret)\n\nuser_id:\(credentials.user_id)")
             
-            
-            
-            
-            //reguläre signature in die Withings konforme Signature umwandeln
-            credentials.oauth_signatureWithings = credentials.oauth_signature
-                .stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
-                .stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())!
-                .stringByReplacingOccurrencesOfString("+", withString: "%2B", options: NSStringCompareOptions.LiteralSearch, range: nil)
-                .stringByReplacingOccurrencesOfString("=", withString: "%3D", options: NSStringCompareOptions.LiteralSearch, range: nil)
-            //            println("signature Withings: \(credentials.oauth_signatureWithings)")
-            
-            
-            
-            var parameters: Dictionary<String, AnyObject> = [
-                "action"                    : "getmeas",
-                "oauth_token"               : "\(credentials.oauth_token)",
-                "oauth_consumer_key"        : "\(credentials.consumer_key)",
-                "userid"                    : "\(credentials.user_id)",
-                "oauth_nonce"               : "\(credentials.oauth_nonce)",
-                "oauth_signature"           : "\(credentials.oauth_signatureWithings)",
-                "oauth_timestamp"           : "\(credentials.oauth_timestamp)",
-                "oauth_version"             : "1.0",
-                "oauth_signature_method"    : "HMAC-SHA1"
-            ]
-            
-            println(credentials.oauth_token)
-            println(parameters["oauth_token"])
-            println(credentials.oauth_token_secret)
-            var url: NSURL = NSURL (string:"https://wbsapi.withings.net/measure?")!
-            
-            var tokenSecret: NSString = ""
-            tokenSecret = credentials.oauth_token_secret.urlEncodedStringWithEncoding(dataEncoding)
-            
-            let encodedConsumerSecret = credentials.consumer_secret.urlEncodedStringWithEncoding(dataEncoding)
-            
-            let signingKey = "\(encodedConsumerSecret)&\(tokenSecret)"
-            println("Key:  \(signingKey)")
-            var parameterComponents = parameters.urlEncodedQueryStringWithEncoding(dataEncoding).componentsSeparatedByString("&") as [String]
-            parameterComponents.sort { $0 < $1 }
-            
-            let parameterString = "&".join(parameterComponents)
-            let encodedParameterString = parameterString.urlEncodedStringWithEncoding(dataEncoding)
-            //            println(encodedParameterString)
-            let encodedURL = url.absoluteString!.urlEncodedStringWithEncoding(dataEncoding)
-            
-            //            println("encodedURL: \(encodedURL)")
-            
-            let signatureBaseString = "GET&\(encodedURL)&\(encodedParameterString)"
-            println(signatureBaseString)
-            var signature = signatureBaseString.digest(HMACAlgorithm.SHA1, key: signingKey).base64EncodedStringWithOptions(nil)
-            
-            signature = signature
-                .stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
-                .stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())!
-                .stringByReplacingOccurrencesOfString("+", withString: "%2B", options: NSStringCompareOptions.LiteralSearch, range: nil)
-                .stringByReplacingOccurrencesOfString("=", withString: "%3D", options: NSStringCompareOptions.LiteralSearch, range: nil)
-            
-            parameters["oauth_signature"] = signature
-            println(parameters["oauth_signature"])
-            var db_connection = DatabaseConnectionWithings()
-            
-            db_connection.postWithingsCredentialsToServer(parameters)
-            
             }, failure: {(error:NSError!) -> Void in
                 println(error.localizedDescription)
         })
     }
     func doOAuthVitadock(){
+        let oauthswift_vitadock = OAuth1Swift_Vitadock(
+            consumerKey:    Vitadock["consumerKey"]!,
+            consumerSecret: Vitadock["consumerSecret"]!,
+            requestTokenUrl: "https://cloud.vitadock.com/auth/unauthorizedaccesses",
+            authorizeUrl:    "https://cloud.vitadock.com/desiredaccessrights/request",
+            accessTokenUrl:  "https://cloud.vitadock.com/auth/accesses/verify"
+        )
+        oauthswift_vitadock.authorizeWithCallbackURL( NSURL(string:"oauth-callback://oauth-callback/vitadock")!, success: {
+            credentials, response in
+            self.showAlertView("Vitadock", message: "oauth_token:\(credentials.oauth_token)\n\noauth_token_secret:\(credentials.oauth_token_secret)\n\nuser_id:\(credentials.user_id)")
+            
+            var parameters: Dictionary<String, AnyObject> = [
+                // add vitadock params here
+     //           "id"                        : "\(credentials.user_id)",
+                "oauth_timestamp"           : "\(credentials.oauth_timestamp)",
+                "oauth_nonce"               : "\(credentials.oauth_nonce)",
+                "oauth_consumer_key"        : "\(credentials.consumer_key)",
+                "oauth_token"               : "\(credentials.oauth_token)",
+//                "oauth_signature"           : "\(credentials.oauth_signature)",
+                "oauth_verifier"            : "\(credentials.oauth_verifier)",
+                "oauth_version"             : "1.0",
+                "oauth_signature_method"    : "HMAC-SHA256"
+            ]
     
-    
+//            var db_connection = DatabaseConnectionVitadock()
+//            
+//            db_connection.postVitadockCredentialsToServer(parameters)
+//            
+
+            }, failure: {(error:NSError!) -> Void in
+                println(error.localizedDescription)
+        })
     }
     
 }

@@ -13,29 +13,6 @@ class DemoViewController: UIViewController {
     
     var userid = String()
     
-    @IBOutlet weak var usernameLabel: UILabel!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(true)
-        
-        let prefs:NSUserDefaults = NSUserDefaults.standardUserDefaults()
-        let isLoggedIn:Int = prefs.integerForKey("ISLOGGEDIN") as Int
-        if (isLoggedIn != 1) {
-            self.performSegueWithIdentifier("goToLogin", sender: self)
-        } else {
-            var email = prefs.valueForKey("EMAIL") as NSString
-            self.usernameLabel.text = "Hello \(email)"
-        }
-    }
-    
     @IBAction func synchronizeData(sender: AnyObject) {
     
         let url: String = "http://141.19.142.45/~johannes/focusedhealth/fitbit/synchronize/"
@@ -73,14 +50,6 @@ class DemoViewController: UIViewController {
     @IBAction func authenticateFitbitUser(sender: AnyObject) {
         self.doOAuthFitbit();
         
-    }
-    
-    @IBAction func logoutButton(sender : UIButton) {
-        
-        let appDomain = NSBundle.mainBundle().bundleIdentifier
-        NSUserDefaults.standardUserDefaults().removePersistentDomainForName(appDomain!)
-        
-        self.performSegueWithIdentifier("goToLogin", sender: self)
     }
     
     @IBAction func getFitbitUserInfo(sender: AnyObject) {

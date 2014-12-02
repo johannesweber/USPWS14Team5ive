@@ -12,16 +12,22 @@ class LoginViewController: UIViewController {
 
     @IBOutlet weak var txtMailAddress: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
+        
+        self.txtPassword.text = ""
+        self.txtMailAddress.text = ""
+        
+        let prefs:NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        let isLoggedIn:Int = prefs.integerForKey("ISLOGGEDIN") as Int
+        if (isLoggedIn == 1) {
+            self.performSegueWithIdentifier("goToDashboard", sender: self)
+        }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func contiueWithoutLogin(sender: UIButton) {
+        
     }
     
     @IBAction func signinButton(sender : UIButton) {
@@ -36,6 +42,7 @@ class LoginViewController: UIViewController {
             alertView.delegate = self
             alertView.addButtonWithTitle("OK")
             alertView.show()
+            
         } else {
             
             var post:NSString = "email=\(email)&password=\(password)"
@@ -79,8 +86,6 @@ class LoginViewController: UIViewController {
                     
                     let success:NSInteger = jsonData.valueForKey("success") as NSInteger
                     
-                    //[jsonData[@"success"] integerValue];
-                    
                     NSLog("Success: %ld", success);
                     
                     if(success == 1)
@@ -92,8 +97,10 @@ class LoginViewController: UIViewController {
                         prefs.setInteger(1, forKey: "ISLOGGEDIN")
                         prefs.synchronize()
                         
-                        self.dismissViewControllerAnimated(true, completion: nil)
+                        self.performSegueWithIdentifier("goToDashboard", sender: self)
+                        
                     } else {
+                        
                         var error_msg:NSString
                         
                         if jsonData["error_message"] as? NSString != nil {
@@ -132,14 +139,4 @@ class LoginViewController: UIViewController {
         }
         
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }    
-    */
-
 }

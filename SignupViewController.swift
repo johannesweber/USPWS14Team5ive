@@ -13,16 +13,15 @@ class SignupViewController: UIViewController {
     @IBOutlet weak var txtMailAddress: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
     @IBOutlet weak var txtRepeatPassword: UITextField!
+
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    
+    @IBAction func goToLoginTapped(sender: UIButton) {
+        self.navigationController?.popToRootViewControllerAnimated(true)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    @IBAction func cancelTapped(sender: UIBarButtonItem) {
+        self.navigationController?.popToRootViewControllerAnimated(true)
     }
     
     @IBAction func signupButton(sender : UIButton) {
@@ -154,10 +153,6 @@ class SignupViewController: UIViewController {
             }
         }
         
-    }
-    
-    @IBAction func gotoLoginButton(sender: UIButton) {
-        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     /*

@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        customizeAppearance()
         return true
     }
     
@@ -41,6 +41,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
+    
+    
     func application(application: UIApplication!, openURL url: NSURL!, sourceApplication:String!, annotation: AnyObject!) -> Bool {
         
         if (url.host == "oauth-callback") {
@@ -51,6 +53,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         return true
+    }
+    
+    func customizeAppearance() {
+        let navigationBarTintColor = UIColor(red: 65/255, green: 192/255, blue: 194/255, alpha: 1)
+        UINavigationBar.appearance().barTintColor = navigationBarTintColor
+        
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+            
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+            
+        let tabBarTintColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+        UITabBar.appearance().barTintColor = tabBarTintColor
+            
+        let backgroundColor = UIColor(red: 222/255, green: 222/255, blue: 222/255, alpha: 1)
+            
+        window?.tintColor = navigationBarTintColor
     }
     
     

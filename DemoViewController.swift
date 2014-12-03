@@ -176,6 +176,71 @@ class DemoViewController: UIViewController {
             credentials, response in
             self.showAlertView("Withings", message: "oauth_token:\(credentials.oauth_token)\n\noauth_token_secret:\(credentials.oauth_token_secret)\n\nuser_id:\(credentials.user_id)")
             
+            var signatureParameters: Dictionary<String, AnyObject> = [
+                "action"                    : "getmeas",
+               // "oauth_callback"            : "oauth-callback://oauth-callback/withings",
+                "userid"                    : "\(credentials.user_id)",
+                "oauth_timestamp"           :  String(Int64(NSDate().timeIntervalSince1970)),
+                "oauth_nonce"               : "\(credentials.oauth_nonce)",
+                "oauth_consumer_key"        : "\(credentials.consumer_key)",
+                "oauth_token"               : "\(credentials.oauth_token)",
+                //"oauth_signature"           : "\(credentials.oauth_signature)",
+                //"oauth_verifier"            : "\(credentials.oauth_verifier)",
+                "oauth_version"             : "1.0",
+                "oauth_signature_method"    : "HMAC-SHA1"
+            ]
+
+            let url: NSURL = NSURL (string:"https://wbsapi.withings.net/measure")!
+            let method = "GET"
+            var tokenSecret: NSString = ""
+            tokenSecret = credentials.oauth_token_secret.urlEncodedStringWithEncoding(dataEncoding)
+            
+            let encodedConsumerSecret = credentials.consumer_secret.urlEncodedStringWithEncoding(dataEncoding)
+            
+            let signingKey = "\(encodedConsumerSecret)&\(tokenSecret)"
+            let signingKeyData = signingKey.dataUsingEncoding(dataEncoding)
+            
+            var parameterComponents = signatureParameters.urlEncodedQueryStringWithEncoding(dataEncoding).componentsSeparatedByString("&") as [String]
+            
+            parameterComponents.sort { $0 < $1 }
+            
+            let parameterString = "&".join(parameterComponents)
+            let encodedParameterString = parameterString.urlEncodedStringWithEncoding(dataEncoding)
+            
+            let encodedURL = url.absoluteString!.urlEncodedStringWithEncoding(dataEncoding)
+            
+            let signatureBaseString = "\(method)&\(encodedURL)&\(encodedParameterString)"
+            let signatureBaseStringData = signatureBaseString.dataUsingEncoding(dataEncoding)
+            
+            let signature = signatureBaseString.digest(HMACAlgorithm.SHA1, key: signingKey).base64EncodedStringWithOptions(nil)
+            println(signature)
+            println()
+            println(signatureBaseString)
+            credentials.oauth_signatureWithings = signature
+            credentials.oauth_signatureWithings = signature
+                            //.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
+                            .stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())!
+                            .stringByReplacingOccurrencesOfString("+", withString: "%2B", options: NSStringCompareOptions.LiteralSearch, range: nil)
+                            .stringByReplacingOccurrencesOfString("=", withString: "%3D", options: NSStringCompareOptions.LiteralSearch, range: nil).stringByReplacingOccurrencesOfString("/", withString: "%2F", options: NSStringCompareOptions.LiteralSearch, range: nil)
+            var parameters: Dictionary<String, AnyObject> = [
+                // "oauth_callback"            : "oauth-callback://oauth-callback/withings",
+                "userid"                    : "\(credentials.user_id)",
+                "oauth_timestamp"           : signatureParameters["oauth_timestamp"] as String,
+               "oauth_nonce"               : "\(credentials.oauth_nonce)",
+                "oauth_consumer_key"        : "\(credentials.consumer_key)",
+                "oauth_token"               : "\(credentials.oauth_token)",
+                "oauth_signature"           : "\(credentials.oauth_signatureWithings)",
+                "oauth_verifier"            : "\(credentials.oauth_verifier)",
+                "oauth_version"             : "1.0",
+                "oauth_signature_method"    : "HMAC-SHA1"
+            ]
+            
+            
+            var db_connection = DatabaseConnectionWithings2()
+
+            db_connection.postWithingsCredentialsToServer(parameters)
+            
+            
             }, failure: {(error:NSError!) -> Void in
                 println(error.localizedDescription)
         })

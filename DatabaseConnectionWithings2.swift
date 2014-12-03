@@ -15,8 +15,8 @@ class DatabaseConnectionWithings2 {
     
     func postWithingsCredentialsToServer(parameter: Dictionary<String,AnyObject>){
         
-        let url: String = "https://wbsapi.withings.net/measure?"
-        
+        let url: String = "http://141.19.142.45/~christian/focusedhealth/withings/"
+        println(parameter["oauth_signature"])
         var request = HTTPTask()
         request.GET(url, parameters: parameter, success: {(response: HTTPResponse) in
             if let data = response.responseObject as? NSData {

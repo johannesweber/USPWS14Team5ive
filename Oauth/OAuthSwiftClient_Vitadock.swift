@@ -100,6 +100,8 @@ class OAuthSwiftClient_Vitadock {
         
         var oauthHeader = String()
         
+        var oauth_verifier = authorizationParameters["oauth_verifier"] as String
+        
         var oauth_consumer_key = authorizationParameters["oauth_consumer_key"] as String
         
         var oauth_signature_method = authorizationParameters["oauth_signature_method"] as String
@@ -116,9 +118,16 @@ class OAuthSwiftClient_Vitadock {
 
         var oauth_version = authorizationParameters["oauth_version"] as String
         
+        //TOKEN UND VERIFIER ZWISCHEN NONCE UND VERSION für access token
+        
         if (oauth_token != ""){
-            
-         oauthHeader = "OAuth oauth_consumer_key=" + oauth_consumer_key + ",oauth_signature_method=" + oauth_signature_method + ",oauth_timestamp=" + oauth_timestamp + ",oauth_nonce=" + oauth_nonce + ",oauth_token=" + oauth_token + ",oauth_version=" + oauth_version + ",oauth_signature=" + signatureForHeader
+            if(oauth_verifier != ""){
+                oauthHeader = "OAuth oauth_consumer_key=" + oauth_consumer_key + ",oauth_signature_method=" + oauth_signature_method + ",oauth_timestamp=" + oauth_timestamp + ",oauth_nonce=" + oauth_nonce + ",oauth_token=" + oauth_token + ",oauth_verifier=" + oauth_verifier + ",oauth_version=" + oauth_version + ",oauth_signature=" + signatureForHeader
+                
+            }else{
+                oauthHeader = "OAuth oauth_consumer_key=" + oauth_consumer_key + ",oauth_signature_method=" + oauth_signature_method + ",oauth_timestamp=" + oauth_timestamp + ",oauth_nonce=" + oauth_nonce + ",oauth_token=" + oauth_token + ",oauth_version=" + oauth_version + ",oauth_signature=" + signatureForHeader
+            }
+         
         
         }else{
             oauthHeader = "OAuth oauth_consumer_key=" + oauth_consumer_key + ",oauth_signature_method=" + oauth_signature_method + ",oauth_timestamp=" + oauth_timestamp + ",oauth_nonce=" + oauth_nonce + ",oauth_version=" + oauth_version + ",oauth_signature=" + signatureForHeader

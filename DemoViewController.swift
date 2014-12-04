@@ -163,13 +163,11 @@ class DemoViewController: UIViewController {
             credentials, response in
             self.showAlertView("Withings", message: "oauth_token:\(credentials.oauth_token)\n\noauth_token_secret:\(credentials.oauth_token_secret)\n\nuser_id:\(credentials.user_id)")
             
-
-            let url: NSURL = NSURL (string:"https://wbsapi.withings.net/v2/measure")!
-            let action: String = "getactivity"
+            var parameters: Dictionary<String, AnyObject> = Dictionary()
             
             var db_connection = DatabaseConnectionWithings()
             
-            var parameters = oauthswift_withings.client.getSignatureWithings(action, url: url)
+            parameters = oauthswift_withings.client.getParametersForBodyMeasures()
             
             db_connection.postWithingsCredentialsToServer(parameters)
             

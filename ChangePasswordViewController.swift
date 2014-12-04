@@ -8,11 +8,18 @@
 
 import UIKit
 
-class ChangePasswordViewController: UIViewController {
+class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var txtOldPassword: UITextField!
     @IBOutlet weak var txtNewPassword: UITextField!
     @IBOutlet weak var txtConfirmNewPassword: UITextField!
+    
+    override func viewDidAppear(animated: Bool) {
+        self.txtConfirmNewPassword.delegate = self
+        self.txtNewPassword.delegate = self
+        self.txtOldPassword.delegate = self
+        
+    }
     
     @IBAction func cancel(sender: UIBarButtonItem) {
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -22,4 +29,14 @@ class ChangePasswordViewController: UIViewController {
         
     }
     
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if (textField == self.txtOldPassword) {
+            textField.resignFirstResponder()
+        } else if (textField == self.txtNewPassword) {
+            textField.resignFirstResponder()
+        } else if (textField == self.txtConfirmNewPassword) {
+            textField.resignFirstResponder()
+        }
+        return true
+    }
 }

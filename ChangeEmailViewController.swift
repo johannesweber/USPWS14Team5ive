@@ -8,11 +8,18 @@
 
 import UIKit
 
-class ChangeEmailViewController: UIViewController {
+class ChangeEmailViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var txtOldEmail: UITextField!
     @IBOutlet weak var txtNewEmail: UITextField!
     @IBOutlet weak var txtConfirmNewEmail: UITextField!
+    
+    override func viewDidAppear(animated: Bool) {
+        self.txtConfirmNewEmail.delegate = self
+        self.txtNewEmail.delegate = self
+        self.txtOldEmail.delegate = self
+        
+    }
     
     @IBAction func cancel(sender: UIBarButtonItem) {
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -20,5 +27,16 @@ class ChangeEmailViewController: UIViewController {
     
     @IBAction func changePassword(sender: UIButton) {
         
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if (textField == self.txtOldEmail) {
+            textField.resignFirstResponder()
+        } else if (textField == self.txtNewEmail) {
+            textField.resignFirstResponder()
+        } else if (textField == self.txtConfirmNewEmail) {
+            textField.resignFirstResponder()
+        }
+        return true
     }
 }

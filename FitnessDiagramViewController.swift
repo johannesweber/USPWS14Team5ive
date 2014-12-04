@@ -25,5 +25,4 @@ class FitnessDiagramViewController: UIViewController {
     @IBAction func yearDiagram(sender: UIButton) {
         
     }
-    
 }

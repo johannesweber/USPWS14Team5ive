@@ -1145,7 +1145,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="E2J-d2-urK" kind="push" id="jXH-4G-ocU"/>
+                                    <segue destination="yNo-3s-K6V" kind="push" id="CzC-dg-JFU"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1161,62 +1161,17 @@
             <point key="canvasLocation" x="1020" y="-3677"/>
         </scene>
         <!--Fitness Diagram-->
-        <scene sceneID="EkC-w7-4WX">
+        <scene sceneID="r9J-Hi-9ex">
             <objects>
-                <viewController id="E2J-d2-urK" customClass="FitnessDiagramViewController" customModule="USPWS14Team5ive" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="AaE-Pa-Fha" customClass="CPTGraphHostingView">
+                <viewController id="yNo-3s-K6V" customClass="FitnessDiagramViewController" customModule="USPWS14Team5ive" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PUU-2Y-HWF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="DEA-rj-Nw8">
-                                <rect key="frame" x="24" y="90" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Day">
-                                    <color key="titleColor" red="0.25098039220000001" green="0.21176470589999999" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="dayDiagram:" destination="E2J-d2-urK" eventType="touchUpInside" id="AIb-w8-wJr"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="cY1-6e-OR9">
-                                <rect key="frame" x="266" y="90" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Year">
-                                    <color key="titleColor" red="0.25098039220000001" green="0.21176470589999999" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="yearDiagram:" destination="E2J-d2-urK" eventType="touchUpInside" id="tjr-Uo-Kje"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="HcJ-Tq-wsd">
-                                <rect key="frame" x="175" y="90" width="44" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Month">
-                                    <color key="titleColor" red="0.25098039220000001" green="0.21176470589999999" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="monthDiagram:" destination="E2J-d2-urK" eventType="touchUpInside" id="xJ5-Mk-ZiE"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="NXY-PD-pEa">
-                                <rect key="frame" x="96" y="90" width="38" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Week">
-                                    <color key="titleColor" red="0.25098039220000001" green="0.21176470589999999" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="weekDiagram:" destination="E2J-d2-urK" eventType="touchUpInside" id="MnC-Cp-7Vs"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" white="0.96069163079999997" alpha="1" colorSpace="deviceWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Fitness Diagram" id="Jou-zg-xgt"/>
+                    <navigationItem key="navigationItem" title="Fitness Diagram" id="aor-gN-IYI"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="tHF-Wt-Pte" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Gxy-zg-C9z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1482" y="-3677"/>
         </scene>
@@ -1703,6 +1658,13 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ss1-JW-YL2">
+                                            <rect key="frame" x="18" y="21" width="42" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>

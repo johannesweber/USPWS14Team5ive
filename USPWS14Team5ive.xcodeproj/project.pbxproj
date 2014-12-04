@@ -391,6 +391,7 @@
 		0E3ADB791A2792F20075F981 /* VitalsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VitalsTableViewController.swift; sourceTree = "<group>"; };
 		0E3ADB7B1A279E730075F981 /* NutritionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionTableViewController.swift; sourceTree = "<group>"; };
 		0E3ADB7D1A279FF90075F981 /* SleepTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SleepTableViewController.swift; sourceTree = "<group>"; };
+		0E46FFFE1A308BB1002686C3 /* USPWS14Team5ive-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "USPWS14Team5ive-Bridging-Header.h"; sourceTree = "<group>"; };
 		0E56AFB11A2C6B6F00778C01 /* GoalsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalsTableViewController.swift; sourceTree = "<group>"; };
 		0E6161881A1E46C5006E0AD7 /* OAuth1Swift_Withings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth1Swift_Withings.swift; sourceTree = "<group>"; };
 		0E61618A1A1E48B4006E0AD7 /* OAuth1Swift_Vitadock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth1Swift_Vitadock.swift; sourceTree = "<group>"; };
@@ -734,7 +735,6 @@
 		0EFF3AD719FCD22C00AB3C17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0EFF3AD819FCD22C00AB3C17 /* USPWS14Team5iveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = USPWS14Team5iveTests.swift; sourceTree = "<group>"; };
 		0EFF3AE219FCD29A00AB3C17 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		0EFF3AE419FCD46700AB3C17 /* USPWS14Team5ive-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "USPWS14Team5ive-Bridging-Header.h"; path = "USPWS14Team5ive/USPWS14Team5ive-Bridging-Header.h"; sourceTree = "<group>"; };
 		0EFF3AE919FCD4C400AB3C17 /* Dictionary+OAuthSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+OAuthSwift.swift"; sourceTree = "<group>"; };
 		0EFF3AEA19FCD4C400AB3C17 /* NSURL+OAuthSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURL+OAuthSwift.swift"; sourceTree = "<group>"; };
 		0EFF3AEB19FCD4C400AB3C17 /* String+OAuthSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+OAuthSwift.swift"; sourceTree = "<group>"; };
@@ -1212,6 +1212,7 @@
 		0EFF3AB119FCD22C00AB3C17 = {
 			isa = PBXGroup;
 			children = (
+				0E46FFFE1A308BB1002686C3 /* USPWS14Team5ive-Bridging-Header.h */,
 				0E1ADE881A2C936700820ED2 /* Objects */,
 				0E860F691A2C66D600A9F152 /* Controller */,
 				0EFF3AE819FCD4C400AB3C17 /* Extension */,
@@ -1225,10 +1226,10 @@
 				0EFF3ACB19FCD22C00AB3C17 /* LaunchScreen.xib */,
 				0EFF3AC119FCD22C00AB3C17 /* USPWS14Team5ive.xcdatamodeld */,
 				0EFF3ABD19FCD22C00AB3C17 /* Supporting Files */,
-				0EFF3AE419FCD46700AB3C17 /* USPWS14Team5ive-Bridging-Header.h */,
 				0EFF3AE219FCD29A00AB3C17 /* Default-568h@2x.png */,
 				0EFF3AD519FCD22C00AB3C17 /* USPWS14Team5iveTests */,
 				0EFF3ABB19FCD22C00AB3C17 /* Products */,
+				D3AC3631A81E5A27A10B5D77 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1308,6 +1309,13 @@
 			name = SwiftHTTP;
 			sourceTree = "<group>";
 		};
+		D3AC3631A81E5A27A10B5D77 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1315,9 +1323,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0EFF3ADC19FCD22C00AB3C17 /* Build configuration list for PBXNativeTarget "USPWS14Team5ive" */;
 			buildPhases = (
+				ED834ECF0940CC91EEBEFA4F /* Check Pods Manifest.lock */,
 				0EFF3AB619FCD22C00AB3C17 /* Sources */,
 				0EFF3AB719FCD22C00AB3C17 /* Frameworks */,
 				0EFF3AB819FCD22C00AB3C17 /* Resources */,
+				3EACDFF560674D691D2BB989 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1332,9 +1342,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0EFF3ADF19FCD22C00AB3C17 /* Build configuration list for PBXNativeTarget "USPWS14Team5iveTests" */;
 			buildPhases = (
+				EFB732D091109B969BABDFE3 /* Check Pods Manifest.lock */,
 				0EFF3ACE19FCD22C00AB3C17 /* Sources */,
 				0EFF3ACF19FCD22C00AB3C17 /* Frameworks */,
 				0EFF3AD019FCD22C00AB3C17 /* Resources */,
+				F6E44ACC2D4291CC1123122D /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1708,6 +1720,73 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3EACDFF560674D691D2BB989 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "
+";
+			showEnvVarsInLog = 0;
+		};
+		ED834ECF0940CC91EEBEFA4F /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "
+";
+			showEnvVarsInLog = 0;
+		};
+		EFB732D091109B969BABDFE3 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "
+";
+			showEnvVarsInLog = 0;
+		};
+		F6E44ACC2D4291CC1123122D /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "
+";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		0EFF3AB619FCD22C00AB3C17 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -1899,8 +1978,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_INCLUDE_PATHS = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "USPWS14Team5ive/USPWS14Team5ive-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "USPWS14Team5ive-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1917,8 +1997,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_INCLUDE_PATHS = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "USPWS14Team5ive/USPWS14Team5ive-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "USPWS14Team5ive-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

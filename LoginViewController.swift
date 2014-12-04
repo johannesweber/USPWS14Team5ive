@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var txtMailAddress: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
@@ -17,16 +17,28 @@ class LoginViewController: UIViewController {
         super.viewDidAppear(true)
         
         self.txtPassword.text = ""
-        self.txtMailAddress.text = ""
         
         let prefs:NSUserDefaults = NSUserDefaults.standardUserDefaults()
         let isLoggedIn:Int = prefs.integerForKey("ISLOGGEDIN") as Int
         if (isLoggedIn == 1) {
             self.performSegueWithIdentifier("goToDashboard", sender: self)
         }
+        
+        self.txtMailAddress.delegate = self
+        self.txtPassword.delegate = self
+        
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if (textField == self.txtMailAddress) {
+            textField.resignFirstResponder()
+        } else if (textField == self.txtPassword) {
+            textField.resignFirstResponder()
+        }
+        return true
     }
 
-    @IBAction func contiueWithoutLogin(sender: UIButton) {
+    @IBAction func continueWithoutLogin(sender: UIButton) {
         
     }
     

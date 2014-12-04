@@ -8,13 +8,17 @@
 
 import UIKit
 
-class SignupViewController: UIViewController {
+class SignupViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var txtMailAddress: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
     @IBOutlet weak var txtRepeatPassword: UITextField!
-
     
+    override func viewDidAppear(animated: Bool) {
+        self.txtMailAddress.delegate = self
+        self.txtPassword.delegate = self
+        self.txtRepeatPassword.delegate = self
+    }
     
     @IBAction func goToLoginTapped(sender: UIButton) {
         self.navigationController?.popToRootViewControllerAnimated(true)
@@ -155,14 +159,23 @@ class SignupViewController: UIViewController {
         
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if (textField == self.txtMailAddress) {
+            textField.resignFirstResponder()
+        } else if (textField == self.txtPassword) {
+            textField.resignFirstResponder()
+        } else if (textField == self.txtRepeatPassword) {
+            textField.resignFirstResponder()
+        }
+        return true
     }
-    */
+    
 
+    
+    
+    
+    
+    
+    
+    
 }

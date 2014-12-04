@@ -31,7 +31,6 @@ class AddGoalTableViewController: UITableViewController {
     var startDatePickerVisible = false
     var endDatePickerVisible = false
     
-    
     @IBAction func targetValueSlider(sender: UISlider) {
         
     }
@@ -68,6 +67,7 @@ class AddGoalTableViewController: UITableViewController {
             tableView.insertRowsAtIndexPaths([indexPathStartDatePicker],withRowAnimation: .Fade)
             tableView.reloadRowsAtIndexPaths([indexPathStartDateRow], withRowAnimation: .None)
             tableView.endUpdates()
+        
                 if let pickerCell = tableView.cellForRowAtIndexPath(indexPathStartDatePicker) {
                     let startdatePicker = pickerCell.viewWithTag(100) as UIDatePicker
                     startdatePicker.setDate(startdate, animated: false)
@@ -108,7 +108,7 @@ class AddGoalTableViewController: UITableViewController {
     }
         
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-            
+        
         if indexPath.section == 1 && indexPath.row == 1 {
             return 217
         } else {
@@ -116,8 +116,7 @@ class AddGoalTableViewController: UITableViewController {
         }
     }
         
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath
-            indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         if indexPath.section == 1 && indexPath.row == 0 {
             if !startDatePickerVisible {
@@ -159,8 +158,10 @@ class AddGoalTableViewController: UITableViewController {
     func hideStartDatePicker() {
         if startDatePickerVisible {
             startDatePickerVisible = false
+            
             let indexPathStartDateRow = NSIndexPath(forRow: 0, inSection: 1)
             let indexPathStartDatePicker = NSIndexPath(forRow: 1, inSection: 1)
+            
             if let cell = tableView.cellForRowAtIndexPath(indexPathStartDateRow) {
                 cell.detailTextLabel!.textColor = UIColor(white: 0, alpha: 0.5)
             }

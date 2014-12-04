@@ -10,6 +10,7 @@ import UIKit
 
 class FitnessDiagramViewController: UIViewController {
 
+    
     @IBAction func dayDiagram(sender: UIButton) {
         
     }

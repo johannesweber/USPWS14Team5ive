@@ -38,7 +38,6 @@
 		8306C9121A23409D00B00BEE /* HTTPUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8306C90E1A23409D00B00BEE /* HTTPUpload.swift */; };
 		83763DEC1A30C3F500DFF665 /* getSignatureWithings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83763DEB1A30C3F500DFF665 /* getSignatureWithings.swift */; };
 		83CEEE8E1A26366500092BB7 /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839BBDA71A2635C100851942 /* DemoViewController.swift */; };
-		83CEEE921A263D1F00092BB7 /* DatabaseConnectionWithings2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CEEE911A263D1F00092BB7 /* DatabaseConnectionWithings2.swift */; };
 		83CEEE941A26406500092BB7 /* DatabaseConnectionVitadock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CEEE931A26406500092BB7 /* DatabaseConnectionVitadock.swift */; };
 		83CEEE961A272B5400092BB7 /* OAuthSwiftClient_Vitadock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CEEE951A272B5400092BB7 /* OAuthSwiftClient_Vitadock.swift */; };
 /* End PBXBuildFile section */
@@ -64,6 +63,7 @@
 		0E818FAF1A25131B000B9DA6 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0EAC7F741A1FE80E00EA20D5 /* FocusedHealthPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = FocusedHealthPlayground.playground; sourceTree = "<group>"; };
 		0EC9ACED1A253D3B002C6661 /* DatabaseConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseConnection.swift; sourceTree = "<group>"; };
+		0EFAB02C1A30D073004DC202 /* DatabaseConnectionWithings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseConnectionWithings.swift; sourceTree = "<group>"; };
 		0EFF3ABA19FCD22C00AB3C17 /* USPWS14Team5ive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = USPWS14Team5ive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EFF3ABE19FCD22C00AB3C17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0EFF3ABF19FCD22C00AB3C17 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = USPWS14Team5ive/AppDelegate.swift; sourceTree = "<group>"; };
@@ -93,7 +93,6 @@
 		83763DEB1A30C3F500DFF665 /* getSignatureWithings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = getSignatureWithings.swift; sourceTree = "<group>"; };
 		839BBDA71A2635C100851942 /* DemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
 		83C670FE1A1F5735004D58BD /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
-		83CEEE911A263D1F00092BB7 /* DatabaseConnectionWithings2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseConnectionWithings2.swift; sourceTree = "<group>"; };
 		83CEEE931A26406500092BB7 /* DatabaseConnectionVitadock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseConnectionVitadock.swift; sourceTree = "<group>"; };
 		83CEEE951A272B5400092BB7 /* OAuthSwiftClient_Vitadock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthSwiftClient_Vitadock.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -130,8 +129,8 @@
 			children = (
 				0E7446E81A2387FA00D8B771 /* DatabaseConnectionFitbit.swift */,
 				0EC9ACED1A253D3B002C6661 /* DatabaseConnection.swift */,
-				83CEEE911A263D1F00092BB7 /* DatabaseConnectionWithings2.swift */,
 				83CEEE931A26406500092BB7 /* DatabaseConnectionVitadock.swift */,
+				0EFAB02C1A30D073004DC202 /* DatabaseConnectionWithings.swift */,
 			);
 			name = DatabaseConnection;
 			sourceTree = "<group>";
@@ -298,7 +297,7 @@
 		0EFF3AB219FCD22C00AB3C17 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0620;
 				ORGANIZATIONNAME = "Johannes Weber";
 				TargetAttributes = {
 					0EFF3AB919FCD22C00AB3C17 = {
@@ -357,7 +356,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83CEEE921A263D1F00092BB7 /* DatabaseConnectionWithings2.swift in Sources */,
 				83CEEE961A272B5400092BB7 /* OAuthSwiftClient_Vitadock.swift in Sources */,
 				8306C9111A23409D00B00BEE /* HTTPTask.swift in Sources */,
 				0E7446E61A236B8A00D8B771 /* DatabaseConnectionWithings.swift in Sources */,

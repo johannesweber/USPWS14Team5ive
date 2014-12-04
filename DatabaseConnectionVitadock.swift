@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Johannes Weber. All rights reserved.
 //
 
+import Foundation
 
 class DatabaseConnectionVitadock {
     

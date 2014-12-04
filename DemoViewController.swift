@@ -167,7 +167,7 @@ class DemoViewController: UIViewController {
             let url: NSURL = NSURL (string:"https://wbsapi.withings.net/v2/measure")!
             let action: String = "getactivity"
             
-            var db_connection = DatabaseConnectionWithings2()
+            var db_connection = DatabaseConnectionWithings()
             
             var parameters = oauthswift_withings.client.getSignatureWithings(action, url: url)
             

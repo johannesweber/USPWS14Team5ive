@@ -36,6 +36,7 @@
 		8306C9101A23409D00B00BEE /* HTTPResponseSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8306C90C1A23409D00B00BEE /* HTTPResponseSerializer.swift */; };
 		8306C9111A23409D00B00BEE /* HTTPTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8306C90D1A23409D00B00BEE /* HTTPTask.swift */; };
 		8306C9121A23409D00B00BEE /* HTTPUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8306C90E1A23409D00B00BEE /* HTTPUpload.swift */; };
+		83763DEC1A30C3F500DFF665 /* getSignatureWithings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83763DEB1A30C3F500DFF665 /* getSignatureWithings.swift */; };
 		83CEEE8E1A26366500092BB7 /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839BBDA71A2635C100851942 /* DemoViewController.swift */; };
 		83CEEE921A263D1F00092BB7 /* DatabaseConnectionWithings2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CEEE911A263D1F00092BB7 /* DatabaseConnectionWithings2.swift */; };
 		83CEEE941A26406500092BB7 /* DatabaseConnectionVitadock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CEEE931A26406500092BB7 /* DatabaseConnectionVitadock.swift */; };
@@ -89,6 +90,7 @@
 		8306C90D1A23409D00B00BEE /* HTTPTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPTask.swift; sourceTree = "<group>"; };
 		8306C90E1A23409D00B00BEE /* HTTPUpload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPUpload.swift; sourceTree = "<group>"; };
 		8306C9131A2340A700B00BEE /* SwiftHTTP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftHTTP.h; sourceTree = "<group>"; };
+		83763DEB1A30C3F500DFF665 /* getSignatureWithings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = getSignatureWithings.swift; sourceTree = "<group>"; };
 		839BBDA71A2635C100851942 /* DemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
 		83C670FE1A1F5735004D58BD /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		83CEEE911A263D1F00092BB7 /* DatabaseConnectionWithings2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseConnectionWithings2.swift; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 				0EFF3AF319FCD4C400AB3C17 /* OAuthSwiftHTTPRequest.swift */,
 				0EFF3AFD19FCD5D000AB3C17 /* Constants.swift */,
 				83C670FE1A1F5735004D58BD /* MyPlayground.playground */,
+				83763DEB1A30C3F500DFF665 /* getSignatureWithings.swift */,
 			);
 			name = OAuth;
 			path = Oauth;
@@ -369,6 +372,7 @@
 				0EFF3AF619FCD4C400AB3C17 /* String+OAuthSwift.swift in Sources */,
 				0EFF3AFE19FCD5D000AB3C17 /* Constants.swift in Sources */,
 				0E61618B1A1E48B4006E0AD7 /* OAuth1Swift_Vitadock.swift in Sources */,
+				83763DEC1A30C3F500DFF665 /* getSignatureWithings.swift in Sources */,
 				0EFF3AC019FCD22C00AB3C17 /* AppDelegate.swift in Sources */,
 				0EFF3AC319FCD22C00AB3C17 /* USPWS14Team5ive.xcdatamodeld in Sources */,
 				0E3369921A1B4ABA007F17FD /* HMACAlgorithm.swift in Sources */,

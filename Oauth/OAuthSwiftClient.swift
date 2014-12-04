@@ -111,6 +111,56 @@ class OAuthSwiftClient {
         return "OAuth " + ", ".join(headerComponents)
     }
     
+    func getSignatureWithings(action: String, url: NSURL) -> Dictionary<String, AnyObject>{
+        
+        var signatureParameters: Dictionary<String, AnyObject> = [
+            "action"                    : "\(action)",
+            "userid"                    : "\(credential.user_id)",
+            "oauth_timestamp"           :  String(Int64(NSDate().timeIntervalSince1970)),
+            "oauth_nonce"               : "\(credential.oauth_nonce)",
+            "oauth_consumer_key"        : "\(credential.consumer_key)",
+            "oauth_token"               : "\(credential.oauth_token)",
+            "oauth_version"             : "1.0",
+            "oauth_signature_method"    : "HMAC-SHA1"
+        ]
+
+        let method = "GET"
+        var tokenSecret: NSString = ""
+        tokenSecret = credential.oauth_token_secret.urlEncodedStringWithEncoding(dataEncoding)
+        
+        let encodedConsumerSecret = credential.consumer_secret.urlEncodedStringWithEncoding(dataEncoding)
+        
+        let signingKey = "\(encodedConsumerSecret)&\(tokenSecret)"
+        
+        var parameterComponents = signatureParameters.urlEncodedQueryStringWithEncoding(dataEncoding).componentsSeparatedByString("&") as [String]
+        
+        parameterComponents.sort { $0 < $1 }
+        
+        let parameterString = "&".join(parameterComponents)
+        let encodedParameterString = parameterString.urlEncodedStringWithEncoding(dataEncoding)
+        
+        let encodedURL = url.absoluteString!.urlEncodedStringWithEncoding(dataEncoding)
+        
+        let signatureBaseString = "\(method)&\(encodedURL)&\(encodedParameterString)"
+        let signatureBaseStringData = signatureBaseString.dataUsingEncoding(dataEncoding)
+        
+        let signature = signatureBaseString.digest(HMACAlgorithm.SHA1, key: signingKey).base64EncodedStringWithOptions(nil)
+        println(signature)
+        println()
+        println(signatureBaseString)
+        
+        var finalSignature = signature
+            .stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())!
+            .stringByReplacingOccurrencesOfString("+", withString: "%2B", options: NSStringCompareOptions.LiteralSearch, range: nil)
+            .stringByReplacingOccurrencesOfString("=", withString: "%3D", options: NSStringCompareOptions.LiteralSearch, range: nil).stringByReplacingOccurrencesOfString("/", withString: "%2F", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        
+        signatureParameters["oauth_signature"] = finalSignature
+        
+        return signatureParameters
+        
+    }
+
+    
     class func oauthSignatureForMethod(method: String, url: NSURL, parameters: Dictionary<String, AnyObject>, credential: OAuthSwiftCredential) -> String {
         
         println(parameters)

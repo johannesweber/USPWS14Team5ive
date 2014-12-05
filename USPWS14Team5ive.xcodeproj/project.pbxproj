@@ -18,7 +18,6 @@
 		0E3ADB7C1A279E730075F981 /* NutritionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3ADB7B1A279E730075F981 /* NutritionTableViewController.swift */; };
 		0E3ADB7E1A279FF90075F981 /* SleepTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3ADB7D1A279FF90075F981 /* SleepTableViewController.swift */; };
 		0E56AFB21A2C6B6F00778C01 /* GoalsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E56AFB11A2C6B6F00778C01 /* GoalsTableViewController.swift */; };
-		0E6161891A1E46C5006E0AD7 /* OAuth1Swift_Withings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6161881A1E46C5006E0AD7 /* OAuth1Swift_Withings.swift */; };
 		0E61618B1A1E48B4006E0AD7 /* OAuth1Swift_Vitadock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E61618A1A1E48B4006E0AD7 /* OAuth1Swift_Vitadock.swift */; };
 		0E6161991A1F8ADD006E0AD7 /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6161981A1F8ADD006E0AD7 /* DemoViewController.swift */; };
 		0E69E6AA1A2C697E007E29AD /* AddGoalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E69E6A91A2C697E007E29AD /* AddGoalTableViewController.swift */; };
@@ -37,7 +36,6 @@
 		0E6F27421A2CF0B900F58A13 /* VitalsDiagramViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6F27411A2CF0B900F58A13 /* VitalsDiagramViewController.swift */; };
 		0E6F27441A2CF19200F58A13 /* NutritionDiagramViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6F27431A2CF19200F58A13 /* NutritionDiagramViewController.swift */; };
 		0E6F27461A2CF1E000F58A13 /* SleepDiagramViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6F27451A2CF1E000F58A13 /* SleepDiagramViewController.swift */; };
-		0E7446E91A2387FA00D8B771 /* DatabaseConnectionFitbit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7446E81A2387FA00D8B771 /* DatabaseConnectionFitbit.swift */; };
 		0E818FAE1A2511AD000B9DA6 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E818FAD1A2511AD000B9DA6 /* SignupViewController.swift */; };
 		0E818FB01A25131B000B9DA6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E818FAF1A25131B000B9DA6 /* LoginViewController.swift */; };
 		0E860E2A1A28E78800A9F152 /* 3d.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E860CFE1A28E78700A9F152 /* 3d.png */; };
@@ -347,6 +345,7 @@
 		0E860F611A2B6FFB00A9F152 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E860F601A2B6FFB00A9F152 /* AccountViewController.swift */; };
 		0E860F631A2B809F00A9F152 /* AddToDashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E860F621A2B809F00A9F152 /* AddToDashboardViewController.swift */; };
 		0E860F671A2C667200A9F152 /* EditGoalsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E860F661A2C667200A9F152 /* EditGoalsTableViewController.swift */; };
+		0E93F52D1A31D131003C08D9 /* OAuthSwiftClient_Vitadock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CEEE951A272B5400092BB7 /* OAuthSwiftClient_Vitadock.swift */; };
 		0EC9ACEE1A253D3B002C6661 /* DatabaseConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC9ACED1A253D3B002C6661 /* DatabaseConnection.swift */; };
 		0EFF3AC019FCD22C00AB3C17 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3ABF19FCD22C00AB3C17 /* AppDelegate.swift */; };
 		0EFF3AC319FCD22C00AB3C17 /* USPWS14Team5ive.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3AC119FCD22C00AB3C17 /* USPWS14Team5ive.xcdatamodeld */; };
@@ -368,8 +367,6 @@
 		8306C9101A23409D00B00BEE /* HTTPResponseSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8306C90C1A23409D00B00BEE /* HTTPResponseSerializer.swift */; };
 		8306C9111A23409D00B00BEE /* HTTPTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8306C90D1A23409D00B00BEE /* HTTPTask.swift */; };
 		8306C9121A23409D00B00BEE /* HTTPUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8306C90E1A23409D00B00BEE /* HTTPUpload.swift */; };
-		83CEEE8E1A26366500092BB7 /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839BBDA71A2635C100851942 /* DemoViewController.swift */; };
-		83CEEE961A272B5400092BB7 /* OAuthSwiftClient_Vitadock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CEEE951A272B5400092BB7 /* OAuthSwiftClient_Vitadock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -395,7 +392,6 @@
 		0E3ADB7D1A279FF90075F981 /* SleepTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SleepTableViewController.swift; sourceTree = "<group>"; };
 		0E46FFFE1A308BB1002686C3 /* USPWS14Team5ive-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "USPWS14Team5ive-Bridging-Header.h"; sourceTree = "<group>"; };
 		0E56AFB11A2C6B6F00778C01 /* GoalsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalsTableViewController.swift; sourceTree = "<group>"; };
-		0E6161881A1E46C5006E0AD7 /* OAuth1Swift_Withings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth1Swift_Withings.swift; sourceTree = "<group>"; };
 		0E61618A1A1E48B4006E0AD7 /* OAuth1Swift_Vitadock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth1Swift_Vitadock.swift; sourceTree = "<group>"; };
 		0E6161981A1F8ADD006E0AD7 /* DemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
 		0E69E6A91A2C697E007E29AD /* AddGoalTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddGoalTableViewController.swift; sourceTree = "<group>"; };
@@ -414,7 +410,6 @@
 		0E6F27411A2CF0B900F58A13 /* VitalsDiagramViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VitalsDiagramViewController.swift; sourceTree = "<group>"; };
 		0E6F27431A2CF19200F58A13 /* NutritionDiagramViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionDiagramViewController.swift; sourceTree = "<group>"; };
 		0E6F27451A2CF1E000F58A13 /* SleepDiagramViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SleepDiagramViewController.swift; sourceTree = "<group>"; };
-		0E7446E81A2387FA00D8B771 /* DatabaseConnectionFitbit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseConnectionFitbit.swift; sourceTree = "<group>"; };
 		0E818FAD1A2511AD000B9DA6 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		0E818FAF1A25131B000B9DA6 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0E860CFE1A28E78700A9F152 /* 3d.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3d.png; sourceTree = "<group>"; };
@@ -724,7 +719,6 @@
 		0E860F601A2B6FFB00A9F152 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		0E860F621A2B809F00A9F152 /* AddToDashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddToDashboardViewController.swift; sourceTree = "<group>"; };
 		0E860F661A2C667200A9F152 /* EditGoalsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditGoalsTableViewController.swift; sourceTree = "<group>"; };
-		0EAC7F741A1FE80E00EA20D5 /* FocusedHealthPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = FocusedHealthPlayground.playground; sourceTree = "<group>"; };
 		0EC9ACED1A253D3B002C6661 /* DatabaseConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseConnection.swift; sourceTree = "<group>"; };
 		0EFF3ABA19FCD22C00AB3C17 /* USPWS14Team5ive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = USPWS14Team5ive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EFF3ABE19FCD22C00AB3C17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -751,7 +745,6 @@
 		8306C90D1A23409D00B00BEE /* HTTPTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPTask.swift; sourceTree = "<group>"; };
 		8306C90E1A23409D00B00BEE /* HTTPUpload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPUpload.swift; sourceTree = "<group>"; };
 		8306C9131A2340A700B00BEE /* SwiftHTTP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftHTTP.h; sourceTree = "<group>"; };
-		839BBDA71A2635C100851942 /* DemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
 		83CEEE951A272B5400092BB7 /* OAuthSwiftClient_Vitadock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthSwiftClient_Vitadock.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1215,12 +1208,11 @@
 			isa = PBXGroup;
 			children = (
 				0E46FFFE1A308BB1002686C3 /* USPWS14Team5ive-Bridging-Header.h */,
-				0E1ADE881A2C936700820ED2 /* Objects */,
-				0E860F691A2C66D600A9F152 /* Controller */,
 				0EFF3AE819FCD4C400AB3C17 /* Extension */,
+				0E860F691A2C66D600A9F152 /* Controller */,
 				0E04EF391A236870008368B7 /* DatabaseConnection */,
+				0E1ADE881A2C936700820ED2 /* Objects */,
 				0E04EF331A2326BA008368B7 /* Library */,
-				0EAC7F741A1FE80E00EA20D5 /* FocusedHealthPlayground.playground */,
 				0E6161941A1F8977006E0AD7 /* Pictures */,
 				0EFF3ABF19FCD22C00AB3C17 /* AppDelegate.swift */,
 				0EFF3AC619FCD22C00AB3C17 /* Main.storyboard */,
@@ -1793,6 +1785,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E93F52D1A31D131003C08D9 /* OAuthSwiftClient_Vitadock.swift in Sources */,
 				0E6F27421A2CF0B900F58A13 /* VitalsDiagramViewController.swift in Sources */,
 				0E6B3F5C1A2DAD3F002193B2 /* FavCompanyViewController.swift in Sources */,
 				0E860F5B1A2B309400A9F152 /* TermsOfUseViewController.swift in Sources */,
@@ -1807,7 +1800,7 @@
 				0E6B3F4F1A2CF703002193B2 /* SettingsTableViewController.swift in Sources */,
 				8306C9101A23409D00B00BEE /* HTTPResponseSerializer.swift in Sources */,
 				0E56AFB21A2C6B6F00778C01 /* GoalsTableViewController.swift in Sources */,
-				0EFF3AF819FCD4C400AB3C17 /* OAuth1Swift_Fitbit.swift in Sources */,
+				0EFF3AF819FCD4C400AB3C17 /* OAuth1Swift.swift in Sources */,
 				0EFF3AFA19FCD4C400AB3C17 /* OAuthSwiftClient.swift in Sources */,
 				8306C90F1A23409D00B00BEE /* HTTPRequestSerializer.swift in Sources */,
 				0EFF3AFB19FCD4C400AB3C17 /* OAuthSwiftCredential.swift in Sources */,
@@ -1825,12 +1818,10 @@
 				0EC9ACEE1A253D3B002C6661 /* DatabaseConnection.swift in Sources */,
 				0E860F571A2B276C00A9F152 /* ForgotPasswordViewController.swift in Sources */,
 				0E69E6AA1A2C697E007E29AD /* AddGoalTableViewController.swift in Sources */,
-				0E7446E91A2387FA00D8B771 /* DatabaseConnectionFitbit.swift in Sources */,
 				0E3ADB721A272AF90075F981 /* DashboardViewController.swift in Sources */,
 				0E860F591A2B2D6500A9F152 /* DisclaimerViewController.swift in Sources */,
 				0E860F5F1A2B3B3200A9F152 /* PrivacyPolicyViewController.swift in Sources */,
 				0E6B3F4D1A2CF60D002193B2 /* EditAccountViewController.swift in Sources */,
-				0E6161891A1E46C5006E0AD7 /* OAuth1Swift_Withings.swift in Sources */,
 				0E6F27401A2CF02D00F58A13 /* FitnessDiagramViewController.swift in Sources */,
 				0EFF3AFC19FCD4C400AB3C17 /* OAuthSwiftHTTPRequest.swift in Sources */,
 				0E1ADE871A2C852E00820ED2 /* TableItem.swift in Sources */,

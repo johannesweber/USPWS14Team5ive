@@ -9,6 +9,7 @@
 import Foundation
 
 class DatabaseConnection {
+    
     var result = NSString()
     var request = HTTPTask()
     var response = Dictionary<String,AnyObject>()
@@ -47,13 +48,11 @@ class DatabaseConnection {
     }
     
     //Send Fitbit OAuth Credentials
-    
-    
-        func postFitbitCredentialsToServer(parameter: Dictionary<String,AnyObject>){
+    func postFitbitCredentialsToServer(parameter: Dictionary<String,AnyObject>){
         
-        let url: String = "http://141.19.142.45/~johannes/focusedhealth/fitbit/authorize/"
+    let url: String = "http://141.19.142.45/~johannes/focusedhealth/fitbit/authorize/"
+    var request = HTTPTask()
         
-        var request = HTTPTask()
         request.POST(url, parameters: parameter, success: {(response: HTTPResponse) in
             if let data = response.responseObject as? NSData {
                 let resultStr = NSString(data: data, encoding: NSUTF8StringEncoding)!
@@ -64,13 +63,11 @@ class DatabaseConnection {
     }
     
     //Send Withings OAuth Credentials
-
-    
-        func postWithingsCredentialsToServer(parameter: Dictionary<String,AnyObject>){
+    func postWithingsCredentialsToServer(parameter: Dictionary<String,AnyObject>){
         
-        let url: String = "http://141.19.142.45/~johannes/focusedhealth/withings/"
-
+        let url: String = "http://141.19.142.45/~johannes/focusedhealth/withings/authorize"
         var request = HTTPTask()
+        
         request.GET(url, parameters: parameter, success: {(response: HTTPResponse) in
             if let data = response.responseObject as? NSData {
                 let resultStr = NSString(data: data, encoding: NSUTF8StringEncoding)!
@@ -81,13 +78,11 @@ class DatabaseConnection {
     }
     
     //Send Vitadock OAuth Credentials
-    
-    
     func postVitadockCredentialsToServer(parameter: Dictionary<String,AnyObject>){
         
-        let url: String = "http://141.19.142.45/~christian/focusedhealth/vitadock/"
-        
+        let url: String = "http://141.19.142.45/~christian/focusedhealth/vitadock/authorize"
         var request = HTTPTask()
+        
         request.GET(url, parameters: parameter, success: {(response: HTTPResponse) in
             if let data = response.responseObject as? NSData {
                 let resultStr = NSString(data: data, encoding: NSUTF8StringEncoding)!

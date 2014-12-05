@@ -99,8 +99,13 @@ class OAuthSwiftClient_Vitadock {
         credential.oauth_signature = signatureForHeader
         
         var oauthHeader = String()
+        var oauth_verifier = String()
         
-        var oauth_verifier = authorizationParameters["oauth_verifier"] as String
+        if(credential.oauth_verifier != ""){
+            authorizationParameters["oauth_verifier"] = credential.oauth_verifier
+            
+            oauth_verifier = authorizationParameters["oauth_verifier"] as String
+        }
         
         var oauth_consumer_key = authorizationParameters["oauth_consumer_key"] as String
         

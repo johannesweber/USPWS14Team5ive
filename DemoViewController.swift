@@ -163,11 +163,17 @@ class DemoViewController: UIViewController {
             credentials, response in
             self.showAlertView("Withings", message: "oauth_token:\(credentials.oauth_token)\n\noauth_token_secret:\(credentials.oauth_token_secret)\n\nuser_id:\(credentials.user_id)")
             
-            var parameters: Dictionary<String, AnyObject> = Dictionary()
+            println("Secret:.....\(credentials.oauth_token_secret)")
+            
+            var parameters: Dictionary<String, AnyObject> = [
+                
+                "userid"                : "\(credentials.user_id)",
+                "oauth_token"           : "\(credentials.oauth_token)",
+                "oauth_token_secret"    : "\(credentials.oauth_token_secret)"
+            ]
+
             
             var db_connection = DatabaseConnectionWithings()
-            
-            parameters = oauthswift_withings.client.getParametersForBodyMeasures()
             
             db_connection.postWithingsCredentialsToServer(parameters)
             

@@ -158,34 +158,57 @@ class OAuthSwiftClient {
         var tokenSecret: NSString = ""
         tokenSecret = credential.oauth_token_secret.urlEncodedStringWithEncoding(dataEncoding)
         
+        println("token secret encoded: \(tokenSecret)")
+        
         let encodedConsumerSecret = credential.consumer_secret.urlEncodedStringWithEncoding(dataEncoding)
         
+        println("encoded consumer secret : \(encodedConsumerSecret)")
+        
         let signingKey = "\(encodedConsumerSecret)&\(tokenSecret)"
+        
+        println("signing key \(signingKey)")
         
         var parameterComponents = signatureParameters.urlEncodedQueryStringWithEncoding(dataEncoding).componentsSeparatedByString("&") as [String]
         
         parameterComponents.sort { $0 < $1 }
         
         let parameterString = "&".join(parameterComponents)
+        
+        println("parameter string \(parameterString)")
+        
         let encodedParameterString = parameterString.urlEncodedStringWithEncoding(dataEncoding)
+        
+        println("encoded parameter string \(encodedParameterString)")
+        
         
         //was ist ein absolute string? println()
         let encodedURL = url.absoluteString!.urlEncodedStringWithEncoding(dataEncoding)
         
+        println("Absolute String: \(encodedURL)")
+        
         let signatureBaseString = "\(method)&\(encodedURL)&\(encodedParameterString)"
+        
+        println(" signature base string \(signatureBaseString)")
+        
         let signatureBaseStringData = signatureBaseString.dataUsingEncoding(dataEncoding)
         
-        let signature = signatureBaseString.digest(HMACAlgorithm.SHA1, key: signingKey).base64EncodedStringWithOptions(nil)
-        println(signature)
-        println()
-        println(signatureBaseString)
+        println(" signature base string data \(signatureBaseStringData)")
         
-        var finalSignature = signature
-            .stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())!
+        let signature = signatureBaseString.digest(HMACAlgorithm.SHA1, key: signingKey).base64EncodedStringWithOptions(nil)
+        
+        println(" signature\(signature)")
+        
+        var test = signature.stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())!
+        
+        println(" test test test....\(test)")
+        
+        var finalSignature = signature.stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet())!
             .stringByReplacingOccurrencesOfString("+", withString: "%2B", options: NSStringCompareOptions.LiteralSearch, range: nil)
             .stringByReplacingOccurrencesOfString("=", withString: "%3D", options: NSStringCompareOptions.LiteralSearch, range: nil).stringByReplacingOccurrencesOfString("/", withString: "%2F", options: NSStringCompareOptions.LiteralSearch, range: nil)
         
         signatureParameters["oauth_signature"] = finalSignature
+        
+        println(" finale signature\(finalSignature)")
         
         return signatureParameters
     }

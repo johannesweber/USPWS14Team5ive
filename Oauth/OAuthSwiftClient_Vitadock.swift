@@ -123,8 +123,6 @@ class OAuthSwiftClient_Vitadock {
 
         var oauth_version = authorizationParameters["oauth_version"] as String
         
-        //TOKEN UND VERIFIER ZWISCHEN NONCE UND VERSION für access token
-        
         if (oauth_token != ""){
             if(oauth_verifier != ""){
                 oauthHeader = "OAuth oauth_consumer_key=" + oauth_consumer_key + ",oauth_signature_method=" + oauth_signature_method + ",oauth_timestamp=" + oauth_timestamp + ",oauth_nonce=" + oauth_nonce + ",oauth_token=" + oauth_token + ",oauth_verifier=" + oauth_verifier + ",oauth_version=" + oauth_version + ",oauth_signature=" + signatureForHeader
@@ -148,7 +146,6 @@ class OAuthSwiftClient_Vitadock {
         let encodedConsumerSecret = credential.consumer_secret.urlEncodedStringWithEncoding(dataEncoding)
         
         let signingKey = "\(encodedConsumerSecret)&\(tokenSecret)"
-        let signingKeyData = signingKey.dataUsingEncoding(dataEncoding)
         
         var parameterComponents = parameters.urlEncodedQueryStringWithEncoding(dataEncoding).componentsSeparatedByString("&") as [String]
         
@@ -157,12 +154,10 @@ class OAuthSwiftClient_Vitadock {
         let parameterString = "&".join(parameterComponents)
         let encodedParameterString = parameterString.urlEncodedStringWithEncoding(dataEncoding)
         
-        println(encodedParameterString)
         
         let encodedURL = url.absoluteString!.urlEncodedStringWithEncoding(dataEncoding)
         
         let signatureBaseString = "\(method)&\(encodedURL)&\(encodedParameterString)"
-        let signatureBaseStringData = signatureBaseString.dataUsingEncoding(dataEncoding)
 
         let signature = signatureBaseString.digest(HMACAlgorithm.SHA256, key: signingKey).base64EncodedStringWithOptions(nil)
         return signature

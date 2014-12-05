@@ -45,7 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if (url.host == "oauth-callback") {
             if (url.path!.hasPrefix("/vitadock") || url.path!.hasPrefix("/fitbit")) || url.path!.hasPrefix("/withings") {
-                OAuth1Swift_Fitbit.handleOpenURL(url)
+                OAuth1Swift.handleOpenURL(url)
             }
         
         }

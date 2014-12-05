@@ -228,6 +228,7 @@ public class HTTPTask : NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate
                         extraResponse.suggestedFilename = hresponse.suggestedFilename
                         extraResponse.statusCode = hresponse.statusCode
                         extraResponse.URL = hresponse.URL
+                        println(hresponse.URL)
                     }
                     extraResponse.responseObject = responseObject
                     if extraResponse.statusCode > 299 {

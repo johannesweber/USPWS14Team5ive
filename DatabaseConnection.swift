@@ -9,7 +9,7 @@
 import Foundation
 
 class DatabaseConnection {
-    
+    var result = NSString()
     var request = HTTPTask()
     var response = Dictionary<String,AnyObject>()
     
@@ -46,4 +46,56 @@ class DatabaseConnection {
         return self.response
     }
     
+    //Send Fitbit OAuth Credentials
+    
+    
+        func postFitbitCredentialsToServer(parameter: Dictionary<String,AnyObject>){
+        
+        let url: String = "http://141.19.142.45/~johannes/focusedhealth/fitbit/authorize/"
+        
+        var request = HTTPTask()
+        request.POST(url, parameters: parameter, success: {(response: HTTPResponse) in
+            if let data = response.responseObject as? NSData {
+                let resultStr = NSString(data: data, encoding: NSUTF8StringEncoding)!
+                println("Result: \(resultStr)")
+            }
+            },failure: {(error: NSError, response: HTTPResponse?) in
+        })
+    }
+    
+    //Send Withings OAuth Credentials
+
+    
+        func postWithingsCredentialsToServer(parameter: Dictionary<String,AnyObject>){
+        
+        let url: String = "http://141.19.142.45/~johannes/focusedhealth/withings/"
+
+        var request = HTTPTask()
+        request.GET(url, parameters: parameter, success: {(response: HTTPResponse) in
+            if let data = response.responseObject as? NSData {
+                let resultStr = NSString(data: data, encoding: NSUTF8StringEncoding)!
+                println("Result: \(resultStr)")
+            }
+            },failure: {(error: NSError, response: HTTPResponse?) in
+        })
+    }
+    
+    //Send Vitadock OAuth Credentials
+    
+    
+    func postVitadockCredentialsToServer(parameter: Dictionary<String,AnyObject>){
+        
+        let url: String = "http://141.19.142.45/~christian/focusedhealth/vitadock/"
+        
+        var request = HTTPTask()
+        request.GET(url, parameters: parameter, success: {(response: HTTPResponse) in
+            if let data = response.responseObject as? NSData {
+                let resultStr = NSString(data: data, encoding: NSUTF8StringEncoding)!
+                
+                println("Result: \(resultStr)")
+            }
+            },failure: {(error: NSError, response: HTTPResponse?) in
+        })
+    } 
+
 }

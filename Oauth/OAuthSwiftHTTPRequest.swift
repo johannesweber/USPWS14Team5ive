@@ -81,9 +81,6 @@ class OAuthSwiftHTTPRequest: NSObject, NSURLConnectionDataDelegate {
             
             var nonOAuthParameters = self.parameters.filter { key, _ in !key.hasPrefix("oauth_") }
             
-            //url ausprinten
-            println("1. \(self.URL)")
-            
             if nonOAuthParameters.count > 0 {
                 if self.HTTPMethod == "GET" || self.HTTPMethod == "HEAD" || self.HTTPMethod == "DELETE" {
                     let queryString = nonOAuthParameters.urlEncodedQueryStringWithEncoding(self.dataEncoding)
@@ -103,10 +100,12 @@ class OAuthSwiftHTTPRequest: NSObject, NSURLConnectionDataDelegate {
                             self.request!.HTTPBody = jsonData
                         }
                         else {
+                            
                             println(error!.localizedDescription)
                         }
                     }
                 }
+                
             }
         }
                 

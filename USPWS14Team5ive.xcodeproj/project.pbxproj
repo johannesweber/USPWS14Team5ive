@@ -358,7 +358,7 @@
 		0EFF3AF419FCD4C400AB3C17 /* Dictionary+OAuthSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3AE919FCD4C400AB3C17 /* Dictionary+OAuthSwift.swift */; };
 		0EFF3AF519FCD4C400AB3C17 /* NSURL+OAuthSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3AEA19FCD4C400AB3C17 /* NSURL+OAuthSwift.swift */; };
 		0EFF3AF619FCD4C400AB3C17 /* String+OAuthSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3AEB19FCD4C400AB3C17 /* String+OAuthSwift.swift */; };
-		0EFF3AF819FCD4C400AB3C17 /* OAuth1Swift_Fitbit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3AEE19FCD4C400AB3C17 /* OAuth1Swift_Fitbit.swift */; };
+		0EFF3AF819FCD4C400AB3C17 /* OAuth1Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3AEE19FCD4C400AB3C17 /* OAuth1Swift.swift */; };
 		0EFF3AF919FCD4C400AB3C17 /* OAuth2Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3AEF19FCD4C400AB3C17 /* OAuth2Swift.swift */; };
 		0EFF3AFA19FCD4C400AB3C17 /* OAuthSwiftClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3AF119FCD4C400AB3C17 /* OAuthSwiftClient.swift */; };
 		0EFF3AFB19FCD4C400AB3C17 /* OAuthSwiftCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3AF219FCD4C400AB3C17 /* OAuthSwiftCredential.swift */; };
@@ -368,6 +368,8 @@
 		8306C9101A23409D00B00BEE /* HTTPResponseSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8306C90C1A23409D00B00BEE /* HTTPResponseSerializer.swift */; };
 		8306C9111A23409D00B00BEE /* HTTPTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8306C90D1A23409D00B00BEE /* HTTPTask.swift */; };
 		8306C9121A23409D00B00BEE /* HTTPUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8306C90E1A23409D00B00BEE /* HTTPUpload.swift */; };
+		83CEEE8E1A26366500092BB7 /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839BBDA71A2635C100851942 /* DemoViewController.swift */; };
+		83CEEE961A272B5400092BB7 /* OAuthSwiftClient_Vitadock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CEEE951A272B5400092BB7 /* OAuthSwiftClient_Vitadock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -738,7 +740,7 @@
 		0EFF3AE919FCD4C400AB3C17 /* Dictionary+OAuthSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+OAuthSwift.swift"; sourceTree = "<group>"; };
 		0EFF3AEA19FCD4C400AB3C17 /* NSURL+OAuthSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURL+OAuthSwift.swift"; sourceTree = "<group>"; };
 		0EFF3AEB19FCD4C400AB3C17 /* String+OAuthSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+OAuthSwift.swift"; sourceTree = "<group>"; };
-		0EFF3AEE19FCD4C400AB3C17 /* OAuth1Swift_Fitbit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth1Swift_Fitbit.swift; sourceTree = "<group>"; };
+		0EFF3AEE19FCD4C400AB3C17 /* OAuth1Swift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth1Swift.swift; sourceTree = "<group>"; };
 		0EFF3AEF19FCD4C400AB3C17 /* OAuth2Swift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth2Swift.swift; sourceTree = "<group>"; };
 		0EFF3AF119FCD4C400AB3C17 /* OAuthSwiftClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthSwiftClient.swift; sourceTree = "<group>"; };
 		0EFF3AF219FCD4C400AB3C17 /* OAuthSwiftCredential.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthSwiftCredential.swift; sourceTree = "<group>"; };
@@ -749,7 +751,8 @@
 		8306C90D1A23409D00B00BEE /* HTTPTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPTask.swift; sourceTree = "<group>"; };
 		8306C90E1A23409D00B00BEE /* HTTPUpload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPUpload.swift; sourceTree = "<group>"; };
 		8306C9131A2340A700B00BEE /* SwiftHTTP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftHTTP.h; sourceTree = "<group>"; };
-		83C670FE1A1F5735004D58BD /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
+		839BBDA71A2635C100851942 /* DemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
+		83CEEE951A272B5400092BB7 /* OAuthSwiftClient_Vitadock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthSwiftClient_Vitadock.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -782,7 +785,6 @@
 		0E04EF391A236870008368B7 /* DatabaseConnection */ = {
 			isa = PBXGroup;
 			children = (
-				0E7446E81A2387FA00D8B771 /* DatabaseConnectionFitbit.swift */,
 				0EC9ACED1A253D3B002C6661 /* DatabaseConnection.swift */,
 			);
 			name = DatabaseConnection;
@@ -1271,15 +1273,14 @@
 		0EFF3AE719FCD4C400AB3C17 /* OAuth */ = {
 			isa = PBXGroup;
 			children = (
-				0EFF3AEE19FCD4C400AB3C17 /* OAuth1Swift_Fitbit.swift */,
-				0E6161881A1E46C5006E0AD7 /* OAuth1Swift_Withings.swift */,
+				0EFF3AEE19FCD4C400AB3C17 /* OAuth1Swift.swift */,
 				0E61618A1A1E48B4006E0AD7 /* OAuth1Swift_Vitadock.swift */,
 				0EFF3AEF19FCD4C400AB3C17 /* OAuth2Swift.swift */,
 				0EFF3AF119FCD4C400AB3C17 /* OAuthSwiftClient.swift */,
+				83CEEE951A272B5400092BB7 /* OAuthSwiftClient_Vitadock.swift */,
 				0EFF3AF219FCD4C400AB3C17 /* OAuthSwiftCredential.swift */,
 				0EFF3AF319FCD4C400AB3C17 /* OAuthSwiftHTTPRequest.swift */,
 				0EFF3AFD19FCD5D000AB3C17 /* Constants.swift */,
-				83C670FE1A1F5735004D58BD /* MyPlayground.playground */,
 			);
 			name = OAuth;
 			path = Oauth;
@@ -1364,7 +1365,7 @@
 		0EFF3AB219FCD22C00AB3C17 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0620;
 				ORGANIZATIONNAME = "Johannes Weber";
 				TargetAttributes = {
 					0EFF3AB919FCD22C00AB3C17 = {

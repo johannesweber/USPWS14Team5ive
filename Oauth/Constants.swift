@@ -22,6 +22,6 @@ let Fitbit =
 
 let Vitadock =
 [
-    "consumerKey": "qpvX7zc7Rb3AwaDB5jTrluh5Z2b7FS9fCMcEgn7GFYA7DtP71WPvs1f8mkprsLEe",
-    "consumerSecret": "RrjgTMKmzUP59uXZyB0ZAK57g0UDUMy9oCWzWFuDnKrN5PDCSx8N5GYe0S63PXUm"
+    "consumerKey": "Gkn8tlAdExqgEwWw1TinYKREjZKqPdEeUgjVBuXvv6o5C1MbimLbrAJFT3Gg0yZM",
+    "consumerSecret": "XqBqVYhW4fZawgS2mcn5w462smY1Rot1h2hAi2fa7A9PSAmoyfPYkKPvsZ7g6iMh"
 ]

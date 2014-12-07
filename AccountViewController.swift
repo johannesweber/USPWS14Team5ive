@@ -10,9 +10,10 @@ import UIKit
 
 class AccountViewController: UITableViewController {
     
+    var fitbit = Fitbit()
+    
     @IBOutlet weak var txtUserMailAddress: UILabel!
     
-
     @IBAction func logoutTapped(sender: UIButton) {
         let appDomain = NSBundle.mainBundle().bundleIdentifier
         NSUserDefaults.standardUserDefaults().removePersistentDomainForName(appDomain!)
@@ -20,13 +21,26 @@ class AccountViewController: UITableViewController {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func welcomeMessage(){
-        var prefs:NSUserDefaults = NSUserDefaults.standardUserDefaults()
-        if ((prefs.valueForKey("EMAIL")) != nil){
-            var mailAddress:String = prefs.valueForKey("EMAIL") as String
-            self.txtUserMailAddress.text = mailAddress
-        }
+    @IBAction func authorizeFitbit(sender: UIButton) {
 
+        fitbit.doOAuth()
+    }
+    
+    @IBAction func synchronizeFitbit(sender: UIButton) {
+        
+        fitbit.synchronizeData()
+    }
+    
+    @IBAction func authorizeWithings(sender: UIButton) {
+    }
+    
+    @IBAction func authorizeMedisana(sender: AnyObject) {
+    }
+    
+    @IBAction func synchronizeWithings(sender: UIButton) {
+    }
+    
+    @IBAction func synchronizeMedisana(sender: AnyObject) {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -35,53 +49,24 @@ class AccountViewController: UITableViewController {
         
         if indexPath.section == 1 && indexPath.row == 0 {
             self.performSegueWithIdentifier("goToSettings", sender: self)
-        
+            
         } else if indexPath.section == 1 && indexPath.row == 1 {
             self.performSegueWithIdentifier("goToAbout", sender: self)
-        
+            
         }
     }
     
     override func viewWillAppear(animated: Bool) {
-        self.welcomeMessage()
+        self.showCurrentUserMail()
     }
-    
-    @IBAction func synchronizeFitbit(sender: UIButton) {
-        self.doOAuthFitbit()
-    }
-    
-    @IBAction func synchronizeWithings(sender: UIButton) {
-        self.doOAuthWithings()
-    }
-    
-    @IBAction func synchronizeMedisana(sender: AnyObject) {
-        self.doOAuthMedisana()
-    }
-    
-    func doOAuthFitbit(){
-        let oauthswift_fitbit = OAuth1Swift(
-            consumerKey:    Fitbit["consumerKey"]!,
-            consumerSecret: Fitbit["consumerSecret"]!,
-            requestTokenUrl: "https://api.fitbit.com/oauth/request_token",
-            authorizeUrl:    "https://www.fitbit.com/oauth/authorize",
-            accessTokenUrl:  "https://api.fitbit.com/oauth/access_token"
-        )
+
+    func showCurrentUserMail(){
+        var prefs:NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        if ((prefs.valueForKey("EMAIL")) != nil){
+            var mailAddress:String = prefs.valueForKey("EMAIL") as String
+            self.txtUserMailAddress.text = mailAddress
+        }
         
-        oauthswift_fitbit.authorizeWithCallbackURL( NSURL(string: "oauth-callback://oauth-callback/fitbit")!, success: {
-            credentials, response in
-            
-            let parameters: Dictionary<String, AnyObject> = [
-                "oauth_token_secret"        : "\(credentials.oauth_token_secret)",
-                "oauth_token"               : "\(credentials.oauth_token)"
-            ]
-            
-            var db_connection = DatabaseConnection()
-            
-            db_connection.postFitbitCredentialsToServer(parameters)
-            
-            }, failure: {(error:NSError!) -> Void in
-                println(error.localizedDescription)
-        })
     }
     
     func doOAuthWithings(){
@@ -105,6 +90,7 @@ class AccountViewController: UITableViewController {
             var db_connection = DatabaseConnection()
             
             db_connection.postWithingsCredentialsToServer(parameters)
+           
             
             
             }, failure: {(error:NSError!) -> Void in

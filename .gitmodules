@@ -1,3 +1,9 @@
 [submodule "SwiftSSL"]
 	path = SwiftSSL
 	url = https://github.com/SwiftP2P/SwiftSSL.git
+[submodule "Alamofire"]
+	path = Alamofire
+	url = https://github.com/Alamofire/Alamofire.git
+[submodule "SwiftyJSON"]
+	path = SwiftyJSON
+	url = https://github.com/SwiftyJSON/SwiftyJSON

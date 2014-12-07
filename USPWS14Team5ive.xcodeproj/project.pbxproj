@@ -36,6 +36,7 @@
 		0E6F27421A2CF0B900F58A13 /* VitalsDiagramViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6F27411A2CF0B900F58A13 /* VitalsDiagramViewController.swift */; };
 		0E6F27441A2CF19200F58A13 /* NutritionDiagramViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6F27431A2CF19200F58A13 /* NutritionDiagramViewController.swift */; };
 		0E6F27461A2CF1E000F58A13 /* SleepDiagramViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6F27451A2CF1E000F58A13 /* SleepDiagramViewController.swift */; };
+		0E7271501A34D03C00A25710 /* Weekday.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E72714F1A34D03C00A25710 /* Weekday.swift */; };
 		0E818FAE1A2511AD000B9DA6 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E818FAD1A2511AD000B9DA6 /* SignupViewController.swift */; };
 		0E818FB01A25131B000B9DA6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E818FAF1A25131B000B9DA6 /* LoginViewController.swift */; };
 		0E860E2A1A28E78800A9F152 /* 3d.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E860CFE1A28E78700A9F152 /* 3d.png */; };
@@ -421,20 +422,6 @@
 			remoteGlobalIDString = 2E4FEFE619575BE100351305;
 			remoteInfo = SwiftyJSONTests;
 		};
-		0E9FC1C71A347A1E0083BB92 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0E9FC1BC1A347A1E0083BB92 /* SwiftyJSON.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4EC1C1C91A0C1A2D0026ED0B;
-			remoteInfo = SwiftyJSONOSX;
-		};
-		0E9FC1C91A347A1E0083BB92 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0E9FC1BC1A347A1E0083BB92 /* SwiftyJSON.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4EC1C1D31A0C1A2D0026ED0B;
-			remoteInfo = SwiftyJSONOSXTests;
-		};
 		0E9FC1CB1A347AC10083BB92 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0E9FC1BC1A347A1E0083BB92 /* SwiftyJSON.xcodeproj */;
@@ -497,6 +484,7 @@
 		0E6F27411A2CF0B900F58A13 /* VitalsDiagramViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VitalsDiagramViewController.swift; sourceTree = "<group>"; };
 		0E6F27431A2CF19200F58A13 /* NutritionDiagramViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionDiagramViewController.swift; sourceTree = "<group>"; };
 		0E6F27451A2CF1E000F58A13 /* SleepDiagramViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SleepDiagramViewController.swift; sourceTree = "<group>"; };
+		0E72714F1A34D03C00A25710 /* Weekday.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weekday.swift; sourceTree = "<group>"; };
 		0E818FAD1A2511AD000B9DA6 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		0E818FAF1A25131B000B9DA6 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0E860CFE1A28E78700A9F152 /* 3d.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3d.png; sourceTree = "<group>"; };
@@ -876,7 +864,6 @@
 			children = (
 				0E9FC1BC1A347A1E0083BB92 /* SwiftyJSON.xcodeproj */,
 				0E9FC1B81A34777A0083BB92 /* Alamofire-SwiftyJSON */,
-				0E9FC1B41A34554A0083BB92 /* SwiftyJSON */,
 				0E9FC1A61A3451380083BB92 /* Alamofire.xcodeproj */,
 				0EF48BB31A32595100E7BC5D /* LineChart */,
 				0E43EB801A31F32F008C456F /* PNChart */,
@@ -886,20 +873,14 @@
 			name = Library;
 			sourceTree = "<group>";
 		};
-		0E04EF391A236870008368B7 /* DatabaseConnection */ = {
+		0E1ADE881A2C936700820ED2 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
 				0EC9ACED1A253D3B002C6661 /* DatabaseConnection.swift */,
 				0EB7717B1A339BFF00A1AB3D /* Fitbit.swift */,
-			);
-			name = DatabaseConnection;
-			sourceTree = "<group>";
-		};
-		0E1ADE881A2C936700820ED2 /* Helper */ = {
-			isa = PBXGroup;
-			children = (
 				0E1ADE861A2C852E00820ED2 /* TableItem.swift */,
 				0EF48BB11A324C6E00E7BC5D /* Appearance.swift */,
+				0E72714F1A34D03C00A25710 /* Weekday.swift */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -1338,13 +1319,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0E9FC1B41A34554A0083BB92 /* SwiftyJSON */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = SwiftyJSON;
-			sourceTree = "<group>";
-		};
 		0E9FC1B81A34777A0083BB92 /* Alamofire-SwiftyJSON */ = {
 			isa = PBXGroup;
 			children = (
@@ -1359,8 +1333,6 @@
 			children = (
 				0E9FC1C41A347A1E0083BB92 /* SwiftyJSON.framework */,
 				0E9FC1C61A347A1E0083BB92 /* SwiftyJSONTests.xctest */,
-				0E9FC1C81A347A1E0083BB92 /* SwiftyJSON.framework */,
-				0E9FC1CA1A347A1E0083BB92 /* SwiftyJSONOSXTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1399,7 +1371,6 @@
 				0E46FFFE1A308BB1002686C3 /* USPWS14Team5ive-Bridging-Header.h */,
 				0EFF3AE819FCD4C400AB3C17 /* Extension */,
 				0E860F691A2C66D600A9F152 /* Controller */,
-				0E04EF391A236870008368B7 /* DatabaseConnection */,
 				0E1ADE881A2C936700820ED2 /* Helper */,
 				0E04EF331A2326BA008368B7 /* Library */,
 				0E6161941A1F8977006E0AD7 /* Pictures */,
@@ -1618,20 +1589,6 @@
 			fileType = wrapper.cfbundle;
 			path = SwiftyJSONTests.xctest;
 			remoteRef = 0E9FC1C51A347A1E0083BB92 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		0E9FC1C81A347A1E0083BB92 /* SwiftyJSON.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SwiftyJSON.framework;
-			remoteRef = 0E9FC1C71A347A1E0083BB92 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		0E9FC1CA1A347A1E0083BB92 /* SwiftyJSONOSXTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = SwiftyJSONOSXTests.xctest;
-			remoteRef = 0E9FC1C91A347A1E0083BB92 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -2085,6 +2042,7 @@
 				0E9FC1D11A347B270083BB92 /* Alamofire-SwiftyJSON.swift in Sources */,
 				0EFF3AF519FCD4C400AB3C17 /* NSURL+OAuthSwift.swift in Sources */,
 				0E3ADB7C1A279E730075F981 /* NutritionTableViewController.swift in Sources */,
+				0E7271501A34D03C00A25710 /* Weekday.swift in Sources */,
 				0E6B3F5A1A2DAD0A002193B2 /* ChangePasswordViewController.swift in Sources */,
 				0EF48BC31A3263A100E7BC5D /* PNBarChart.swift in Sources */,
 				0E6B3F581A2DACD9002193B2 /* ChangeEmailViewController.swift in Sources */,

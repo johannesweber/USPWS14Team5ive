@@ -9,27 +9,18 @@
 import Foundation
 
 import AlamoFire
+
 import SwiftyJSON
 
 class Fitbit {
+    
+    var response = SwiftyJSON.JSON
     
     let FitbitKey =
     [
         "consumerKey": "7c39abf127964bc984aba4020845ff11",
         "consumerSecret": "18c4a92f21f1458e8ac9798567d3d38c"
     ]
-    
-    var responseString: NSString
-    var request: HTTPTask
-    var responseDict: Dictionary<String,AnyObject>
-    
-    init(){
-    
-        responseString = NSString()
-        request = HTTPTask()
-        responseDict = Dictionary<String,AnyObject>()
-        
-    }
     
     /* 
     start the fitbit - oauth process and send received Credentials to Focused Health Server
@@ -92,31 +83,14 @@ class Fitbit {
                 println(dateOfBirth)
 
             }
-        
-        
     }
     
-    func getWaterGoal() {
-//        
-//        let url: String = "http://141.19.142.45/~johannes/focusedhealth/fitbit/water_goal/"
-//        
-//        //The parameters will be encoding as JSON data and sent.
-//        request.requestSerializer = JSONRequestSerializer()
-//        //The expected response will be JSON and be converted to an object return by NSJSONSerialization instead of a NSData.
-//        request.responseSerializer = JSONResponseSerializer()
-//        request.GET(url, parameters: nil, success: {(response: HTTPResponse) in
-//            if let dict = response.responseObject as? Dictionary<String,AnyObject> {
-//                self.responseDict = response.responseObject as Dictionary<String,AnyObject>
-//                
-//                //                var goalValue = dict["goal_value"] as String
-//                //                var startdate = dict["startdate"] as String
-//                //                var enddate = dict["enddate"] as String
-//                
-//            }
-//            },failure: {(error: NSError, response: HTTPResponse?) in
-//                println("error: \(error)")
-//        })
+    func getWaterGoal(completionHandler: (SwiftyJSON.JSON) -> ()) -> (){
         
+        Alamofire.request(.GET, "http://141.19.142.45/~johannes/focusedhealth/fitbit/time_series/water/select/")
+            .responseSwiftyJSON { (request, response, json, error) in
+                
+                
+        }
     }
-    
 }

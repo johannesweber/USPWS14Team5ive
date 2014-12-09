@@ -4,7 +4,7 @@ import QuartzCore
 
 class DotCALayer: CALayer {
     
-    var innerRadius: CGFloat = 8
+    var innerRadius: CGFloat = 1
     var dotInnerColor = UIColor.blackColor()
     
     override init() {

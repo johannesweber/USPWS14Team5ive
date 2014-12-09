@@ -8,6 +8,10 @@
 
 import UIKit
 
+import Alamofire
+
+import SwiftyJSON
+
 class LoginViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var txtMailAddress: UITextField!
@@ -18,7 +22,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         self.txtPassword.text = ""
         
-        let prefs:NSUserDefaults = NSUserDefaults.standardUserDefaults()
         let isLoggedIn:Int = prefs.integerForKey("ISLOGGEDIN") as Int
         if (isLoggedIn == 1) {
             self.performSegueWithIdentifier("goToDashboard", sender: self)
@@ -43,10 +46,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func signinButton(sender : UIButton) {
-        var email:NSString = txtMailAddress.text
-        var password:NSString = txtPassword.text
+        var email:String = txtMailAddress.text
+        var password:String = txtPassword.text
         
-        if ( email.isEqualToString("") || password.isEqualToString("") ) {
+        if ( email == "" || password == "" ) {
             
             var alertView:UIAlertView = UIAlertView()
             alertView.title = "Sign in Failed!"
@@ -57,68 +60,45 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             
         } else {
             
-            var post:NSString = "email=\(email)&password=\(password)"
+            let parameters: Dictionary<String, AnyObject> = [
+                "email"        : "\(email)",
+                "password"     : "\(password)",
+            ]
             
-            NSLog("PostData: %@",post);
-            
-            var url:NSURL = NSURL(string: "http://141.19.142.45/~johannes/focusedhealth/login/")!
-            
-            var postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!
-            
-            var postLength:NSString = String( postData.length )
-            
-            var request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
-            request.HTTPMethod = "POST"
-            request.HTTPBody = postData
-            request.setValue(postLength, forHTTPHeaderField: "Content-Length")
-            request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-            request.setValue("application/json", forHTTPHeaderField: "Accept")
-            
-            
-            var reponseError: NSError?
-            var response: NSURLResponse?
-            
-            var urlData: NSData? = NSURLConnection.sendSynchronousRequest(request, returningResponse:&response, error:&reponseError)
-            
-            if ( urlData != nil ) {
-                let res = response as NSHTTPURLResponse!;
-                
-                NSLog("Response code: %ld", res.statusCode);
-                
-                if (res.statusCode >= 200 && res.statusCode < 300)
-                {
-                    var responseData:NSString  = NSString(data:urlData!, encoding:NSUTF8StringEncoding)!
+            Alamofire.request(.GET, "http://141.19.142.45/~johannes/focusedhealth/login", parameters: parameters)
+                .responseSwiftyJSON{ (request, response, json, error) in
+                    println(request)
+                    println(response)
+                    println(json)
                     
-                    NSLog("Response ==> %@", responseData);
-                    
-                    var error: NSError?
-                    
-                    let jsonData:NSDictionary = NSJSONSerialization.JSONObjectWithData(urlData!, options:NSJSONReadingOptions.MutableContainers , error: &error) as NSDictionary
-                    
-                    
-                    let success:NSInteger = jsonData.valueForKey("success") as NSInteger
-                    
-                    NSLog("Success: %ld", success);
-                    
-                    if(success == 1)
-                    {
-                        NSLog("Login SUCCESS");
+                    var success = json["success"].intValue
+
+                    if(success == 1) {
                         
-                        var prefs:NSUserDefaults = NSUserDefaults.standardUserDefaults()
+                        println("Login SUCCESS");
+                        
+                        var userId = json["userId"].intValue
+                        
                         prefs.setObject(email, forKey: "EMAIL")
-                        prefs.setInteger(1, forKey: "ISLOGGEDIN")
+                        prefs.setInteger(success, forKey: "ISLOGGEDIN")
+                        prefs.setInteger(userId, forKey: "USERID")
+                        
                         prefs.synchronize()
                         
                         self.performSegueWithIdentifier("goToDashboard", sender: self)
                         
                     } else {
                         
-                        var error_msg:NSString
+                        var error_msg:String
                         
-                        if jsonData["error_message"] as? NSString != nil {
-                            error_msg = jsonData["error_message"] as NSString
+                        if json["error_message"].string != nil {
+                            
+                            error_msg = json["error_message"].string!
+                            
                         } else {
+                            
                             error_msg = "Unknown Error"
+                            
                         }
                         var alertView:UIAlertView = UIAlertView()
                         alertView.title = "Sign in Failed!"
@@ -128,27 +108,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                         alertView.show()
                         
                     }
-                    
-                } else {
-                    var alertView:UIAlertView = UIAlertView()
-                    alertView.title = "Sign in Failed!"
-                    alertView.message = "Connection Failed"
-                    alertView.delegate = self
-                    alertView.addButtonWithTitle("OK")
-                    alertView.show()
-                }
-            } else {
-                var alertView:UIAlertView = UIAlertView()
-                alertView.title = "Sign in Failed!"
-                alertView.message = "Connection Failure"
-                if let error = reponseError {
-                    alertView.message = (error.localizedDescription)
-                }
-                alertView.delegate = self
-                alertView.addButtonWithTitle("OK")
-                alertView.show()
             }
+            
         }
-        
     }
 }

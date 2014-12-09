@@ -8,6 +8,10 @@
 
 import UIKit
 
+import Alamofire
+
+import SwiftyJSON
+
 class SignupViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var txtMailAddress: UITextField!
@@ -29,15 +33,12 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func signupButton(sender : UIButton) {
-        var email:NSString = txtMailAddress.text as NSString
-        var proofEmail = email as String
-        println(email)
-        println(proofEmail)
         
-        var password:NSString = txtPassword.text as NSString
-        var confirmPassword:NSString = txtRepeatPassword.text as NSString
+        var email:String = txtMailAddress.text
+        var password:String = txtPassword.text as String
+        var confirmPassword:String = txtRepeatPassword.text as String
         
-        if ( email.isEqualToString("") || password.isEqualToString("") ) {
+        if ( email == "") || (password == "") {
             
             var alertView:UIAlertView = UIAlertView()
             alertView.title = "Sign Up Failed!"
@@ -46,7 +47,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
             alertView.addButtonWithTitle("OK")
             alertView.show()
             
-        } else if ( !password.isEqual(confirmPassword) ) {
+        } else if (password != confirmPassword) {
             
             var alertView:UIAlertView = UIAlertView()
             alertView.title = "Sign Up Failed!"
@@ -55,7 +56,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
             alertView.addButtonWithTitle("OK")
             alertView.show()
             
-        } else if !proofEmail.isValidEmail(){
+        } else if (!email.isValidEmail()) {
             
             var alertView:UIAlertView = UIAlertView()
             alertView.title = "Sign Up Failed!"
@@ -65,53 +66,24 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
             alertView.show()
             
         } else {
+            
+            let parameters: Dictionary<String, String> = [
+                "email"        : "\(email)",
+                "password"     : "\(password)",
+                "c_password"   : "\(confirmPassword)"
+            ]
 
-            var post:NSString = "email=\(email)&password=\(password)&c_password=\(confirmPassword)"
-            
-            NSLog("PostData: %@",post);
-            
-            var url:NSURL = NSURL(string: "http://141.19.142.45/~johannes/focusedhealth/signup/")!
-            
-            var postData:NSData = post.dataUsingEncoding(NSASCIIStringEncoding)!
-            
-            var postLength:NSString = String( postData.length )
-            
-            var request:NSMutableURLRequest = NSMutableURLRequest(URL: url)
-            request.HTTPMethod = "POST"
-            request.HTTPBody = postData
-            request.setValue(postLength, forHTTPHeaderField: "Content-Length")
-            request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-            request.setValue("application/json", forHTTPHeaderField: "Accept")
-            
-            
-            var reponseError: NSError?
-            var response: NSURLResponse?
-            
-            var urlData: NSData? = NSURLConnection.sendSynchronousRequest(request, returningResponse:&response, error:&reponseError)
-            
-            if ( urlData != nil ) {
-                let res = response as NSHTTPURLResponse!;
-                
-                NSLog("Response code: %ld", res.statusCode);
-                
-                if (res.statusCode >= 200 && res.statusCode < 300)
-                {
-                    var responseData:NSString  = NSString(data:urlData!, encoding:NSUTF8StringEncoding)!
+            Alamofire.request(.GET, "http://141.19.142.45/~johannes/focusedhealth/signup", parameters: parameters)
+                .responseSwiftyJSON { (request, response, json, error) in
+                    println(request)
+                    println(response)
+                    println(json)
                     
-                    NSLog("Response ==> %@", responseData);
+                    var success = json["success"].intValue
                     
-                    var error: NSError?
-                    
-                    let jsonData:NSDictionary = NSJSONSerialization.JSONObjectWithData(urlData!, options:NSJSONReadingOptions.MutableContainers , error: &error) as NSDictionary
-                    
-                    
-                    let success:NSInteger = jsonData.valueForKey("success") as NSInteger
-                    
-                    NSLog("Success: %ld", success);
-                    
-                    if(success == 1)
-                    {
-                        NSLog("Sign Up SUCCESS");
+                    if(success == 1) {
+                        
+                        println("Sign Up SUCCESS");
                         var alertView:UIAlertView = UIAlertView()
                         alertView.title = "Sign Up Succesfull!"
                         alertView.message = "You are succesfully signed up!"
@@ -120,10 +92,10 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                         alertView.show()
                         self.dismissViewControllerAnimated(true, completion: nil)
                     } else {
-                        var error_msg:NSString
+                        var error_msg:String
                         
-                        if jsonData["error_message"] as? NSString != nil {
-                            error_msg = jsonData["error_message"] as NSString
+                        if json["error_message"].string != nil {
+                            error_msg = json["error_message"].string!
                         } else {
                             error_msg = "Unknown Error"
                         }
@@ -135,28 +107,9 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                         alertView.show()
                         
                     }
-                    
-                } else {
-                    var alertView:UIAlertView = UIAlertView()
-                    alertView.title = "Sign Up Failed!"
-                    alertView.message = "Connection Failed"
-                    alertView.delegate = self
-                    alertView.addButtonWithTitle("OK")
-                    alertView.show()
-                }
-            }  else {
-                var alertView:UIAlertView = UIAlertView()
-                alertView.title = "Sign in Failed!"
-                alertView.message = "Connection Failure"
-                if let error = reponseError {
-                    alertView.message = (error.localizedDescription)
-                }
-                alertView.delegate = self
-                alertView.addButtonWithTitle("OK")
-                alertView.show()
             }
-        }
         
+        }
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -169,13 +122,4 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         }
         return true
     }
-    
-
-    
-    
-    
-    
-    
-    
-    
 }

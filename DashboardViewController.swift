@@ -12,6 +12,8 @@ import AlamoFire
 
 class DashboardViewController: UIViewController, PNChartDelegate, LineChartDelegate {
     
+    var userId = prefs.integerForKey("USERID") as Int
+    
     var label = UILabel()
     var lineChart: LineChart?
     
@@ -34,30 +36,27 @@ class DashboardViewController: UIViewController, PNChartDelegate, LineChartDeleg
     
     func downSwiped(){
         
-        if (!self.view.subviews.isEmpty) {
+        let subViews: Array = self.view.subviews
+        for (var subview) in subViews {
             
-            self.lineChartWater.removeFromSuperview()
-            self.ChartLabelWater.removeFromSuperview()
-            
-        } else {
-            
-            self.buildLineChartSteps()
-            
+            subview.removeFromSuperview()
         }
+        
+        self.buildLineChartSteps()
+
         
     }
     
     func upSwiped(){
         
-        if (!self.view.subviews.isEmpty) {
+        let subViews: Array = self.view.subviews
+        for (var subview) in subViews {
             
-            self.lineChart?.removeFromSuperview()
-            self.label.removeFromSuperview()
-            
-        } else {
-            
-            self.buildLineChartWater()
+            subview.removeFromSuperview()
         }
+        
+        self.buildLineChartWater()
+        
     }
     
     
@@ -80,7 +79,7 @@ class DashboardViewController: UIViewController, PNChartDelegate, LineChartDeleg
     
     func buildLineChartWater(){
         
-        Alamofire.request(.GET, "http://141.19.142.45/~johannes/focusedhealth/fitbit/time_series/water/")
+        Alamofire.request(.GET, "http://141.19.142.45/~johannes/focusedhealth/fitbit/time_series/water/", parameters: ["userId": "\(self.userId)"])
             .responseSwiftyJSON { (request, response, json, error) in
                 
                 var xLabels = [String]()
@@ -138,7 +137,7 @@ class DashboardViewController: UIViewController, PNChartDelegate, LineChartDeleg
     
     func buildLineChartSteps(){
         
-        Alamofire.request(.GET, "http://141.19.142.45/~johannes/focusedhealth/fitbit/time_series/steps/")
+        Alamofire.request(.GET, "http://141.19.142.45/~johannes/focusedhealth/fitbit/time_series/steps/", parameters: ["userId": "\(self.userId)"])
             .responseSwiftyJSON { (request, response, json, error) in
                 
                 var xLabels = [String]()

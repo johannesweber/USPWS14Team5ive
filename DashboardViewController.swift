@@ -82,6 +82,9 @@ class DashboardViewController: UIViewController, PNChartDelegate, LineChartDeleg
         
         Alamofire.request(.GET, "http://141.19.142.45/~johannes/focusedhealth/fitbit/time_series/water/", parameters: ["userId": "\(self.userId)"])
             .responseSwiftyJSON { (request, response, json, error) in
+                println(request)
+                println(response)
+                println(json)
                 
                 var xLabels = [String]()
                 var values = [CGFloat]()

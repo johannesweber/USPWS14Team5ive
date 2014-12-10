@@ -40,6 +40,8 @@ class Fitbit {
             
             var userId = prefs.integerForKey("USERID") as Int
             
+            println(userId)
+            
             let parameters: Dictionary<String, AnyObject> = [
                 "oauth_token_secret"        : "\(credentials.oauth_token_secret)",
                 "oauth_token"               : "\(credentials.oauth_token)",
@@ -57,11 +59,17 @@ class Fitbit {
     func postCredentialsToServer(parameters: Dictionary<String,AnyObject>){
         
         //TODO send success message from Focused Health Server to Smartphone
-        Alamofire.request(.POST, "http://141.19.142.45/~johannes/focusedhealth/fitbit/authorize/", parameters: parameters, encoding: .URL)
+        Alamofire.request(.GET, "http://141.19.142.45/~timon/focusedhealth/fitbit/authorize/", parameters: parameters)
             .responseString { (request, response, string, error) in
+                println(request)
+                println(response)
                 println(string as String!)
         }
     }
+    
+    
+    //test
+    
     /*
     sends a request to focused health server to fetch all data from fitbit api and store them in the focused health database
     */

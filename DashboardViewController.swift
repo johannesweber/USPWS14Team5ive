@@ -10,71 +10,114 @@ import UIKit
 
 import AlamoFire
 
-class DashboardViewController: UIViewController, PNChartDelegate {
+class DashboardViewController: UIViewController, PNChartDelegate, LineChartDelegate {
+    
+    var userId = prefs.integerForKey("USERID") as Int
+    
+    var label = UILabel()
+    var lineChart: LineChart?
+    
+    var lineChartWater:PNLineChart = PNLineChart(frame: CGRectMake(0, 135, 320, 200.0))
+    var ChartLabelWater:UILabel = UILabel(frame: CGRectMake(0, 90, 320.0, 30))
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.buildLineChart()
-
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: Selector("downSwiped"))
+        swipeDown.direction = UISwipeGestureRecognizerDirection.Down
+        self.view.addGestureRecognizer(swipeDown)
+        
+        let swipeUp = UISwipeGestureRecognizer(target: self, action: Selector("upSwiped"))
+        swipeUp.direction = UISwipeGestureRecognizerDirection.Up
+        self.view.addGestureRecognizer(swipeUp)
+        
     }
+    
+    override func didReceiveMemoryWarning() {
+        println("hallo")
+    }
+    
+    func downSwiped(){
+        
+        let subViews: Array = self.view.subviews
+        for (var subview) in subViews {
+            
+            subview.removeFromSuperview()
+        }
+        
+        self.buildLineChartSteps()
+
+        
+    }
+    
+    func upSwiped(){
+        
+        let subViews: Array = self.view.subviews
+        for (var subview) in subViews {
+            
+            subview.removeFromSuperview()
+        }
+        
+        self.buildLineChartWater()
+        
+    }
+    
+    
     
     func userClickedOnLineKeyPoint(point: CGPoint, lineIndex: Int, keyPointIndex: Int)
     {
-        println("Click Key on line \(point.x), \(point.y) line index is \(lineIndex) and point index is \(keyPointIndex)")
     }
     
     func userClickedOnLinePoint(point: CGPoint, lineIndex: Int)
     {
-        println("Click Key on line \(point.x), \(point.y) line index is \(lineIndex)")
     }
     
     func userClickedOnBarCharIndex(barIndex: Int)
     {
-        println("Click  on bar \(barIndex)")
     }
     
     
-    func buildLineChart(){
+    func buildLineChartWater(){
         
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "Y-m-d"
-        
-        Alamofire.request(.GET, "http://141.19.142.45/~johannes/focusedhealth/fitbit/time_series/water/")
+        Alamofire.request(.GET, "http://141.19.142.45/~johannes/focusedhealth/fitbit/time_series/water/", parameters: ["userId": "\(self.userId)"])
             .responseSwiftyJSON { (request, response, json, error) in
                 
                 var xLabels = [String]()
                 var values = [CGFloat]()
+                var valuesReversed = [CGFloat]()
+                var xLabelsReversed = [String]()
                 
                 for (var i = 0; i < json.count; i++){
                     var date = json[i]["date"].string!
                     var weekday = getDayOfWeek(date)
                     xLabels.append(weekday!)
                     
+                    xLabelsReversed = xLabels.reverse()
+                    
                     var value = CGFloat(json[i]["value"].intValue)
                     values.append(value)
+                    
+                    valuesReversed = values.reverse()
                 }
                 
-                var ChartLabel:UILabel = UILabel(frame: CGRectMake(0, 90, 320.0, 30))
-                
-                ChartLabel.textColor = FHBrownColor
-                ChartLabel.textAlignment = NSTextAlignment.Center
+                self.ChartLabelWater.textColor = FHBrownColor
+                self.ChartLabelWater.textAlignment = NSTextAlignment.Center
                 
                 //Add LineChart
-                ChartLabel.text = "Water"
+                self.ChartLabelWater.text = "Water"
                 
-                var lineChart:PNLineChart = PNLineChart(frame: CGRectMake(0, 135.0, 320, 200.0))
-                lineChart.yLabelFormat = "%1"
-                lineChart.showLabel = true
-                lineChart.backgroundColor = UIColor.clearColor()
-                lineChart.xLabels = xLabels
-                lineChart.showCoordinateAxis = true
-                lineChart.delegate = self
+                self.lineChartWater.yLabelFormat = "%1"
+                self.lineChartWater.showLabel = true
+                self.lineChartWater.backgroundColor = UIColor.clearColor()
+                self.lineChartWater.xLabels = xLabelsReversed
+                self.lineChartWater.showCoordinateAxis = true
+                self.lineChartWater.delegate = self
                 
-                // Line Chart Nr.1
-                var data01Array: [CGFloat] = values
+                // Line Chart Water
+                var data01Array: [CGFloat] = valuesReversed
                 var data01:PNLineChartData = PNLineChartData()
-                data01.color = PNGreenColor
+                data01.color = UIColor.orangeColor()
                 data01.itemCount = data01Array.count
                 data01.inflexionPointStyle = PNLineChartData.PNLineChartPointStyle.PNLineChartPointStyleCycle
                 data01.getData = ({(index: Int) -> PNLineChartDataItem in
@@ -84,12 +127,83 @@ class DashboardViewController: UIViewController, PNChartDelegate {
                     return item
                 })
                 
-                lineChart.chartData = [data01]
-                lineChart.strokeChart()
+                self.lineChartWater.chartData = [data01]
+                self.lineChartWater.strokeChart()
                 
-                self.view.addSubview(lineChart)
-                self.view.addSubview(ChartLabel)
+                self.view.addSubview(self.lineChartWater)
+                self.view.addSubview(self.ChartLabelWater)
                 
+        }
+    }
+    
+    func buildLineChartSteps(){
+        
+        Alamofire.request(.GET, "http://141.19.142.45/~johannes/focusedhealth/fitbit/time_series/steps/", parameters: ["userId": "\(self.userId)"])
+            .responseSwiftyJSON { (request, response, json, error) in
+                
+                var xLabels = [String]()
+                var values = [CGFloat]()
+                
+                var valuesReversed = [CGFloat]()
+                var xLabelsReversed = [String]()
+                
+                for (var i = 0; i < json.count; i++){
+                    var date = json[i]["date"].string!
+                    var weekday = getDayOfWeek(date)
+                    xLabels.append(weekday!)
+                    
+                    xLabelsReversed = xLabels.reverse()
+                    
+                    var value = CGFloat(json[i]["value"].intValue)
+                    values.append(value)
+                    
+                    valuesReversed = values.reverse()
+                }
+
+        
+                var views: Dictionary<String, AnyObject> = [:]
+        
+                self.label.text = "Steps"
+                self.label.setTranslatesAutoresizingMaskIntoConstraints(false)
+                self.label.textAlignment = NSTextAlignment.Center
+                self.view.addSubview(self.label)
+                views["label"] = self.label
+                self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[label]-|", options: nil, metrics: nil, views: views))
+                self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-80-[label]", options: nil, metrics: nil, views: views))
+        
+                var data: Array<CGFloat> = valuesReversed
+        
+                self.lineChart = LineChart()
+                self.lineChart!.dotsVisible = false
+                self.lineChart!.gridVisible = true
+                self.lineChart!.labelsYVisible = true
+                self.lineChart!.labelsXVisible = true
+                self.lineChart!.numberOfGridLinesX = 30
+                self.lineChart!.numberOfGridLinesY = 10
+                self.lineChart!.addLine(data)
+                self.lineChart!.setTranslatesAutoresizingMaskIntoConstraints(false)
+                self.lineChart!.delegate = self
+                self.view.addSubview(self.lineChart!)
+                views["chart"] = self.lineChart
+                self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[chart]-|", options: nil, metrics: nil, views: views))
+                self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:[label]-[chart(==200)]", options: nil, metrics: nil, views: views))
+                
+        }
+    }
+    
+    /**
+    * Line chart delegate method.
+    */
+    func didSelectDataPoint(x: CGFloat, yValues: Array<CGFloat>) {
+        label.text = "x: \(x)     y: \(yValues)"
+    }
+    
+    /**
+    * Redraw chart on device rotation.
+    */
+    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+        if let chart = lineChart {
+            chart.setNeedsDisplay()
         }
     }
 }

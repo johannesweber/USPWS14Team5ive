@@ -26,21 +26,10 @@ class AccountViewController: UITableViewController {
         fitbit.doOAuth()
     }
     
-    @IBAction func synchronizeFitbit(sender: UIButton) {
-        
-        fitbit.synchronizeData()
-    }
-    
     @IBAction func authorizeWithings(sender: UIButton) {
     }
     
     @IBAction func authorizeMedisana(sender: AnyObject) {
-    }
-    
-    @IBAction func synchronizeWithings(sender: UIButton) {
-    }
-    
-    @IBAction func synchronizeMedisana(sender: AnyObject) {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

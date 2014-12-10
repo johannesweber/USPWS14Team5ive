@@ -10,31 +10,29 @@ import Foundation
 
 func getDayOfWeek(date:String)->String? {
     
-    let formatter  = NSDateFormatter()
-    formatter.dateFormat = "yyyy-MM-dd"
-    if let todayDate = formatter.dateFromString(date) {
-        let myCalendar = NSCalendar.currentCalendar()
-        let myComponents = myCalendar.components(.DayCalendarUnit, fromDate: todayDate)
-        let weekday = myComponents.day
+    let dateStyler = NSDateFormatter()
+    dateStyler.dateFormat = "yyyy-MM-dd"
+    
+    let dateAsNSDate = dateStyler.dateFromString(date)!
+    
+    let weekday = NSCalendar.currentCalendar().components(NSCalendarUnit.CalendarUnitWeekday, fromDate: dateAsNSDate).weekday
         
         switch weekday {
         case 1:
-            return "Mon"
+            return "Son"
         case 2:
-            return "Thu"
+            return "Mon"
         case 3:
-            return "Wed"
+            return "Tue"
         case 4:
-            return "Thu"
+            return "Wed"
         case 5:
-            return "Fri"
+            return "Thu"
         case 6:
-            return "Sat"
+            return "Fri"
         case 7:
-            return "Sun"
+            return "Sat"
         default:
             return nil
         }
-    }
-    return nil
 }

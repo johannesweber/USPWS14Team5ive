@@ -38,9 +38,12 @@ class Fitbit {
         oauthswift_fitbit.authorizeWithCallbackURL( NSURL(string: "oauth-callback://oauth-callback/fitbit")!, success: {
             credentials, response in
             
+            var userId = prefs.integerForKey("USERID") as Int
+            
             let parameters: Dictionary<String, AnyObject> = [
                 "oauth_token_secret"        : "\(credentials.oauth_token_secret)",
-                "oauth_token"               : "\(credentials.oauth_token)"
+                "oauth_token"               : "\(credentials.oauth_token)",
+                "userId"                    : "\(userId)"
             ]
             
             self.postCredentialsToServer(parameters)

@@ -8,7 +8,9 @@
 
 import UIKit
 
-class ForgotPasswordViewController: UIViewController, UITextFieldDelegate {
+import MessageUI
+
+class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, MFMailComposeViewControllerDelegate{
 
     @IBOutlet weak var txtEmailAddress: UITextField!
     
@@ -18,6 +20,21 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate {
     }
     @IBAction func resetPassword(sender: AnyObject) {
         
+        // Email Subject
+        var emailTitle = "Test Email"
+        // Email Content
+        var messageBody = "iOS programming is so fun!";
+        // To address
+        var toRecipents = ["weber.johanes@gmail.com"];
+        
+        var mc = MFMailComposeViewController()
+        mc.mailComposeDelegate = self;
+        mc.setSubject(emailTitle)
+        mc.setMessageBody(messageBody, isHTML: false)
+        mc.setToRecipients(toRecipents)
+        
+        // Present mail view controller on screen
+        self.presentViewController(mc, animated: true, completion: nil)
     }
     
     @IBAction func cancelTapped(sender: UIBarButtonItem) {
@@ -29,5 +46,21 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate {
             textField.resignFirstResponder()
         }
         return true
+    }
+    
+    func mailComposeController(controller:MFMailComposeViewController, didFinishWithResult result:MFMailComposeResult, error:NSError) {
+        switch result.value {
+        case MFMailComposeResultCancelled.value:
+            println("Mail cancelled")
+        case MFMailComposeResultSaved.value:
+            println("Mail saved")
+        case MFMailComposeResultSent.value:
+            println("Mail sent")
+        case MFMailComposeResultFailed.value:
+            println("Mail sent failure: \(error.localizedDescription)")
+        default:
+            break
+        }
+        self.dismissViewControllerAnimated(false, completion: nil)
     }
 }

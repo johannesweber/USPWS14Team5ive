@@ -25,7 +25,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func goToLoginTapped(sender: UIButton) {
-        self.navigationController?.popToRootViewControllerAnimated(true)
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func cancelTapped(sender: UIBarButtonItem) {

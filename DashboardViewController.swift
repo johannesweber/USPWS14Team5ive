@@ -34,6 +34,10 @@ class DashboardViewController: UIViewController, PNChartDelegate, LineChartDeleg
         
     }
     
+    override func didReceiveMemoryWarning() {
+        println("hallo")
+    }
+    
     func downSwiped(){
         
         let subViews: Array = self.view.subviews
@@ -63,17 +67,14 @@ class DashboardViewController: UIViewController, PNChartDelegate, LineChartDeleg
     
     func userClickedOnLineKeyPoint(point: CGPoint, lineIndex: Int, keyPointIndex: Int)
     {
-        println("Click Key on line \(point.x), \(point.y) line index is \(lineIndex) and point index is \(keyPointIndex)")
     }
     
     func userClickedOnLinePoint(point: CGPoint, lineIndex: Int)
     {
-        println("Click Key on line \(point.x), \(point.y) line index is \(lineIndex)")
     }
     
     func userClickedOnBarCharIndex(barIndex: Int)
     {
-        println("Click  on bar \(barIndex)")
     }
     
     
@@ -174,7 +175,9 @@ class DashboardViewController: UIViewController, PNChartDelegate, LineChartDeleg
         
                 self.lineChart = LineChart()
                 self.lineChart!.dotsVisible = false
-                self.lineChart!.gridVisible = false
+                self.lineChart!.gridVisible = true
+                self.lineChart!.labelsYVisible = true
+                self.lineChart!.labelsXVisible = true
                 self.lineChart!.numberOfGridLinesX = 30
                 self.lineChart!.numberOfGridLinesY = 10
                 self.lineChart!.addLine(data)

@@ -8,59 +8,65 @@
 
 import UIKit
 
-import MessageUI
+import Alamofire
 
-class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, MFMailComposeViewControllerDelegate{
+import SwiftyJSON
+
+
+class ForgotPasswordViewController: UIViewController, UITextFieldDelegate{
 
     @IBOutlet weak var txtEmailAddress: UITextField!
     
-    
-    override func viewDidAppear(animated: Bool) {
-        self.txtEmailAddress.delegate = self
-    }
-    @IBAction func resetPassword(sender: AnyObject) {
-        
-        // Email Subject
-        var emailTitle = "Test Email"
-        // Email Content
-        var messageBody = "iOS programming is so fun!";
-        // To address
-        var toRecipents = ["weber.johanes@gmail.com"];
-        
-        var mc = MFMailComposeViewController()
-        mc.mailComposeDelegate = self;
-        mc.setSubject(emailTitle)
-        mc.setMessageBody(messageBody, isHTML: false)
-        mc.setToRecipients(toRecipents)
-        
-        // Present mail view controller on screen
-        self.presentViewController(mc, animated: true, completion: nil)
-    }
-    
-    @IBAction func cancelTapped(sender: UIBarButtonItem) {
+    @IBAction func cancel(sender: UIBarButtonItem) {
         self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        if (textField == self.txtEmailAddress) {
-            textField.resignFirstResponder()
-        }
-        return true
+    override func viewDidAppear(animated: Bool) {
+        
+        self.txtEmailAddress.delegate = self
+        self.txtEmailAddress.becomeFirstResponder()
+        
     }
     
-    func mailComposeController(controller:MFMailComposeViewController, didFinishWithResult result:MFMailComposeResult, error:NSError) {
-        switch result.value {
-        case MFMailComposeResultCancelled.value:
-            println("Mail cancelled")
-        case MFMailComposeResultSaved.value:
-            println("Mail saved")
-        case MFMailComposeResultSent.value:
-            println("Mail sent")
-        case MFMailComposeResultFailed.value:
-            println("Mail sent failure: \(error.localizedDescription)")
-        default:
-            break
+    
+    @IBAction func resetPassword(sender: AnyObject) {
+        
+        var email = self.txtEmailAddress.text
+        
+        if email.isValidEmail(){
+        
+            let parameters: Dictionary<String, String> = ["email" : "\(email)"]
+        
+            Alamofire.request(.POST, "http://141.19.142.45/~johannes/focusedhealth/password/forgot/", parameters: parameters)
+                    .responseSwiftyJSON { (request, response, json, error) in
+                    println(request)
+                    println(response)
+                    println(json)
+                        
+                    var success = json["success"].intValue
+                    var message = json["message"].string!
+                        
+                        if success == 1 {
+                            
+                            var alertView:UIAlertView = UIAlertView()
+                            alertView.title = "E-Mail has been successfully sent!"
+                            alertView.message = message
+                            alertView.delegate = self
+                            alertView.addButtonWithTitle("OK")
+                            alertView.show()
+                            
+                            self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+                        }
+                
+            }
+        } else {
+            var alertView:UIAlertView = UIAlertView()
+            alertView.title = "Resetting Password Failed!"
+            alertView.message = "E-Mail Address is not valid."
+            alertView.delegate = self
+            alertView.addButtonWithTitle("OK")
+            alertView.show()
         }
-        self.dismissViewControllerAnimated(false, completion: nil)
+        
     }
 }

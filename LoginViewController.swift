@@ -28,7 +28,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
         
         self.txtMailAddress.delegate = self
-        self.txtPassword.delegate = self
+        self.txtPassword.delegate = self        
         
     }
     

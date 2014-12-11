@@ -48,6 +48,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if (url.host == "oauth-callback") {
             if (url.path!.hasPrefix("/vitadock") || url.path!.hasPrefix("/fitbit")) || url.path!.hasPrefix("/withings") {
                 OAuth1Swift.handleOpenURL(url)
+                
+            } else if url.path!.hasPrefix("/password/forgot") {
+                
+                let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                
+                var resetPasswordViewController = mainStoryboard.instantiateViewControllerWithIdentifier("resetPassword") as ResetPasswordViewController
+                
+                //TODO how to create and display an navigation controller
+                var rootViewController = self.window!.rootViewController as? UINavigationController
+                
+                window?.rootViewController = nil
+                window?.rootViewController = resetPasswordViewController
+                window?.makeKeyAndVisible()
+                return true
             }
         
         }

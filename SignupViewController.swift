@@ -86,7 +86,8 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                         println("Sign Up SUCCESS");
                         var alertView:UIAlertView = UIAlertView()
                         alertView.title = "Sign Up Succesfull!"
-                        alertView.message = "You are succesfully signed up!"
+                        var message = json["error_message"].string!
+                        alertView.message = message
                         alertView.delegate = self
                         alertView.addButtonWithTitle("OK")
                         alertView.show()

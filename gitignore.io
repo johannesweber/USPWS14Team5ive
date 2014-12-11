@@ -1,6 +1,7 @@
 # Created by https://www.gitignore.io
 
-### Xcode ###
+# Xcode
+
 build/
 *.pbxuser
 !default.pbxuser
@@ -14,4 +15,6 @@ xcuserdata
 *.xccheckout
 *.moved-aside
 DerivedData
+*.hmap
+*.ipa
 *.xcuserstate

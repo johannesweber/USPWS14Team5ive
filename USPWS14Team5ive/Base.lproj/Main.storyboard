@@ -872,28 +872,91 @@
             <point key="canvasLocation" x="-51" y="2716"/>
         </scene>
         <!--Set Favorite Company-->
-        <scene sceneID="l3Z-tP-iRP">
+        <scene sceneID="vVz-j6-xnd">
             <objects>
-                <viewController id="lvT-Mz-DlR" customClass="FavCompanyViewController" customModule="USPWS14Team5ive" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="duv-26-i3v">
+                <tableViewController id="zka-vN-pYK" customClass="FavCompanyTableViewController" customModule="USPWS14Team5ive" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Ahs-EO-weL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.96069163079999997" alpha="1" colorSpace="deviceWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Set Favorite Company" id="ioQ-Ma-dno">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Cnx-sx-82b">
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <sections>
+                            <tableViewSection headerTitle="Vitals" id="MAX-Pp-19E">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CompanyItem" id="WC9-l3-TTS">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WC9-l3-TTS" id="iGD-Cp-Esi">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="5020" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Heart Rate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AGa-dv-wl6">
+                                                    <rect key="frame" x="23" y="14" width="83" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Fitness" id="n8Y-h6-pqT">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CompanyItem" id="wJd-df-ezz">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wJd-df-ezz" id="kBL-66-jW7">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="5020" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Steps" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jMu-pW-8dE">
+                                                    <rect key="frame" x="23" y="14" width="45" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Sleep" id="u57-12-ufB">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CompanyItem" id="y8N-8y-rfn">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="y8N-8y-rfn" id="uEF-ka-zdi">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="5020" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sleep Analysis" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="EYb-Gc-5JJ">
+                                                    <rect key="frame" x="23" y="14" width="112" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="zka-vN-pYK" id="lpU-2O-Soe"/>
+                            <outlet property="delegate" destination="zka-vN-pYK" id="YPC-5x-ROK"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Set Favorite Company" id="49l-7l-Wbv">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="RNR-q1-3dq">
                             <connections>
-                                <action selector="cancel:" destination="lvT-Mz-DlR" id="o1D-G7-9TF"/>
+                                <action selector="cancel:" destination="zka-vN-pYK" id="Q5u-Y9-Ryy"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="toh-Js-bvR">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="Dri-j6-Kax">
                             <connections>
-                                <action selector="done:" destination="lvT-Mz-DlR" id="4B5-0a-8HP"/>
+                                <action selector="done:" destination="zka-vN-pYK" id="2mE-mc-9SL"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="SwG-nh-1wc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="D6y-aR-Yaw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="350" y="2716"/>
         </scene>
@@ -1028,7 +1091,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="lvT-Mz-DlR" kind="relationship" relationship="rootViewController" id="FiT-2x-f9o"/>
+                        <segue destination="zka-vN-pYK" kind="relationship" relationship="rootViewController" id="c1S-ij-aO3"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iX0-rz-7WH" userLabel="First Responder" sceneMemberID="firstResponder"/>

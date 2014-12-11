@@ -26,7 +26,6 @@
 		0E6B3F561A2DAC31002193B2 /* DevicesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6B3F551A2DAC31002193B2 /* DevicesTableViewController.swift */; };
 		0E6B3F581A2DACD9002193B2 /* ChangeEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6B3F571A2DACD9002193B2 /* ChangeEmailViewController.swift */; };
 		0E6B3F5A1A2DAD0A002193B2 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6B3F591A2DAD0A002193B2 /* ChangePasswordViewController.swift */; };
-		0E6B3F5C1A2DAD3F002193B2 /* FavCompanyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6B3F5B1A2DAD3F002193B2 /* FavCompanyViewController.swift */; };
 		0E6B3F5E1A2DAD95002193B2 /* EditDevicesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6B3F5D1A2DAD95002193B2 /* EditDevicesTableViewController.swift */; };
 		0E6B3F601A2DADF6002193B2 /* AddDeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6B3F5F1A2DADF6002193B2 /* AddDeviceViewController.swift */; };
 		0E6B3F631A2E4F29002193B2 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E6B3F621A2E4F29002193B2 /* background.png */; };
@@ -380,6 +379,7 @@
 		0EFF3AFB19FCD4C400AB3C17 /* OAuthSwiftCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3AF219FCD4C400AB3C17 /* OAuthSwiftCredential.swift */; };
 		0EFF3AFC19FCD4C400AB3C17 /* OAuthSwiftHTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3AF319FCD4C400AB3C17 /* OAuthSwiftHTTPRequest.swift */; };
 		0EFF3AFE19FCD5D000AB3C17 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3AFD19FCD5D000AB3C17 /* Constants.swift */; };
+		A33B8A691A39B3460002F71A /* FavCompanyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33B8A681A39B3460002F71A /* FavCompanyTableViewController.swift */; };
 		A3FE1B5C1A3886C100C34B24 /* Alamofire.framework in Copy Framework */ = {isa = PBXBuildFile; fileRef = A3FE1B591A38868000C34B24 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A3FE1B6E1A38873300C34B24 /* SwiftyJSON.framework in Copy Framework */ = {isa = PBXBuildFile; fileRef = A3FE1B671A3886E800C34B24 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -427,20 +427,6 @@
 			remoteGlobalIDString = 2E4FEFE619575BE100351305;
 			remoteInfo = SwiftyJSONTests;
 		};
-		A3FE1B6A1A3886E800C34B24 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A3FE1B5F1A3886E800C34B24 /* SwiftyJSON.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4EC1C1C91A0C1A2D0026ED0B;
-			remoteInfo = SwiftyJSONOSX;
-		};
-		A3FE1B6C1A3886E800C34B24 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A3FE1B5F1A3886E800C34B24 /* SwiftyJSON.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4EC1C1D31A0C1A2D0026ED0B;
-			remoteInfo = SwiftyJSONOSXTests;
-		};
 		A3FE1B6F1A38874F00C34B24 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A3FE1B5F1A3886E800C34B24 /* SwiftyJSON.xcodeproj */;
@@ -486,7 +472,6 @@
 		0E6B3F551A2DAC31002193B2 /* DevicesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevicesTableViewController.swift; sourceTree = "<group>"; };
 		0E6B3F571A2DACD9002193B2 /* ChangeEmailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeEmailViewController.swift; sourceTree = "<group>"; };
 		0E6B3F591A2DAD0A002193B2 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
-		0E6B3F5B1A2DAD3F002193B2 /* FavCompanyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavCompanyViewController.swift; sourceTree = "<group>"; };
 		0E6B3F5D1A2DAD95002193B2 /* EditDevicesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDevicesTableViewController.swift; sourceTree = "<group>"; };
 		0E6B3F5F1A2DADF6002193B2 /* AddDeviceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddDeviceViewController.swift; sourceTree = "<group>"; };
 		0E6B3F621A2E4F29002193B2 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
@@ -847,6 +832,7 @@
 		0EFF3AF319FCD4C400AB3C17 /* OAuthSwiftHTTPRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthSwiftHTTPRequest.swift; sourceTree = "<group>"; };
 		0EFF3AFD19FCD5D000AB3C17 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		83CEEE951A272B5400092BB7 /* OAuthSwiftClient_Vitadock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthSwiftClient_Vitadock.swift; sourceTree = "<group>"; };
+		A33B8A681A39B3460002F71A /* FavCompanyTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavCompanyTableViewController.swift; sourceTree = "<group>"; };
 		A3FE1B531A38868000C34B24 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = "../../../Downloads/Alamofire-master/Alamofire.xcodeproj"; sourceTree = "<group>"; };
 		A3FE1B5F1A3886E800C34B24 /* SwiftyJSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftyJSON.xcodeproj; path = "../../../Downloads/SwiftyJSON-master/SwiftyJSON.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -937,9 +923,9 @@
 				0E6B3F551A2DAC31002193B2 /* DevicesTableViewController.swift */,
 				0E6B3F571A2DACD9002193B2 /* ChangeEmailViewController.swift */,
 				0E6B3F591A2DAD0A002193B2 /* ChangePasswordViewController.swift */,
-				0E6B3F5B1A2DAD3F002193B2 /* FavCompanyViewController.swift */,
 				0E6B3F5D1A2DAD95002193B2 /* EditDevicesTableViewController.swift */,
 				0E6B3F5F1A2DADF6002193B2 /* AddDeviceViewController.swift */,
+				A33B8A681A39B3460002F71A /* FavCompanyTableViewController.swift */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -1468,8 +1454,6 @@
 			children = (
 				A3FE1B671A3886E800C34B24 /* SwiftyJSON.framework */,
 				A3FE1B691A3886E800C34B24 /* SwiftyJSONTests.xctest */,
-				A3FE1B6B1A3886E800C34B24 /* SwiftyJSON.framework */,
-				A3FE1B6D1A3886E800C34B24 /* SwiftyJSONOSXTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1601,20 +1585,6 @@
 			fileType = wrapper.cfbundle;
 			path = SwiftyJSONTests.xctest;
 			remoteRef = A3FE1B681A3886E800C34B24 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		A3FE1B6B1A3886E800C34B24 /* SwiftyJSON.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SwiftyJSON.framework;
-			remoteRef = A3FE1B6A1A3886E800C34B24 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		A3FE1B6D1A3886E800C34B24 /* SwiftyJSONOSXTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = SwiftyJSONOSXTests.xctest;
-			remoteRef = A3FE1B6C1A3886E800C34B24 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -2017,7 +1987,6 @@
 			files = (
 				0E93F52D1A31D131003C08D9 /* OAuthSwiftClient_Vitadock.swift in Sources */,
 				0E6F27421A2CF0B900F58A13 /* VitalsDiagramViewController.swift in Sources */,
-				0E6B3F5C1A2DAD3F002193B2 /* FavCompanyViewController.swift in Sources */,
 				0E860F5B1A2B309400A9F152 /* TermsOfUseViewController.swift in Sources */,
 				0E6161991A1F8ADD006E0AD7 /* DemoViewController.swift in Sources */,
 				0E818FB01A25131B000B9DA6 /* LoginViewController.swift in Sources */,
@@ -2046,6 +2015,7 @@
 				0EFF3AC319FCD22C00AB3C17 /* USPWS14Team5ive.xcdatamodeld in Sources */,
 				0EF48BB21A324C6E00E7BC5D /* Appearance.swift in Sources */,
 				0E3369921A1B4ABA007F17FD /* HMACAlgorithm.swift in Sources */,
+				A33B8A691A39B3460002F71A /* FavCompanyTableViewController.swift in Sources */,
 				0E6B3F561A2DAC31002193B2 /* DevicesTableViewController.swift in Sources */,
 				0EC9ACEE1A253D3B002C6661 /* DatabaseConnection.swift in Sources */,
 				0E860F571A2B276C00A9F152 /* ForgotPasswordViewController.swift in Sources */,

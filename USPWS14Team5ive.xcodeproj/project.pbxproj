@@ -1384,11 +1384,10 @@
 			isa = PBXGroup;
 			children = (
 				0E46FFFE1A308BB1002686C3 /* USPWS14Team5ive-Bridging-Header.h */,
-				0E860F691A2C66D600A9F152 /* Controller */,
-				0E04EF391A236870008368B7 /* DatabaseConnection */,
 				0EFF3AE819FCD4C400AB3C17 /* Extension */,
+				0E860F691A2C66D600A9F152 /* Controller */,
+				0E1ADE881A2C936700820ED2 /* Helper */,
 				0E04EF331A2326BA008368B7 /* Library */,
-				0E1ADE881A2C936700820ED2 /* Objects */,
 				0E6161941A1F8977006E0AD7 /* Pictures */,
 				0EFF3ABF19FCD22C00AB3C17 /* AppDelegate.swift */,
 				0EFF3AC619FCD22C00AB3C17 /* Main.storyboard */,

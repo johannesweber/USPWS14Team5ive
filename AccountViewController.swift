@@ -113,7 +113,6 @@ class AccountViewController: UITableViewController {
             
             var parameters: Dictionary<String, AnyObject> = [
                 "oauth_token"               : "\(credentials.oauth_token)",
-                "oauth_verifier"            : "\(credentials.oauth_verifier)",
                 "oauth_token_secret"        : "\(credentials.oauth_token_secret)",
             ]
             

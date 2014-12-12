@@ -102,6 +102,7 @@ class OAuthSwiftClient_Vitadock {
         var oauth_verifier = String()
         
         if(credential.oauth_verifier != ""){
+            
             authorizationParameters["oauth_verifier"] = credential.oauth_verifier
             
             oauth_verifier = authorizationParameters["oauth_verifier"] as String

@@ -95,6 +95,11 @@ class AccountViewController: UITableViewController {
         oauthswift_withings.authorizeWithCallbackURL( NSURL(string: "oauth-callback://oauth-callback/withings")!, success: {
             credentials, response in
             
+            println("Token: \(credentials.oauth_token)")
+            println("Token Secret: \(credentials.oauth_token_secret)")
+            println("User ID: \(credentials.user_id)")
+            
+            
             var parameters: Dictionary<String, AnyObject> = [
                 "userid"                : "\(credentials.user_id)",
                 "oauth_token"           : "\(credentials.oauth_token)",
@@ -124,15 +129,17 @@ class AccountViewController: UITableViewController {
             credentials, response in
             self.showAlertView("Vitadock", message: "oauth_token:\(credentials.oauth_token)\n\noauth_token_secret:\(credentials.oauth_token_secret)\n\noauth_verifier:\(credentials.oauth_verifier)")
             
+            println("\(credentials.oauth_token)")
+            println()
+            println("\(credentials.oauth_token_secret)")
+            println()
+            println("\(credentials.oauth_verifier)")
+            
+            
             var parameters: Dictionary<String, AnyObject> = [
-                "oauth_timestamp"           : "\(credentials.oauth_timestamp)",
-                "oauth_nonce"               : "\(credentials.oauth_nonce)",
-                "oauth_consumer_key"        : "\(credentials.consumer_key)",
                 "oauth_token"               : "\(credentials.oauth_token)",
                 "oauth_verifier"            : "\(credentials.oauth_verifier)",
                 "oauth_token_secret"        : "\(credentials.oauth_token_secret)",
-                "oauth_version"             : "1.0",
-                "oauth_signature_method"    : "HMAC-SHA256"
             ]
             
             var db_connection = DatabaseConnection()

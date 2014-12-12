@@ -22,7 +22,7 @@ class DatabaseConnection {
         request.requestSerializer = JSONRequestSerializer()
         //The expected response will be JSON and be converted to an object return by NSJSONSerialization instead of a NSData.
         request.responseSerializer = JSONResponseSerializer()
-        request.POST("http://141.19.142.45/~johannes/focusedhealth/signup", parameters: parameter, success: {(response: HTTPResponse) in
+        request.POST("http://141.19.142.45/~timon/focusedhealth/signup", parameters: parameter, success: {(response: HTTPResponse) in
             if let dict = response.responseObject as? Dictionary<String,AnyObject> {
                 println("print the whole response: \(response.responseObject)")
             }
@@ -50,7 +50,7 @@ class DatabaseConnection {
     //Send Fitbit OAuth Credentials
     func postFitbitCredentialsToServer(parameter: Dictionary<String,AnyObject>){
         
-    let url: String = "http://141.19.142.45/~johannes/focusedhealth/fitbit/authorize/"
+    let url: String = "http://141.19.142.45/~timon/focusedhealth/fitbit/authorize/"
     var request = HTTPTask()
         
         request.POST(url, parameters: parameter, success: {(response: HTTPResponse) in

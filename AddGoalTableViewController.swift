@@ -36,6 +36,7 @@ class AddGoalTableViewController: UITableViewController {
     }
     
     @IBAction func doneTapped(sender: UIBarButtonItem) {
+        
         let item = TableItem()
         //Hier kommt später das datum hin
         //        item.text = textField.text
@@ -43,135 +44,98 @@ class AddGoalTableViewController: UITableViewController {
     }
     
     @IBAction func cancelTapped(sender: UIBarButtonItem) {
+        
         delegate?.addGoalTableViewControllerDidCancel(self)
     }
     
-    //    //mit dieser funktion wird die auswahl der kategorie geöffnet sobald man die view öffnet
-    //    override func viewWillAppear(animated: Bool) {
-    //            super.viewWillAppear(animated)
-    //            textField.becomeFirstResponder()
-    //    }
-
-    
     func showStartDatePicker() {
-        startDatePickerVisible = true
         
-        let indexPathStartDateRow = NSIndexPath(forRow: 0, inSection: 1)
+        //sets the startdatepicker variable to true to indace that the startdatepicker is visible
+        self.startDatePickerVisible = true
+        //defines the indexpath where the datepicker should be
         let indexPathStartDatePicker = NSIndexPath(forRow: 1, inSection: 1)
-            if let dateCell = tableView.cellForRowAtIndexPath(indexPathStartDateRow){
-        
-                dateCell.detailTextLabel!.textColor = dateCell.detailTextLabel!.tintColor
-            }
-        
-            tableView.beginUpdates()
-            tableView.insertRowsAtIndexPaths([indexPathStartDatePicker],withRowAnimation: .Fade)
-            tableView.reloadRowsAtIndexPaths([indexPathStartDateRow], withRowAnimation: .None)
-            tableView.endUpdates()
-        
-                if let pickerCell = tableView.cellForRowAtIndexPath(indexPathStartDatePicker) {
-                    let startdatePicker = pickerCell.viewWithTag(100) as UIDatePicker
-                    startdatePicker.setDate(startdate, animated: false)
-                }
+        tableView.insertRowsAtIndexPaths([indexPathStartDatePicker],
+        withRowAnimation: .Fade)
     }
-
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        // 1
-        if indexPath.section == 1 && indexPath.row == 1 {
-        // 2
-            var cell: UITableViewCell! =
-            tableView.dequeueReusableCellWithIdentifier("StartDatePickerCell") as? UITableViewCell
-            if cell == nil {
-                cell = UITableViewCell(style: .Default, reuseIdentifier: "StartDatePickerCell")
-                cell.selectionStyle = .None
-                // 3
-                let startdatePicker = UIDatePicker(frame: CGRect(x: 0, y: 0,
-                width: 320, height: 216))
-                startdatePicker.tag = 100
-                cell.contentView.addSubview(startdatePicker)
-                // 4
-                startdatePicker.addTarget(self, action: Selector("startDateChanged:"),
-                forControlEvents: .ValueChanged)
-            }
-            return cell
+            
+            // 1 if the cell with the datepicker is active
+            if indexPath.section == 1 && indexPath.row == 1 {
+            // 2 Select the cell with the startDatePicker in it
+            var cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier("StartDatePickerCell") as? UITableViewCell
+                if cell == nil {
+                    //create a new table cell
+                    cell = UITableViewCell(style: .Default, reuseIdentifier: "StartDatePickerCell")
+                    cell.selectionStyle = .None
+                    // 3 create a new date picker
+                    let startDatePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: 320, height: 216))
+                    startDatePicker.tag = 100
+                    //add the date picker to the cell
+                    cell.contentView.addSubview(startDatePicker)
+                    // 4
+                    startDatePicker.addTarget(self, action: Selector("dateChanged:"), forControlEvents: .ValueChanged)
+                }
+                return cell
             // 5
-        } else {
+            } else {
             return super.tableView(tableView, cellForRowAtIndexPath: indexPath)
-        }
+            }
     }
-        
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 1 && startDatePickerVisible {
+        
+        if section == 1 && self.startDatePickerVisible {
             return 3
         } else {
             return super.tableView(tableView, numberOfRowsInSection: section)
         }
     }
-        
+    
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        
+                
         if indexPath.section == 1 && indexPath.row == 1 {
-            return 217
+                
+                return 218
+                
         } else {
+                
             return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
+                
         }
     }
-        
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+                
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        if indexPath.section == 1 && indexPath.row == 0 {
-            if !startDatePickerVisible {
+                        
+            if indexPath.section == 1 && indexPath.row == 0 {
+                        
                 showStartDatePicker()
-            } else {
-                hideStartDatePicker()
             }
-        }
     }
-        
+    
     override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+                    
         if indexPath.section == 1 && indexPath.row == 0 {
+                    
             return indexPath
+                    
         } else {
+                    
             return nil
+                    
         }
     }
-        
-    override func tableView(tableView: UITableView,var indentationLevelForRowAtIndexPath indexPath: NSIndexPath) -> Int {
-        if indexPath.section == 1 && indexPath.row == 1 {
-            indexPath = NSIndexPath(forRow: 0, inSection: indexPath.section)
+    
+    override func tableView(tableView: UITableView,
+        var indentationLevelForRowAtIndexPath indexPath: NSIndexPath)
+        -> Int {
+        if indexPath.section == 1 && indexPath.row == 2 {
+        indexPath = NSIndexPath(forRow: 0, inSection: indexPath.section)
         }
-            return super.tableView(tableView,
-            indentationLevelForRowAtIndexPath: indexPath)
+        return super.tableView(tableView,
+        indentationLevelForRowAtIndexPath: indexPath)
     }
-        
-    func updateStartDateLabel() {
-        let formatter = NSDateFormatter()
-        formatter.dateStyle = .MediumStyle
-        formatter.timeStyle = .ShortStyle
-        startdateLabel.text = formatter.stringFromDate(startdate)
-    }
-        
-    func startDateChanged(datePicker: UIDatePicker) {
-        startdate = datePicker.date
-        updateStartDateLabel()
-    }
-        
-    func hideStartDatePicker() {
-        if startDatePickerVisible {
-            startDatePickerVisible = false
-            
-            let indexPathStartDateRow = NSIndexPath(forRow: 0, inSection: 1)
-            let indexPathStartDatePicker = NSIndexPath(forRow: 1, inSection: 1)
-            
-            if let cell = tableView.cellForRowAtIndexPath(indexPathStartDateRow) {
-                cell.detailTextLabel!.textColor = UIColor(white: 0, alpha: 0.5)
-            }
-            tableView.beginUpdates()
-            tableView.reloadRowsAtIndexPaths([indexPathStartDateRow],
-            withRowAnimation: .None)
-            tableView.deleteRowsAtIndexPaths([indexPathStartDatePicker],
-            withRowAnimation: .Fade)
-            tableView.endUpdates()
-        }
-    }
-        
+
 }

@@ -38,6 +38,7 @@ class ManageDataViewController: UITableViewController {
         return categories.count
     }
     
+    //places the TableItems in tableview rows
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
             
         let cell = tableView.dequeueReusableCellWithIdentifier("ManageDataItem") as UITableViewCell
@@ -53,8 +54,6 @@ class ManageDataViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath:NSIndexPath) {
         var item = categories[indexPath.row]
         var category = item.text
-        
-        println(category)
             
         switch category {
             

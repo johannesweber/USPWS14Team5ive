@@ -66,9 +66,7 @@ public class HTTPRequestSerializer: NSObject {
         request.networkServiceType = self.networkServiceType
         for (key,val) in self.headers {
             request.addValue(val, forHTTPHeaderField: key)
-            
         }
-       
         return request
     }
     

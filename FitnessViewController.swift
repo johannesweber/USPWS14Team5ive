@@ -12,6 +12,8 @@ class FitnessViewController: UITableViewController {
 
     var measurements: [TableItem]
     
+    var labelClicked: String
+    
     
     required init(coder aDecoder: NSCoder) {
         
@@ -31,6 +33,8 @@ class FitnessViewController: UITableViewController {
         
         let row4item = TableItem(text: "Elevation")
         measurements.append(row4item)
+        
+        self.labelClicked = String()
         
         super.init(coder: aDecoder)
     }

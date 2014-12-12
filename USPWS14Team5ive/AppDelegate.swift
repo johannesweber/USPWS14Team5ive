@@ -48,6 +48,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if (url.host == "oauth-callback") {
             if (url.path!.hasPrefix("/vitadock") || url.path!.hasPrefix("/fitbit")) || url.path!.hasPrefix("/withings") {
                 OAuth1Swift.handleOpenURL(url)
+                
+            } else if url.path!.hasPrefix("/password/forgot") {
+                
+                let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                
+                var resetPasswordViewController = mainStoryboard.instantiateViewControllerWithIdentifier("resetPassword") as ResetPasswordViewController
+                
+                //TODO how to create and display an navigation controller
+                var rootViewController = self.window!.rootViewController as? UINavigationController
+                
+                window?.rootViewController = nil
+                window?.rootViewController = resetPasswordViewController
+                window?.makeKeyAndVisible()
+                return true
             }
         
         }
@@ -56,19 +70,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func customizeAppearance() {
-        let navigationBarTintColor = UIColor(red: 65/255, green: 192/255, blue: 194/255, alpha: 1)
-        UINavigationBar.appearance().barTintColor = navigationBarTintColor
+        UINavigationBar.appearance().barTintColor = FHBlueColor
         
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
             
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+        
+        UITabBar.appearance().barTintColor = UIColor.whiteColor()
             
-        let tabBarTintColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
-        UITabBar.appearance().barTintColor = tabBarTintColor
+        let backgroundColor = FHGreyColor
             
-        let backgroundColor = UIColor(red: 222/255, green: 222/255, blue: 222/255, alpha: 1)
-            
-        window?.tintColor = navigationBarTintColor
+        window?.tintColor = FHBlueColor
     }
     
     

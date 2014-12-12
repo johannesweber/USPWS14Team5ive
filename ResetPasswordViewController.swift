@@ -20,18 +20,23 @@ class ResetPasswordViewController: UIViewController {
     
     @IBOutlet weak var txtMailAddress: UITextField!
     
-    @IBAction func cancel(sender: UIBarButtonItem) {
-        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func cancel(sender: AnyObject) {
+        
     }
     
-    @IBAction func resetPassword(sender: UIButton) {
+    @IBAction func changePassword(sender: UIButton) {
         
         var email = self.txtMailAddress.text
         var password = self.txtNewPassword.text
+        var confirmPassword = self.txtConfirmNewPassword.text
         
+        println(password)
+        println(confirmPassword)
+        
+        //why doesn't passwords match
         if email.isValidEmail() && password != "" {
             
-            if password == self.txtConfirmNewPassword.text {
+            if password == confirmPassword {
                 
                 let parameters: Dictionary<String, String> = ["email" : "\(email)", "password" : "\(password)"]
                 
@@ -40,17 +45,29 @@ class ResetPasswordViewController: UIViewController {
                         println(request)
                         println(response)
                         println(json)
+                        
+                        var success = json["success"].intValue
+                        var message = json["message"].string
+                        
+                        if success == 1 {
+                            
+                            var alertView:UIAlertView = UIAlertView()
+                            alertView.title = "Change Password Succesfull!"
+                            alertView.message = message
+                            alertView.delegate = self
+                            alertView.addButtonWithTitle("OK")
+                            alertView.show()
+                        }
                 }
-
+        
             } else {
                 var alertView:UIAlertView = UIAlertView()
                 alertView.title = "Change Password Failed!"
-                alertView.message = "Passwords doesn't Match."
+                alertView.message = "Passwords don't Match."
                 alertView.delegate = self
                 alertView.addButtonWithTitle("OK")
                 alertView.show()
             }
-            
         } else {
             var alertView:UIAlertView = UIAlertView()
             alertView.title = "Change Password Failed!"
@@ -60,6 +77,8 @@ class ResetPasswordViewController: UIViewController {
             alertView.show()
         }
     }
+    
+    
     
     
 }

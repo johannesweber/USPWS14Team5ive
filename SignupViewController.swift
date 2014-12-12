@@ -22,6 +22,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         self.txtMailAddress.delegate = self
         self.txtPassword.delegate = self
         self.txtRepeatPassword.delegate = self
+        self.txtMailAddress.becomeFirstResponder()
     }
     
     @IBAction func goToLoginTapped(sender: UIButton) {

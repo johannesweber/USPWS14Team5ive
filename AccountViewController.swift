@@ -11,6 +11,8 @@ import UIKit
 class AccountViewController: UITableViewController {
     
     var fitbit = Fitbit()
+    var medisana = Medisana()
+    var withings = Withings()
     
     @IBOutlet weak var txtUserMailAddress: UILabel!
     
@@ -27,9 +29,13 @@ class AccountViewController: UITableViewController {
     }
     
     @IBAction func authorizeWithings(sender: UIButton) {
+        
+        withings.doOAuth()
     }
     
     @IBAction func authorizeMedisana(sender: AnyObject) {
+        
+        medisana.doOAuth()
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -57,79 +63,4 @@ class AccountViewController: UITableViewController {
         }
         
     }
-    
-    func doOAuthWithings(){
-        let oauthswift_withings = OAuth1Swift(
-            consumerKey:    Withings["consumerKey"]!,
-            consumerSecret: Withings["consumerSecret"]!,
-            requestTokenUrl: "https://oauth.withings.com/account/request_token",
-            authorizeUrl:    "https://oauth.withings.com/account/authorize",
-            accessTokenUrl:  "https://oauth.withings.com/account/access_token"
-        )
-        oauthswift_withings.authorizeWithCallbackURL( NSURL(string: "oauth-callback://oauth-callback/withings")!, success: {
-            credentials, response in
-            
-            println("Token: \(credentials.oauth_token)")
-            println("Token Secret: \(credentials.oauth_token_secret)")
-            println("User ID: \(credentials.user_id)")
-            
-            
-            var parameters: Dictionary<String, AnyObject> = [
-                "userid"                : "\(credentials.user_id)",
-                "oauth_token"           : "\(credentials.oauth_token)",
-                "oauth_token_secret"    : "\(credentials.oauth_token_secret)"
-            ]
-            
-            
-            var db_connection = DatabaseConnection()
-            
-            db_connection.postWithingsCredentialsToServer(parameters)
-           
-            
-            
-            }, failure: {(error:NSError!) -> Void in
-                println(error.localizedDescription)
-        })
-    }
-    
-    func doOAuthMedisana(){
-        let oauthswift_vitadock = OAuth1Swift_Vitadock(
-            consumerKey:    Vitadock["consumerKey"]!,
-            consumerSecret: Vitadock["consumerSecret"]!,
-            requestTokenUrl: "https://cloud.vitadock.com/auth/unauthorizedaccesses",
-            authorizeUrl:    "https://cloud.vitadock.com/desiredaccessrights/request",
-            accessTokenUrl:  "https://cloud.vitadock.com/auth/accesses/verify"
-        )
-        oauthswift_vitadock.authorizeWithCallbackURL( NSURL(string:"oauth-callback://oauth-callback/vitadock")!, success: {
-            credentials, response in
-            self.showAlertView("Vitadock", message: "oauth_token:\(credentials.oauth_token)\n\noauth_token_secret:\(credentials.oauth_token_secret)\n\noauth_verifier:\(credentials.oauth_verifier)")
-            
-            println("\(credentials.oauth_token)")
-            println()
-            println("\(credentials.oauth_token_secret)")
-            println()
-            println("\(credentials.oauth_verifier)")
-            
-            
-            var parameters: Dictionary<String, AnyObject> = [
-                "oauth_token"               : "\(credentials.oauth_token)",
-                "oauth_token_secret"        : "\(credentials.oauth_token_secret)",
-            ]
-            
-            var db_connection = DatabaseConnection()
-            
-            db_connection.postVitadockCredentialsToServer(parameters)
-            
-            
-            }, failure: {(error:NSError!) -> Void in
-                println(error.localizedDescription)
-        })
-    }
-    
-    func showAlertView(title: String, message: String) {
-        var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.Default, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
-    }
-
 }

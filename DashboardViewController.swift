@@ -65,16 +65,16 @@ class DashboardViewController: UIViewController, PNChartDelegate, LineChartDeleg
     
     
     
-    func userClickedOnLineKeyPoint(point: CGPoint, lineIndex: Int, keyPointIndex: Int)
-    {
+    func userClickedOnLineKeyPoint(point: CGPoint, lineIndex: Int, keyPointIndex: Int){
+        
     }
     
-    func userClickedOnLinePoint(point: CGPoint, lineIndex: Int)
-    {
+    func userClickedOnLinePoint(point: CGPoint, lineIndex: Int){
+        
     }
     
-    func userClickedOnBarCharIndex(barIndex: Int)
-    {
+    func userClickedOnBarCharIndex(barIndex: Int){
+        
     }
     
     

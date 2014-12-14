@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="eUJ-EL-HVc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6221" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="eUJ-EL-HVc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6213"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -1307,7 +1307,7 @@
                     <navigationItem key="navigationItem" title="Dashboard" id="4w4-RH-Yq7">
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="add" id="Qdq-Ve-Qwx">
                             <connections>
-                                <segue destination="S4I-n0-YcS" kind="push" id="P8d-FJ-8fC"/>
+                                <segue destination="sGf-y9-2lc" kind="push" id="99O-x1-gVZ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1429,42 +1429,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TOa-iw-FL4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1482" y="-3025"/>
-        </scene>
-        <!--Add to Dashboard-->
-        <scene sceneID="ZCN-My-YYN">
-            <objects>
-                <viewController id="S4I-n0-YcS" customClass="AddToDashboardViewController" customModule="USPWS14Team5ive" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="mUS-dn-CBe">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <pickerView contentMode="scaleToFill" id="DxQ-Wi-Jcd">
-                                <rect key="frame" x="0.0" y="110" width="320" height="162"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            </pickerView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1T5-0Q-7J1">
-                                <rect key="frame" x="88" y="442" width="145" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.21960784310000001" green="0.70588235290000001" blue="0.70980392160000005" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Add">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="addClicked:" destination="S4I-n0-YcS" eventType="touchUpInside" id="Af1-uy-X4n"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="0.96069163079999997" alpha="1" colorSpace="deviceWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Add to Dashboard" id="Gh7-Wk-tfn"/>
-                    <connections>
-                        <outlet property="measurementPicker" destination="DxQ-Wi-Jcd" id="LhY-Po-Rhi"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zKB-RP-mTX" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1020" y="-4314"/>
         </scene>
         <!--Nutrition-->
         <scene sceneID="Bfb-DP-2Cn">
@@ -2042,6 +2006,49 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m5G-iP-X7w" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1192" y="-3483"/>
+        </scene>
+        <!--Add to Dashboard-->
+        <scene sceneID="pd3-mb-DTS">
+            <objects>
+                <tableViewController id="sGf-y9-2lc" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="ARj-l1-69H">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <sections>
+                            <tableViewSection headerTitle="Choose Measurement" id="hFa-cn-g0p">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MeasurementItem" id="3Y2-e9-WuN">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3Y2-e9-WuN" id="kuO-0X-yON">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MeasurementLabel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QSY-Jl-nNe">
+                                                    <rect key="frame" x="8" y="11" width="147" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="sGf-y9-2lc" id="kih-CY-5gJ"/>
+                            <outlet property="delegate" destination="sGf-y9-2lc" id="vk5-By-Kit"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Add to Dashboard" id="Sq2-XS-Xg3">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="sUj-CL-vBU"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="Oeg-h4-30b"/>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="727-47-x3H" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="977" y="-4314"/>
         </scene>
     </scenes>
     <resources>

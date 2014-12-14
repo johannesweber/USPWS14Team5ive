@@ -80,6 +80,8 @@ class DashboardViewController: UIViewController, PNChartDelegate, LineChartDeleg
     
     func buildLineChartWater(){
         
+        println(self.userId)
+        
         Alamofire.request(.GET, "http://141.19.142.45/~johannes/focusedhealth/fitbit/time_series/water/", parameters: ["userId": "\(self.userId)"])
             .responseSwiftyJSON { (request, response, json, error) in
                 println(request)
@@ -177,12 +179,6 @@ class DashboardViewController: UIViewController, PNChartDelegate, LineChartDeleg
                 var data: Array<CGFloat> = valuesReversed
         
                 self.lineChart = LineChart()
-                self.lineChart!.dotsVisible = false
-                self.lineChart!.gridVisible = true
-                self.lineChart!.labelsYVisible = true
-                self.lineChart!.labelsXVisible = true
-                self.lineChart!.numberOfGridLinesX = 30
-                self.lineChart!.numberOfGridLinesY = 10
                 self.lineChart!.addLine(data)
                 self.lineChart!.setTranslatesAutoresizingMaskIntoConstraints(false)
                 self.lineChart!.delegate = self

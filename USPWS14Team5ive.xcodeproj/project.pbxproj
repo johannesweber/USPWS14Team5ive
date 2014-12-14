@@ -356,7 +356,7 @@
 		0E93F52D1A31D131003C08D9 /* OAuthSwiftClient_Vitadock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CEEE951A272B5400092BB7 /* OAuthSwiftClient_Vitadock.swift */; };
 		0E9FC1D11A347B270083BB92 /* Alamofire-SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9FC1D01A347B270083BB92 /* Alamofire-SwiftyJSON.swift */; };
 		0EB7717C1A339BFF00A1AB3D /* Fitbit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB7717B1A339BFF00A1AB3D /* Fitbit.swift */; };
-		0EF48BB21A324C6E00E7BC5D /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF48BB11A324C6E00E7BC5D /* Appearance.swift */; };
+		0EF48BB21A324C6E00E7BC5D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF48BB11A324C6E00E7BC5D /* Constants.swift */; };
 		0EF48BB51A3259B600E7BC5D /* DotCALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF48BB41A3259B600E7BC5D /* DotCALayer.swift */; };
 		0EF48BB71A3259C500E7BC5D /* LineChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF48BB61A3259C500E7BC5D /* LineChart.swift */; };
 		0EF48BC21A3263A100E7BC5D /* PNBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF48BB91A3263A100E7BC5D /* PNBar.swift */; };
@@ -821,7 +821,7 @@
 		0EB7717F1A33B4A300A1AB3D /* HTTPTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPTask.swift; sourceTree = "<group>"; };
 		0EB771801A33B4A300A1AB3D /* HTTPUpload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPUpload.swift; sourceTree = "<group>"; };
 		0EB771811A33B4A300A1AB3D /* SwiftHTTP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftHTTP.h; sourceTree = "<group>"; };
-		0EF48BB11A324C6E00E7BC5D /* Appearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
+		0EF48BB11A324C6E00E7BC5D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0EF48BB41A3259B600E7BC5D /* DotCALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DotCALayer.swift; sourceTree = "<group>"; };
 		0EF48BB61A3259C500E7BC5D /* LineChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineChart.swift; sourceTree = "<group>"; };
 		0EF48BB91A3263A100E7BC5D /* PNBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PNBar.swift; sourceTree = "<group>"; };
@@ -894,7 +894,7 @@
 				0E6D69271A3DA96F0053AF51 /* Withings.swift */,
 				0EB7717B1A339BFF00A1AB3D /* Fitbit.swift */,
 				0E1ADE861A2C852E00820ED2 /* TableItem.swift */,
-				0EF48BB11A324C6E00E7BC5D /* Appearance.swift */,
+				0EF48BB11A324C6E00E7BC5D /* Constants.swift */,
 				0E72714F1A34D03C00A25710 /* Weekday.swift */,
 			);
 			name = Helper;
@@ -2050,7 +2050,7 @@
 				0E860F631A2B809F00A9F152 /* AddToDashboardTableViewController.swift in Sources */,
 				0E860F611A2B6FFB00A9F152 /* AccountViewController.swift in Sources */,
 				0EFF3AC319FCD22C00AB3C17 /* USPWS14Team5ive.xcdatamodeld in Sources */,
-				0EF48BB21A324C6E00E7BC5D /* Appearance.swift in Sources */,
+				0EF48BB21A324C6E00E7BC5D /* Constants.swift in Sources */,
 				0E3369921A1B4ABA007F17FD /* HMACAlgorithm.swift in Sources */,
 				A33B8A691A39B3460002F71A /* FavCompanyTableViewController.swift in Sources */,
 				0E6B3F561A2DAC31002193B2 /* DevicesTableViewController.swift in Sources */,
@@ -2144,7 +2144,7 @@
 		0EFF3ADA19FCD22C00AB3C17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -2186,7 +2186,7 @@
 		0EFF3ADB19FCD22C00AB3C17 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;

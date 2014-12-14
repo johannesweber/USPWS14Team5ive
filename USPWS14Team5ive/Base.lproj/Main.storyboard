@@ -1687,7 +1687,6 @@
                             </tableViewSection>
                         </sections>
                         <connections>
-                            <outlet property="dataSource" destination="eQi-ms-s7Q" id="gx5-37-ONG"/>
                             <outlet property="delegate" destination="eQi-ms-s7Q" id="UhJ-fa-An6"/>
                         </connections>
                     </tableView>
@@ -2010,24 +2009,29 @@
         <!--Add to Dashboard-->
         <scene sceneID="pd3-mb-DTS">
             <objects>
-                <tableViewController id="sGf-y9-2lc" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="ARj-l1-69H">
+                <tableViewController id="sGf-y9-2lc" customClass="AddToDashboardTableViewController" customModule="USPWS14Team5ive" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" indicatorStyle="black" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="ARj-l1-69H">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
                             <tableViewSection headerTitle="Choose Measurement" id="hFa-cn-g0p">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MeasurementItem" id="3Y2-e9-WuN">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MeasurementItem" textLabel="llr-gp-URe" detailTextLabel="xWS-r3-WE8" style="IBUITableViewCellStyleValue1" id="3Y2-e9-WuN">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3Y2-e9-WuN" id="kuO-0X-yON">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MeasurementLabel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QSY-Jl-nNe">
-                                                    <rect key="frame" x="8" y="11" width="147" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Measurement" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="llr-gp-URe">
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xWS-r3-WE8">
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -2037,18 +2041,28 @@
                             </tableViewSection>
                         </sections>
                         <connections>
-                            <outlet property="dataSource" destination="sGf-y9-2lc" id="kih-CY-5gJ"/>
                             <outlet property="delegate" destination="sGf-y9-2lc" id="vk5-By-Kit"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Add to Dashboard" id="Sq2-XS-Xg3">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="sUj-CL-vBU"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="Oeg-h4-30b"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="sUj-CL-vBU">
+                            <connections>
+                                <action selector="cancel:" destination="sGf-y9-2lc" id="aeA-tt-Hma"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="Oeg-h4-30b">
+                            <connections>
+                                <action selector="done:" destination="sGf-y9-2lc" id="F2Q-pa-Mzl"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="dueDateLabel" destination="xWS-r3-WE8" id="VR6-zq-hI5"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="727-47-x3H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="977" y="-4314"/>
+            <point key="canvasLocation" x="1020" y="-4314"/>
         </scene>
     </scenes>
     <resources>

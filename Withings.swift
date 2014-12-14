@@ -61,7 +61,7 @@ class Withings {
     func postCredentialsToServer(parameters: Dictionary<String,AnyObject>){
         
         //TODO send success message from Focused Health Server to Smartphone
-        Alamofire.request(.GET, "http://141.19.142.45/~johannes/focusedhealth/withings/authorize/", parameters: parameters)
+        Alamofire.request(.POST, "http://141.19.142.45/~johannes/focusedhealth/withings/authorize/", parameters: parameters)
             .responseString { (request, response, string, error) in
                 println(request)
                 println(response)

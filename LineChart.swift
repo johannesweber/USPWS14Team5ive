@@ -1,6 +1,4 @@
 
-
-
 import UIKit
 import QuartzCore
 
@@ -29,19 +27,18 @@ func - (left: Array<CGFloat>, right: Array<CGFloat>) -> Array<CGFloat> {
 class LineChart: UIControl {
     
     // default configuration
-    var gridVisible = true
+    var gridVisible = false
     var axesVisible = true
     var dotsVisible = true
     var labelsXVisible = false
     var labelsYVisible = false
-    var areaUnderLinesVisible = false
-    var numberOfGridLinesX: CGFloat = 10
-    var numberOfGridLinesY: CGFloat = 10
-    var animationEnabled = true
+    var areaUnderLinesVisible = true
+    var numberOfGridLinesX: CGFloat = 5
+    var numberOfGridLinesY: CGFloat = 5
+    var animationEnabled = false
     var animationDuration: CFTimeInterval = 1
     
-    var dotsBackgroundColor = UIColor.whiteColor()
-    
+    var dotsBackgroundColor = FHBackgroundColor
     // #eeeeee
     var gridColor = UIColor(red: 238/255.0, green: 238/255.0, blue: 238/255.0, alpha: 1)
     
@@ -58,10 +55,10 @@ class LineChart: UIControl {
     
     // sizes
     var lineWidth: CGFloat = 2
-    var outerRadius: CGFloat = 12
-    var innerRadius: CGFloat = 8
-    var outerRadiusHighlighted: CGFloat = 12
-    var innerRadiusHighlighted: CGFloat = 8
+    var outerRadius: CGFloat = 8
+    var innerRadius: CGFloat = 4
+    var outerRadiusHighlighted: CGFloat = 10
+    var innerRadiusHighlighted: CGFloat = 6
     var axisInset: CGFloat = 10
     
     // values calculated on init
@@ -395,9 +392,11 @@ class LineChart: UIControl {
         var path = CGPathCreateMutable()
         CGPathMoveToPoint(path, nil, axisInset, self.bounds.height - yAxis[0] - axisInset)
         for index in 1..<xAxis.count {
-            var xValue = xAxis[index] + axisInset
-            var yValue = self.bounds.height - yAxis[index] - axisInset
-            CGPathAddLineToPoint(path, nil, xValue, yValue)
+            if xAxis[index] > 0 {
+                var xValue = xAxis[index] + axisInset
+                var yValue = self.bounds.height - yAxis[index] - axisInset
+                CGPathAddLineToPoint(path, nil, xValue, yValue)
+            }
         }
         
         var layer = CAShapeLayer()

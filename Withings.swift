@@ -39,13 +39,11 @@ class Withings {
         oauthswift_withings.authorizeWithCallbackURL( NSURL(string: "oauth-callback://oauth-callback/withings")!, success: {
             credentials, response in
             
-            println("Token: \(credentials.oauth_token)")
-            println("Token Secret: \(credentials.oauth_token_secret)")
-            println("User ID: \(credentials.user_id)")
-            
+            var userId = prefs.integerForKey("USERID") as Int
             
             var parameters: Dictionary<String, AnyObject> = [
-                "userid"                : "\(credentials.user_id)",
+                "user_id"               : "\(userId)",
+                "company_account_id"    : "\(credentials.user_id)",
                 "oauth_token"           : "\(credentials.oauth_token)",
                 "oauth_token_secret"    : "\(credentials.oauth_token_secret)"
             ]
@@ -61,7 +59,7 @@ class Withings {
     func postCredentialsToServer(parameters: Dictionary<String,AnyObject>){
         
         //TODO send success message from Focused Health Server to Smartphone
-        Alamofire.request(.POST, "http://141.19.142.45/~johannes/focusedhealth/withings/authorize/", parameters: parameters)
+        Alamofire.request(.POST, "http://141.19.142.45/~timon/focusedhealth/withings/authorize/", parameters: parameters)
             .responseString { (request, response, string, error) in
                 println(request)
                 println(response)

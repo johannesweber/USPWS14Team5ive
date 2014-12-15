@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E1795AC1A3F34A200FE6E7C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EFF3AC619FCD22C00AB3C17 /* Main.storyboard */; };
+		0E1795B11A3F34B800FE6E7C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EFF3ACB19FCD22C00AB3C17 /* LaunchScreen.xib */; };
 		0E1ADE871A2C852E00820ED2 /* TableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1ADE861A2C852E00820ED2 /* TableItem.swift */; };
 		0E1ADE8A1A2CD07300820ED2 /* AboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1ADE891A2CD07300820ED2 /* AboutTableViewController.swift */; };
 		0E3369921A1B4ABA007F17FD /* HMACAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3369911A1B4ABA007F17FD /* HMACAlgorithm.swift */; };
@@ -1630,6 +1632,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E1795B11A3F34B800FE6E7C /* LaunchScreen.xib in Resources */,
+				0E1795AC1A3F34A200FE6E7C /* Main.storyboard in Resources */,
 				0E860E8B1A28E78800A9F152 /* dropper.png in Resources */,
 				0E860E881A28E78800A9F152 /* drawer.png in Resources */,
 				0E860F2A1A28E78800A9F152 /* swap.png in Resources */,

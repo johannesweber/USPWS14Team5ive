@@ -7,17 +7,16 @@
 //
 
 import Foundation
-
 import AlamoFire
-
 import SwiftyJSON
 
 class Fitbit {
     
-    var response = SwiftyJSON.JSON
+    //variables
     
-    let FitbitKey =
-    [
+    var userId = prefs.integerForKey("USERID") as Int
+    var response = SwiftyJSON.JSON
+    let FitbitKey = [
         "consumerKey": "7c39abf127964bc984aba4020845ff11",
         "consumerSecret": "18c4a92f21f1458e8ac9798567d3d38c"
     ]
@@ -75,14 +74,18 @@ class Fitbit {
     */
     func synchronizeData() {
         
-        Alamofire.request(.GET, "http://141.19.142.45/~johannes/focusedhealth/fitbit/synchronize/")
+        let parameters: Dictionary<String, AnyObject> = [
+            "userId"    : "\(userId)"
+        ]
+        
+        Alamofire.request(.GET, "http://141.19.142.45/~timon/focusedhealth/fitbit/synchronize/", parameters: parameters)
             .responseString { (request, response, string, error) in
-                println(string)
+                println(string!)
         }
     }
     
     /*
-    RESTful Interfaces to retrieve data from Focused Health server
+    RESTful Interfaces to retrieve data from Focused Health server *****NOT*****WORKING*****
     */
     
     func getUserInfo() {

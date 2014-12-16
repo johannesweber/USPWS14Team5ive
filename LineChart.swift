@@ -30,7 +30,7 @@ class LineChart: UIControl {
     var gridVisible = false
     var axesVisible = true
     var dotsVisible = true
-    var labelsXVisible = false
+    var labelsXVisible = true
     var labelsYVisible = false
     var areaUnderLinesVisible = true
     var numberOfGridLinesX: CGFloat = 5

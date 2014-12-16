@@ -9,6 +9,7 @@
 import Foundation
 
 class TableItem {
+    
     var text = ""
     var checked = false
     

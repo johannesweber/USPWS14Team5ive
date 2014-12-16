@@ -7,11 +7,7 @@
 //
 
 import Foundation
-
-import Foundation
-
 import AlamoFire
-
 import SwiftyJSON
 
 class Medisana {
@@ -39,13 +35,6 @@ class Medisana {
         )
         oauthswift_vitadock.authorizeWithCallbackURL( NSURL(string:"oauth-callback://oauth-callback/vitadock")!, success: {
             credentials, response in
-            
-            println("\(credentials.oauth_token)")
-            println()
-            println("\(credentials.oauth_token_secret)")
-            println()
-            println("\(credentials.oauth_verifier)")
-            
             
             var parameters: Dictionary<String, AnyObject> = [
                 "oauth_token"               : "\(credentials.oauth_token)",

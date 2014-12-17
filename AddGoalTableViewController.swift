@@ -36,11 +36,7 @@ class AddGoalTableViewController: UITableViewController {
     }
     
     @IBAction func doneTapped(sender: UIBarButtonItem) {
-        
-        let item = TableItem()
-        //Hier kommt später das datum hin
-        //        item.text = textField.text
-        delegate?.addGoalTableViewController(self, didFinishAddingItem: item)
+    
     }
     
     @IBAction func cancelTapped(sender: UIBarButtonItem) {

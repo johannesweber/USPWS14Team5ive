@@ -17,8 +17,9 @@ class Fitbit {
     var userId = prefs.integerForKey("USERID") as Int
     var response = SwiftyJSON.JSON
     let FitbitKey = [
-        "consumerKey": "7c39abf127964bc984aba4020845ff11",
-        "consumerSecret": "18c4a92f21f1458e8ac9798567d3d38c"
+        
+        "consumerKey"       : "7c39abf127964bc984aba4020845ff11",
+        "consumerSecret"    : "18c4a92f21f1458e8ac9798567d3d38c"
     ]
     
     /* 
@@ -60,9 +61,6 @@ class Fitbit {
         //TODO send success message from Focused Health Server to Smartphone
         Alamofire.request(.POST, "http://141.19.142.45/~johannes/focusedhealth/fitbit/authorize/", parameters: parameters)
             .responseString { (request, response, string, error) in
-                println(request)
-                println(response)
-                println(string as String!)
         }
     }
     
@@ -78,33 +76,10 @@ class Fitbit {
             "userId"    : "\(userId)"
         ]
         
-        Alamofire.request(.GET, "http://141.19.142.45/~timon/focusedhealth/fitbit/synchronize/", parameters: parameters)
-            .responseString { (request, response, string, error) in
-                println(string!)
-        }
-    }
-    
-    /*
-    RESTful Interfaces to retrieve data from Focused Health server *****NOT*****WORKING*****
-    */
-    
-    func getUserInfo() {
-        
-        Alamofire.request(.GET, "http://141.19.142.45/~johannes/focusedhealth/fitbit/user_info/")
-            .responseSwiftyJSON { (request, response, json, error) in
+        Alamofire.request(.GET, "http://141.19.142.45/~johannes/focusedhealth/fitbit/synchronize/", parameters: parameters)
+            .responseString { (request, response, json, error) in
+                
                 println(json)
-                let dateOfBirth = json[0]["dateOfBirth"].string!
-                println(dateOfBirth)
-
-            }
-    }
-    
-    func getWaterGoal(completionHandler: (SwiftyJSON.JSON) -> ()) -> (){
-        
-        Alamofire.request(.GET, "http://141.19.142.45/~johannes/focusedhealth/fitbit/time_series/water/select/")
-            .responseSwiftyJSON { (request, response, json, error) in
-                
-                
         }
     }
 }

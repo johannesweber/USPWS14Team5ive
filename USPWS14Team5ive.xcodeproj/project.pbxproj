@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E01D2211A419882008668A7 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E01D2201A419882008668A7 /* Date.swift */; };
 		0E1795AC1A3F34A200FE6E7C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EFF3AC619FCD22C00AB3C17 /* Main.storyboard */; };
 		0E1795B11A3F34B800FE6E7C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EFF3ACB19FCD22C00AB3C17 /* LaunchScreen.xib */; };
 		0E1795B31A3F364900FE6E7C /* LineChartItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1795B21A3F364900FE6E7C /* LineChartItem.swift */; };
@@ -14,7 +15,7 @@
 		0E1ADE8A1A2CD07300820ED2 /* AboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1ADE891A2CD07300820ED2 /* AboutTableViewController.swift */; };
 		0E3369921A1B4ABA007F17FD /* HMACAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3369911A1B4ABA007F17FD /* HMACAlgorithm.swift */; };
 		0E3ADB701A2719690075F981 /* SignupInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3ADB6F1A2719690075F981 /* SignupInformationViewController.swift */; };
-		0E3ADB721A272AF90075F981 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3ADB711A272AF90075F981 /* DashboardViewController.swift */; };
+		0E3ADB721A272AF90075F981 /* DashboardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3ADB711A272AF90075F981 /* DashboardTableViewController.swift */; };
 		0E3ADB741A273B790075F981 /* ManageDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3ADB731A273B790075F981 /* ManageDataViewController.swift */; };
 		0E3ADB781A278E8D0075F981 /* FitnessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3ADB771A278E8D0075F981 /* FitnessViewController.swift */; };
 		0E3ADB7A1A2792F20075F981 /* VitalsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3ADB791A2792F20075F981 /* VitalsTableViewController.swift */; };
@@ -25,7 +26,6 @@
 		0E61618B1A1E48B4006E0AD7 /* OAuth1Swift_Vitadock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E61618A1A1E48B4006E0AD7 /* OAuth1Swift_Vitadock.swift */; };
 		0E69E6AA1A2C697E007E29AD /* AddGoalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E69E6A91A2C697E007E29AD /* AddGoalTableViewController.swift */; };
 		0E6B3F4D1A2CF60D002193B2 /* EditAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6B3F4C1A2CF60D002193B2 /* EditAccountViewController.swift */; };
-		0E6B3F4F1A2CF703002193B2 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6B3F4E1A2CF703002193B2 /* SettingsTableViewController.swift */; };
 		0E6B3F561A2DAC31002193B2 /* DevicesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6B3F551A2DAC31002193B2 /* DevicesTableViewController.swift */; };
 		0E6B3F581A2DACD9002193B2 /* ChangeEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6B3F571A2DACD9002193B2 /* ChangeEmailViewController.swift */; };
 		0E6B3F5A1A2DAD0A002193B2 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6B3F591A2DAD0A002193B2 /* ChangePasswordViewController.swift */; };
@@ -357,6 +357,8 @@
 		0E93F52D1A31D131003C08D9 /* OAuthSwiftClient_Vitadock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CEEE951A272B5400092BB7 /* OAuthSwiftClient_Vitadock.swift */; };
 		0E9FC1D11A347B270083BB92 /* Alamofire-SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9FC1D01A347B270083BB92 /* Alamofire-SwiftyJSON.swift */; };
 		0EB7717C1A339BFF00A1AB3D /* Fitbit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB7717B1A339BFF00A1AB3D /* Fitbit.swift */; };
+		0EC0078E1A40C17500EEE258 /* DashboardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC0078D1A40C17500EEE258 /* DashboardItem.swift */; };
+		0EC007901A40C3D600EEE258 /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC0078F1A40C3D600EEE258 /* test.swift */; };
 		0EF48BB21A324C6E00E7BC5D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF48BB11A324C6E00E7BC5D /* Constants.swift */; };
 		0EF48BB51A3259B600E7BC5D /* DotCALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF48BB41A3259B600E7BC5D /* DotCALayer.swift */; };
 		0EF48BB71A3259C500E7BC5D /* LineChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF48BB61A3259C500E7BC5D /* LineChart.swift */; };
@@ -467,12 +469,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0E01D2201A419882008668A7 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		0E1795B21A3F364900FE6E7C /* LineChartItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineChartItem.swift; sourceTree = "<group>"; };
 		0E1ADE861A2C852E00820ED2 /* TableItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableItem.swift; sourceTree = "<group>"; };
 		0E1ADE891A2CD07300820ED2 /* AboutTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutTableViewController.swift; sourceTree = "<group>"; };
 		0E3369911A1B4ABA007F17FD /* HMACAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HMACAlgorithm.swift; path = ../../USPWS14Team5ive/HMACAlgorithm.swift; sourceTree = "<group>"; };
 		0E3ADB6F1A2719690075F981 /* SignupInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupInformationViewController.swift; sourceTree = "<group>"; };
-		0E3ADB711A272AF90075F981 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
+		0E3ADB711A272AF90075F981 /* DashboardTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardTableViewController.swift; sourceTree = "<group>"; };
 		0E3ADB731A273B790075F981 /* ManageDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageDataViewController.swift; sourceTree = "<group>"; };
 		0E3ADB771A278E8D0075F981 /* FitnessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FitnessViewController.swift; sourceTree = "<group>"; };
 		0E3ADB791A2792F20075F981 /* VitalsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VitalsTableViewController.swift; sourceTree = "<group>"; };
@@ -484,7 +487,6 @@
 		0E61618A1A1E48B4006E0AD7 /* OAuth1Swift_Vitadock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth1Swift_Vitadock.swift; sourceTree = "<group>"; };
 		0E69E6A91A2C697E007E29AD /* AddGoalTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddGoalTableViewController.swift; sourceTree = "<group>"; };
 		0E6B3F4C1A2CF60D002193B2 /* EditAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAccountViewController.swift; sourceTree = "<group>"; };
-		0E6B3F4E1A2CF703002193B2 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		0E6B3F551A2DAC31002193B2 /* DevicesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevicesTableViewController.swift; sourceTree = "<group>"; };
 		0E6B3F571A2DACD9002193B2 /* ChangeEmailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeEmailViewController.swift; sourceTree = "<group>"; };
 		0E6B3F591A2DAD0A002193B2 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
@@ -821,6 +823,8 @@
 		0EB7717F1A33B4A300A1AB3D /* HTTPTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPTask.swift; sourceTree = "<group>"; };
 		0EB771801A33B4A300A1AB3D /* HTTPUpload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPUpload.swift; sourceTree = "<group>"; };
 		0EB771811A33B4A300A1AB3D /* SwiftHTTP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftHTTP.h; sourceTree = "<group>"; };
+		0EC0078D1A40C17500EEE258 /* DashboardItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardItem.swift; sourceTree = "<group>"; };
+		0EC0078F1A40C3D600EEE258 /* test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 		0EF48BB11A324C6E00E7BC5D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0EF48BB41A3259B600E7BC5D /* DotCALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DotCALayer.swift; sourceTree = "<group>"; };
 		0EF48BB61A3259C500E7BC5D /* LineChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineChart.swift; sourceTree = "<group>"; };
@@ -894,6 +898,7 @@
 			children = (
 				0E1ADE861A2C852E00820ED2 /* TableItem.swift */,
 				0E1795B21A3F364900FE6E7C /* LineChartItem.swift */,
+				0EC0078D1A40C17500EEE258 /* DashboardItem.swift */,
 			);
 			name = Item;
 			sourceTree = "<group>";
@@ -906,6 +911,7 @@
 				0EB7717B1A339BFF00A1AB3D /* Fitbit.swift */,
 				0EF48BB11A324C6E00E7BC5D /* Constants.swift */,
 				0E72714F1A34D03C00A25710 /* Weekday.swift */,
+				0E01D2201A419882008668A7 /* Date.swift */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -946,27 +952,24 @@
 			name = Login;
 			sourceTree = "<group>";
 		};
-		0E6B3F501A2DAA22002193B2 /* Settings */ = {
+		0E6B3F501A2DAA22002193B2 /* Account */ = {
 			isa = PBXGroup;
 			children = (
-				0E6B3F4E1A2CF703002193B2 /* SettingsTableViewController.swift */,
-				0E6B3F551A2DAC31002193B2 /* DevicesTableViewController.swift */,
+				0E6B3F4C1A2CF60D002193B2 /* EditAccountViewController.swift */,
+				0E860F601A2B6FFB00A9F152 /* AccountViewController.swift */,
 				0E6B3F571A2DACD9002193B2 /* ChangeEmailViewController.swift */,
 				0E6B3F591A2DAD0A002193B2 /* ChangePasswordViewController.swift */,
-				0E6B3F5D1A2DAD95002193B2 /* EditDevicesTableViewController.swift */,
-				0E6B3F5F1A2DADF6002193B2 /* AddDeviceViewController.swift */,
 				A33B8A681A39B3460002F71A /* FavCompanyTableViewController.swift */,
 			);
-			name = Settings;
+			name = Account;
 			sourceTree = "<group>";
 		};
 		0E6B3F511A2DAA71002193B2 /* Account */ = {
 			isa = PBXGroup;
 			children = (
-				0E6B3F501A2DAA22002193B2 /* Settings */,
+				0EC007911A40D37400EEE258 /* Devices */,
+				0E6B3F501A2DAA22002193B2 /* Account */,
 				0E1ADE891A2CD07300820ED2 /* AboutTableViewController.swift */,
-				0E860F601A2B6FFB00A9F152 /* AccountViewController.swift */,
-				0E6B3F4C1A2CF60D002193B2 /* EditAccountViewController.swift */,
 			);
 			name = Account;
 			sourceTree = "<group>";
@@ -1001,7 +1004,7 @@
 			isa = PBXGroup;
 			children = (
 				0E860F621A2B809F00A9F152 /* AddToDashboardTableViewController.swift */,
-				0E3ADB711A272AF90075F981 /* DashboardViewController.swift */,
+				0E3ADB711A272AF90075F981 /* DashboardTableViewController.swift */,
 			);
 			name = Dashboard;
 			sourceTree = "<group>";
@@ -1344,6 +1347,16 @@
 			name = "Alamofire-SwiftyJSON";
 			sourceTree = "<group>";
 		};
+		0EC007911A40D37400EEE258 /* Devices */ = {
+			isa = PBXGroup;
+			children = (
+				0E6B3F551A2DAC31002193B2 /* DevicesTableViewController.swift */,
+				0E6B3F5F1A2DADF6002193B2 /* AddDeviceViewController.swift */,
+				0E6B3F5D1A2DAD95002193B2 /* EditDevicesTableViewController.swift */,
+			);
+			name = Devices;
+			sourceTree = "<group>";
+		};
 		0EF48BB31A32595100E7BC5D /* LineChart */ = {
 			isa = PBXGroup;
 			children = (
@@ -1375,6 +1388,7 @@
 		0EFF3AB119FCD22C00AB3C17 = {
 			isa = PBXGroup;
 			children = (
+				0EC0078F1A40C3D600EEE258 /* test.swift */,
 				0E1795B41A3F36BB00FE6E7C /* Item */,
 				0E46FFFE1A308BB1002686C3 /* USPWS14Team5ive-Bridging-Header.h */,
 				0EFF3AE819FCD4C400AB3C17 /* Extension */,
@@ -2035,6 +2049,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E6D69501A3DAA080053AF51 /* HTTPTask.swift in Sources */,
+				0EC007901A40C3D600EEE258 /* test.swift in Sources */,
 				0E93F52D1A31D131003C08D9 /* OAuthSwiftClient_Vitadock.swift in Sources */,
 				0E6F27421A2CF0B900F58A13 /* VitalsDiagramViewController.swift in Sources */,
 				0E860F5B1A2B309400A9F152 /* TermsOfUseViewController.swift in Sources */,
@@ -2045,7 +2060,6 @@
 				0E1ADE8A1A2CD07300820ED2 /* AboutTableViewController.swift in Sources */,
 				0EFF3AF419FCD4C400AB3C17 /* Dictionary+OAuthSwift.swift in Sources */,
 				0E6F27461A2CF1E000F58A13 /* SleepDiagramViewController.swift in Sources */,
-				0E6B3F4F1A2CF703002193B2 /* SettingsTableViewController.swift in Sources */,
 				0E56AFB21A2C6B6F00778C01 /* GoalsTableViewController.swift in Sources */,
 				0EFF3AF819FCD4C400AB3C17 /* OAuth1Swift.swift in Sources */,
 				0EFF3AFA19FCD4C400AB3C17 /* OAuthSwiftClient.swift in Sources */,
@@ -2057,6 +2071,7 @@
 				0EFF3AC019FCD22C00AB3C17 /* AppDelegate.swift in Sources */,
 				0E6D69511A3DAA080053AF51 /* HTTPUpload.swift in Sources */,
 				0EF48BC91A3263A100E7BC5D /* PNValue.swift in Sources */,
+				0E01D2211A419882008668A7 /* Date.swift in Sources */,
 				0E860F671A2C667200A9F152 /* EditGoalsTableViewController.swift in Sources */,
 				0E860F631A2B809F00A9F152 /* AddToDashboardTableViewController.swift in Sources */,
 				0E860F611A2B6FFB00A9F152 /* AccountViewController.swift in Sources */,
@@ -2064,10 +2079,11 @@
 				0EF48BB21A324C6E00E7BC5D /* Constants.swift in Sources */,
 				0E3369921A1B4ABA007F17FD /* HMACAlgorithm.swift in Sources */,
 				A33B8A691A39B3460002F71A /* FavCompanyTableViewController.swift in Sources */,
+				0EC0078E1A40C17500EEE258 /* DashboardItem.swift in Sources */,
 				0E6B3F561A2DAC31002193B2 /* DevicesTableViewController.swift in Sources */,
 				0E860F571A2B276C00A9F152 /* ForgotPasswordViewController.swift in Sources */,
 				0E69E6AA1A2C697E007E29AD /* AddGoalTableViewController.swift in Sources */,
-				0E3ADB721A272AF90075F981 /* DashboardViewController.swift in Sources */,
+				0E3ADB721A272AF90075F981 /* DashboardTableViewController.swift in Sources */,
 				0EF48BB51A3259B600E7BC5D /* DotCALayer.swift in Sources */,
 				0E6D69281A3DA96F0053AF51 /* Withings.swift in Sources */,
 				0EB7717C1A339BFF00A1AB3D /* Fitbit.swift in Sources */,

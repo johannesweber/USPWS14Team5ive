@@ -22,7 +22,7 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func cancel(sender: UIBarButtonItem) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     @IBAction func changePassword(sender: UIButton) {

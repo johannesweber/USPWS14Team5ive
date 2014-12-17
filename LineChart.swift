@@ -1,4 +1,3 @@
-
 import UIKit
 import QuartzCore
 
@@ -31,7 +30,7 @@ class LineChart: UIControl {
     var axesVisible = true
     var dotsVisible = true
     var labelsXVisible = true
-    var labelsYVisible = false
+    var labelsYVisible = true
     var areaUnderLinesVisible = true
     var numberOfGridLinesX: CGFloat = 5
     var numberOfGridLinesY: CGFloat = 5

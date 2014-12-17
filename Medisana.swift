@@ -17,8 +17,8 @@ class Medisana {
     let MedisanaKey =
 
     [
-        "consumerKey": "Gkn8tlAdExqgEwWw1TinYKREjZKqPdEeUgjVBuXvv6o5C1MbimLbrAJFT3Gg0yZM",
-        "consumerSecret": "XqBqVYhW4fZawgS2mcn5w462smY1Rot1h2hAi2fa7A9PSAmoyfPYkKPvsZ7g6iMh"
+        "consumerKey": "K98ZeXLehlgJDXxdA22Ygp5ix8GPiBczjiabohrA5kBCrcVZeErb42MpTvTT1ZpD",
+        "consumerSecret": "LLwnjU3LMtSzdLDfm11imRkja12sY1SF7S5M7tiCL0yaaeEkyiGMEojXqCojE0Sh"
     ]
     
     /*
@@ -52,7 +52,7 @@ class Medisana {
     func postCredentialsToServer(parameters: Dictionary<String,AnyObject>){
         
         //TODO send success message from Focused Health Server to Smartphone
-        Alamofire.request(.POST, "http://141.19.142.45/~johannes/focusedhealth/vitadock/authorize/", parameters: parameters)
+        Alamofire.request(.POST, "http://141.19.142.45/~christian/focusedhealth/vitadock/authorize/", parameters: parameters)
             .responseString { (request, response, string, error) in
                 println(request)
                 println(response)

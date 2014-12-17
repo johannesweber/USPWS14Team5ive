@@ -74,7 +74,6 @@ class AddToDashboardTableViewController: UITableViewController, UIPickerViewData
     
     @IBOutlet weak var cancelBarButton: UIBarButtonItem!
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
-    @IBOutlet weak var dueDateLabel: UILabel!
     
     //IBAction
     
@@ -87,6 +86,10 @@ class AddToDashboardTableViewController: UITableViewController, UIPickerViewData
     @IBAction func done(sender: UIBarButtonItem) {
         
         let newDashboardItem = DashboardItem(itemName: self.measurementSelected)
+        
+        newDashboardItem.getValueForLabel()
+        
+        newDashboardItem.getValue()
         
         self.delegate?.addToDashboardViewController(self, didFinishAddingItem: newDashboardItem)
         
@@ -110,8 +113,9 @@ class AddToDashboardTableViewController: UITableViewController, UIPickerViewData
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
+            
         self.measurementSelected = self.measurement[row].itemName
+        self.doneBarButton.enabled = true
     }
     
     
@@ -147,6 +151,8 @@ class AddToDashboardTableViewController: UITableViewController, UIPickerViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = 44
+        
+        self.doneBarButton.enabled = false
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -199,6 +205,7 @@ class AddToDashboardTableViewController: UITableViewController, UIPickerViewData
             if !self.measurementPickerVisible {
                 
                 showMeasurementPicker()
+            
             } else {
                 
                 hideMeasurementPicker()

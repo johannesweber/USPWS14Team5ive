@@ -11,23 +11,8 @@ import Foundation
 class TableItem {
     
     var text = ""
-    var checked = false
-    
-    var startdate = NSDate()
-    var enddate = NSDate()
-    
-    init(){}
     
     init(text: String){
         self.text = text
-    }
-    
-    init(text: String, checked: Bool){
-        self.text = text
-        self.checked = checked
-    }
-    
-    func toggleChecked() {
-        checked = !checked
     }
 }

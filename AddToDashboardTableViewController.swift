@@ -8,53 +8,116 @@
 
 import UIKit
 
+protocol AddToDashboardTableViewControllerDelegate: class {
+    
+    func addToDashboardViewControllerDidCancel(controller: AddToDashboardTableViewController)
+    func addToDashboardViewController(controller: AddToDashboardTableViewController, didFinishAddingItem item: DashboardItem)
+}
+
 class AddToDashboardTableViewController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
     //Variables
     
-    var dueDate = NSDate()
-    var datePickerVisible = false
-    var measurement = ["Steps", "Duration", "Distance", "Calories burned", "Elevation", "Body Weight", "Body Height", "BMI", "Body Fat", "Blood Pressure", "Heart Rate", "Glucose", "Food", "Water", "Calories eaten", "Sleep Analysis"]
+    var measurementPickerVisible = false
+    var measurement: [DashboardItem]
     var measurementSelected = String()
+        
+    weak var delegate: AddToDashboardTableViewControllerDelegate?
     
+    //initializer
+        
+    required init(coder aDecoder: NSCoder) {
+    
+        self.measurement = [DashboardItem]()
+    
+        let row0item = DashboardItem(itemName: "steps")
+        self.measurement.append(row0item)
+        
+        let row2item = DashboardItem(itemName: "distance")
+        self.measurement.append(row2item)
+        
+        let row3item = DashboardItem(itemName: "calories_out")
+        self.measurement.append(row3item)
+        
+        let row4item = DashboardItem(itemName: "elevation")
+        self.measurement.append(row4item)
+        
+        let row5item = DashboardItem(itemName: "weight")
+        self.measurement.append(row5item)
+        
+        //user info
+        let row6item = DashboardItem(itemName: "height")
+        self.measurement.append(row6item)
+        
+        let row7item = DashboardItem(itemName: "bmi")
+        self.measurement.append(row7item)
+        
+        let row8item = DashboardItem(itemName: "fat")
+        self.measurement.append(row8item)
+        
+        let row12item = DashboardItem(itemName: "water")
+        self.measurement.append(row12item)
+        
+        let row13item = DashboardItem(itemName: "calories_in")
+        self.measurement.append(row13item)
+        
+        let row14item = DashboardItem(itemName: "sleep")
+        self.measurement.append(row14item)
+        
+        let row15item = DashboardItem(itemName: "floors")
+        self.measurement.append(row15item)
+        
+        super.init(coder: aDecoder)
+    }
+        
     //IBOutlet
     
+    @IBOutlet weak var cancelBarButton: UIBarButtonItem!
+    @IBOutlet weak var doneBarButton: UIBarButtonItem!
     @IBOutlet weak var dueDateLabel: UILabel!
     
     //IBAction
     
     @IBAction func cancel(sender: UIBarButtonItem) {
         
-        self.navigationController?.popViewControllerAnimated(true)
+        self.delegate?.addToDashboardViewControllerDidCancel(self)
     }
     
+    //TODO disable done button if no measurment is added
     @IBAction func done(sender: UIBarButtonItem) {
         
-        println(self.measurementSelected)
+        let newDashboardItem = DashboardItem(itemName: self.measurementSelected)
+        
+        self.delegate?.addToDashboardViewController(self, didFinishAddingItem: newDashboardItem)
         
     }
     
-    //Functions
+    //Picker View Methods
     
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        
         return 1
     }
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        
         return self.measurement.count
     }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
-        return self.measurement[row]
+        
+        return self.measurement[row].itemName
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.measurementSelected = self.measurement[row]
+        
+        self.measurementSelected = self.measurement[row].itemName
     }
     
     
-    func showDatePicker() {
-        datePickerVisible = true
+    func showMeasurementPicker() {
+        
+        self.measurementPickerVisible = true
         let indexPathDatePicker = NSIndexPath(forRow: 1, inSection: 0)
         tableView.insertRowsAtIndexPaths([indexPathDatePicker], withRowAnimation: .Fade)
         
@@ -64,15 +127,13 @@ class AddToDashboardTableViewController: UITableViewController, UIPickerViewData
         }
     }
     
-    func hideDatePicker() {
-            if datePickerVisible {
-            datePickerVisible = false
+    func hideMeasurementPicker() {
+        
+            if self.measurementPickerVisible {
+            self.measurementPickerVisible = false
             let indexPathDateRow = NSIndexPath(forRow: 0, inSection: 0)
             let indexPathDatePicker = NSIndexPath(forRow: 1, inSection: 0)
-            if let cell = tableView.cellForRowAtIndexPath(indexPathDateRow) {
-            cell.detailTextLabel!.textColor = UIColor(white: 0, alpha: 0.5)
-            }
-            
+        
             tableView.beginUpdates()
             tableView.reloadRowsAtIndexPaths([indexPathDateRow], withRowAnimation: .None)
             tableView.deleteRowsAtIndexPaths([indexPathDatePicker], withRowAnimation: .Fade)
@@ -113,7 +174,7 @@ class AddToDashboardTableViewController: UITableViewController, UIPickerViewData
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 && datePickerVisible {
+        if section == 0 && self.measurementPickerVisible {
             return 2
         } else {
             return super.tableView(tableView, numberOfRowsInSection: section)
@@ -134,10 +195,13 @@ class AddToDashboardTableViewController: UITableViewController, UIPickerViewData
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
             
         if indexPath.section == 0 && indexPath.row == 0 {
-            if !datePickerVisible {
-                showDatePicker()
+            
+            if !self.measurementPickerVisible {
+                
+                showMeasurementPicker()
             } else {
-                hideDatePicker()
+                
+                hideMeasurementPicker()
             }
         }
     }

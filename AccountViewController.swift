@@ -43,7 +43,7 @@ class AccountViewController: UITableViewController {
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         if indexPath.section == 1 && indexPath.row == 0 {
-            self.performSegueWithIdentifier("goToSettings", sender: self)
+            self.performSegueWithIdentifier("goToDevices", sender: self)
             
         } else if indexPath.section == 1 && indexPath.row == 1 {
             self.performSegueWithIdentifier("goToAbout", sender: self)

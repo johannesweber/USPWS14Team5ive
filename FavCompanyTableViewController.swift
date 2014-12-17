@@ -11,11 +11,11 @@ import UIKit
 class FavCompanyTableViewController: UITableViewController {
     
     @IBAction func cancel(sender: UIBarButtonItem) {
-        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     @IBAction func done(sender: UIBarButtonItem) {
-        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     

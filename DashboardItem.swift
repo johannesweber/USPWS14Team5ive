@@ -22,24 +22,21 @@ class DashboardItem {
     
     init(itemName: String){
         
-        self.value = String()
+        self.value = ""
         self.itemName = String()
         
         self.itemName = itemName
-
-        self.getValueForLabel()
     }
     
     
     //methods
     
-    func getValueForLabel() {
+    func setValueForLabel() {
         
         //variables needed for request
         var date = Date()
         var currentDate = date.getCurrentDateAsString() as String
         var userId = prefs.integerForKey("USERID") as Int
-        
         var url: String = "http://141.19.142.45/~johannes/focusedhealth/fitbit/time_series/"
         
         let parameters: Dictionary<String, AnyObject> = [
@@ -51,10 +48,16 @@ class DashboardItem {
         ]
         
         Alamofire.request(.GET, url, parameters: parameters)
-            .responseSwiftyJSON { (request, response, json, error) in
+            .responseString { (request, response, json, error) in
+                
                 println(request)
+                println(response)
                 println(json)
         }
+
+    }
+    
+    func getValue(){
         
     }
 

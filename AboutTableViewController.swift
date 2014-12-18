@@ -12,4 +12,9 @@ class AboutTableViewController: UITableViewController {
 
     //TODO wie hole ich mir die bestehenden views für disclaimer etc
     
+    @IBOutlet weak var showTermsOfUse: UIView!
+    
+    
+    
+    
 }

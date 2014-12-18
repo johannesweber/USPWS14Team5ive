@@ -26,6 +26,16 @@ class ChangeEmailViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func changeEmail(sender: UIButton) {
+        /*
+        * 1. check validity of old email
+        * 2. check if txtNewEmail == txtConfirmNewEmail and if its a valid email
+        * 3. write new email in database and set active to No
+        * 4. send validation/activation email
+        * 5. show confirmation message
+        */
+        
+        
+        
         
     }
     

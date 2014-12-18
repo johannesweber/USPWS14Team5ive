@@ -24,7 +24,15 @@ class DashboardTableViewController: UITableViewController, AddToDashboardTableVi
         self.dashboardItems = [DashboardItem]()
         
         super.init(coder: aDecoder)
-    }    
+    }
+    
+    //IBAction
+    
+    @IBAction func refresh(sender: UIBarButtonItem) {
+        
+        var fitbit = Fitbit()
+        fitbit.synchronizeData()
+    }
     
     //override methods
     

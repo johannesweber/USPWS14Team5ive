@@ -1918,6 +1918,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Dashboard" id="2Ke-qI-3LA">
+                        <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="Yl1-oF-gIp">
+                            <connections>
+                                <action selector="refresh:" destination="HRG-1U-hgA" id="kYd-Rf-wmr"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="LYb-Tc-NZ3">
                             <connections>
                                 <segue destination="mc6-dO-A3q" kind="modal" identifier="addToDashboard" id="UKq-fl-MRQ"/>

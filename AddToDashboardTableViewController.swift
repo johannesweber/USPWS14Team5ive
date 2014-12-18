@@ -36,7 +36,7 @@ class AddToDashboardTableViewController: UITableViewController, UIPickerViewData
         let row2item = DashboardItem(itemName: "distance")
         self.measurement.append(row2item)
         
-        let row3item = DashboardItem(itemName: "calories_out")
+        let row3item = DashboardItem(itemName: "caloriesOut")
         self.measurement.append(row3item)
         
         let row4item = DashboardItem(itemName: "elevation")
@@ -45,20 +45,20 @@ class AddToDashboardTableViewController: UITableViewController, UIPickerViewData
         let row5item = DashboardItem(itemName: "weight")
         self.measurement.append(row5item)
         
-        //user info
-        let row6item = DashboardItem(itemName: "height")
-        self.measurement.append(row6item)
+//        //user info
+//        let row6item = DashboardItem(itemName: "height")
+//        self.measurement.append(row6item)
         
         let row7item = DashboardItem(itemName: "bmi")
         self.measurement.append(row7item)
         
-        let row8item = DashboardItem(itemName: "fat")
+        let row8item = DashboardItem(itemName: "bodyFat")
         self.measurement.append(row8item)
         
         let row12item = DashboardItem(itemName: "water")
         self.measurement.append(row12item)
         
-        let row13item = DashboardItem(itemName: "calories_in")
+        let row13item = DashboardItem(itemName: "caloriesIn")
         self.measurement.append(row13item)
         
         let row14item = DashboardItem(itemName: "sleep")
@@ -87,7 +87,7 @@ class AddToDashboardTableViewController: UITableViewController, UIPickerViewData
         
         let newDashboardItem = DashboardItem(itemName: self.measurementSelected)
         
-        newDashboardItem.getValueForLabel()
+        newDashboardItem.setValueForLabel()
         
         newDashboardItem.getValue()
         
@@ -153,19 +153,20 @@ class AddToDashboardTableViewController: UITableViewController, UIPickerViewData
         tableView.rowHeight = 44
         
         self.doneBarButton.enabled = false
+        self.showMeasurementPicker()
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        // 1
+        
         if indexPath.section == 0 && indexPath.row == 1 {
-            // 2
+            
             var cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier("MeasurementPickerCell") as? UITableViewCell
                 
             if cell == nil {
                 
                 cell = UITableViewCell(style: .Default, reuseIdentifier: "MeasurementPicker")
                 cell.selectionStyle = .None
-                // 3
+                
                 let datePicker = UIPickerView (frame: CGRect(x: 0, y: 0, width: 320, height: 216))
                 datePicker.tag = 111
                 datePicker.dataSource = self
@@ -173,7 +174,7 @@ class AddToDashboardTableViewController: UITableViewController, UIPickerViewData
                 cell.contentView.addSubview(datePicker)
             }
             return cell
-        // 5
+    
         } else {
             return super.tableView(tableView, cellForRowAtIndexPath: indexPath)
         }

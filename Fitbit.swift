@@ -73,10 +73,10 @@ class Fitbit {
             "userId"    : "\(userId)"
         ]
         
-        Alamofire.request(.GET, "http://141.19.142.45/~johannes/focusedhealth/fitbit/synchronize/", parameters: parameters)
-            .responseSwiftyJSON { (request, response, json, error) in
-                
-                println(json["message"])
+        Alamofire.request(.GET, "http://141.19.142.45/~patric/focusedhealth/fitbit/synchronize/", parameters: parameters)
+            .responseString { (request, response, json, error) in
+                println(request)
+                println(json)
         }
     }
 }

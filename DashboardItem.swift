@@ -22,7 +22,7 @@ class DashboardItem {
     
     init(itemName: String){
         
-        self.value = String()
+        self.value = ""
         self.itemName = String()
         
         self.itemName = itemName
@@ -31,7 +31,7 @@ class DashboardItem {
     
     //methods
     
-    func getValueForLabel() {
+    func setValueForLabel() {
         
         //variables needed for request
         var date = Date()
@@ -48,14 +48,17 @@ class DashboardItem {
         ]
         
         Alamofire.request(.GET, url, parameters: parameters)
-            .responseSwiftyJSON { (request, response, json, error) in
+            .responseString { (request, response, json, error) in
                 
+                println(request)
+                println(response)
+                println(json)
         }
+
     }
     
     func getValue(){
         
-        println(self.value)
     }
 
 }

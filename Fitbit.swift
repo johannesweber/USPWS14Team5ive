@@ -64,9 +64,6 @@ class Fitbit {
         }
     }
     
-    
-    //test
-    
     /*
     sends a request to focused health server to fetch all data from fitbit api and store them in the focused health database
     */
@@ -76,9 +73,9 @@ class Fitbit {
             "userId"    : "\(userId)"
         ]
         
-        Alamofire.request(.GET, "http://141.19.142.45/~johannes/focusedhealth/fitbit/synchronize/", parameters: parameters)
+        Alamofire.request(.GET, "http://141.19.142.45/~patric/focusedhealth/fitbit/synchronize/", parameters: parameters)
             .responseString { (request, response, json, error) in
-                
+                println(request)
                 println(json)
         }
     }

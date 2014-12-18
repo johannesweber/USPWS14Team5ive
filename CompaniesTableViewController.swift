@@ -1,53 +1,44 @@
 //
-//  DashboardViewController.swift
+//  DevicesTableViewController.swift
 //  USPWS14Team5ive
 //
-//  Created by Johannes Weber on 27.11.14.
+//  Created by Johannes Weber on 02.12.14.
 //  Copyright (c) 2014 Johannes Weber. All rights reserved.
 //
 
 import UIKit
 
-import AlamoFire
-
-class DashboardTableViewController: UITableViewController, AddToDashboardTableViewControllerDelegate {
+class CompaniesTableViewController: UITableViewController, AddCompanyTableViewControllerDelegate {
     
     //variables
     
-    var dashboardItems: [DashboardItem]
-    var userId = prefs.integerForKey("USERID") as Int
+    var companyItems: [TableItem]
     
     //initializers
     
     required init(coder aDecoder: NSCoder) {
         
-        self.dashboardItems = [DashboardItem]()
+        self.companyItems = [TableItem]()
         
         super.init(coder: aDecoder)
-    }
-    
-    //IBAction
-    
-    @IBAction func refresh(sender: UIBarButtonItem) {
-        
-        var fitbit = Fitbit()
-        fitbit.synchronizeData()
     }
     
     //override methods
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return self.dashboardItems.count
+        return self.companyItems.count
     }
     
     //places the TableItems in tableview rows
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("DashboardItem") as UITableViewCell
-        let item = self.dashboardItems[indexPath.row]
-        let label = cell.viewWithTag(6000) as UILabel
-        label.text = item.value
+        let cell = tableView.dequeueReusableCellWithIdentifier("CompanyItem") as UITableViewCell
+        
+        let item = self.companyItems[indexPath.row]
+        
+        let label = cell.viewWithTag(4060) as UILabel
+        label.text = item.text
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
@@ -55,36 +46,38 @@ class DashboardTableViewController: UITableViewController, AddToDashboardTableVi
     }
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-
-            self.dashboardItems.removeAtIndex(indexPath.row)
-
-            let indexPaths = [indexPath]
-            tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
+        
+        self.companyItems.removeAtIndex(indexPath.row)
+        
+        let indexPaths = [indexPath]
+        tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
     }
     
     //sets the delegate for AddToDashboardtableViewController
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        if segue.identifier == "addToDashboard" {
-
+        if segue.identifier == "goToAddCompany" {
+            
             let navigationController = segue.destinationViewController as UINavigationController
-            let controller = navigationController.topViewController as AddToDashboardTableViewController
-
+            let controller = navigationController.topViewController as AddCompanyTableViewController
+            
             controller.delegate = self
         }
     }
+
     
-    //delegate methods
     
-    func addToDashboardViewControllerDidCancel(controller: AddToDashboardTableViewController) {
+    // Delegate Methods
+    func addCompanyTableViewControllerDidCancel(controller: AddCompanyTableViewController) {
         
         self.dismissViewControllerAnimated(true, completion: nil)
+        
     }
     
-    func addToDashboardViewController(controller: AddToDashboardTableViewController, didFinishAddingItem item: DashboardItem) {
+    func addCompanyTableViewController(controller: AddCompanyTableViewController, didFinishAddingItem item: TableItem) {
         
-        let newRowIndex = self.dashboardItems.count
-        self.dashboardItems.append(item)
+        let newRowIndex = self.companyItems.count
+        self.companyItems.append(item)
         
         let indexPath = NSIndexPath(forRow: newRowIndex, inSection: 0)
         let indexPaths = [indexPath]
@@ -92,5 +85,7 @@ class DashboardTableViewController: UITableViewController, AddToDashboardTableVi
         self.tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
         
         self.dismissViewControllerAnimated(true, completion: nil)
+        
     }
+
 }

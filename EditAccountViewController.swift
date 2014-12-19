@@ -63,6 +63,8 @@ class EditAccountTableViewController: UITableViewController {
         return cell
     }
     
+    
+    //this method forwards you to the screen connected to a select option on the screen
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath:NSIndexPath) {
         
         var item = self.editItems[indexPath.row]

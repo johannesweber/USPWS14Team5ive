@@ -383,6 +383,7 @@
 		0EFF3AFC19FCD4C400AB3C17 /* OAuthSwiftHTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3AF319FCD4C400AB3C17 /* OAuthSwiftHTTPRequest.swift */; };
 		8382A31E1A441A95007F4B50 /* SwiftyJSON.framework in Copy Framework */ = {isa = PBXBuildFile; fileRef = 8382A3131A441A50007F4B50 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8382A31F1A441AA5007F4B50 /* Alamofire.framework in Copy Framework */ = {isa = PBXBuildFile; fileRef = 8382A3081A441A44007F4B50 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8382A3211A4454B5007F4B50 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8382A3201A4454B5007F4B50 /* AlertView.swift */; };
 		A33B8A691A39B3460002F71A /* FavCompanyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33B8A681A39B3460002F71A /* FavCompanyTableViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -855,6 +856,7 @@
 		0EFF3AF319FCD4C400AB3C17 /* OAuthSwiftHTTPRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthSwiftHTTPRequest.swift; sourceTree = "<group>"; };
 		8382A3021A441A44007F4B50 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = "../../Downloads/Alamofire-master/Alamofire.xcodeproj"; sourceTree = "<group>"; };
 		8382A30B1A441A4F007F4B50 /* SwiftyJSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftyJSON.xcodeproj; path = "../../Downloads/SwiftyJSON-master/SwiftyJSON.xcodeproj"; sourceTree = "<group>"; };
+		8382A3201A4454B5007F4B50 /* AlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		83CEEE951A272B5400092BB7 /* OAuthSwiftClient_Vitadock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthSwiftClient_Vitadock.swift; sourceTree = "<group>"; };
 		A33B8A681A39B3460002F71A /* FavCompanyTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavCompanyTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -910,6 +912,7 @@
 				0EF48BB11A324C6E00E7BC5D /* Constants.swift */,
 				0E72714F1A34D03C00A25710 /* Weekday.swift */,
 				0E01D2201A419882008668A7 /* Date.swift */,
+				8382A3201A4454B5007F4B50 /* AlertView.swift */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -2078,6 +2081,7 @@
 				A33B8A691A39B3460002F71A /* FavCompanyTableViewController.swift in Sources */,
 				0EC0078E1A40C17500EEE258 /* DashboardItem.swift in Sources */,
 				0E6B3F561A2DAC31002193B2 /* CompaniesTableViewController.swift in Sources */,
+				8382A3211A4454B5007F4B50 /* AlertView.swift in Sources */,
 				0E860F571A2B276C00A9F152 /* ForgotPasswordViewController.swift in Sources */,
 				0E69E6AA1A2C697E007E29AD /* AddGoalTableViewController.swift in Sources */,
 				0E3ADB721A272AF90075F981 /* DashboardTableViewController.swift in Sources */,

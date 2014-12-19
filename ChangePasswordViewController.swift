@@ -7,36 +7,43 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
-class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
-
-    @IBOutlet weak var txtOldPassword: UITextField!
-    @IBOutlet weak var txtNewPassword: UITextField!
-    @IBOutlet weak var txtConfirmNewPassword: UITextField!
-    
-    override func viewDidAppear(animated: Bool) {
-        self.txtConfirmNewPassword.delegate = self
-        self.txtNewPassword.delegate = self
-        self.txtOldPassword.delegate = self
-        
-    }
+class ChangePasswordViewController: UIViewController {
     
     @IBAction func cancel(sender: UIBarButtonItem) {
         self.navigationController?.popViewControllerAnimated(true)
     }
     
     @IBAction func changePassword(sender: UIButton) {
-        
-    }
-    
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        if (textField == self.txtOldPassword) {
-            textField.resignFirstResponder()
-        } else if (textField == self.txtNewPassword) {
-            textField.resignFirstResponder()
-        } else if (textField == self.txtConfirmNewPassword) {
-            textField.resignFirstResponder()
+       
+            
+            var email = prefs.valueForKey("EMAIL") as String
+                
+                let parameters: Dictionary<String, String> = ["email" : "\(email)"]
+                
+                Alamofire.request(.POST, "http://141.19.142.45/~johannes/focusedhealth/password/forgot/", parameters: parameters)
+                    .responseSwiftyJSON { (request, response, json, error) in
+                        println(request)
+                        println(response)
+                        println(json)
+                        
+                        var success = json["success"].intValue
+                        var message = json["message"].string!
+                        
+                        if success == 1 {
+                            
+                            var alertView:UIAlertView = UIAlertView()
+                            alertView.title = "E-Mail has been successfully sent!"
+                            alertView.message = message
+                            alertView.delegate = self
+                            alertView.addButtonWithTitle("OK")
+                            alertView.show()
+                            
+                            self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+                        }
+                        
         }
-        return true
     }
 }

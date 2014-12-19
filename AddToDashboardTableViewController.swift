@@ -87,10 +87,6 @@ class AddToDashboardTableViewController: UITableViewController, UIPickerViewData
         
         let newDashboardItem = DashboardItem(itemName: self.measurementSelected)
         
-        newDashboardItem.setValueForLabel()
-        
-        newDashboardItem.getValue()
-        
         self.delegate?.addToDashboardViewController(self, didFinishAddingItem: newDashboardItem)
         
     }

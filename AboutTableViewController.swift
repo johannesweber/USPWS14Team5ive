@@ -9,7 +9,7 @@
 import UIKit
 
 class AboutTableViewController: UITableViewController {
-    
-    @IBOutlet weak var showTermsOfUse: UIView!
+
+    //TODO wie hole ich mir die bestehenden views für disclaimer etc
     
 }

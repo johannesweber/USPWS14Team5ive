@@ -24,11 +24,6 @@ class ResetPasswordViewController: UIViewController {
         
     }
     
-    
-    
-    // TODO
-    // Add RegEx for Password. 
-    // Add Labels that show the error message instead of alert views.
     @IBAction func changePassword(sender: UIButton) {
         
         var email = self.txtMailAddress.text
@@ -38,6 +33,7 @@ class ResetPasswordViewController: UIViewController {
         println(password)
         println(confirmPassword)
         
+        //why doesn't passwords match
         if email.isValidEmail() && password != "" {
             
             if password == confirmPassword {

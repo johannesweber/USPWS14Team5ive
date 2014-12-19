@@ -52,7 +52,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
             
             var alertView:UIAlertView = UIAlertView()
             alertView.title = "Sign Up Failed!"
-            alertView.message = "Passwords don't Match"
+            alertView.message = "Passwords doesn't Match"
             alertView.delegate = self
             alertView.addButtonWithTitle("OK")
             alertView.show()

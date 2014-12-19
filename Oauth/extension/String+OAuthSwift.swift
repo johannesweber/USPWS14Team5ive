@@ -117,13 +117,5 @@ extension String {
         let result = range != nil ? true : false
         return result
     }
-    
-    //tests if a password the requirements set for the app
-    func isValidPassword() -> Bool{
-        let passwordRegEx = "[A-Za-z0-9.-]{5,18}"
-        let range = self.rangeOfString(passwordRegEx, options:.RegularExpressionSearch)
-        let result = range != nil ? true : false
-        return result
-    }
 }
 

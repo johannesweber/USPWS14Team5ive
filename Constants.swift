@@ -24,3 +24,6 @@ public let PNGreenColor = UIColor(red: 77.0 / 255.0 , green: 196.0 / 255.0, blue
 public let PNGreyColor = UIColor(red: 186.0 / 255.0 , green: 186.0 / 255.0, blue: 186.0 / 255.0, alpha: 1)
 public let PNLightGreyColor = UIColor(red: 246.0 / 255.0 , green: 246.0 / 255.0, blue: 246.0 / 255.0, alpha: 1)
 
+// Focused Health Server URL
+
+public let baseURL = "https://anakin.informatik.hs-mannheim.de/uip1/~johannes/focusedhealth"

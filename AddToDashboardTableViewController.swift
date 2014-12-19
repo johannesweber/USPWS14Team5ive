@@ -1,35 +1,35 @@
-//
-//  AddToDashboardViewController.swift
-//  USPWS14Team5ive
-//
-//  Created by Johannes Weber on 30.11.14.
-//  Copyright (c) 2014 Johannes Weber. All rights reserved.
-//
-
-import UIKit
-
-protocol AddToDashboardTableViewControllerDelegate: class {
+ //
+ //  AddToDashboardViewController.swift
+ //  USPWS14Team5ive
+ //
+ //  Created by Johannes Weber on 30.11.14.
+ //  Copyright (c) 2014 Johannes Weber. All rights reserved.
+ //
+ 
+ import UIKit
+ 
+ protocol AddToDashboardTableViewControllerDelegate: class {
     
     func addToDashboardViewControllerDidCancel(controller: AddToDashboardTableViewController)
     func addToDashboardViewController(controller: AddToDashboardTableViewController, didFinishAddingItem item: DashboardItem)
-}
-
-class AddToDashboardTableViewController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+ }
+ 
+ class AddToDashboardTableViewController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
     //Variables
     
     var measurementPickerVisible = false
     var measurement: [DashboardItem]
     var measurementSelected = String()
-        
+    
     weak var delegate: AddToDashboardTableViewControllerDelegate?
     
     //initializer
-        
+    
     required init(coder aDecoder: NSCoder) {
-    
+        
         self.measurement = [DashboardItem]()
-    
+        
         let row0item = DashboardItem(itemName: "steps")
         self.measurement.append(row0item)
         
@@ -45,9 +45,9 @@ class AddToDashboardTableViewController: UITableViewController, UIPickerViewData
         let row5item = DashboardItem(itemName: "weight")
         self.measurement.append(row5item)
         
-//        //user info
-//        let row6item = DashboardItem(itemName: "height")
-//        self.measurement.append(row6item)
+        //        //user info
+        //        let row6item = DashboardItem(itemName: "height")
+        //        self.measurement.append(row6item)
         
         let row7item = DashboardItem(itemName: "bmi")
         self.measurement.append(row7item)
@@ -69,7 +69,7 @@ class AddToDashboardTableViewController: UITableViewController, UIPickerViewData
         
         super.init(coder: aDecoder)
     }
-        
+    
     //IBOutlet
     
     @IBOutlet weak var cancelBarButton: UIBarButtonItem!
@@ -86,10 +86,6 @@ class AddToDashboardTableViewController: UITableViewController, UIPickerViewData
     @IBAction func done(sender: UIBarButtonItem) {
         
         let newDashboardItem = DashboardItem(itemName: self.measurementSelected)
-        
-        newDashboardItem.setValueForLabel()
-        
-        newDashboardItem.getValue()
         
         self.delegate?.addToDashboardViewController(self, didFinishAddingItem: newDashboardItem)
         
@@ -113,10 +109,12 @@ class AddToDashboardTableViewController: UITableViewController, UIPickerViewData
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-            
+        
         self.measurementSelected = self.measurement[row].itemName
         self.doneBarButton.enabled = true
     }
+    
+    
     
     
     func showMeasurementPicker() {
@@ -133,17 +131,17 @@ class AddToDashboardTableViewController: UITableViewController, UIPickerViewData
     
     func hideMeasurementPicker() {
         
-            if self.measurementPickerVisible {
+        if self.measurementPickerVisible {
             self.measurementPickerVisible = false
             let indexPathDateRow = NSIndexPath(forRow: 0, inSection: 0)
             let indexPathDatePicker = NSIndexPath(forRow: 1, inSection: 0)
-        
+            
             tableView.beginUpdates()
             tableView.reloadRowsAtIndexPaths([indexPathDateRow], withRowAnimation: .None)
             tableView.deleteRowsAtIndexPaths([indexPathDatePicker], withRowAnimation: .Fade)
             tableView.endUpdates()
             
-            }
+        }
     }
     
     //Override Functions
@@ -154,6 +152,7 @@ class AddToDashboardTableViewController: UITableViewController, UIPickerViewData
         
         self.doneBarButton.enabled = false
         self.showMeasurementPicker()
+        
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -161,7 +160,7 @@ class AddToDashboardTableViewController: UITableViewController, UIPickerViewData
         if indexPath.section == 0 && indexPath.row == 1 {
             
             var cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier("MeasurementPickerCell") as? UITableViewCell
-                
+            
             if cell == nil {
                 
                 cell = UITableViewCell(style: .Default, reuseIdentifier: "MeasurementPicker")
@@ -174,7 +173,7 @@ class AddToDashboardTableViewController: UITableViewController, UIPickerViewData
                 cell.contentView.addSubview(datePicker)
             }
             return cell
-    
+            
         } else {
             return super.tableView(tableView, cellForRowAtIndexPath: indexPath)
         }
@@ -189,7 +188,7 @@ class AddToDashboardTableViewController: UITableViewController, UIPickerViewData
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-                
+        
         if indexPath.section == 0 && indexPath.row == 1 {
             return 217
         } else {
@@ -198,15 +197,15 @@ class AddToDashboardTableViewController: UITableViewController, UIPickerViewData
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-                
+        
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-            
+        
         if indexPath.section == 0 && indexPath.row == 0 {
             
             if !self.measurementPickerVisible {
                 
                 showMeasurementPicker()
-            
+                
             } else {
                 
                 hideMeasurementPicker()
@@ -217,7 +216,7 @@ class AddToDashboardTableViewController: UITableViewController, UIPickerViewData
     override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
         
         if indexPath.section == 0 && indexPath.row == 0 {
-                    
+            
             return indexPath
             
         } else {
@@ -227,14 +226,14 @@ class AddToDashboardTableViewController: UITableViewController, UIPickerViewData
     }
     
     override func tableView(tableView: UITableView, var indentationLevelForRowAtIndexPath indexPath: NSIndexPath) -> Int {
-                    
+        
         if indexPath.section == 0 && indexPath.row == 1 {
-                    
+            
             indexPath = NSIndexPath(forRow: 0, inSection: indexPath.section)
-                
+            
         }
-                    
+        
         return super.tableView(tableView, indentationLevelForRowAtIndexPath: indexPath)
     }
     
-}
+ }

@@ -52,7 +52,7 @@ class Medisana {
     func postCredentialsToServer(parameters: Dictionary<String,AnyObject>){
         
         //TODO send success message from Focused Health Server to Smartphone
-        Alamofire.request(.POST, "http://141.19.142.45/~christian/focusedhealth/vitadock/authorize/", parameters: parameters)
+        Alamofire.request(.POST, "\(baseURL)/vitadock/authorize/", parameters: parameters)
             .responseString { (request, response, string, error) in
                 println(request)
                 println(response)

@@ -32,6 +32,7 @@ class DashboardTableViewController: UITableViewController, AddToDashboardTableVi
         
         var fitbit = Fitbit()
         fitbit.synchronizeData()
+        self.tableView!.reloadData()
     }
     
     //override methods
@@ -47,7 +48,7 @@ class DashboardTableViewController: UITableViewController, AddToDashboardTableVi
         let cell = tableView.dequeueReusableCellWithIdentifier("DashboardItem") as UITableViewCell
         let item = self.dashboardItems[indexPath.row]
         let label = cell.viewWithTag(6000) as UILabel
-        label.text = item.value
+        label.text = item.text
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
@@ -55,42 +56,88 @@ class DashboardTableViewController: UITableViewController, AddToDashboardTableVi
     }
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-
-            self.dashboardItems.removeAtIndex(indexPath.row)
-
-            let indexPaths = [indexPath]
-            tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
+        
+        self.dashboardItems.removeAtIndex(indexPath.row)
+        
+        let indexPaths = [indexPath]
+        tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
     }
     
     //sets the delegate for AddToDashboardtableViewController
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if segue.identifier == "addToDashboard" {
-
+            
             let navigationController = segue.destinationViewController as UINavigationController
             let controller = navigationController.topViewController as AddToDashboardTableViewController
-
+            
             controller.delegate = self
         }
     }
     
     //delegate methods
-    
+    //cancel method
     func addToDashboardViewControllerDidCancel(controller: AddToDashboardTableViewController) {
         
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    
+    //method to add new item to dashboard...the item is coming from AddToDashboardTableViewController
+    
     func addToDashboardViewController(controller: AddToDashboardTableViewController, didFinishAddingItem item: DashboardItem) {
         
         let newRowIndex = self.dashboardItems.count
-        self.dashboardItems.append(item)
         
         let indexPath = NSIndexPath(forRow: newRowIndex, inSection: 0)
         let indexPaths = [indexPath]
         
-        self.tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
+        self.setValueForItem(item)
         
-        self.dismissViewControllerAnimated(true, completion: nil)
+        if dashboardItems.contains(item){
+            println("FOUND")
+        } else {
+            println("NOT FOUND")
+            
+            self.dashboardItems.append(item)
+            
+            self.tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
+            
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
     }
+    
+    func setValueForItem(item: DashboardItem) {
+        
+        //variables needed for request
+        var date = Date()
+        var currentDate = date.getCurrentDateAsString() as String
+        var userId = prefs.integerForKey("USERID") as Int
+        var url: String = "\(baseURL)/fitbit/time_series/"
+        
+        let parameters: Dictionary<String, AnyObject> = [
+            
+            "endDate"       : "\(currentDate)",
+            "limit"         : "1",
+            "userId"        : "\(userId)",
+            "measurement"   : "\(item.itemName)"
+        ]
+        
+        
+        Alamofire.request(.GET, url, parameters: parameters)
+            .responseSwiftyJSON { (request, response, json, error) in
+                
+                var value = json[0]["value"].intValue
+                
+                var text = "\(item.itemName): \(value)"
+                
+                item.text = text
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.tableView!.reloadData()
+                })
+        }
+        
+    }
+    
 }

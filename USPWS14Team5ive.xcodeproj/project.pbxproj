@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0E01D2211A419882008668A7 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E01D2201A419882008668A7 /* Date.swift */; };
-		0E1795AC1A3F34A200FE6E7C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EFF3AC619FCD22C00AB3C17 /* Main.storyboard */; };
 		0E1795B11A3F34B800FE6E7C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EFF3ACB19FCD22C00AB3C17 /* LaunchScreen.xib */; };
 		0E1795B31A3F364900FE6E7C /* LineChartItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1795B21A3F364900FE6E7C /* LineChartItem.swift */; };
 		0E1ADE871A2C852E00820ED2 /* TableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1ADE861A2C852E00820ED2 /* TableItem.swift */; };
@@ -382,6 +381,8 @@
 		0EFF3AFA19FCD4C400AB3C17 /* OAuthSwiftClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3AF119FCD4C400AB3C17 /* OAuthSwiftClient.swift */; };
 		0EFF3AFB19FCD4C400AB3C17 /* OAuthSwiftCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3AF219FCD4C400AB3C17 /* OAuthSwiftCredential.swift */; };
 		0EFF3AFC19FCD4C400AB3C17 /* OAuthSwiftHTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3AF319FCD4C400AB3C17 /* OAuthSwiftHTTPRequest.swift */; };
+		8382A3271A45B770007F4B50 /* ShowAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8382A3261A45B770007F4B50 /* ShowAlert.swift */; };
+		8382A32E1A45B949007F4B50 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8382A32C1A45B949007F4B50 /* Main.storyboard */; };
 		A33B8A691A39B3460002F71A /* FavCompanyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33B8A681A39B3460002F71A /* FavCompanyTableViewController.swift */; };
 		A3E31B441A3EE705009CD4C8 /* SwiftyJSON.framework in Copy Framework */ = {isa = PBXBuildFile; fileRef = A3E31B391A3EE6B6009CD4C8 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A3E31B451A3EE711009CD4C8 /* Alamofire.framework in Copy Framework */ = {isa = PBXBuildFile; fileRef = A3E31B2E1A3EE6A6009CD4C8 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -840,7 +841,6 @@
 		0EFF3ABE19FCD22C00AB3C17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0EFF3ABF19FCD22C00AB3C17 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = USPWS14Team5ive/AppDelegate.swift; sourceTree = "<group>"; };
 		0EFF3AC219FCD22C00AB3C17 /* USPWS14Team5ive.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = USPWS14Team5ive.xcdatamodel; sourceTree = "<group>"; };
-		0EFF3AC719FCD22C00AB3C17 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0EFF3AC919FCD22C00AB3C17 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = USPWS14Team5ive/Images.xcassets; sourceTree = "<group>"; };
 		0EFF3ACC19FCD22C00AB3C17 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		0EFF3AD219FCD22C00AB3C17 /* USPWS14Team5iveTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = USPWS14Team5iveTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -855,6 +855,8 @@
 		0EFF3AF119FCD4C400AB3C17 /* OAuthSwiftClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthSwiftClient.swift; sourceTree = "<group>"; };
 		0EFF3AF219FCD4C400AB3C17 /* OAuthSwiftCredential.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthSwiftCredential.swift; sourceTree = "<group>"; };
 		0EFF3AF319FCD4C400AB3C17 /* OAuthSwiftHTTPRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthSwiftHTTPRequest.swift; sourceTree = "<group>"; };
+		8382A3261A45B770007F4B50 /* ShowAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowAlert.swift; sourceTree = "<group>"; };
+		8382A32D1A45B949007F4B50 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = USPWS14Team5ive/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		83CEEE951A272B5400092BB7 /* OAuthSwiftClient_Vitadock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthSwiftClient_Vitadock.swift; sourceTree = "<group>"; };
 		A33B8A681A39B3460002F71A /* FavCompanyTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavCompanyTableViewController.swift; sourceTree = "<group>"; };
 		A3E31B281A3EE6A6009CD4C8 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
@@ -912,6 +914,7 @@
 				0EF48BB11A324C6E00E7BC5D /* Constants.swift */,
 				0E72714F1A34D03C00A25710 /* Weekday.swift */,
 				0E01D2201A419882008668A7 /* Date.swift */,
+				8382A3261A45B770007F4B50 /* ShowAlert.swift */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -1396,8 +1399,8 @@
 				0E04EF331A2326BA008368B7 /* Library */,
 				0E6161941A1F8977006E0AD7 /* Pictures */,
 				0EFF3ABF19FCD22C00AB3C17 /* AppDelegate.swift */,
-				0EFF3AC619FCD22C00AB3C17 /* Main.storyboard */,
 				0EFF3AC919FCD22C00AB3C17 /* Images.xcassets */,
+				8382A32C1A45B949007F4B50 /* Main.storyboard */,
 				0EFF3ACB19FCD22C00AB3C17 /* LaunchScreen.xib */,
 				0EFF3AC119FCD22C00AB3C17 /* USPWS14Team5ive.xcdatamodeld */,
 				0EFF3ABD19FCD22C00AB3C17 /* Supporting Files */,
@@ -1658,7 +1661,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E1795B11A3F34B800FE6E7C /* LaunchScreen.xib in Resources */,
-				0E1795AC1A3F34A200FE6E7C /* Main.storyboard in Resources */,
 				0E860E8B1A28E78800A9F152 /* dropper.png in Resources */,
 				0E860E881A28E78800A9F152 /* drawer.png in Resources */,
 				0E860F2A1A28E78800A9F152 /* swap.png in Resources */,
@@ -1847,6 +1849,7 @@
 				0E860E581A28E78800A9F152 /* button-fast-forward.png in Resources */,
 				0E860E651A28E78800A9F152 /* camera.png in Resources */,
 				0E860F481A28E78800A9F152 /* water.png in Resources */,
+				8382A32E1A45B949007F4B50 /* Main.storyboard in Resources */,
 				0E860F101A28E78800A9F152 /* share.png in Resources */,
 				0E860E701A28E78800A9F152 /* chinese-lantern.png in Resources */,
 				0E860EC71A28E78800A9F152 /* man.png in Resources */,
@@ -2097,6 +2100,7 @@
 				0EF48BC21A3263A100E7BC5D /* PNBar.swift in Sources */,
 				0EF48BC51A3263A100E7BC5D /* PNChartDelegate.swift in Sources */,
 				0E6D692A1A3DA97A0053AF51 /* Medisana.swift in Sources */,
+				8382A3271A45B770007F4B50 /* ShowAlert.swift in Sources */,
 				0EFF3AFC19FCD4C400AB3C17 /* OAuthSwiftHTTPRequest.swift in Sources */,
 				0E1ADE871A2C852E00820ED2 /* TableItem.swift in Sources */,
 				0E3ADB701A2719690075F981 /* SignupInformationViewController.swift in Sources */,
@@ -2148,15 +2152,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		0EFF3AC619FCD22C00AB3C17 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0EFF3AC719FCD22C00AB3C17 /* Base */,
-			);
-			name = Main.storyboard;
-			path = USPWS14Team5ive;
-			sourceTree = "<group>";
-		};
 		0EFF3ACB19FCD22C00AB3C17 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -2164,6 +2159,14 @@
 			);
 			name = LaunchScreen.xib;
 			path = USPWS14Team5ive;
+			sourceTree = "<group>";
+		};
+		8382A32C1A45B949007F4B50 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8382A32D1A45B949007F4B50 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

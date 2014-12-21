@@ -19,19 +19,19 @@ class FitnessViewController: UITableViewController {
         
         self.measurements = [TableItem]()
         
-        let row0item = TableItem(text: "Steps")
+        let row0item = TableItem(name: "Steps")
         measurements.append(row0item)
         
-        let row1item = TableItem(text: "Duration")
+        let row1item = TableItem(name: "Duration")
         measurements.append(row1item)
         
-        let row2item = TableItem(text: "Distance")
+        let row2item = TableItem(name: "Distance")
         measurements.append(row2item)
         
-        let row3item = TableItem(text: "Calories burned")
+        let row3item = TableItem(name: "Calories burned")
         measurements.append(row3item)
         
-        let row4item = TableItem(text: "Elevation")
+        let row4item = TableItem(name: "Elevation")
         measurements.append(row4item)
         
         self.labelClicked = String()
@@ -50,7 +50,7 @@ class FitnessViewController: UITableViewController {
             let cell = tableView.dequeueReusableCellWithIdentifier("FitnessItem") as UITableViewCell
             let item = measurements[indexPath.row]
             let label = cell.viewWithTag(1010) as UILabel
-            label.text = item.text
+            label.text = item.name
             
             tableView.deselectRowAtIndexPath(indexPath, animated: true)
             

@@ -10,9 +10,29 @@ import Foundation
 
 class TableItem {
     
-    var text = ""
+    //variables
     
-    init(text: String){
-        self.text = text
+    var text: String
+    var name: String
+    
+    
+    //initializer
+    
+    init(name: String){
+        
+        self.text = String()
+        self.name = String()
+        
+        self.name = name
     }
+    
+}
+
+
+extension TableItem: Equatable {}
+
+func == (lhs: TableItem, rhs: TableItem) -> Bool {
+    
+    return lhs.name == rhs.name
+    
 }

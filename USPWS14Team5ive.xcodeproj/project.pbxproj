@@ -357,7 +357,6 @@
 		0E93F52D1A31D131003C08D9 /* OAuthSwiftClient_Vitadock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CEEE951A272B5400092BB7 /* OAuthSwiftClient_Vitadock.swift */; };
 		0E9FC1D11A347B270083BB92 /* Alamofire-SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9FC1D01A347B270083BB92 /* Alamofire-SwiftyJSON.swift */; };
 		0EB7717C1A339BFF00A1AB3D /* Fitbit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB7717B1A339BFF00A1AB3D /* Fitbit.swift */; };
-		0EC0078E1A40C17500EEE258 /* DashboardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC0078D1A40C17500EEE258 /* DashboardItem.swift */; };
 		0EC007901A40C3D600EEE258 /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC0078F1A40C3D600EEE258 /* test.swift */; };
 		0EF48BB21A324C6E00E7BC5D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF48BB11A324C6E00E7BC5D /* Constants.swift */; };
 		0EF48BB51A3259B600E7BC5D /* DotCALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF48BB41A3259B600E7BC5D /* DotCALayer.swift */; };
@@ -825,7 +824,6 @@
 		0EB7717F1A33B4A300A1AB3D /* HTTPTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPTask.swift; sourceTree = "<group>"; };
 		0EB771801A33B4A300A1AB3D /* HTTPUpload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPUpload.swift; sourceTree = "<group>"; };
 		0EB771811A33B4A300A1AB3D /* SwiftHTTP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftHTTP.h; sourceTree = "<group>"; };
-		0EC0078D1A40C17500EEE258 /* DashboardItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardItem.swift; sourceTree = "<group>"; };
 		0EC0078F1A40C3D600EEE258 /* test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 		0EF48BB11A324C6E00E7BC5D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0EF48BB41A3259B600E7BC5D /* DotCALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DotCALayer.swift; sourceTree = "<group>"; };
@@ -900,7 +898,6 @@
 			children = (
 				0E1ADE861A2C852E00820ED2 /* TableItem.swift */,
 				0E1795B21A3F364900FE6E7C /* LineChartItem.swift */,
-				0EC0078D1A40C17500EEE258 /* DashboardItem.swift */,
 			);
 			name = Item;
 			sourceTree = "<group>";
@@ -2082,7 +2079,6 @@
 				0EF48BB21A324C6E00E7BC5D /* Constants.swift in Sources */,
 				0E3369921A1B4ABA007F17FD /* HMACAlgorithm.swift in Sources */,
 				A33B8A691A39B3460002F71A /* FavCompanyTableViewController.swift in Sources */,
-				0EC0078E1A40C17500EEE258 /* DashboardItem.swift in Sources */,
 				0E6B3F561A2DAC31002193B2 /* CompaniesTableViewController.swift in Sources */,
 				0E860F571A2B276C00A9F152 /* ForgotPasswordViewController.swift in Sources */,
 				0E69E6AA1A2C697E007E29AD /* AddGoalTableViewController.swift in Sources */,

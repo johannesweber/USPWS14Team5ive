@@ -14,14 +14,14 @@ class DashboardTableViewController: UITableViewController, AddToDashboardTableVi
     
     //variables
     
-    var dashboardItems: [DashboardItem]
+    var dashboardItems: [TableItem]
     var userId = prefs.integerForKey("USERID") as Int
     
     //initializers
     
     required init(coder aDecoder: NSCoder) {
         
-        self.dashboardItems = [DashboardItem]()
+        self.dashboardItems = [TableItem]()
         
         super.init(coder: aDecoder)
     }
@@ -85,7 +85,7 @@ class DashboardTableViewController: UITableViewController, AddToDashboardTableVi
     
     //method to add new item to dashboard...the item is coming from AddToDashboardTableViewController
     
-    func addToDashboardViewController(controller: AddToDashboardTableViewController, didFinishAddingItem item: DashboardItem) {
+    func addToDashboardViewController(controller: AddToDashboardTableViewController, didFinishAddingItem item: TableItem) {
         
         let newRowIndex = self.dashboardItems.count
         
@@ -107,7 +107,7 @@ class DashboardTableViewController: UITableViewController, AddToDashboardTableVi
         }
     }
     
-    func setValueForItem(item: DashboardItem) {
+    func setValueForItem(item: TableItem) {
         
         //variables needed for request
         var date = Date()
@@ -120,7 +120,7 @@ class DashboardTableViewController: UITableViewController, AddToDashboardTableVi
             "endDate"       : "\(currentDate)",
             "limit"         : "1",
             "userId"        : "\(userId)",
-            "measurement"   : "\(item.itemName)"
+            "measurement"   : "\(item.name)"
         ]
         
         
@@ -129,7 +129,7 @@ class DashboardTableViewController: UITableViewController, AddToDashboardTableVi
                 
                 var value = json[0]["value"].intValue
                 
-                var text = "\(item.itemName): \(value)"
+                var text = "\(item.name): \(value)"
                 
                 item.text = text
                 

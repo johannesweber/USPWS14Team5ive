@@ -17,25 +17,25 @@ class VitalsTableViewController: UITableViewController {
         
         self.measurements = [TableItem]()
         
-        let row0item = TableItem(text: "Body Weight")
+        let row0item = TableItem(name: "Body Weight")
         measurements.append(row0item)
         
-        let row1item = TableItem(text: "Body Height")
+        let row1item = TableItem(name: "Body Height")
         measurements.append(row1item)
         
-        let row2item = TableItem(text: "BMI")
+        let row2item = TableItem(name: "BMI")
         measurements.append(row2item)
         
-        let row3item = TableItem(text: "Body Fat")
+        let row3item = TableItem(name: "Body Fat")
         measurements.append(row3item)
         
-        let row4item = TableItem(text: "Blood Pressure")
+        let row4item = TableItem(name: "Blood Pressure")
         measurements.append(row4item)
         
-        let row5item = TableItem(text: "Heart Rate")
+        let row5item = TableItem(name: "Heart Rate")
         measurements.append(row5item)
         
-        let row6item = TableItem(text: "Glucose")
+        let row6item = TableItem(name: "Glucose")
         measurements.append(row6item)
         
         super.init(coder: aDecoder)
@@ -52,7 +52,7 @@ class VitalsTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCellWithIdentifier("VitalsItem") as UITableViewCell
             let item = measurements[indexPath.row]
             let label = cell.viewWithTag(1020) as UILabel
-            label.text = item.text
+            label.text = item.name
             
             tableView.deselectRowAtIndexPath(indexPath, animated: true)
             

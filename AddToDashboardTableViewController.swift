@@ -11,7 +11,7 @@
  protocol AddToDashboardTableViewControllerDelegate: class {
     
     func addToDashboardViewControllerDidCancel(controller: AddToDashboardTableViewController)
-    func addToDashboardViewController(controller: AddToDashboardTableViewController, didFinishAddingItem item: DashboardItem)
+    func addToDashboardViewController(controller: AddToDashboardTableViewController, didFinishAddingItem item: TableItem)
  }
  
  class AddToDashboardTableViewController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate {
@@ -19,7 +19,7 @@
     //Variables
     
     var measurementPickerVisible = false
-    var measurement: [DashboardItem]
+    var measurement: [TableItem]
     var measurementSelected = String()
     
     weak var delegate: AddToDashboardTableViewControllerDelegate?
@@ -28,43 +28,43 @@
     
     required init(coder aDecoder: NSCoder) {
         
-        self.measurement = [DashboardItem]()
+        self.measurement = [TableItem]()
         
-        let row0item = DashboardItem(itemName: "steps")
+        let row0item = TableItem(name: "steps")
         self.measurement.append(row0item)
         
-        let row2item = DashboardItem(itemName: "distance")
+        let row2item = TableItem(name: "distance")
         self.measurement.append(row2item)
         
-        let row3item = DashboardItem(itemName: "caloriesOut")
+        let row3item = TableItem(name: "caloriesOut")
         self.measurement.append(row3item)
         
-        let row4item = DashboardItem(itemName: "elevation")
+        let row4item = TableItem(name: "elevation")
         self.measurement.append(row4item)
         
-        let row5item = DashboardItem(itemName: "weight")
+        let row5item = TableItem(name: "weight")
         self.measurement.append(row5item)
         
         //        //user info
-        //        let row6item = DashboardItem(itemName: "height")
+        //        let row6item = TableItem(itemName: "height")
         //        self.measurement.append(row6item)
         
-        let row7item = DashboardItem(itemName: "bmi")
+        let row7item = TableItem(name: "bmi")
         self.measurement.append(row7item)
         
-        let row8item = DashboardItem(itemName: "bodyFat")
+        let row8item = TableItem(name: "bodyFat")
         self.measurement.append(row8item)
         
-        let row12item = DashboardItem(itemName: "water")
+        let row12item = TableItem(name: "water")
         self.measurement.append(row12item)
         
-        let row13item = DashboardItem(itemName: "caloriesIn")
+        let row13item = TableItem(name: "caloriesIn")
         self.measurement.append(row13item)
         
-        let row14item = DashboardItem(itemName: "sleep")
+        let row14item = TableItem(name: "sleep")
         self.measurement.append(row14item)
         
-        let row15item = DashboardItem(itemName: "floors")
+        let row15item = TableItem(name: "floors")
         self.measurement.append(row15item)
         
         super.init(coder: aDecoder)
@@ -85,7 +85,7 @@
     //TODO disable done button if no measurment is added
     @IBAction func done(sender: UIBarButtonItem) {
         
-        let newDashboardItem = DashboardItem(itemName: self.measurementSelected)
+        let newDashboardItem = TableItem(name: self.measurementSelected)
         
         self.delegate?.addToDashboardViewController(self, didFinishAddingItem: newDashboardItem)
         
@@ -105,12 +105,12 @@
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
         
-        return self.measurement[row].itemName
+        return self.measurement[row].name
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
-        self.measurementSelected = self.measurement[row].itemName
+        self.measurementSelected = self.measurement[row].name
         self.doneBarButton.enabled = true
     }
     

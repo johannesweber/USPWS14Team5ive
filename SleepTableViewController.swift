@@ -17,7 +17,7 @@ class SleepTableViewController: UITableViewController {
         
         self.measurements = [TableItem]()
         
-        let row0item = TableItem(text: "Sleep Analysis")
+        let row0item = TableItem(name: "Sleep Analysis")
         measurements.append(row0item)
         
         super.init(coder: aDecoder)
@@ -35,7 +35,7 @@ class SleepTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCellWithIdentifier("SleepItem") as UITableViewCell
             let item = measurements[indexPath.row]
             let label = cell.viewWithTag(1040) as UILabel
-            label.text = item.text
+            label.text = item.name
             
             tableView.deselectRowAtIndexPath(indexPath, animated: true)
             

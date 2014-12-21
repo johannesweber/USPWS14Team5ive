@@ -9,7 +9,6 @@
 import UIKit
 
 class VitalsDiagramViewController: UIViewController {
-
     
     @IBAction func dayDiagram(sender: UIButton) {
         

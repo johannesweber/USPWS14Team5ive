@@ -16,16 +16,16 @@ class ManageDataViewController: UITableViewController {
         
         self.categories = [TableItem]()
         
-        let row0item = TableItem(text: "Fitness")
+        let row0item = TableItem(name: "Fitness")
         categories.append(row0item)
         
-        let row1item = TableItem(text: "Vitals")
+        let row1item = TableItem(name: "Vitals")
         categories.append(row1item)
         
-        let row2item = TableItem(text: "Nutrition")
+        let row2item = TableItem(name: "Nutrition")
         categories.append(row2item)
         
-        let row3item = TableItem(text: "Sleep")
+        let row3item = TableItem(name: "Sleep")
         categories.append(row3item)
         
         super.init(coder: aDecoder)
@@ -44,7 +44,7 @@ class ManageDataViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("ManageDataItem") as UITableViewCell
         let item = categories[indexPath.row]
         let label = cell.viewWithTag(1000) as UILabel
-        label.text = item.text
+        label.text = item.name
             
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
@@ -53,7 +53,7 @@ class ManageDataViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath:NSIndexPath) {
         var item = categories[indexPath.row]
-        var category = item.text
+        var category = item.name
             
         switch category {
             

@@ -17,13 +17,13 @@ class NutritionTableViewController: UITableViewController {
         
         self.measurements = [TableItem]()
         
-        let row0item = TableItem(text: "Food")
+        let row0item = TableItem(name: "Food")
         measurements.append(row0item)
         
-        let row1item = TableItem(text: "Water")
+        let row1item = TableItem(name: "Water")
         measurements.append(row1item)
         
-        let row2item = TableItem(text: "Calories eaten")
+        let row2item = TableItem(name: "Calories eaten")
         measurements.append(row2item)
         
         super.init(coder: aDecoder)
@@ -40,7 +40,7 @@ class NutritionTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCellWithIdentifier("NutritionItem") as UITableViewCell
             let item = measurements[indexPath.row]
             let label = cell.viewWithTag(1030) as UILabel
-            label.text = item.text
+            label.text = item.name
             
             tableView.deselectRowAtIndexPath(indexPath, animated: true)
             

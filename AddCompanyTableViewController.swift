@@ -30,13 +30,13 @@ class AddCompanyTableViewController: UITableViewController, UIPickerViewDataSour
             
             self.company = [TableItem]()
             
-            let row0item = TableItem(text: "Fitbit")
+            let row0item = TableItem(name: "Fitbit")
             self.company.append(row0item)
             
-            let row1item = TableItem(text: "Medisana")
+            let row1item = TableItem(name: "Medisana")
             self.company.append(row1item)
             
-            let row2item = TableItem(text: "Withings")
+            let row2item = TableItem(name: "Withings")
             self.company.append(row2item)
             
             super.init(coder: aDecoder)
@@ -59,7 +59,7 @@ class AddCompanyTableViewController: UITableViewController, UIPickerViewDataSour
             
             println(self.companySelected)
             
-            let newTableItem = TableItem(text: self.companySelected)
+            let newTableItem = TableItem(name: self.companySelected)
             
             self.delegate?.addCompanyTableViewController(self, didFinishAddingItem: newTableItem)
             
@@ -111,12 +111,12 @@ class AddCompanyTableViewController: UITableViewController, UIPickerViewDataSour
         
         func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
                     
-            return self.company[row].text
+            return self.company[row].name
         }
         
         func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
                         
-            self.companySelected = self.company[row].text
+            self.companySelected = self.company[row].name
             self.addBarButton.enabled = true
         }
         

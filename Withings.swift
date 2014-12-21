@@ -7,17 +7,14 @@
 //
 
 import Foundation
-
-import Foundation
-
 import AlamoFire
-
 import SwiftyJSON
 
 class Withings {
     
+    var userId = prefs.integerForKey("USERID") as Int
     var response = SwiftyJSON.JSON
-    
+
     let WithingsKey =
     [
         "consumerKey": "0b1de1b1e2473372f5e8e30d0f13e38f9b20c84320cf8243517e73c0c084",
@@ -39,10 +36,8 @@ class Withings {
         oauthswift_withings.authorizeWithCallbackURL( NSURL(string: "oauth-callback://oauth-callback/withings")!, success: {
             credentials, response in
             
-            var userId = prefs.integerForKey("USERID") as Int
-            
             var parameters: Dictionary<String, AnyObject> = [
-                "user_id"               : "\(userId)",
+                "user_id"               : "\(self.userId)",
                 "company_account_id"    : "\(credentials.user_id)",
                 "oauth_token"           : "\(credentials.oauth_token)",
                 "oauth_token_secret"    : "\(credentials.oauth_token_secret)"
@@ -64,6 +59,21 @@ class Withings {
                 println(request)
                 println(response)
                 println(string as String!)
+        }
+    }
+    
+    func synchronizeData() {
+        
+        let url = "\(baseURL)/withings/synchronize/"
+        
+        let parameters: Dictionary<String, AnyObject> = [
+            "userId"    : "\(self.userId)"
+        ]
+        
+        Alamofire.request(.GET, url, parameters: parameters)
+            .responseString { (request, response, json, error) in
+                println(request)
+                println(json)
         }
     }
 }

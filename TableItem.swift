@@ -14,19 +14,38 @@ class TableItem {
     
     var text: String
     var name: String
+    var checked: Bool
     
     
-    //initializer
-    
+    //initializer    
     init(name: String){
         
         self.text = String()
         self.name = String()
+        self.checked = Bool()
         
         self.name = name
     }
     
+    //methods
+    func isChecked() -> Bool{
+        
+        return self.checked
+    }
+    
+    func toggleChecked(){
+        
+        if checked {
+            
+            checked = false
+        } else {
+            
+            checked = true
+        }
+    }
+    
 }
+
 
 
 extension TableItem: Equatable {}

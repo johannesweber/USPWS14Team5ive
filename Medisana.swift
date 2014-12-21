@@ -12,8 +12,8 @@ import SwiftyJSON
 
 class Medisana {
     
+    var userId = prefs.integerForKey("USERID") as Int
     var response = SwiftyJSON.JSON
-    
     let MedisanaKey =
 
     [
@@ -57,6 +57,21 @@ class Medisana {
                 println(request)
                 println(response)
                 println(string as String!)
+        }
+    }
+    
+    func synchronizeData() {
+        
+        let url = "\(baseURL)/vitadock/synchronize/"
+        
+        let parameters: Dictionary<String, AnyObject> = [
+            "userId"    : "\(self.userId)"
+        ]
+        
+        Alamofire.request(.GET, url, parameters: parameters)
+            .responseString { (request, response, json, error) in
+                println(request)
+                println(json)
         }
     }
 }

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0E01D2211A419882008668A7 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E01D2201A419882008668A7 /* Date.swift */; };
 		0E1795B11A3F34B800FE6E7C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EFF3ACB19FCD22C00AB3C17 /* LaunchScreen.xib */; };
-		0E1795B31A3F364900FE6E7C /* LineChartItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1795B21A3F364900FE6E7C /* LineChartItem.swift */; };
 		0E1ADE871A2C852E00820ED2 /* TableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1ADE861A2C852E00820ED2 /* TableItem.swift */; };
 		0E1ADE8A1A2CD07300820ED2 /* AboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1ADE891A2CD07300820ED2 /* AboutTableViewController.swift */; };
 		0E3369921A1B4ABA007F17FD /* HMACAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3369911A1B4ABA007F17FD /* HMACAlgorithm.swift */; };
@@ -25,7 +24,11 @@
 		0E56AFB21A2C6B6F00778C01 /* GoalsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E56AFB11A2C6B6F00778C01 /* GoalsTableViewController.swift */; };
 		0E61618B1A1E48B4006E0AD7 /* OAuth1Swift_Vitadock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E61618A1A1E48B4006E0AD7 /* OAuth1Swift_Vitadock.swift */; };
 		0E6305301A46BEF30031F179 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E63052F1A46BEF30031F179 /* Main.storyboard */; };
-		0E69E6AA1A2C697E007E29AD /* AddGoalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E69E6A91A2C697E007E29AD /* AddGoalTableViewController.swift */; };
+		0E6305321A46C6980031F179 /* GoalItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6305311A46C6980031F179 /* GoalItem.swift */; };
+		0E6305341A46DAAF0031F179 /* CreateGoalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6305331A46DAAF0031F179 /* CreateGoalTableViewController.swift */; };
+		0E6305361A46E7200031F179 /* AddGoalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6305351A46E7200031F179 /* AddGoalTableViewController.swift */; };
+		0E6305381A4735A30031F179 /* PeriodTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6305371A4735A30031F179 /* PeriodTableViewController.swift */; };
+		0E69E6AA1A2C697E007E29AD /* AddExistingGoalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E69E6A91A2C697E007E29AD /* AddExistingGoalTableViewController.swift */; };
 		0E6B3F4D1A2CF60D002193B2 /* EditAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6B3F4C1A2CF60D002193B2 /* EditAccountViewController.swift */; };
 		0E6B3F561A2DAC31002193B2 /* CompaniesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6B3F551A2DAC31002193B2 /* CompaniesTableViewController.swift */; };
 		0E6B3F581A2DACD9002193B2 /* ChangeEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6B3F571A2DACD9002193B2 /* ChangeEmailViewController.swift */; };
@@ -353,7 +356,6 @@
 		0E860F5F1A2B3B3200A9F152 /* PrivacyPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E860F5E1A2B3B3200A9F152 /* PrivacyPolicyViewController.swift */; };
 		0E860F611A2B6FFB00A9F152 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E860F601A2B6FFB00A9F152 /* AccountViewController.swift */; };
 		0E860F631A2B809F00A9F152 /* AddToDashboardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E860F621A2B809F00A9F152 /* AddToDashboardTableViewController.swift */; };
-		0E860F671A2C667200A9F152 /* EditGoalsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E860F661A2C667200A9F152 /* EditGoalsTableViewController.swift */; };
 		0E93F52D1A31D131003C08D9 /* OAuthSwiftClient_Vitadock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CEEE951A272B5400092BB7 /* OAuthSwiftClient_Vitadock.swift */; };
 		0E9FC1D11A347B270083BB92 /* Alamofire-SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9FC1D01A347B270083BB92 /* Alamofire-SwiftyJSON.swift */; };
 		0EB7717C1A339BFF00A1AB3D /* Fitbit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB7717B1A339BFF00A1AB3D /* Fitbit.swift */; };
@@ -470,7 +472,6 @@
 
 /* Begin PBXFileReference section */
 		0E01D2201A419882008668A7 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
-		0E1795B21A3F364900FE6E7C /* LineChartItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineChartItem.swift; sourceTree = "<group>"; };
 		0E1ADE861A2C852E00820ED2 /* TableItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableItem.swift; sourceTree = "<group>"; };
 		0E1ADE891A2CD07300820ED2 /* AboutTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutTableViewController.swift; sourceTree = "<group>"; };
 		0E3369911A1B4ABA007F17FD /* HMACAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HMACAlgorithm.swift; path = ../../USPWS14Team5ive/HMACAlgorithm.swift; sourceTree = "<group>"; };
@@ -487,7 +488,11 @@
 		0E56AFB11A2C6B6F00778C01 /* GoalsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalsTableViewController.swift; sourceTree = "<group>"; };
 		0E61618A1A1E48B4006E0AD7 /* OAuth1Swift_Vitadock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth1Swift_Vitadock.swift; sourceTree = "<group>"; };
 		0E63052F1A46BEF30031F179 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		0E69E6A91A2C697E007E29AD /* AddGoalTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddGoalTableViewController.swift; sourceTree = "<group>"; };
+		0E6305311A46C6980031F179 /* GoalItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalItem.swift; sourceTree = "<group>"; };
+		0E6305331A46DAAF0031F179 /* CreateGoalTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateGoalTableViewController.swift; sourceTree = "<group>"; };
+		0E6305351A46E7200031F179 /* AddGoalTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddGoalTableViewController.swift; sourceTree = "<group>"; };
+		0E6305371A4735A30031F179 /* PeriodTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeriodTableViewController.swift; sourceTree = "<group>"; };
+		0E69E6A91A2C697E007E29AD /* AddExistingGoalTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddExistingGoalTableViewController.swift; sourceTree = "<group>"; };
 		0E6B3F4C1A2CF60D002193B2 /* EditAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAccountViewController.swift; sourceTree = "<group>"; };
 		0E6B3F551A2DAC31002193B2 /* CompaniesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompaniesTableViewController.swift; sourceTree = "<group>"; };
 		0E6B3F571A2DACD9002193B2 /* ChangeEmailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeEmailViewController.swift; sourceTree = "<group>"; };
@@ -815,7 +820,6 @@
 		0E860F5E1A2B3B3200A9F152 /* PrivacyPolicyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyViewController.swift; sourceTree = "<group>"; };
 		0E860F601A2B6FFB00A9F152 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		0E860F621A2B809F00A9F152 /* AddToDashboardTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddToDashboardTableViewController.swift; sourceTree = "<group>"; };
-		0E860F661A2C667200A9F152 /* EditGoalsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditGoalsTableViewController.swift; sourceTree = "<group>"; };
 		0E9FC1CF1A347B270083BB92 /* Alamofire-SwiftyJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Alamofire-SwiftyJSON.h"; sourceTree = "<group>"; };
 		0E9FC1D01A347B270083BB92 /* Alamofire-SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Alamofire-SwiftyJSON.swift"; sourceTree = "<group>"; };
 		0EB7717B1A339BFF00A1AB3D /* Fitbit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fitbit.swift; sourceTree = "<group>"; };
@@ -897,7 +901,7 @@
 			isa = PBXGroup;
 			children = (
 				0E1ADE861A2C852E00820ED2 /* TableItem.swift */,
-				0E1795B21A3F364900FE6E7C /* LineChartItem.swift */,
+				0E6305311A46C6980031F179 /* GoalItem.swift */,
 			);
 			name = Item;
 			sourceTree = "<group>";
@@ -994,8 +998,10 @@
 			isa = PBXGroup;
 			children = (
 				0E56AFB11A2C6B6F00778C01 /* GoalsTableViewController.swift */,
-				0E860F661A2C667200A9F152 /* EditGoalsTableViewController.swift */,
-				0E69E6A91A2C697E007E29AD /* AddGoalTableViewController.swift */,
+				0E69E6A91A2C697E007E29AD /* AddExistingGoalTableViewController.swift */,
+				0E6305331A46DAAF0031F179 /* CreateGoalTableViewController.swift */,
+				0E6305351A46E7200031F179 /* AddGoalTableViewController.swift */,
+				0E6305371A4735A30031F179 /* PeriodTableViewController.swift */,
 			);
 			name = Goals;
 			sourceTree = "<group>";
@@ -2048,6 +2054,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E6305381A4735A30031F179 /* PeriodTableViewController.swift in Sources */,
 				0E6D69501A3DAA080053AF51 /* HTTPTask.swift in Sources */,
 				0EC007901A40C3D600EEE258 /* test.swift in Sources */,
 				0E93F52D1A31D131003C08D9 /* OAuthSwiftClient_Vitadock.swift in Sources */,
@@ -2060,6 +2067,7 @@
 				0E1ADE8A1A2CD07300820ED2 /* AboutTableViewController.swift in Sources */,
 				0EFF3AF419FCD4C400AB3C17 /* Dictionary+OAuthSwift.swift in Sources */,
 				0E6F27461A2CF1E000F58A13 /* SleepDiagramViewController.swift in Sources */,
+				0E6305341A46DAAF0031F179 /* CreateGoalTableViewController.swift in Sources */,
 				0E56AFB21A2C6B6F00778C01 /* GoalsTableViewController.swift in Sources */,
 				0EFF3AF819FCD4C400AB3C17 /* OAuth1Swift.swift in Sources */,
 				0EFF3AFA19FCD4C400AB3C17 /* OAuthSwiftClient.swift in Sources */,
@@ -2072,16 +2080,17 @@
 				0E6D69511A3DAA080053AF51 /* HTTPUpload.swift in Sources */,
 				0EF48BC91A3263A100E7BC5D /* PNValue.swift in Sources */,
 				0E01D2211A419882008668A7 /* Date.swift in Sources */,
-				0E860F671A2C667200A9F152 /* EditGoalsTableViewController.swift in Sources */,
 				0E860F631A2B809F00A9F152 /* AddToDashboardTableViewController.swift in Sources */,
 				0E860F611A2B6FFB00A9F152 /* AccountViewController.swift in Sources */,
+				0E6305321A46C6980031F179 /* GoalItem.swift in Sources */,
 				0EFF3AC319FCD22C00AB3C17 /* USPWS14Team5ive.xcdatamodeld in Sources */,
+				0E6305361A46E7200031F179 /* AddGoalTableViewController.swift in Sources */,
 				0EF48BB21A324C6E00E7BC5D /* Constants.swift in Sources */,
 				0E3369921A1B4ABA007F17FD /* HMACAlgorithm.swift in Sources */,
 				A33B8A691A39B3460002F71A /* FavCompanyTableViewController.swift in Sources */,
 				0E6B3F561A2DAC31002193B2 /* CompaniesTableViewController.swift in Sources */,
 				0E860F571A2B276C00A9F152 /* ForgotPasswordViewController.swift in Sources */,
-				0E69E6AA1A2C697E007E29AD /* AddGoalTableViewController.swift in Sources */,
+				0E69E6AA1A2C697E007E29AD /* AddExistingGoalTableViewController.swift in Sources */,
 				0E3ADB721A272AF90075F981 /* DashboardTableViewController.swift in Sources */,
 				0EF48BB51A3259B600E7BC5D /* DotCALayer.swift in Sources */,
 				0E6D69281A3DA96F0053AF51 /* Withings.swift in Sources */,
@@ -2090,7 +2099,6 @@
 				0E860F5F1A2B3B3200A9F152 /* PrivacyPolicyViewController.swift in Sources */,
 				0EF48BB71A3259C500E7BC5D /* LineChart.swift in Sources */,
 				0E6B3F4D1A2CF60D002193B2 /* EditAccountViewController.swift in Sources */,
-				0E1795B31A3F364900FE6E7C /* LineChartItem.swift in Sources */,
 				0EF48BC71A3263A100E7BC5D /* PNLineChart.swift in Sources */,
 				0E6F27401A2CF02D00F58A13 /* FitnessDiagramViewController.swift in Sources */,
 				0EF48BC21A3263A100E7BC5D /* PNBar.swift in Sources */,

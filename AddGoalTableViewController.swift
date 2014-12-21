@@ -2,7 +2,7 @@
 //  AddGoalTableViewController.swift
 //  USPWS14Team5ive
 //
-//  Created by Johannes Weber on 01.12.14.
+//  Created by Johannes Weber on 21.12.14.
 //  Copyright (c) 2014 Johannes Weber. All rights reserved.
 //
 
@@ -12,126 +12,65 @@ protocol AddGoalTableViewControllerDelegate: class {
     
     func addGoalTableViewControllerDidCancel(controller: AddGoalTableViewController)
     
-    func addGoalTableViewController(controller: AddGoalTableViewController,
-    didFinishAddingItem item: TableItem)
+    func addGoalTableViewController(controller: AddGoalTableViewController, didFinishAddingItem item: GoalItem)
     
 }
 
-class AddGoalTableViewController: UITableViewController {
+class AddGoalTableViewController: UITableViewController, CreateGoalTableViewControllerDelegate, AddExistingGoalTableViewControllerDelegate {
     
-    @IBOutlet weak var startdateLabel: UILabel!
-    @IBOutlet weak var endDateLabel: UILabel!
-    @IBOutlet weak var targetValueLabel: UILabel!
-
+    
+    //variables
     weak var delegate: AddGoalTableViewControllerDelegate?
     
-    var startdate = NSDate()
-    var enddate = NSDate()
     
-    var startDatePickerVisible = false
-    var endDatePickerVisible = false
+    //IBOutlet
+    @IBOutlet weak var cancelBarButton: UIBarButtonItem!
     
-    @IBAction func targetValueSlider(sender: UISlider) {
+    //IBAction
+    @IBAction func cancel(sender: AnyObject) {
+        
+        self.delegate?.addGoalTableViewControllerDidCancel(self)
+    }
+    
+    
+    //delegate Methods
+    func addExistingGoalTableViewController(controller: AddExistingGoalTableViewController, didFinishAddingItem item: GoalItem) {
+    
+        self.delegate?.addGoalTableViewController(self, didFinishAddingItem: item)
+    }
+    
+    func addExistingGoalTableViewControllerDidCancel(controller: AddExistingGoalTableViewController) {
+     
+        self.dismissViewControllerAnimated(true, completion: nil)
         
     }
     
-    @IBAction func doneTapped(sender: UIBarButtonItem) {
-    
-    }
-    
-    @IBAction func cancelTapped(sender: UIBarButtonItem) {
+    func createGoalTableViewController(controller: CreateGoalTableViewController, didFinishAddingItem item: GoalItem) {
         
-        delegate?.addGoalTableViewControllerDidCancel(self)
+        self.delegate?.addGoalTableViewController(self, didFinishAddingItem: item)
     }
     
-    func showStartDatePicker() {
+    func createGoalTableViewControllerDidCancel(controller: CreateGoalTableViewController) {
         
-        //sets the startdatepicker variable to true to indace that the startdatepicker is visible
-        self.startDatePickerVisible = true
-        //defines the indexpath where the datepicker should be
-        let indexPathStartDatePicker = NSIndexPath(forRow: 1, inSection: 1)
-        tableView.insertRowsAtIndexPaths([indexPathStartDatePicker],
-        withRowAnimation: .Fade)
-    }
-    
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-            
-            // 1 if the cell with the datepicker is active
-            if indexPath.section == 1 && indexPath.row == 1 {
-            // 2 Select the cell with the startDatePicker in it
-            var cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier("StartDatePickerCell") as? UITableViewCell
-                if cell == nil {
-                    //create a new table cell
-                    cell = UITableViewCell(style: .Default, reuseIdentifier: "StartDatePickerCell")
-                    cell.selectionStyle = .None
-                    // 3 create a new date picker
-                    let startDatePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: 320, height: 216))
-                    startDatePicker.tag = 100
-                    //add the date picker to the cell
-                    cell.contentView.addSubview(startDatePicker)
-                    // 4
-                    startDatePicker.addTarget(self, action: Selector("dateChanged:"), forControlEvents: .ValueChanged)
-                }
-                return cell
-            // 5
-            } else {
-            return super.tableView(tableView, cellForRowAtIndexPath: indexPath)
-            }
-    }
-    
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        self.dismissViewControllerAnimated(true, completion: nil)
         
-        if section == 1 && self.startDatePickerVisible {
-            return 3
-        } else {
-            return super.tableView(tableView, numberOfRowsInSection: section)
-        }
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-                
-        if indexPath.section == 1 && indexPath.row == 1 {
-                
-                return 218
-                
-        } else {
-                
-            return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
-                
-        }
-    }
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-                
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-                        
-            if indexPath.section == 1 && indexPath.row == 0 {
-                        
-                showStartDatePicker()
-            }
-    }
-    
-    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-                    
-        if indexPath.section == 1 && indexPath.row == 0 {
-                    
-            return indexPath
-                    
-        } else {
-                    
-            return nil
-                    
-        }
-    }
-    
-    override func tableView(tableView: UITableView,
-        var indentationLevelForRowAtIndexPath indexPath: NSIndexPath)
-        -> Int {
-        if indexPath.section == 1 && indexPath.row == 2 {
-        indexPath = NSIndexPath(forRow: 0, inSection: indexPath.section)
-        }
-        return super.tableView(tableView,
-        indentationLevelForRowAtIndexPath: indexPath)
-    }
+    //sets the delegate 
 
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if segue.identifier == "goToCreateGoal" {
+            
+            let controller = segue.destinationViewController as CreateGoalTableViewController
+            
+            controller.delegate = self
+            
+        } else if segue.identifier == "goToAddExistingGoal" {
+            
+            let controller = segue.destinationViewController as AddExistingGoalTableViewController
+            
+            controller.delegate = self
+        }
+    }
 }

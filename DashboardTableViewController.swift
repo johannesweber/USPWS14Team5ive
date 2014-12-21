@@ -32,7 +32,6 @@ class DashboardTableViewController: UITableViewController, AddToDashboardTableVi
         
         var fitbit = Fitbit()
         fitbit.synchronizeData()
-        self.tableView!.reloadData()
     }
     
     //override methods
@@ -92,12 +91,15 @@ class DashboardTableViewController: UITableViewController, AddToDashboardTableVi
         let indexPath = NSIndexPath(forRow: newRowIndex, inSection: 0)
         let indexPaths = [indexPath]
         
-        self.setValueForItem(item)
-        
         if dashboardItems.contains(item){
+            
             println("FOUND")
+            
         } else {
+            
             println("NOT FOUND")
+            
+            self.setValueForItem(item)
             
             self.dashboardItems.append(item)
             
@@ -127,7 +129,7 @@ class DashboardTableViewController: UITableViewController, AddToDashboardTableVi
         Alamofire.request(.GET, url, parameters: parameters)
             .responseSwiftyJSON { (request, response, json, error) in
                 
-                var value = json[0]["value"].intValue
+                var value = json[0]["value"].doubleValue
                 
                 var text = "\(item.name): \(value)"
                 

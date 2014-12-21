@@ -40,7 +40,7 @@ class EditAccountTableViewController: UITableViewController {
     }
     
     @IBAction func done(sender: UIBarButtonItem) {
-        
+            self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
     }
     
     // override methods
@@ -56,7 +56,7 @@ class EditAccountTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("editAccountItem") as UITableViewCell
         let item = self.editItems[indexPath.row]
         let label = cell.viewWithTag(4020) as UILabel
-        label.text = item.text
+        label.text = item.name
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
@@ -66,7 +66,7 @@ class EditAccountTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath:NSIndexPath) {
         
         var item = self.editItems[indexPath.row]
-        var category = item.text
+        var category = item.name
         
         switch category {
 

@@ -9,6 +9,7 @@
 import Foundation
 import AlamoFire
 import SwiftyJSON
+import UIKit
 
 class Fitbit {
     
@@ -16,6 +17,9 @@ class Fitbit {
     
     var userId = prefs.integerForKey("USERID") as Int
     var response = SwiftyJSON.JSON
+    var syncSuccess = Int()
+    var syncMessage = String()
+    
     let FitbitKey = [
         
         "consumerKey"       : "7c39abf127964bc984aba4020845ff11",
@@ -69,14 +73,25 @@ class Fitbit {
     */
     func synchronizeData() {
         
+        let url = "\(baseURL)/fitbit/synchronize/"
+        
         let parameters: Dictionary<String, AnyObject> = [
-            "userId"    : "\(userId)"
+            "userId"    : "\(self.userId)"
         ]
         
-        Alamofire.request(.GET, "http://141.19.142.45/~patric/focusedhealth/fitbit/synchronize/", parameters: parameters)
-            .responseString { (request, response, json, error) in
-                println(request)
-                println(json)
+        Alamofire.request(.GET, url, parameters: parameters)
+            .responseSwiftyJSON { (request, response, json, error) in
+                
+                var success = json["success"].intValue
+                var message = json["message"].stringValue
+                
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    var alertView:UIAlertView = UIAlertView()
+                    alertView.message = "\(message)"
+                    alertView.addButtonWithTitle("OK")
+                    alertView.show()
+                })
         }
     }
 }

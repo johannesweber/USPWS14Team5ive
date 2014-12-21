@@ -72,7 +72,7 @@ class AddCompanyTableViewController: UITableViewController, UIPickerViewDataSour
             self.companyPickerVisible = true
             
             let indexPathCompanyPicker = NSIndexPath(forRow: 1, inSection: 0)
-            tableView.insertRowsAtIndexPaths([indexPathCompanyPicker], withRowAnimation: .Fade)
+            self.tableView.insertRowsAtIndexPaths([indexPathCompanyPicker], withRowAnimation: .Fade)
             
             if let pickerCell = tableView.cellForRowAtIndexPath(indexPathCompanyPicker) {
                 

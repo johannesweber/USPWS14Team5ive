@@ -59,8 +59,7 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     
     func periodViewControllerDidCancel(controller: PeriodTableViewController) {
         
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
+        self.navigationController?.popViewControllerAnimated(true)    }
     
     func periodViewController(controller: PeriodTableViewController, didFinishSelectingPeriod item: TableItem) {
         

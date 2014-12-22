@@ -41,20 +41,17 @@ class GoalsTableViewController: UITableViewController, AddGoalTableViewControlle
         
         //wrong user ID stored in Database
         Alamofire.request(.GET, url, parameters: parameters)
-            .responseString { (request, response, json, error) in
+            .responseSwiftyJSON { (request, response, json, error) in
                 
-                println(request)
-                println(json)
+                var value = json[0]["value"].intValue
                 
-//                var value = json[0]["value"].intValue
-//                
-//                var text = "\(item.name): \(value)"
-//                
-//                item.text = text
-//                
-//                dispatch_async(dispatch_get_main_queue(), {
-//                    self.tableView!.reloadData()
-//                })
+                var text = "\(item.name): \(value)"
+                
+                item.text = text
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.tableView!.reloadData()
+                })
         }
         
     }
@@ -87,11 +84,11 @@ class GoalsTableViewController: UITableViewController, AddGoalTableViewControlle
         
         if goalItems.contains(item){
             
-            println("FOUND")
+            showAlert("You have already added \(item.name)", "Please choose another one", self)
+            
+            self.dismissViewControllerAnimated(true, completion: nil)
             
         } else {
-            
-            println("NOT FOUND")
             
             self.setValueForItem(item)
             

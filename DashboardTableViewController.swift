@@ -93,11 +93,11 @@ class DashboardTableViewController: UITableViewController, AddToDashboardTableVi
         
         if dashboardItems.contains(item){
             
-            println("FOUND")
+            showAlert("You have already added \(item.name)", "Please choose another one", self)
+            
+            self.dismissViewControllerAnimated(true, completion: nil)
             
         } else {
-            
-            println("NOT FOUND")
             
             self.setValueForItem(item)
             

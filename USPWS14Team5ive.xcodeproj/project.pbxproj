@@ -28,7 +28,6 @@
 		0E6305341A46DAAF0031F179 /* CreateGoalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6305331A46DAAF0031F179 /* CreateGoalTableViewController.swift */; };
 		0E6305361A46E7200031F179 /* AddGoalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6305351A46E7200031F179 /* AddGoalTableViewController.swift */; };
 		0E6305381A4735A30031F179 /* PeriodTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6305371A4735A30031F179 /* PeriodTableViewController.swift */; };
-		0E69E6AA1A2C697E007E29AD /* AddExistingGoalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E69E6A91A2C697E007E29AD /* AddExistingGoalTableViewController.swift */; };
 		0E6B3F4D1A2CF60D002193B2 /* EditAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6B3F4C1A2CF60D002193B2 /* EditAccountViewController.swift */; };
 		0E6B3F561A2DAC31002193B2 /* CompaniesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6B3F551A2DAC31002193B2 /* CompaniesTableViewController.swift */; };
 		0E6B3F581A2DACD9002193B2 /* ChangeEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6B3F571A2DACD9002193B2 /* ChangeEmailViewController.swift */; };
@@ -492,7 +491,6 @@
 		0E6305331A46DAAF0031F179 /* CreateGoalTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateGoalTableViewController.swift; sourceTree = "<group>"; };
 		0E6305351A46E7200031F179 /* AddGoalTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddGoalTableViewController.swift; sourceTree = "<group>"; };
 		0E6305371A4735A30031F179 /* PeriodTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeriodTableViewController.swift; sourceTree = "<group>"; };
-		0E69E6A91A2C697E007E29AD /* AddExistingGoalTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddExistingGoalTableViewController.swift; sourceTree = "<group>"; };
 		0E6B3F4C1A2CF60D002193B2 /* EditAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAccountViewController.swift; sourceTree = "<group>"; };
 		0E6B3F551A2DAC31002193B2 /* CompaniesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompaniesTableViewController.swift; sourceTree = "<group>"; };
 		0E6B3F571A2DACD9002193B2 /* ChangeEmailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeEmailViewController.swift; sourceTree = "<group>"; };
@@ -998,7 +996,6 @@
 			isa = PBXGroup;
 			children = (
 				0E56AFB11A2C6B6F00778C01 /* GoalsTableViewController.swift */,
-				0E69E6A91A2C697E007E29AD /* AddExistingGoalTableViewController.swift */,
 				0E6305331A46DAAF0031F179 /* CreateGoalTableViewController.swift */,
 				0E6305351A46E7200031F179 /* AddGoalTableViewController.swift */,
 				0E6305371A4735A30031F179 /* PeriodTableViewController.swift */,
@@ -2090,7 +2087,6 @@
 				A33B8A691A39B3460002F71A /* FavCompanyTableViewController.swift in Sources */,
 				0E6B3F561A2DAC31002193B2 /* CompaniesTableViewController.swift in Sources */,
 				0E860F571A2B276C00A9F152 /* ForgotPasswordViewController.swift in Sources */,
-				0E69E6AA1A2C697E007E29AD /* AddExistingGoalTableViewController.swift in Sources */,
 				0E3ADB721A272AF90075F981 /* DashboardTableViewController.swift in Sources */,
 				0EF48BB51A3259B600E7BC5D /* DotCALayer.swift in Sources */,
 				0E6D69281A3DA96F0053AF51 /* Withings.swift in Sources */,

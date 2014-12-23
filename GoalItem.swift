@@ -19,4 +19,8 @@ class GoalItem: TableItem {
         
         super.init(name: name)
     }
+
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }

@@ -66,18 +66,14 @@ class ChangeEmailViewController: UIViewController, UITextFieldDelegate {
         ]
         
         //send changerequest to server and change the email in the database
-        //Alamofire.request(.GET, "141.19.142.45/...", parameters: sendNewEmail).responseSwiftyJSON{(request,response,json,error) in
+        Alamofire.request(.GET, "\(baseURL)/", parameters: sendNewEmail).responseSwiftyJSON{(request,response,json,error) in
         
-         //showAlert("Password Succesfully Changed", "An email has been sent to your new account email address. Please use the activation link given in that mail.", self)
-        // }
+         showAlert("Password Succesfully Changed", "An email has been sent to your new account email address. Please use the activation link given in that mail.", self)
+         }
         
         //set the new email in the local userdata
-        //prefs.setObject(newEmail, forKey: "EMAIL")
-        
-        
+        prefs.setObject(newEmail, forKey: "EMAIL")
     }
-    
-    
     
     func setLabel(label: UILabel, message: String){
         label.text = "\(message)"
@@ -104,7 +100,7 @@ class ChangeEmailViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-    // TODO Maybe: check if field is empty(for every setLabels method)
+    // TODO Maybe: check if field is empty(for every setLabels method. but empty can never be the registered email)
     //This method checks if all the requirements for this textfield are met.
     //Comparing emails is not case sensitive
     func setLabelsCurrentMail() -> Bool {

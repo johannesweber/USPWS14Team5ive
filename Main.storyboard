@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6221" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="eUJ-EL-HVc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="eUJ-EL-HVc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6213"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -648,8 +648,8 @@ password, press the button below</string>
                     </navigationItem>
                     <connections>
                         <outlet property="txtUserMailAddress" destination="pXv-Iy-yS5" id="ULf-wK-vnM"/>
-                        <segue destination="Gbe-eX-yg6" kind="push" identifier="goToAbout" id="OTM-eh-tIY"/>
-                        <segue destination="Xhm-Iz-rks" kind="push" identifier="goToCompany" id="cHH-Ii-ebA"/>
+                        <segue destination="Gbe-eX-yg6" kind="push" identifier="goToAbout" id="0o9-FS-oQT"/>
+                        <segue destination="Xhm-Iz-rks" kind="push" identifier="goToCompany" id="R2g-Rq-DFo"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xYd-pA-j61" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -773,7 +773,7 @@ password, press the button below</string>
         <!--Change E - Mail-->
         <scene sceneID="B3b-Mx-ZJS">
             <objects>
-                <viewController id="WmG-vA-CY0" customClass="ChangeEmailViewController" customModule="USPWS14Team5ive" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChangeEmailVC" id="WmG-vA-CY0" customClass="ChangeEmailViewController" customModule="USPWS14Team5ive" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Gfp-cj-UEX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

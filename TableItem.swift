@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TableItem {
+class TableItem: NSObject, NSCoding {
     
     //variables
     
@@ -18,6 +18,25 @@ class TableItem {
     
     
     //initializer    
+
+        
+    required init(coder aDecoder: NSCoder) {
+        text = aDecoder.decodeObjectForKey("Text") as String
+        checked = aDecoder.decodeBoolForKey("Checked")
+        name = aDecoder.decodeObjectForKey("Name") as String
+        super.init()
+    }
+
+    
+    override init() {
+        self.text = String()
+        self.name = String()
+        self.checked = Bool()
+        
+        super.init()
+    }
+    
+    
     init(name: String){
         
         self.text = String()
@@ -42,6 +61,12 @@ class TableItem {
             
             checked = true
         }
+    }
+    
+    func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(text, forKey: "Text")
+        aCoder.encodeBool(checked, forKey: "Checked")
+        aCoder.encodeObject(name, forKey: "Name")
     }
     
 }

@@ -12,10 +12,32 @@ import UIKit
 class GoalItem: TableItem {
     
     var progressView: UIProgressView
+    var unit: String
+    var sliderLimit: Int
+    var startdate: NSDate
+    var period: String
+    var value: Int
+    
+    override init(){
+        
+        self.progressView = UIProgressView()
+        self.unit = String()
+        self.sliderLimit = Int()
+        self.startdate = NSDate()
+        self.period = String()
+        self.value = Int()
+        
+        super.init()
+    }
     
     override init(name: String) {
         
         self.progressView = UIProgressView()
+        self.unit = String()
+        self.sliderLimit = Int()
+        self.startdate = NSDate()
+        self.period = String()
+        self.value = Int()
         
         super.init(name: name)
     }

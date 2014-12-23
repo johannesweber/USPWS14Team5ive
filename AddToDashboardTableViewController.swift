@@ -74,6 +74,7 @@
     
     @IBOutlet weak var cancelBarButton: UIBarButtonItem!
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
+    @IBOutlet weak var measurementDetailLabel: UILabel!
     
     //IBAction
     
@@ -111,11 +112,9 @@
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
         self.measurementSelected = self.measurement[row].name
+        self.measurementDetailLabel.text = self.measurementSelected
         self.doneBarButton.enabled = true
     }
-    
-    
-    
     
     func showMeasurementPicker() {
         

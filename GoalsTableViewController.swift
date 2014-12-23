@@ -24,6 +24,7 @@ class GoalsTableViewController: UITableViewController, AddGoalTableViewControlle
     }
     
     //methods
+    //TODO need to rewrite insert and select goals
     func setValueForItem(item: GoalItem) {
         
         //variables needed for request

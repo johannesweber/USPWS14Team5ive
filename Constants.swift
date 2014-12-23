@@ -26,4 +26,4 @@ public let PNLightGreyColor = UIColor(red: 246.0 / 255.0 , green: 246.0 / 255.0,
 
 //Focused Health Server base Url
 
-public let baseURL = "http://anakin.informatik.hs-mannheim.de/uip1/~johannes/focusedhealth"
+public let baseURL = "https://anakin.informatik.hs-mannheim.de/uip1/~johannes/focusedhealth"

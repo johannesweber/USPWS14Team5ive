@@ -140,31 +140,26 @@ class CompaniesTableViewController: UITableViewController, AddCompanyTableViewCo
             self.tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
         
             self.dismissViewControllerAnimated(true, completion: nil)
+        
+            switch item.name {
+                case "Withings":
+                    var withings = Withings()
+                    withings.doOAuth()
+                    break;
+                case "Medisana":
+                    var medisana = Medisana()
+                    medisana.doOAuth()
+                    break;
+                case "Fitbit":
+                    var fitbit = Fitbit()
+                    fitbit.doOAuth()
+                    break;
+                default:
+                    break;
+        }
+        
         }
         
         saveCompanyAccountItems()
-                
-        switch item.name {
-            case "Withings":
-                var withings = Withings()
-                withings.doOAuth()
-                break;
-            case "Medisana":
-                var medisana = Medisana()
-                medisana.doOAuth()
-                break;
-            case "Fitbit":
-                var fitbit = Fitbit()
-                fitbit.doOAuth()
-                break;
-            default:
-            println("hallo")
-                break;
-        }
-                
-                
-                
-        
     }
-
 }

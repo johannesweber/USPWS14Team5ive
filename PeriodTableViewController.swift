@@ -25,7 +25,7 @@ class PeriodTableViewController: UITableViewController {
     
     //IBOutlets
     @IBOutlet weak var cancelBarButton: UIBarButtonItem!
-    @IBOutlet weak var doneBarButton: UIBarButtonItem!
+    @IBOutlet weak var safeBarButton: UIBarButtonItem!
     
     //IBAction
     @IBAction func cancel(sender: UIBarButtonItem) {
@@ -33,8 +33,8 @@ class PeriodTableViewController: UITableViewController {
         self.delegate?.periodViewControllerDidCancel(self)
     }
     
-    @IBAction func done(sender: UIBarButtonItem) {
-    
+    @IBAction func safe(sender: UIBarButtonItem) {
+        
         var newTableItem = TableItem(name: self.periodSelected)
         
         self.delegate?.periodViewController(self, didFinishSelectingPeriod: newTableItem)
@@ -64,6 +64,7 @@ class PeriodTableViewController: UITableViewController {
     
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
             return periods.count
     }
     
@@ -85,8 +86,32 @@ class PeriodTableViewController: UITableViewController {
         var item = periods[indexPath.row]
         self.periodSelected = item.name
         
-        println(self.periodSelected)
+        self.deselectAllCells()
+        
+        if let cell = tableView.cellForRowAtIndexPath(indexPath) {
+            
+            if cell.accessoryType == .None {
+                
+                cell.accessoryType = .Checkmark
+                item.checked = true
+                
+            } else {
+                
+                cell.accessoryType = .None
+                item.checked = false
+                
+            }
+        }
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
-
     
+    func deselectAllCells() {
+    
+        for cell in self.tableView.visibleCells() as [UITableViewCell]{
+            if cell.accessoryType == .Checkmark {
+                cell.accessoryType = .None
+            }
+        }
+    }
 }

@@ -85,13 +85,12 @@ class Fitbit {
                 var success = json["success"].intValue
                 var message = json["message"].stringValue
                 
-                
-                dispatch_async(dispatch_get_main_queue(), {
-                    var alertView:UIAlertView = UIAlertView()
+                if success == 1 {
+                    var alertView = UIAlertView()
                     alertView.message = "\(message)"
                     alertView.addButtonWithTitle("OK")
                     alertView.show()
-                })
+                }
         }
     }
 }

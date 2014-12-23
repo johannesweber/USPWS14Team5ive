@@ -1155,7 +1155,7 @@ password, press the button below</string>
                             </tableViewSection>
                             <tableViewSection headerTitle="" id="VH8-bm-du9">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="CreateNewGoal" textLabel="zQ4-0b-Trs" imageView="9sb-PF-UX8" style="IBUITableViewCellStyleDefault" id="QQ5-cK-X1E">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="CreateNewGoal" textLabel="zQ4-0b-Trs" detailTextLabel="8rI-sa-mgs" imageView="9sb-PF-UX8" style="IBUITableViewCellStyleValue1" id="QQ5-cK-X1E">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QQ5-cK-X1E" id="5Gs-p4-nYG">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -1169,6 +1169,12 @@ password, press the button below</string>
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="hammer.png" id="9sb-PF-UX8">
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8rI-sa-mgs">
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
@@ -1198,6 +1204,8 @@ password, press the button below</string>
                     <connections>
                         <outlet property="cancelBarButton" destination="bi4-9U-6mF" id="MMF-Je-2Bu"/>
                         <outlet property="doneBarButton" destination="kc8-xs-r4s" id="9mA-Ky-eco"/>
+                        <outlet property="goalDetailLabel" destination="8rI-sa-mgs" id="cfK-0f-KB9"/>
+                        <outlet property="measurementDetailLabel" destination="qNb-Ll-RjW" id="AcV-XF-ajN"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mMB-YM-z0q" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1523,13 +1531,6 @@ password, press the button below</string>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5vq-lL-ubG" id="Hyq-6X-igY">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" id="1K3-6N-L5u">
-                                                    <rect key="frame" x="31" y="42" width="247" height="31"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <connections>
-                                                        <action selector="targetValueSlider:" destination="eQi-ms-s7Q" eventType="touchUpInside" id="6hZ-Gd-EtM"/>
-                                                    </connections>
-                                                </slider>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Value" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8fl-db-MWX">
                                                     <rect key="frame" x="8" y="13" width="152" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1544,6 +1545,13 @@ password, press the button below</string>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1500" id="1K3-6N-L5u">
+                                                    <rect key="frame" x="37" y="42" width="247" height="31"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <connections>
+                                                        <action selector="sliderValueChanged:" destination="eQi-ms-s7Q" eventType="touchUpInside" id="WF7-lv-Tj0"/>
+                                                    </connections>
+                                                </slider>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1557,15 +1565,24 @@ password, press the button below</string>
                     <navigationItem key="navigationItem" title="Create New Goal" id="nhH-Xb-uX9">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Dke-Gh-E2h">
                             <connections>
-                                <action selector="cancelTapped:" destination="eQi-ms-s7Q" id="eZh-dC-NHM"/>
+                                <action selector="cancel:" destination="eQi-ms-s7Q" id="yiJ-ne-EfD"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="dIK-p3-NFx">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="dIK-p3-NFx">
                             <connections>
-                                <action selector="doneTapped:" destination="eQi-ms-s7Q" id="PpQ-gg-8sM"/>
+                                <action selector="save:" destination="eQi-ms-s7Q" id="GjO-74-VP4"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="measurementDetailLabel" destination="EsO-vW-4Ue" id="OJ6-Z0-2iC"/>
+                        <outlet property="periodDetailLabel" destination="TX4-Pf-pIO" id="vWq-qJ-5jq"/>
+                        <outlet property="saveBarButton" destination="dIK-p3-NFx" id="Im6-eM-L6c"/>
+                        <outlet property="startDateDetailLabel" destination="Va8-LB-ah9" id="XR4-nM-FCe"/>
+                        <outlet property="unitLabel" destination="XWc-or-AqW" id="fD6-2G-j46"/>
+                        <outlet property="valueLabel" destination="8fl-db-MWX" id="NZu-WF-Xha"/>
+                        <outlet property="valueSlider" destination="1K3-6N-L5u" id="M2k-w5-d65"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G2k-uL-Xgh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1607,15 +1624,15 @@ password, press the button below</string>
                                 <action selector="cancel:" destination="c5P-fZ-bVQ" id="47U-Kk-lpW"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="phq-E3-746">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="phq-E3-746">
                             <connections>
-                                <action selector="done:" destination="c5P-fZ-bVQ" id="peF-AL-TNt"/>
+                                <action selector="safe:" destination="c5P-fZ-bVQ" id="J4Z-HW-CLh"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="cancelBarButton" destination="p34-I2-2aU" id="sAi-88-Ejd"/>
-                        <outlet property="doneBarButton" destination="phq-E3-746" id="TbL-Lr-agY"/>
+                        <outlet property="safeBarButton" destination="phq-E3-746" id="d0u-qg-ldv"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T1e-ta-E3f" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1990,15 +2007,21 @@ password, press the button below</string>
                         <sections>
                             <tableViewSection headerTitle="Choose Measurement" id="hFa-cn-g0p">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MeasurementItem" textLabel="llr-gp-URe" style="IBUITableViewCellStyleDefault" id="3Y2-e9-WuN">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MeasurementItem" textLabel="llr-gp-URe" detailTextLabel="LfU-Ru-X68" style="IBUITableViewCellStyleValue1" id="3Y2-e9-WuN">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3Y2-e9-WuN" id="kuO-0X-yON">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Measurement:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="llr-gp-URe">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Measurement" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="llr-gp-URe">
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LfU-Ru-X68">
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -2026,6 +2049,7 @@ password, press the button below</string>
                     <connections>
                         <outlet property="cancelBarButton" destination="sUj-CL-vBU" id="Vp8-ae-KPK"/>
                         <outlet property="doneBarButton" destination="Oeg-h4-30b" id="gRB-Du-Ze0"/>
+                        <outlet property="measurementDetailLabel" destination="LfU-Ru-X68" id="Kta-oA-N3m"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="727-47-x3H" userLabel="First Responder" sceneMemberID="firstResponder"/>

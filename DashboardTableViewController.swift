@@ -129,9 +129,13 @@ class DashboardTableViewController: UITableViewController, AddToDashboardTableVi
         Alamofire.request(.GET, url, parameters: parameters)
             .responseSwiftyJSON { (request, response, json, error) in
                 
-                var value = json[0]["value"].doubleValue
+                println(json)
                 
-                var text = "\(item.name): \(value)"
+                var value = json[0]["value"].doubleValue
+                var unit = json[0]["unit"].stringValue
+                var date = json[0]["DATE"].stringValue
+                
+                var text = "\(item.name): \(value) \(unit)"
                 
                 item.text = text
                 

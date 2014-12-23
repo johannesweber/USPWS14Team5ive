@@ -17,13 +17,52 @@ class CompaniesTableViewController: UITableViewController, AddCompanyTableViewCo
     //initializers
     
     required init(coder aDecoder: NSCoder) {
-        
+    
         self.companyItems = [TableItem]()
-        
+    
         super.init(coder: aDecoder)
+        println(documentsDirectory())
     }
     
+    
+    //methods to save data in the documents folder
+    func documentsDirectory() -> String {
+        let paths = NSSearchPathForDirectoriesInDomains(
+        .DocumentDirectory, .UserDomainMask, true) as [String]
+        return paths[0]
+    }
+    
+    func dataFilePath() -> String {
+            return documentsDirectory().stringByAppendingPathComponent("UserCompanies.plist")
+    }
+    
+    func saveCompanyAccountItems() {
+        let dataToSave = NSMutableData()
+        let archiver = NSKeyedArchiver(forWritingWithMutableData: dataToSave)
+        archiver.encodeObject(companyItems, forKey: "UserCompany")
+        archiver.finishEncoding()
+        dataToSave.writeToFile(dataFilePath(), atomically: true)
+    }
+    
+    //function to load data
+    
+    func loadCompanyItems() {
+            // 1
+            let path = dataFilePath()
+            // 2
+            if NSFileManager.defaultManager().fileExistsAtPath(path) {
+            // 3
+                if let data = NSData(contentsOfFile: path) {
+                let unarchiver = NSKeyedUnarchiver(forReadingWithData: data)
+                companyItems = unarchiver.decodeObjectForKey("UserCompany") as [TableItem]
+                unarchiver.finishDecoding() }
+            } }
+    
     //override methods
+    
+    override func viewDidLoad() {
+        loadCompanyItems()
+    }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -31,6 +70,11 @@ class CompaniesTableViewController: UITableViewController, AddCompanyTableViewCo
     }
     
     //places the TableItems in tableview rows
+    
+    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+        return nil
+    }
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("CompanyItem") as UITableViewCell
@@ -38,7 +82,7 @@ class CompaniesTableViewController: UITableViewController, AddCompanyTableViewCo
         let item = self.companyItems[indexPath.row]
         
         let label = cell.viewWithTag(4060) as UILabel
-        label.text = item.text
+        label.text = item.name
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
@@ -51,6 +95,7 @@ class CompaniesTableViewController: UITableViewController, AddCompanyTableViewCo
         
         let indexPaths = [indexPath]
         tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
+                    saveCompanyAccountItems()
     }
     
     //sets the delegate for AddToDashboardtableViewController
@@ -75,16 +120,50 @@ class CompaniesTableViewController: UITableViewController, AddCompanyTableViewCo
     }
     
     func addCompanyTableViewController(controller: AddCompanyTableViewController, didFinishAddingItem item: TableItem) {
-        
         let newRowIndex = self.companyItems.count
-        self.companyItems.append(item)
         
         let indexPath = NSIndexPath(forRow: newRowIndex, inSection: 0)
         let indexPaths = [indexPath]
         
-        self.tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
+        if companyItems.contains(item){
         
-        self.dismissViewControllerAnimated(true, completion: nil)
+            println("FOUND")
+        
+            showAlert("Company already added.", "The chosen company has already been added to your list. The action can't be executed.", self)
+        
+        } else {
+        
+            println("NOT FOUND")
+        
+            self.companyItems.append(item)
+        
+            self.tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
+        
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
+        
+        saveCompanyAccountItems()
+                
+        switch item.name {
+            case "Withings":
+                var withings = Withings()
+                withings.doOAuth()
+                break;
+            case "Medisana":
+                var medisana = Medisana()
+                medisana.doOAuth()
+                break;
+            case "Fitbit":
+                var fitbit = Fitbit()
+                fitbit.doOAuth()
+                break;
+            default:
+            println("hallo")
+                break;
+        }
+                
+                
+                
         
     }
 

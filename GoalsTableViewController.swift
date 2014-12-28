@@ -13,6 +13,7 @@ import SwiftyJSON
 class GoalsTableViewController: UITableViewController, AddGoalTableViewControllerDelegate {
     
     //variables
+    var userId = prefs.integerForKey("USERID") as Int
     var goalItems: [GoalItem]
     
     //init
@@ -25,30 +26,33 @@ class GoalsTableViewController: UITableViewController, AddGoalTableViewControlle
     
     //methods
     //TODO need to rewrite insert and select goals
-    func setValueForItem(item: GoalItem) {
+    func setValueForItem(goal: GoalItem) {
         
         //variables needed for request
-        var date = Date()
-        var currentDate = date.getCurrentDateAsString() as String
-        var userId = prefs.integerForKey("USERID") as Int
-        var url: String = "\(baseURL)/fitbit/goals/"
+        var url: String = "\(baseURL)/goals/select/"
         
+        //TODO do i need limit or ?!??
         let parameters: Dictionary<String, AnyObject> = [
             
-            "userId"        : "\(userId)",
-            "measurement"   : "\(item.name)",
-            "period"        : "1"
+            "userId"        : "\(self.userId)",
+            "measurement"   : "\(goal.name)",
+            "period"        : "\(goal.convertPeriodToInt())",
+            "company"       : "\(goal.company)",
+            "limit"         : "1"
         ]
         
         //wrong user ID stored in Database
         Alamofire.request(.GET, url, parameters: parameters)
             .responseSwiftyJSON { (request, response, json, error) in
                 
-                var value = json[0]["value"].intValue
+                println(json)
                 
-                var text = "\(item.name): \(value)"
+                var currentValue = json[0]["current_value"].intValue
+                var targetValue = json[0]["target_value"].intValue
                 
-                item.text = text
+                var text = "\(goal.name): \(currentValue)"
+                
+                goal.text = text
                 
                 dispatch_async(dispatch_get_main_queue(), {
                     self.tableView!.reloadData()
@@ -56,8 +60,32 @@ class GoalsTableViewController: UITableViewController, AddGoalTableViewControlle
         }
         
     }
-
     
+    func insertGoalInDatabase(goal: GoalItem) {
+        
+        var url = "\(baseURL)/goals/insert/"
+        var date = Date()
+        var currentDate = date.getCurrentDateAsString() as String
+        
+        let parameters: Dictionary<String, AnyObject> = [
+            
+            "userId"        : "\(self.userId)",
+            "measurement"   : "\(goal.name)",
+            "period"        : "\(goal.convertPeriodToInt())",
+            "startDate"     : "\(currentDate)",
+            "company"       : "\(goal.company)",
+            "goalValue"     : "\(goal.value)"
+        ]
+        
+        //wrong user ID stored in Database
+        Alamofire.request(.GET, url, parameters: parameters)
+            .responseSwiftyJSON { (request, response, json, error) in
+
+                println(json)
+                
+        }
+    }
+
     
     //create delegate
     
@@ -87,17 +115,22 @@ class GoalsTableViewController: UITableViewController, AddGoalTableViewControlle
             
             showAlert("You have already added \(item.name)", "Please choose another one", self)
             
-            self.dismissViewControllerAnimated(true, completion: nil)
-            
         } else {
             
-            self.setValueForItem(item)
+            if item.company == "focused health" {
+                
+                self.insertGoalInDatabase(item)
+                
+            }
             
+            self.setValueForItem(item)
+
             self.goalItems.append(item)
             
             self.tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
             
             self.dismissViewControllerAnimated(true, completion: nil)
+            
         }
     }
     
@@ -116,9 +149,14 @@ class GoalsTableViewController: UITableViewController, AddGoalTableViewControlle
     //places the TableItems in tableview rows
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
+        //TODO Fix progressView 
         let cell = tableView.dequeueReusableCellWithIdentifier("GoalItem") as UITableViewCell
         let item = self.goalItems[indexPath.row]
         let label = cell.viewWithTag(3010) as UILabel
+        let progressView = cell.viewWithTag(555) as UIProgressView
+        let fractionalProgress = 10.0 / Float(item.value)
+        println("Progress View Limit \(Float(item.value))")
+        progressView.setProgress(fractionalProgress, animated: true)
         label.text = item.text
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)

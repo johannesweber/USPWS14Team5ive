@@ -40,8 +40,9 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
 
         
         let row0item = GoalItem(name: "steps")
-        row0item.sliderLimit = 2000
+        row0item.sliderLimit = 20000
         row0item.unit = "steps"
+        row0item.company = "focused health"
         self.measurement.append(row0item)
         
         super.init(coder: aDecoder)
@@ -72,13 +73,12 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     
     @IBAction func save(sender: UIBarButtonItem) {
     
-        var newGoalItem = GoalItem(name: self.measurementDetailLabel.text!)
-        newGoalItem.startdate = self.startdate
-        newGoalItem.period = self.periodDetailLabel.text!
-        newGoalItem.value = self.valueLabel.text!.toInt()!
-        newGoalItem.unit = measurementSelected.unit
+        self.measurementSelected.startdate = self.startdate
+        self.measurementSelected.period = self.periodDetailLabel.text!
+        self.measurementSelected.value = self.valueLabel.text!.toInt()!
+        self.measurementSelected.unit = measurementSelected.unit
         
-        self.delegate?.createGoalTableViewController(self, didFinishAddingItem: newGoalItem)
+        self.delegate?.createGoalTableViewController(self, didFinishAddingItem: self.measurementSelected)
         
         self.navigationController?.popViewControllerAnimated(true)
     }
@@ -86,6 +86,19 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     @IBAction func cancel(sender: UIBarButtonItem) {
         
         self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    //override methods
+    
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+
+        self.saveBarButton.enabled = false
+        self.valueSlider.enabled = false
+        self.unitLabel.textColor = UIColor.grayColor()
+        self.valueLabel.textColor = UIColor.grayColor()
+        
     }
     
     //Picker View Methods
@@ -107,30 +120,48 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
-        self.measurementDetailLabel.text = self.measurement[row].name
+        var itemSelected = self.measurement[row]
         
-        self.measurementSelected = self.measurement[row]
+        self.measurementDetailLabel.text = itemSelected.name
+        
+        self.measurementSelected = itemSelected
+        
+        self.customizeSlider(itemSelected)
+        self.unitLabel.textColor = UIColor.blackColor()
+        self.valueLabel.textColor = UIColor.blackColor()
+        self.valueSlider.enabled = true
         
         self.checkIfFormIsComplete()
     }
     
     //methods
     
-    func checkIfFormIsComplete(){
+    func customizeSlider(item: GoalItem) {
+        
+        self.valueSlider.maximumValue = Float(item.sliderLimit)
+        self.valueSlider.continuous = true
+        self.unitLabel.text = item.unit
+    }
+    
+    func checkIfFormIsComplete() {
+        
         if measurementDetailLabel.text != "Detail" && periodDetailLabel.text != "Detail" && startDateDetailLabel.text != "Detail" && valueLabel.text != "Value" {
             
             self.saveBarButton.enabled = true
         }
     }
     
-    override func viewDidLoad() {
-        
-        super.viewDidLoad()
-        
-        self.saveBarButton.enabled = false
-        
+    func dateChanged(datePicker: UIDatePicker) {
+        self.startdate = datePicker.date
+        self.updateDueDateLabel()
+        self.checkIfFormIsComplete()
     }
-
+    
+    func updateDueDateLabel() {
+        let formatter = NSDateFormatter()
+        formatter.dateStyle = .ShortStyle
+        startDateDetailLabel.text = formatter.stringFromDate(startdate)
+    }
     
     func showStartDatePicker() {
         
@@ -193,17 +224,6 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
         }
     }
     
-    func dateChanged(datePicker: UIDatePicker) {
-            self.startdate = datePicker.date
-            self.updateDueDateLabel()
-            self.checkIfFormIsComplete()
-    }
-    
-    func updateDueDateLabel() {
-        let formatter = NSDateFormatter()
-        formatter.dateStyle = .ShortStyle
-        startDateDetailLabel.text = formatter.stringFromDate(startdate)
-    }
     
     //table view methods
     

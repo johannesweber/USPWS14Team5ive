@@ -22,35 +22,47 @@ class AddGoalTableViewController: UITableViewController, CreateGoalTableViewCont
     weak var delegate: AddGoalTableViewControllerDelegate?
     
     var goalPickerVisible: Bool
-    var goal: [TableItem]
-    var goalSelected: String
-    var newGoalSelected: GoalItem
+    var goal: [GoalItem]
+    var goalSelected: GoalItem
+    var newCreatedGoal: GoalItem
 
     //initializer
     
     required init(coder aDecoder: NSCoder) {
         
         self.goalPickerVisible = false
-        self.goal = [TableItem]()
-        self.goalSelected = String()
-        self.newGoalSelected = GoalItem()
+        self.goal = [GoalItem]()
+        self.goalSelected = GoalItem()
+        self.newCreatedGoal = GoalItem()
         
-        let row0item = TableItem(name: "distance")
+        let row0item = GoalItem(name: "distance")
+        row0item.period = "Daily"
+        row0item.company = "fitbit"
         self.goal.append(row0item)
         
-        let row1item = TableItem(name: "steps")
+        let row1item = GoalItem(name: "steps")
+        row1item.period = "Daily"
+        row1item.company = "fitbit"
         self.goal.append(row1item)
         
-        let row2item = TableItem(name: "weight")
+        let row2item = GoalItem(name: "weight")
+        row2item.period = "Daily"
+        row2item.company = "fitbit"
         self.goal.append(row2item)
         
-        let row3item = TableItem(name: "caloriesOut")
+        let row3item = GoalItem(name: "caloriesOut")
+        row3item.period = "Daily"
+        row3item.company = "fitbit"
         self.goal.append(row3item)
         
-        let row4item = TableItem(name: "caloriesIn")
+        let row4item = GoalItem(name: "caloriesIn")
+        row4item.period = "Daily"
+        row4item.company = "fitbit"
         self.goal.append(row4item)
         
-        let row5item = TableItem(name: "activeMinutes")
+        let row5item = GoalItem(name: "activeMinutes")
+        row5item.period = "Daily"
+        row5item.company = "fitbit"
         self.goal.append(row5item)
         
         super.init(coder: aDecoder)
@@ -71,27 +83,19 @@ class AddGoalTableViewController: UITableViewController, CreateGoalTableViewCont
     
     @IBAction func done (sender: UIBarButtonItem) {
         
-        var newGoalItem = GoalItem()
-        
-        if self.measurementDetailLabel != "Detail" && self.goalDetailLabel != "Detail" {
+        if self.measurementDetailLabel.text != "Detail" {
             
-            showAlert("Goal Conflict", "Your are not able to add two Goals at once!", self)
+            self.delegate?.addGoalTableViewController(self, didFinishAddingItem: self.goalSelected)
             
-        } else if self.measurementDetailLabel != "Detail"{
+        } else if self.goalDetailLabel.text != "Detail" {
             
-            newGoalItem = GoalItem(name: self.measurementDetailLabel.text!)
+            self.delegate?.addGoalTableViewController(self, didFinishAddingItem: self.newCreatedGoal)
             
-        } else if self.goalDetailLabel != "Detail"{
+        } else {
             
-            newGoalItem = GoalItem(name: self.newGoalSelected.name)
-            newGoalItem.startdate = self.newGoalSelected.startdate
-            newGoalItem.period = self.newGoalSelected.period
-            newGoalItem.value = self.newGoalSelected.value
-            newGoalItem.unit = self.newGoalSelected.unit
-            
+            self.delegate?.addGoalTableViewController(self, didFinishAddingItem: self.goalSelected)
+            self.delegate?.addGoalTableViewController(self, didFinishAddingItem: self.newCreatedGoal)
         }
-        
-        self.delegate?.addGoalTableViewController(self, didFinishAddingItem: newGoalItem)
     }
     
     //Goal Picker View Methods
@@ -113,8 +117,8 @@ class AddGoalTableViewController: UITableViewController, CreateGoalTableViewCont
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
-        self.goalSelected = self.goal[row].name
-        self.measurementDetailLabel.text = self.goalSelected
+        self.goalSelected = self.goal[row]
+        self.measurementDetailLabel.text = self.goalSelected.name
         self.doneBarButton.enabled = true
     }
 
@@ -124,7 +128,9 @@ class AddGoalTableViewController: UITableViewController, CreateGoalTableViewCont
     func createGoalTableViewController(controller: CreateGoalTableViewController, didFinishAddingItem item: GoalItem) {
         
         self.goalDetailLabel.text = item.name
-        self.newGoalSelected = item
+        self.newCreatedGoal = item
+        
+        self.doneBarButton.enabled = true
         
     }
     

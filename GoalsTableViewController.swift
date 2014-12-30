@@ -77,9 +77,8 @@ class GoalsTableViewController: UITableViewController, AddGoalTableViewControlle
         
         //wrong user ID stored in Database
         Alamofire.request(.GET, url, parameters: parameters)
-            .responseString { (request, response, json, error) in
+            .responseSwiftyJSON { (request, response, json, error) in
 
-                println(request)
                 println(json)
                 
         }

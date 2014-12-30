@@ -12,33 +12,31 @@ class GoalItem: TableItem {
     
     var unit: String
     var sliderLimit: Int
-    var startdate: NSDate
+    var startdate: String
     var period: String
     var value: Int
     var company: String
+    var progressValue: Int
     
     override init(){
 
         self.unit = String()
         self.sliderLimit = Int()
-        self.startdate = NSDate()
+        self.startdate = String()
         self.period = String()
         self.value = Int()
         self.company = String()
+        self.progressValue = Int()
         
         super.init()
     }
     
-    override init(name: String) {
+    override convenience init(name: String) {
         
-        self.unit = String()
-        self.sliderLimit = Int()
-        self.startdate = NSDate()
-        self.period = String()
-        self.value = Int()
-        self.company = String()
+        self.init()
         
-        super.init(name: name)
+        self.name = name
+        
     }
 
     required init(coder aDecoder: NSCoder) {

@@ -45,10 +45,10 @@ class GoalsTableViewController: UITableViewController, AddGoalTableViewControlle
         Alamofire.request(.GET, url, parameters: parameters)
             .responseSwiftyJSON { (request, response, json, error) in
                 
-                println(json)
-                
                 var currentValue = json[0]["current_value"].intValue
                 var targetValue = json[0]["target_value"].intValue
+                
+                goal.progressValue = currentValue
                 
                 var text = "\(goal.name): \(currentValue)"
                 
@@ -64,23 +64,22 @@ class GoalsTableViewController: UITableViewController, AddGoalTableViewControlle
     func insertGoalInDatabase(goal: GoalItem) {
         
         var url = "\(baseURL)/goals/insert/"
-        var date = Date()
-        var currentDate = date.getCurrentDateAsString() as String
         
         let parameters: Dictionary<String, AnyObject> = [
             
             "userId"        : "\(self.userId)",
             "measurement"   : "\(goal.name)",
             "period"        : "\(goal.convertPeriodToInt())",
-            "startDate"     : "\(currentDate)",
+            "startDate"     : "\(goal.startdate)",
             "company"       : "\(goal.company)",
             "goalValue"     : "\(goal.value)"
         ]
         
         //wrong user ID stored in Database
         Alamofire.request(.GET, url, parameters: parameters)
-            .responseSwiftyJSON { (request, response, json, error) in
+            .responseString { (request, response, json, error) in
 
+                println(request)
                 println(json)
                 
         }
@@ -154,8 +153,7 @@ class GoalsTableViewController: UITableViewController, AddGoalTableViewControlle
         let item = self.goalItems[indexPath.row]
         let label = cell.viewWithTag(3010) as UILabel
         let progressView = cell.viewWithTag(555) as UIProgressView
-        let fractionalProgress = 10.0 / Float(item.value)
-        println("Progress View Limit \(Float(item.value))")
+        let fractionalProgress = Float(item.progressValue) / Float(item.value)
         progressView.setProgress(fractionalProgress, animated: true)
         label.text = item.text
         

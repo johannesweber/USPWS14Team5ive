@@ -64,7 +64,17 @@ class Fitbit {
         
         //TODO send success message from Focused Health Server to Smartphone
         Alamofire.request(.POST, "\(baseURL)/fitbit/authorize/", parameters: parameters)
-            .responseString { (request, response, string, error) in
+            .responseSwiftyJSON { (request, response, json, error) in
+                
+                var success = json["success"].intValue
+                var message = json["message"].stringValue
+                
+                var alertView = UIAlertView()
+                alertView.message = "\(message)"
+                alertView.addButtonWithTitle("OK")
+                alertView.show()
+                
+                
         }
     }
     
@@ -82,15 +92,16 @@ class Fitbit {
         Alamofire.request(.GET, url, parameters: parameters)
             .responseSwiftyJSON { (request, response, json, error) in
                 
+                println(request)
+                println(response)
+                
                 var success = json["success"].intValue
                 var message = json["message"].stringValue
                 
-                if success == 1 {
-                    var alertView = UIAlertView()
-                    alertView.message = "\(message)"
-                    alertView.addButtonWithTitle("OK")
-                    alertView.show()
-                }
+                var alertView = UIAlertView()
+                alertView.message = "\(message)"
+                alertView.addButtonWithTitle("OK")
+                alertView.show()
         }
     }
 }

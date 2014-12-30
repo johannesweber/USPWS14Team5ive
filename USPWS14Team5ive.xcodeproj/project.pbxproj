@@ -821,11 +821,6 @@
 		0E9FC1CF1A347B270083BB92 /* Alamofire-SwiftyJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Alamofire-SwiftyJSON.h"; sourceTree = "<group>"; };
 		0E9FC1D01A347B270083BB92 /* Alamofire-SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Alamofire-SwiftyJSON.swift"; sourceTree = "<group>"; };
 		0EB7717B1A339BFF00A1AB3D /* Fitbit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fitbit.swift; sourceTree = "<group>"; };
-		0EB7717D1A33B4A300A1AB3D /* HTTPRequestSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPRequestSerializer.swift; sourceTree = "<group>"; };
-		0EB7717E1A33B4A300A1AB3D /* HTTPResponseSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPResponseSerializer.swift; sourceTree = "<group>"; };
-		0EB7717F1A33B4A300A1AB3D /* HTTPTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPTask.swift; sourceTree = "<group>"; };
-		0EB771801A33B4A300A1AB3D /* HTTPUpload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPUpload.swift; sourceTree = "<group>"; };
-		0EB771811A33B4A300A1AB3D /* SwiftHTTP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftHTTP.h; sourceTree = "<group>"; };
 		0EC0078F1A40C3D600EEE258 /* test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 		0EF48BB11A324C6E00E7BC5D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0EF48BB41A3259B600E7BC5D /* DotCALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DotCALayer.swift; sourceTree = "<group>"; };
@@ -889,7 +884,6 @@
 				0E9FC1B81A34777A0083BB92 /* Alamofire-SwiftyJSON */,
 				0EF48BB31A32595100E7BC5D /* LineChart */,
 				0E43EB801A31F32F008C456F /* PNChart */,
-				8306C90A1A23407B00B00BEE /* SwiftHTTP */,
 				0EFF3AE719FCD4C400AB3C17 /* OAuth */,
 			);
 			name = Library;
@@ -1476,18 +1470,6 @@
 			);
 			name = Extension;
 			path = Oauth/extension;
-			sourceTree = "<group>";
-		};
-		8306C90A1A23407B00B00BEE /* SwiftHTTP */ = {
-			isa = PBXGroup;
-			children = (
-				0EB7717D1A33B4A300A1AB3D /* HTTPRequestSerializer.swift */,
-				0EB7717E1A33B4A300A1AB3D /* HTTPResponseSerializer.swift */,
-				0EB7717F1A33B4A300A1AB3D /* HTTPTask.swift */,
-				0EB771801A33B4A300A1AB3D /* HTTPUpload.swift */,
-				0EB771811A33B4A300A1AB3D /* SwiftHTTP.h */,
-			);
-			name = SwiftHTTP;
 			sourceTree = "<group>";
 		};
 		A3E31B291A3EE6A6009CD4C8 /* Products */ = {

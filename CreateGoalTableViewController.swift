@@ -73,7 +73,7 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     
     @IBAction func save(sender: UIBarButtonItem) {
     
-        self.measurementSelected.startdate = self.startdate
+        self.measurementSelected.startdate = self.startDateDetailLabel.text!
         self.measurementSelected.period = self.periodDetailLabel.text!
         self.measurementSelected.value = self.valueLabel.text!.toInt()!
         self.measurementSelected.unit = measurementSelected.unit
@@ -160,7 +160,8 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     func updateDueDateLabel() {
         let formatter = NSDateFormatter()
         formatter.dateStyle = .ShortStyle
-        startDateDetailLabel.text = formatter.stringFromDate(startdate)
+        formatter.dateFormat = "yyyy-MM-dd"
+        self.startDateDetailLabel.text = formatter.stringFromDate(startdate)
     }
     
     func showStartDatePicker() {

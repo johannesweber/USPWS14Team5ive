@@ -822,6 +822,7 @@
 		0E9FC1D01A347B270083BB92 /* Alamofire-SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Alamofire-SwiftyJSON.swift"; sourceTree = "<group>"; };
 		0EA8A9C01A55AEF300E66D29 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/LoadingCell.xib; sourceTree = "<group>"; };
 		0EA8A9C21A55AF6700E66D29 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/LoadingCell.xib; sourceTree = "<group>"; };
+		0EA8A9C31A55B74900E66D29 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/LoadingCell.xib; sourceTree = "<group>"; };
 		0EB7717B1A339BFF00A1AB3D /* Fitbit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fitbit.swift; sourceTree = "<group>"; };
 		0EF48BB11A324C6E00E7BC5D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0EF48BB41A3259B600E7BC5D /* DotCALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DotCALayer.swift; sourceTree = "<group>"; };
@@ -1580,6 +1581,7 @@
 				en,
 				Base,
 				de,
+				fr,
 			);
 			mainGroup = 0EFF3AB119FCD22C00AB3C17;
 			productRefGroup = 0EFF3ABB19FCD22C00AB3C17 /* Products */;
@@ -2157,6 +2159,7 @@
 			children = (
 				0EA8A9C01A55AEF300E66D29 /* en */,
 				0EA8A9C21A55AF6700E66D29 /* de */,
+				0EA8A9C31A55B74900E66D29 /* fr */,
 			);
 			name = LoadingCell.xib;
 			path = USPWS14Team5ive;

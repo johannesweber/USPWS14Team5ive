@@ -77,31 +77,4 @@ class Fitbit {
                 
         }
     }
-    
-    /*
-    sends a request to focused health server to fetch all data from fitbit api and store them in the focused health database
-    */
-    func synchronizeData() {
-        
-        let url = "\(baseURL)/fitbit/synchronize/"
-        
-        let parameters: Dictionary<String, AnyObject> = [
-            "userId"    : "\(self.userId)"
-        ]
-        
-        Alamofire.request(.GET, url, parameters: parameters)
-            .responseSwiftyJSON { (request, response, json, error) in
-                
-                println(request)
-                println(response)
-                
-                var success = json["success"].intValue
-                var message = json["message"].stringValue
-                
-                var alertView = UIAlertView()
-                alertView.message = "\(message)"
-                alertView.addButtonWithTitle("OK")
-                alertView.show()
-        }
-    }
 }

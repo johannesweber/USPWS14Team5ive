@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0E01D2211A419882008668A7 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E01D2201A419882008668A7 /* Date.swift */; };
+		0E0855071A54607200115879 /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E0855061A54607200115879 /* LoadingCell.xib */; };
 		0E1795B11A3F34B800FE6E7C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EFF3ACB19FCD22C00AB3C17 /* LaunchScreen.xib */; };
 		0E1ADE871A2C852E00820ED2 /* TableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1ADE861A2C852E00820ED2 /* TableItem.swift */; };
 		0E1ADE8A1A2CD07300820ED2 /* AboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1ADE891A2CD07300820ED2 /* AboutTableViewController.swift */; };
@@ -471,6 +472,7 @@
 
 /* Begin PBXFileReference section */
 		0E01D2201A419882008668A7 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		0E0855061A54607200115879 /* LoadingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingCell.xib; sourceTree = "<group>"; };
 		0E1ADE861A2C852E00820ED2 /* TableItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableItem.swift; sourceTree = "<group>"; };
 		0E1ADE891A2CD07300820ED2 /* AboutTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutTableViewController.swift; sourceTree = "<group>"; };
 		0E3369911A1B4ABA007F17FD /* HMACAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HMACAlgorithm.swift; path = ../../USPWS14Team5ive/HMACAlgorithm.swift; sourceTree = "<group>"; };
@@ -887,6 +889,14 @@
 				0EFF3AE719FCD4C400AB3C17 /* OAuth */,
 			);
 			name = Library;
+			sourceTree = "<group>";
+		};
+		0E0855011A545F8700115879 /* nib */ = {
+			isa = PBXGroup;
+			children = (
+				0E0855061A54607200115879 /* LoadingCell.xib */,
+			);
+			name = nib;
 			sourceTree = "<group>";
 		};
 		0E1795B41A3F36BB00FE6E7C /* Item */ = {
@@ -1384,6 +1394,7 @@
 		0EFF3AB119FCD22C00AB3C17 = {
 			isa = PBXGroup;
 			children = (
+				0E0855011A545F8700115879 /* nib */,
 				0EC0078F1A40C3D600EEE258 /* test.swift */,
 				0E1795B41A3F36BB00FE6E7C /* Item */,
 				0E46FFFE1A308BB1002686C3 /* USPWS14Team5ive-Bridging-Header.h */,
@@ -1768,6 +1779,7 @@
 				0E860E4C1A28E78800A9F152 /* bell.png in Resources */,
 				0E860F4D1A28E78800A9F152 /* wifi.png in Resources */,
 				0E860E3F1A28E78800A9F152 /* arrow-small-13.png in Resources */,
+				0E0855071A54607200115879 /* LoadingCell.xib in Resources */,
 				0E860EB51A28E78800A9F152 /* house.png in Resources */,
 				0E860E7A1A28E78800A9F152 /* construction-barrier.png in Resources */,
 				0E860E941A28E78800A9F152 /* eraser.png in Resources */,

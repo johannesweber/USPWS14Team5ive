@@ -9,6 +9,7 @@
 import UIKit
 
 import AlamoFire
+import SwiftyJSON
 
 class DashboardTableViewController: UITableViewController, AddToDashboardTableViewControllerDelegate {
     
@@ -16,6 +17,8 @@ class DashboardTableViewController: UITableViewController, AddToDashboardTableVi
     
     var dashboardItems: [TableItem]
     var userId = prefs.integerForKey("USERID") as Int
+    var isLoading = false
+    var request: Alamofire.Request?
     
     //initializers
     
@@ -26,32 +29,95 @@ class DashboardTableViewController: UITableViewController, AddToDashboardTableVi
         super.init(coder: aDecoder)
     }
     
+    struct TableViewCellIdentifiers {
+        
+        static let loadingCell = "LoadingCell"
+    }
+    
     //IBAction
     
     @IBAction func refresh(sender: UIBarButtonItem) {
         
-        var fitbit = Fitbit()
-        fitbit.synchronizeData()
+        self.isLoading = true
+        self.tableView.reloadData()
+        
+        let url = "\(baseURL)/fitbit/synchronize/"
+        
+        let parameters: Dictionary<String, AnyObject> = [
+            "userId"    : "\(self.userId)"
+        ]
+        
+        //remove success message from user_info in php
+        self.request = Alamofire.request(.GET, url, parameters: parameters)
+            .responseSwiftyJSON { (request, response, json, error) in
+                
+                println(json)
+         
+                var success = json["success"].intValue
+                var message = json["message"].stringValue
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.isLoading = false
+                    self.tableView.reloadData()
+                }
+                
+                if success == 1 {
+                    showAlert("Success!", message, self)
+                }
+                
+        }
     }
     
     //override methods
     
+    override func viewDidDisappear(animated: Bool) {
+        self.request?.cancel()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.rowHeight = 80
+        
+        var cellNib = UINib(nibName: TableViewCellIdentifiers.loadingCell, bundle: nil)
+        tableView.registerNib(cellNib, forCellReuseIdentifier: TableViewCellIdentifiers.loadingCell)
+        
+    }
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return self.dashboardItems.count
+        if self.isLoading {
+            
+            return 1
+            
+        } else {
+            
+            return self.dashboardItems.count
+        }
     }
     
     //places the TableItems in tableview rows
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("DashboardItem") as UITableViewCell
-        let item = self.dashboardItems[indexPath.row]
-        let label = cell.viewWithTag(6000) as UILabel
-        label.text = item.text
+        if self.isLoading {
+            
+            let cell = tableView.dequeueReusableCellWithIdentifier(TableViewCellIdentifiers.loadingCell, forIndexPath:indexPath)
+            as UITableViewCell
+            let spinner = cell.viewWithTag(100) as UIActivityIndicatorView
+            spinner.startAnimating()
+            
+            return cell
+            
+        } else {
+            
+            let cell = tableView.dequeueReusableCellWithIdentifier("DashboardItem") as UITableViewCell
+            let item = self.dashboardItems[indexPath.row]
+            let label = cell.viewWithTag(6000) as UILabel
+            label.text = item.text
         
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
-        return cell
+            return cell
+        }
     }
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {

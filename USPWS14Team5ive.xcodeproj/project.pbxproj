@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0E01D2211A419882008668A7 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E01D2201A419882008668A7 /* Date.swift */; };
-		0E0855071A54607200115879 /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E0855061A54607200115879 /* LoadingCell.xib */; };
 		0E1795B11A3F34B800FE6E7C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EFF3ACB19FCD22C00AB3C17 /* LaunchScreen.xib */; };
 		0E1ADE871A2C852E00820ED2 /* TableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1ADE861A2C852E00820ED2 /* TableItem.swift */; };
 		0E1ADE8A1A2CD07300820ED2 /* AboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1ADE891A2CD07300820ED2 /* AboutTableViewController.swift */; };
@@ -23,8 +22,8 @@
 		0E47BE731A3A4E6500226527 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E47BE721A3A4E6500226527 /* ResetPasswordViewController.swift */; };
 		0E5673031A44914B0006969A /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5673021A44914B0006969A /* ArrayExtension.swift */; };
 		0E56AFB21A2C6B6F00778C01 /* GoalsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E56AFB11A2C6B6F00778C01 /* GoalsTableViewController.swift */; };
+		0E597E511A55AC3E004891E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E597E4F1A55AC3E004891E7 /* Main.storyboard */; };
 		0E61618B1A1E48B4006E0AD7 /* OAuth1Swift_Vitadock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E61618A1A1E48B4006E0AD7 /* OAuth1Swift_Vitadock.swift */; };
-		0E6305301A46BEF30031F179 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E63052F1A46BEF30031F179 /* Main.storyboard */; };
 		0E6305321A46C6980031F179 /* GoalItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6305311A46C6980031F179 /* GoalItem.swift */; };
 		0E6305341A46DAAF0031F179 /* CreateGoalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6305331A46DAAF0031F179 /* CreateGoalTableViewController.swift */; };
 		0E6305361A46E7200031F179 /* AddGoalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6305351A46E7200031F179 /* AddGoalTableViewController.swift */; };
@@ -43,10 +42,7 @@
 		0E6D694F1A3DAA080053AF51 /* HTTPResponseSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6D694B1A3DAA080053AF51 /* HTTPResponseSerializer.swift */; };
 		0E6D69501A3DAA080053AF51 /* HTTPTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6D694C1A3DAA080053AF51 /* HTTPTask.swift */; };
 		0E6D69511A3DAA080053AF51 /* HTTPUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6D694D1A3DAA080053AF51 /* HTTPUpload.swift */; };
-		0E6F27401A2CF02D00F58A13 /* FitnessDiagramViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6F273F1A2CF02D00F58A13 /* FitnessDiagramViewController.swift */; };
-		0E6F27421A2CF0B900F58A13 /* VitalsDiagramViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6F27411A2CF0B900F58A13 /* VitalsDiagramViewController.swift */; };
-		0E6F27441A2CF19200F58A13 /* NutritionDiagramViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6F27431A2CF19200F58A13 /* NutritionDiagramViewController.swift */; };
-		0E6F27461A2CF1E000F58A13 /* SleepDiagramViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6F27451A2CF1E000F58A13 /* SleepDiagramViewController.swift */; };
+		0E6F27401A2CF02D00F58A13 /* DiagramViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6F273F1A2CF02D00F58A13 /* DiagramViewController.swift */; };
 		0E7271501A34D03C00A25710 /* Weekday.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E72714F1A34D03C00A25710 /* Weekday.swift */; };
 		0E818FAE1A2511AD000B9DA6 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E818FAD1A2511AD000B9DA6 /* SignupViewController.swift */; };
 		0E818FB01A25131B000B9DA6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E818FAF1A25131B000B9DA6 /* LoginViewController.swift */; };
@@ -358,8 +354,8 @@
 		0E860F631A2B809F00A9F152 /* AddToDashboardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E860F621A2B809F00A9F152 /* AddToDashboardTableViewController.swift */; };
 		0E93F52D1A31D131003C08D9 /* OAuthSwiftClient_Vitadock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CEEE951A272B5400092BB7 /* OAuthSwiftClient_Vitadock.swift */; };
 		0E9FC1D11A347B270083BB92 /* Alamofire-SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9FC1D01A347B270083BB92 /* Alamofire-SwiftyJSON.swift */; };
+		0EA8A9BF1A55AEF300E66D29 /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EA8A9C11A55AEF300E66D29 /* LoadingCell.xib */; };
 		0EB7717C1A339BFF00A1AB3D /* Fitbit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB7717B1A339BFF00A1AB3D /* Fitbit.swift */; };
-		0EC007901A40C3D600EEE258 /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC0078F1A40C3D600EEE258 /* test.swift */; };
 		0EF48BB21A324C6E00E7BC5D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF48BB11A324C6E00E7BC5D /* Constants.swift */; };
 		0EF48BB51A3259B600E7BC5D /* DotCALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF48BB41A3259B600E7BC5D /* DotCALayer.swift */; };
 		0EF48BB71A3259C500E7BC5D /* LineChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF48BB61A3259C500E7BC5D /* LineChart.swift */; };
@@ -472,7 +468,6 @@
 
 /* Begin PBXFileReference section */
 		0E01D2201A419882008668A7 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
-		0E0855061A54607200115879 /* LoadingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingCell.xib; sourceTree = "<group>"; };
 		0E1ADE861A2C852E00820ED2 /* TableItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableItem.swift; sourceTree = "<group>"; };
 		0E1ADE891A2CD07300820ED2 /* AboutTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutTableViewController.swift; sourceTree = "<group>"; };
 		0E3369911A1B4ABA007F17FD /* HMACAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HMACAlgorithm.swift; path = ../../USPWS14Team5ive/HMACAlgorithm.swift; sourceTree = "<group>"; };
@@ -487,8 +482,8 @@
 		0E47BE721A3A4E6500226527 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		0E5673021A44914B0006969A /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		0E56AFB11A2C6B6F00778C01 /* GoalsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalsTableViewController.swift; sourceTree = "<group>"; };
+		0E597E501A55AC3E004891E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = USPWS14Team5ive/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0E61618A1A1E48B4006E0AD7 /* OAuth1Swift_Vitadock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth1Swift_Vitadock.swift; sourceTree = "<group>"; };
-		0E63052F1A46BEF30031F179 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		0E6305311A46C6980031F179 /* GoalItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalItem.swift; sourceTree = "<group>"; };
 		0E6305331A46DAAF0031F179 /* CreateGoalTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateGoalTableViewController.swift; sourceTree = "<group>"; };
 		0E6305351A46E7200031F179 /* AddGoalTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddGoalTableViewController.swift; sourceTree = "<group>"; };
@@ -507,10 +502,7 @@
 		0E6D694B1A3DAA080053AF51 /* HTTPResponseSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPResponseSerializer.swift; sourceTree = "<group>"; };
 		0E6D694C1A3DAA080053AF51 /* HTTPTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPTask.swift; sourceTree = "<group>"; };
 		0E6D694D1A3DAA080053AF51 /* HTTPUpload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPUpload.swift; sourceTree = "<group>"; };
-		0E6F273F1A2CF02D00F58A13 /* FitnessDiagramViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FitnessDiagramViewController.swift; sourceTree = "<group>"; };
-		0E6F27411A2CF0B900F58A13 /* VitalsDiagramViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VitalsDiagramViewController.swift; sourceTree = "<group>"; };
-		0E6F27431A2CF19200F58A13 /* NutritionDiagramViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionDiagramViewController.swift; sourceTree = "<group>"; };
-		0E6F27451A2CF1E000F58A13 /* SleepDiagramViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SleepDiagramViewController.swift; sourceTree = "<group>"; };
+		0E6F273F1A2CF02D00F58A13 /* DiagramViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiagramViewController.swift; sourceTree = "<group>"; };
 		0E72714F1A34D03C00A25710 /* Weekday.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weekday.swift; sourceTree = "<group>"; };
 		0E818FAD1A2511AD000B9DA6 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		0E818FAF1A25131B000B9DA6 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -822,8 +814,10 @@
 		0E860F621A2B809F00A9F152 /* AddToDashboardTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddToDashboardTableViewController.swift; sourceTree = "<group>"; };
 		0E9FC1CF1A347B270083BB92 /* Alamofire-SwiftyJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Alamofire-SwiftyJSON.h"; sourceTree = "<group>"; };
 		0E9FC1D01A347B270083BB92 /* Alamofire-SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Alamofire-SwiftyJSON.swift"; sourceTree = "<group>"; };
+		0EA8A9C01A55AEF300E66D29 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/LoadingCell.xib; sourceTree = "<group>"; };
+		0EA8A9C21A55AF6700E66D29 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/LoadingCell.xib; sourceTree = "<group>"; };
+		0EA8A9C31A55B74900E66D29 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/LoadingCell.xib; sourceTree = "<group>"; };
 		0EB7717B1A339BFF00A1AB3D /* Fitbit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fitbit.swift; sourceTree = "<group>"; };
-		0EC0078F1A40C3D600EEE258 /* test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 		0EF48BB11A324C6E00E7BC5D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0EF48BB41A3259B600E7BC5D /* DotCALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DotCALayer.swift; sourceTree = "<group>"; };
 		0EF48BB61A3259C500E7BC5D /* LineChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineChart.swift; sourceTree = "<group>"; };
@@ -894,7 +888,7 @@
 		0E0855011A545F8700115879 /* nib */ = {
 			isa = PBXGroup;
 			children = (
-				0E0855061A54607200115879 /* LoadingCell.xib */,
+				0EA8A9C11A55AEF300E66D29 /* LoadingCell.xib */,
 			);
 			name = nib;
 			sourceTree = "<group>";
@@ -984,10 +978,7 @@
 			isa = PBXGroup;
 			children = (
 				0E3ADB771A278E8D0075F981 /* FitnessViewController.swift */,
-				0E6F27431A2CF19200F58A13 /* NutritionDiagramViewController.swift */,
-				0E6F27411A2CF0B900F58A13 /* VitalsDiagramViewController.swift */,
-				0E6F27451A2CF1E000F58A13 /* SleepDiagramViewController.swift */,
-				0E6F273F1A2CF02D00F58A13 /* FitnessDiagramViewController.swift */,
+				0E6F273F1A2CF02D00F58A13 /* DiagramViewController.swift */,
 				0E3ADB7D1A279FF90075F981 /* SleepTableViewController.swift */,
 				0E3ADB791A2792F20075F981 /* VitalsTableViewController.swift */,
 				0E3ADB7B1A279E730075F981 /* NutritionTableViewController.swift */,
@@ -1395,7 +1386,6 @@
 			isa = PBXGroup;
 			children = (
 				0E0855011A545F8700115879 /* nib */,
-				0EC0078F1A40C3D600EEE258 /* test.swift */,
 				0E1795B41A3F36BB00FE6E7C /* Item */,
 				0E46FFFE1A308BB1002686C3 /* USPWS14Team5ive-Bridging-Header.h */,
 				0EFF3AE819FCD4C400AB3C17 /* Extension */,
@@ -1405,7 +1395,7 @@
 				0E6161941A1F8977006E0AD7 /* Pictures */,
 				0EFF3ABF19FCD22C00AB3C17 /* AppDelegate.swift */,
 				0EFF3AC919FCD22C00AB3C17 /* Images.xcassets */,
-				0E63052F1A46BEF30031F179 /* Main.storyboard */,
+				0E597E4F1A55AC3E004891E7 /* Main.storyboard */,
 				0EFF3ACB19FCD22C00AB3C17 /* LaunchScreen.xib */,
 				0EFF3AC119FCD22C00AB3C17 /* USPWS14Team5ive.xcdatamodeld */,
 				0EFF3ABD19FCD22C00AB3C17 /* Supporting Files */,
@@ -1581,6 +1571,8 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
+				fr,
 			);
 			mainGroup = 0EFF3AB119FCD22C00AB3C17;
 			productRefGroup = 0EFF3ABB19FCD22C00AB3C17 /* Products */;
@@ -1779,7 +1771,7 @@
 				0E860E4C1A28E78800A9F152 /* bell.png in Resources */,
 				0E860F4D1A28E78800A9F152 /* wifi.png in Resources */,
 				0E860E3F1A28E78800A9F152 /* arrow-small-13.png in Resources */,
-				0E0855071A54607200115879 /* LoadingCell.xib in Resources */,
+				0EA8A9BF1A55AEF300E66D29 /* LoadingCell.xib in Resources */,
 				0E860EB51A28E78800A9F152 /* house.png in Resources */,
 				0E860E7A1A28E78800A9F152 /* construction-barrier.png in Resources */,
 				0E860E941A28E78800A9F152 /* eraser.png in Resources */,
@@ -1839,11 +1831,11 @@
 				0E860F211A28E78800A9F152 /* speaker-on.png in Resources */,
 				0E860EAA1A28E78800A9F152 /* guitar.png in Resources */,
 				0E860F4B1A28E78800A9F152 /* wheelbarrow.png in Resources */,
+				0E597E511A55AC3E004891E7 /* Main.storyboard in Resources */,
 				0E860E961A28E78800A9F152 /* factory-pollution.png in Resources */,
 				0E860E581A28E78800A9F152 /* button-fast-forward.png in Resources */,
 				0E860E651A28E78800A9F152 /* camera.png in Resources */,
 				0E860F481A28E78800A9F152 /* water.png in Resources */,
-				0E6305301A46BEF30031F179 /* Main.storyboard in Resources */,
 				0E860F101A28E78800A9F152 /* share.png in Resources */,
 				0E860E701A28E78800A9F152 /* chinese-lantern.png in Resources */,
 				0E860EC71A28E78800A9F152 /* man.png in Resources */,
@@ -2047,9 +2039,7 @@
 			files = (
 				0E6305381A4735A30031F179 /* PeriodTableViewController.swift in Sources */,
 				0E6D69501A3DAA080053AF51 /* HTTPTask.swift in Sources */,
-				0EC007901A40C3D600EEE258 /* test.swift in Sources */,
 				0E93F52D1A31D131003C08D9 /* OAuthSwiftClient_Vitadock.swift in Sources */,
-				0E6F27421A2CF0B900F58A13 /* VitalsDiagramViewController.swift in Sources */,
 				0E860F5B1A2B309400A9F152 /* TermsOfUseViewController.swift in Sources */,
 				0E47BE731A3A4E6500226527 /* ResetPasswordViewController.swift in Sources */,
 				0E818FB01A25131B000B9DA6 /* LoginViewController.swift in Sources */,
@@ -2057,7 +2047,6 @@
 				0E6B3F601A2DADF6002193B2 /* AddCompanyTableViewController.swift in Sources */,
 				0E1ADE8A1A2CD07300820ED2 /* AboutTableViewController.swift in Sources */,
 				0EFF3AF419FCD4C400AB3C17 /* Dictionary+OAuthSwift.swift in Sources */,
-				0E6F27461A2CF1E000F58A13 /* SleepDiagramViewController.swift in Sources */,
 				0E6305341A46DAAF0031F179 /* CreateGoalTableViewController.swift in Sources */,
 				0E56AFB21A2C6B6F00778C01 /* GoalsTableViewController.swift in Sources */,
 				0EFF3AF819FCD4C400AB3C17 /* OAuth1Swift.swift in Sources */,
@@ -2090,7 +2079,7 @@
 				0EF48BB71A3259C500E7BC5D /* LineChart.swift in Sources */,
 				0E6B3F4D1A2CF60D002193B2 /* EditAccountViewController.swift in Sources */,
 				0EF48BC71A3263A100E7BC5D /* PNLineChart.swift in Sources */,
-				0E6F27401A2CF02D00F58A13 /* FitnessDiagramViewController.swift in Sources */,
+				0E6F27401A2CF02D00F58A13 /* DiagramViewController.swift in Sources */,
 				0EF48BC21A3263A100E7BC5D /* PNBar.swift in Sources */,
 				0EF48BC51A3263A100E7BC5D /* PNChartDelegate.swift in Sources */,
 				0E6D692A1A3DA97A0053AF51 /* Medisana.swift in Sources */,
@@ -2112,7 +2101,6 @@
 				0EFF3AF919FCD4C400AB3C17 /* OAuth2Swift.swift in Sources */,
 				0E3ADB741A273B790075F981 /* ManageDataViewController.swift in Sources */,
 				0E6D694E1A3DAA080053AF51 /* HTTPRequestSerializer.swift in Sources */,
-				0E6F27441A2CF19200F58A13 /* NutritionDiagramViewController.swift in Sources */,
 				0E5673031A44914B0006969A /* ArrayExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2146,6 +2134,25 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		0E597E4F1A55AC3E004891E7 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0E597E501A55AC3E004891E7 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		0EA8A9C11A55AEF300E66D29 /* LoadingCell.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0EA8A9C01A55AEF300E66D29 /* en */,
+				0EA8A9C21A55AF6700E66D29 /* de */,
+				0EA8A9C31A55B74900E66D29 /* fr */,
+			);
+			name = LoadingCell.xib;
+			path = USPWS14Team5ive;
+			sourceTree = "<group>";
+		};
 		0EFF3ACB19FCD22C00AB3C17 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (

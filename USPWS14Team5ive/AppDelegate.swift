@@ -54,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 
-                var resetPasswordViewController = mainStoryboard.instantiateViewControllerWithIdentifier("resetPassword") as ResetPasswordViewController
+                var resetPasswordViewController = mainStoryboard.instantiateViewControllerWithIdentifier("ResetPasswordViewController") as ResetPasswordViewController
                 
                 //TODO how to create and display an navigation controller
                 var rootViewController = self.window!.rootViewController as? UINavigationController

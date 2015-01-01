@@ -42,10 +42,7 @@
 		0E6D694F1A3DAA080053AF51 /* HTTPResponseSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6D694B1A3DAA080053AF51 /* HTTPResponseSerializer.swift */; };
 		0E6D69501A3DAA080053AF51 /* HTTPTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6D694C1A3DAA080053AF51 /* HTTPTask.swift */; };
 		0E6D69511A3DAA080053AF51 /* HTTPUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6D694D1A3DAA080053AF51 /* HTTPUpload.swift */; };
-		0E6F27401A2CF02D00F58A13 /* FitnessDiagramViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6F273F1A2CF02D00F58A13 /* FitnessDiagramViewController.swift */; };
-		0E6F27421A2CF0B900F58A13 /* VitalsDiagramViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6F27411A2CF0B900F58A13 /* VitalsDiagramViewController.swift */; };
-		0E6F27441A2CF19200F58A13 /* NutritionDiagramViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6F27431A2CF19200F58A13 /* NutritionDiagramViewController.swift */; };
-		0E6F27461A2CF1E000F58A13 /* SleepDiagramViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6F27451A2CF1E000F58A13 /* SleepDiagramViewController.swift */; };
+		0E6F27401A2CF02D00F58A13 /* DiagramViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6F273F1A2CF02D00F58A13 /* DiagramViewController.swift */; };
 		0E7271501A34D03C00A25710 /* Weekday.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E72714F1A34D03C00A25710 /* Weekday.swift */; };
 		0E818FAE1A2511AD000B9DA6 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E818FAD1A2511AD000B9DA6 /* SignupViewController.swift */; };
 		0E818FB01A25131B000B9DA6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E818FAF1A25131B000B9DA6 /* LoginViewController.swift */; };
@@ -505,10 +502,7 @@
 		0E6D694B1A3DAA080053AF51 /* HTTPResponseSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPResponseSerializer.swift; sourceTree = "<group>"; };
 		0E6D694C1A3DAA080053AF51 /* HTTPTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPTask.swift; sourceTree = "<group>"; };
 		0E6D694D1A3DAA080053AF51 /* HTTPUpload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPUpload.swift; sourceTree = "<group>"; };
-		0E6F273F1A2CF02D00F58A13 /* FitnessDiagramViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FitnessDiagramViewController.swift; sourceTree = "<group>"; };
-		0E6F27411A2CF0B900F58A13 /* VitalsDiagramViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VitalsDiagramViewController.swift; sourceTree = "<group>"; };
-		0E6F27431A2CF19200F58A13 /* NutritionDiagramViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionDiagramViewController.swift; sourceTree = "<group>"; };
-		0E6F27451A2CF1E000F58A13 /* SleepDiagramViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SleepDiagramViewController.swift; sourceTree = "<group>"; };
+		0E6F273F1A2CF02D00F58A13 /* DiagramViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiagramViewController.swift; sourceTree = "<group>"; };
 		0E72714F1A34D03C00A25710 /* Weekday.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weekday.swift; sourceTree = "<group>"; };
 		0E818FAD1A2511AD000B9DA6 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		0E818FAF1A25131B000B9DA6 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -984,10 +978,7 @@
 			isa = PBXGroup;
 			children = (
 				0E3ADB771A278E8D0075F981 /* FitnessViewController.swift */,
-				0E6F27431A2CF19200F58A13 /* NutritionDiagramViewController.swift */,
-				0E6F27411A2CF0B900F58A13 /* VitalsDiagramViewController.swift */,
-				0E6F27451A2CF1E000F58A13 /* SleepDiagramViewController.swift */,
-				0E6F273F1A2CF02D00F58A13 /* FitnessDiagramViewController.swift */,
+				0E6F273F1A2CF02D00F58A13 /* DiagramViewController.swift */,
 				0E3ADB7D1A279FF90075F981 /* SleepTableViewController.swift */,
 				0E3ADB791A2792F20075F981 /* VitalsTableViewController.swift */,
 				0E3ADB7B1A279E730075F981 /* NutritionTableViewController.swift */,
@@ -2049,7 +2040,6 @@
 				0E6305381A4735A30031F179 /* PeriodTableViewController.swift in Sources */,
 				0E6D69501A3DAA080053AF51 /* HTTPTask.swift in Sources */,
 				0E93F52D1A31D131003C08D9 /* OAuthSwiftClient_Vitadock.swift in Sources */,
-				0E6F27421A2CF0B900F58A13 /* VitalsDiagramViewController.swift in Sources */,
 				0E860F5B1A2B309400A9F152 /* TermsOfUseViewController.swift in Sources */,
 				0E47BE731A3A4E6500226527 /* ResetPasswordViewController.swift in Sources */,
 				0E818FB01A25131B000B9DA6 /* LoginViewController.swift in Sources */,
@@ -2057,7 +2047,6 @@
 				0E6B3F601A2DADF6002193B2 /* AddCompanyTableViewController.swift in Sources */,
 				0E1ADE8A1A2CD07300820ED2 /* AboutTableViewController.swift in Sources */,
 				0EFF3AF419FCD4C400AB3C17 /* Dictionary+OAuthSwift.swift in Sources */,
-				0E6F27461A2CF1E000F58A13 /* SleepDiagramViewController.swift in Sources */,
 				0E6305341A46DAAF0031F179 /* CreateGoalTableViewController.swift in Sources */,
 				0E56AFB21A2C6B6F00778C01 /* GoalsTableViewController.swift in Sources */,
 				0EFF3AF819FCD4C400AB3C17 /* OAuth1Swift.swift in Sources */,
@@ -2090,7 +2079,7 @@
 				0EF48BB71A3259C500E7BC5D /* LineChart.swift in Sources */,
 				0E6B3F4D1A2CF60D002193B2 /* EditAccountViewController.swift in Sources */,
 				0EF48BC71A3263A100E7BC5D /* PNLineChart.swift in Sources */,
-				0E6F27401A2CF02D00F58A13 /* FitnessDiagramViewController.swift in Sources */,
+				0E6F27401A2CF02D00F58A13 /* DiagramViewController.swift in Sources */,
 				0EF48BC21A3263A100E7BC5D /* PNBar.swift in Sources */,
 				0EF48BC51A3263A100E7BC5D /* PNChartDelegate.swift in Sources */,
 				0E6D692A1A3DA97A0053AF51 /* Medisana.swift in Sources */,
@@ -2112,7 +2101,6 @@
 				0EFF3AF919FCD4C400AB3C17 /* OAuth2Swift.swift in Sources */,
 				0E3ADB741A273B790075F981 /* ManageDataViewController.swift in Sources */,
 				0E6D694E1A3DAA080053AF51 /* HTTPRequestSerializer.swift in Sources */,
-				0E6F27441A2CF19200F58A13 /* NutritionDiagramViewController.swift in Sources */,
 				0E5673031A44914B0006969A /* ArrayExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

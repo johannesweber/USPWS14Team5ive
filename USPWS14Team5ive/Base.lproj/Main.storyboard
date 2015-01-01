@@ -1458,10 +1458,10 @@ password, press the button below</string>
             </objects>
             <point key="canvasLocation" x="1912.5" y="-3884.1549295774644"/>
         </scene>
-        <!--Fitness Diagram-->
+        <!--Diagram View-->
         <scene sceneID="r9J-Hi-9ex">
             <objects>
-                <viewController id="yNo-3s-K6V" customClass="FitnessDiagramViewController" customModule="USPWS14Team5ive" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="yNo-3s-K6V" customClass="DiagramViewController" customModule="USPWS14Team5ive" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ZMn-PQ-PKQ"/>
                         <viewControllerLayoutGuide type="bottom" id="v1Z-Pw-YO3"/>
@@ -1499,33 +1499,14 @@ password, press the button below</string>
                             <constraint firstItem="yBE-fR-cBQ" firstAttribute="leading" secondItem="PUU-2Y-HWF" secondAttribute="leadingMargin" constant="-16" id="cN5-vN-m0m"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Fitness Diagram" id="aor-gN-IYI"/>
+                    <navigationItem key="navigationItem" title="Diagram View" id="aor-gN-IYI"/>
                     <connections>
                         <outlet property="segmentedControl" destination="3v9-73-FRJ" id="HVo-oI-3m6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gxy-zg-C9z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2778.75" y="-3884.1549295774644"/>
-        </scene>
-        <!--Vitals Diagram-->
-        <scene sceneID="6ve-0D-1CU">
-            <objects>
-                <viewController id="EhC-Un-xex" customClass="VitalsDiagramViewController" customModule="USPWS14Team5ive" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="djs-l4-kK8"/>
-                        <viewControllerLayoutGuide type="bottom" id="nFa-Vg-SoY"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="M4d-TH-mPE">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.96069163079999997" alpha="1" colorSpace="deviceWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Vitals Diagram" id="lB8-kF-SPK"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="TOa-iw-FL4" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2778.75" y="-3195.4225352112676"/>
+            <point key="canvasLocation" x="2907" y="-2975"/>
         </scene>
         <!--Nutrition-->
         <scene sceneID="Bfb-DP-2Cn">
@@ -1550,7 +1531,7 @@ password, press the button below</string>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="hKA-lm-UhC" kind="show" id="7hR-Ro-sGi"/>
+                                    <segue destination="yNo-3s-K6V" kind="show" id="Uwe-H5-Q6Q"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1564,25 +1545,6 @@ password, press the button below</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e5n-ne-dd6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1912.5" y="-2481.3380281690138"/>
-        </scene>
-        <!--Nutrition Diagram-->
-        <scene sceneID="umn-3o-Yya">
-            <objects>
-                <viewController id="hKA-lm-UhC" customClass="NutritionDiagramViewController" customModule="USPWS14Team5ive" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="sBn-DZ-Gkl"/>
-                        <viewControllerLayoutGuide type="bottom" id="ATA-uj-WN5"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Pm9-Lk-2VL">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.96069163079999997" alpha="1" colorSpace="deviceWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Nutrition Diagram" id="XXf-oD-Lt8"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4fO-yP-RSh" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2778.75" y="-2481.3380281690138"/>
         </scene>
         <!--Create New Goal-->
         <scene sceneID="uo6-MX-kdx">
@@ -1913,7 +1875,7 @@ password, press the button below</string>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="EhC-Un-xex" kind="show" id="lU7-f1-K2U"/>
+                                    <segue destination="yNo-3s-K6V" kind="show" id="TmR-DO-j6c"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1951,7 +1913,7 @@ password, press the button below</string>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="v72-WN-131" kind="show" id="rgW-wr-6zL"/>
+                                    <segue destination="yNo-3s-K6V" kind="show" id="AOE-pw-xrA"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1964,26 +1926,7 @@ password, press the button below</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HQd-m4-ckE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="909.375" y="-1810.5633802816901"/>
-        </scene>
-        <!--Sleep Diagram-->
-        <scene sceneID="tVh-iW-MNn">
-            <objects>
-                <viewController id="v72-WN-131" customClass="SleepDiagramViewController" customModule="USPWS14Team5ive" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="7rD-pG-ekr"/>
-                        <viewControllerLayoutGuide type="bottom" id="jLN-36-Dx0"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="McK-Em-9Ic">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.96069163079999997" alpha="1" colorSpace="deviceWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Sleep Diagram" id="Aep-hA-ZPl"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xiE-Gh-kBc" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2778.75" y="-1810.5633802816901"/>
+            <point key="canvasLocation" x="1912" y="-1751"/>
         </scene>
         <!--Dashboard-->
         <scene sceneID="ope-WL-Zvv">
@@ -2003,7 +1946,7 @@ password, press the button below</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Sh-Kb-xzl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1.875" y="-4557.0422535211264"/>
+            <point key="canvasLocation" x="-31" y="-4830"/>
         </scene>
         <!--Terms of Use-->
         <scene sceneID="gyT-KB-N8G">
@@ -2090,7 +2033,7 @@ password, press the button below</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uhh-gj-tR8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="937.5" y="-4557.0422535211264"/>
+            <point key="canvasLocation" x="921" y="-4830"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="n70-5a-LHj">
@@ -2107,7 +2050,7 @@ password, press the button below</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lSr-pB-X9p" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1912.5" y="-4557.0422535211264"/>
+            <point key="canvasLocation" x="1912" y="-4830"/>
         </scene>
         <!--Add to Dashboard-->
         <scene sceneID="pd3-mb-DTS">
@@ -2167,7 +2110,7 @@ password, press the button below</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="727-47-x3H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2778.75" y="-4557.0422535211264"/>
+            <point key="canvasLocation" x="2778" y="-4830"/>
         </scene>
     </scenes>
     <resources>
@@ -2181,6 +2124,7 @@ password, press the button below</string>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="MWJ-wv-yXK"/>
+        <segue reference="AOE-pw-xrA"/>
         <segue reference="IS9-Qi-81b"/>
         <segue reference="Pz4-nf-cZR"/>
     </inferredMetricsTieBreakers>

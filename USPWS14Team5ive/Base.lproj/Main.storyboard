@@ -24,7 +24,7 @@
         <!--Login-->
         <scene sceneID="uDJ-nG-saw">
             <objects>
-                <viewController id="eUJ-EL-HVc" customClass="LoginViewController" customModule="USPWS14Team5ive" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="eUJ-EL-HVc" customClass="LoginViewController" customModule="USPWS14Team5ive" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="DMS-XK-fJs"/>
                         <viewControllerLayoutGuide type="bottom" id="MjM-lI-4cv"/>
@@ -147,7 +147,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D4m-lp-EpR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3174" y="-3068"/>
+            <point key="canvasLocation" x="-3117" y="-3068"/>
         </scene>
         <!--Disclaimer-->
         <scene sceneID="XlU-bX-XnW">
@@ -418,7 +418,7 @@
         <!--Change Password-->
         <scene sceneID="o1D-vh-qsi">
             <objects>
-                <viewController storyboardIdentifier="resetPassword" id="4Va-At-8rc" customClass="ResetPasswordViewController" customModule="USPWS14Team5ive" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ResetPasswordViewController" id="4Va-At-8rc" customClass="ResetPasswordViewController" customModule="USPWS14Team5ive" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="wGm-bv-gSS"/>
                         <viewControllerLayoutGuide type="bottom" id="fFG-bt-hWg"/>
@@ -513,7 +513,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uDL-N7-IEf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1327.5" y="-4557.0422535211264"/>
+            <point key="canvasLocation" x="-2235" y="-5378"/>
         </scene>
         <!--Forgot Password?-->
         <scene sceneID="yPp-xl-T9X">
@@ -591,7 +591,6 @@ password, press the button below</string>
                     </navigationItem>
                     <connections>
                         <outlet property="txtEmailAddress" destination="0hz-82-pqK" id="H4v-Cr-XOy"/>
-                        <segue destination="4Va-At-8rc" kind="presentation" identifier="goToResetPassword" id="Udx-l2-Lg6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hCS-6q-kRc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1471,13 +1470,13 @@ password, press the button below</string>
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UNd-Mz-kX7">
-                                <rect key="frame" x="0.0" y="64" width="320" height="44"/>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yBE-fR-cBQ">
+                                <rect key="frame" x="0.0" y="64" width="600" height="44"/>
                                 <items>
-                                    <navigationItem id="69v-ix-ZnD">
+                                    <navigationItem id="YoA-5r-mBJ">
                                         <nil key="title"/>
-                                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" id="YBt-nr-zvu">
-                                            <rect key="frame" x="16" y="8" width="288" height="29"/>
+                                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="3v9-73-FRJ">
+                                            <rect key="frame" x="50" y="7" width="500" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <segments>
                                                 <segment title="Day"/>
@@ -1485,14 +1484,25 @@ password, press the button below</string>
                                                 <segment title="Month"/>
                                                 <segment title="Year"/>
                                             </segments>
+                                            <connections>
+                                                <action selector="segmentChanged:" destination="yNo-3s-K6V" eventType="valueChanged" id="LmV-BU-Vqr"/>
+                                            </connections>
                                         </segmentedControl>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="0.96069163079999997" alpha="1" colorSpace="deviceWhite"/>
+                        <constraints>
+                            <constraint firstItem="yBE-fR-cBQ" firstAttribute="top" secondItem="ZMn-PQ-PKQ" secondAttribute="bottom" id="7SQ-7s-Y6b"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="yBE-fR-cBQ" secondAttribute="trailing" constant="-16" id="BNc-WE-J6Z"/>
+                            <constraint firstItem="yBE-fR-cBQ" firstAttribute="leading" secondItem="PUU-2Y-HWF" secondAttribute="leadingMargin" constant="-16" id="cN5-vN-m0m"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Fitness Diagram" id="aor-gN-IYI"/>
+                    <connections>
+                        <outlet property="segmentedControl" destination="3v9-73-FRJ" id="HVo-oI-3m6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gxy-zg-C9z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2170,8 +2180,8 @@ password, press the button below</string>
         <image name="text-list.png" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="fXr-1p-nXI"/>
-        <segue reference="9Os-9A-MGO"/>
-        <segue reference="iRw-2N-Jrf"/>
+        <segue reference="MWJ-wv-yXK"/>
+        <segue reference="IS9-Qi-81b"/>
+        <segue reference="Pz4-nf-cZR"/>
     </inferredMetricsTieBreakers>
 </document>

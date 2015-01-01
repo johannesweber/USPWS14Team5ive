@@ -14,9 +14,12 @@ import SwiftyJSON
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
 
+    //IBOutlet
     @IBOutlet weak var txtMailAddress: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
+    @IBOutlet weak var scrollView: UIScrollView!
 
+    //override functions    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
         

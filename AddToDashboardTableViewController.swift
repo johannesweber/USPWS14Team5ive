@@ -17,11 +17,9 @@
  class AddToDashboardTableViewController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
     //Variables
-    
     var measurementPickerVisible = false
     var measurement: [TableItem]
     var measurementSelected = String()
-    
     weak var delegate: AddToDashboardTableViewControllerDelegate?
     
     //initializer

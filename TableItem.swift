@@ -26,14 +26,14 @@ class TableItem: NSObject{
         super.init()
     }
     
-    convenience required init(name: String){
+    convenience init(name: String){
         
         self.init()
         
         self.name = name
     }
     
-    convenience required init(name: String, nameInDatabase: String){
+    convenience init(name: String, nameInDatabase: String){
         
         self.init()
         

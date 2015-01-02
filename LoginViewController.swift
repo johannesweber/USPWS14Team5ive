@@ -17,7 +17,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     //IBOutlet
     @IBOutlet weak var txtMailAddress: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
-    @IBOutlet weak var scrollView: UIScrollView!
 
     //override functions    
     override func viewDidAppear(animated: Bool) {
@@ -68,7 +67,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 "password"     : "\(password)",
             ]
             
-            Alamofire.request(.GET, "http://141.19.142.45/~johannes/focusedhealth/login", parameters: parameters)
+            Alamofire.request(.GET, "\(baseURL)/login", parameters: parameters)
                 .responseSwiftyJSON{ (request, response, json, error) in
                     println(request)
                     println(response)

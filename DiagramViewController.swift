@@ -11,11 +11,12 @@ import QuartzCore
 import Alamofire
 import SwiftyJSON
 
-class DiagramViewController: UIViewController, LineChartDelegate, FitnessViewControllerDelegate {
+class DiagramViewController: UIViewController, LineChartDelegate, ManageDataDetailViewControllerDelegate {
 
     //variables
-    var label: UILabel
+    var lineChartLabel: UILabel
     var lineChart: LineChart?
+    var dayLabel: UILabel
     var userId: Int
     var limit: Int
     var currentMeasurement: TableItem
@@ -24,9 +25,10 @@ class DiagramViewController: UIViewController, LineChartDelegate, FitnessViewCon
     required init(coder aDecoder: NSCoder) {
         
         self.lineChart = LineChart()
-        self.label = UILabel()
+        self.lineChartLabel = UILabel()
+        self.dayLabel = UILabel()
         self.userId = prefs.integerForKey("USERID") as Int
-        self.limit = 7
+        self.limit = 1
         self.currentMeasurement = TableItem()
         var date = Date()
         self.currentDate = date.getCurrentDateAsString()
@@ -36,6 +38,7 @@ class DiagramViewController: UIViewController, LineChartDelegate, FitnessViewCon
     
     //IBOutlets
     @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var tableView: UITableView!
     
     
     //IBAction
@@ -43,9 +46,29 @@ class DiagramViewController: UIViewController, LineChartDelegate, FitnessViewCon
         
         self.limit = self.convertClickedSegmentIntoLimit(sender.selectedSegmentIndex)
         
-        self.lineChart!.clear()
+        self.lineChartLabel.text = ""
+        self.lineChart!.clearAll()
         
-        self.addDataToLineChart()
+        self.defineHeightForRow()
+        
+        self.buildDiagram()
+        
+        if self.limit != 1 {
+
+            self.dayLabel.removeFromSuperview()
+            self.addDataToLineChart()
+            self.tableView.reloadData()
+            
+        } else {
+            
+            self.lineChart!.removeFromSuperview()
+            self.lineChartLabel.removeFromSuperview()
+            
+            self.tableView.reloadData()
+            
+            self.dayLabel.text = "Test Test Test 123"
+        }
+
     }
     
     @IBAction func add(sender: UIBarButtonItem) {
@@ -56,13 +79,15 @@ class DiagramViewController: UIViewController, LineChartDelegate, FitnessViewCon
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.label.removeConstraints(label.constraints())
-        self.label.setTranslatesAutoresizingMaskIntoConstraints(true)
+        self.defineHeightForRow()
+        
+        self.tableView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0)
+        
+        self.lineChartLabel.removeConstraints(lineChartLabel.constraints())
+        self.lineChartLabel.setTranslatesAutoresizingMaskIntoConstraints(true)
         
         self.lineChart!.removeConstraints(lineChart!.constraints())
         self.lineChart!.setTranslatesAutoresizingMaskIntoConstraints(true)
-                    
-        self.buildDiagram()
         
         self.title = self.currentMeasurement.name
     }
@@ -70,15 +95,22 @@ class DiagramViewController: UIViewController, LineChartDelegate, FitnessViewCon
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        self.label.frame = CGRect(
+        self.dayLabel.frame = CGRect(
             x: 0,
-            y: 130,
+            y: 0,
             width: 320.0,
+            height: 44)
+
+        
+        self.lineChartLabel.frame = CGRect(
+            x: 20,
+            y: 20,
+            width: 280.0,
             height: 30)
         
         self.lineChart?.frame = CGRect(
             x: 20,
-            y: 160,
+            y: 20,
             width: 280,
             height: 200)
     }
@@ -87,28 +119,39 @@ class DiagramViewController: UIViewController, LineChartDelegate, FitnessViewCon
     * Line chart delegate method.
     */
     func didSelectDataPoint(x: CGFloat, yValues: Array<CGFloat>) {
-        label.text = "x: \(x)     y: \(yValues)"
+        self.lineChartLabel.text = "x: \(x)     y: \(yValues)"
     }
     
-    // fitness view controller delegate methods
-    func fitnessViewController(controller: FitnessViewController, didSelectItem item: TableItem) {
+    // manage data detail view controller delegate methods
+    func manageDataDetailViewController(controller: ManageDataDetailViewController, didSelectItem item: TableItem) {
         
         self.currentMeasurement = item
     }
     
     // methods
+    
+    func defineHeightForRow(){
+        
+        if self.limit == 1 {
+            
+            self.tableView.rowHeight = 44
+            
+        } else {
+            
+            self.tableView.rowHeight = 240
+            
+        }
+    }
+    
     func buildDiagram() {
         
-        self.label.textAlignment = NSTextAlignment.Center
-        self.view.addSubview(label)
+        self.lineChartLabel.textAlignment = NSTextAlignment.Center
         
         self.lineChart!.areaUnderLinesVisible = true
         self.lineChart!.labelsXVisible = false
         self.lineChart!.delegate = self
         self.lineChart!.axisInset = 30
-        self.view.addSubview(lineChart!)
-        
-        self.addDataToLineChart()
+    
     }
     
     func addDataToLineChart(){
@@ -186,3 +229,43 @@ class DiagramViewController: UIViewController, LineChartDelegate, FitnessViewCon
         
     }
 }
+
+//UITable View Delegate and Data Source extensions
+extension DiagramViewController: UITableViewDataSource {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+            
+        let cellIdentifier = "DiagramCell"
+            
+        var cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as UITableViewCell!
+            
+        if cell == nil {
+        
+            cell = UITableViewCell(style: .Default, reuseIdentifier: cellIdentifier)
+        }
+            
+            if self.limit != 1 {
+                
+                cell.contentView.addSubview(self.lineChartLabel)
+                cell.contentView.addSubview(self.lineChart!)
+                
+            } else {
+                
+                self.dayLabel.textAlignment = NSTextAlignment.Center
+                cell.contentView.addSubview(self.dayLabel)
+            }
+            
+        return cell
+    }
+}
+
+extension DiagramViewController: UITableViewDelegate {
+    
+}
+
+
+

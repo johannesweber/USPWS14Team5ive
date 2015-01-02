@@ -39,7 +39,7 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
         self.measurementPickerVisible = false
 
         
-        let row0item = GoalItem(name: "steps")
+        let row0item = GoalItem(name: "Steps", nameInDatabase: "steps")
         row0item.sliderLimit = 20000
         row0item.unit = "steps"
         row0item.company = "focused health"

@@ -8,40 +8,60 @@
 
 import UIKit
 
+protocol FitnessViewControllerDelegate: class {
+    
+    func fitnessViewController(controller: FitnessViewController, didSelectItem item: TableItem)
+}
+
 class FitnessViewController: UITableViewController {
 
+    //variables
     var measurements: [TableItem]
-    
     var labelClicked: String
+    var selectedMeasurement: TableItem
     
+    weak var delegate: FitnessViewControllerDelegate?
     
     required init(coder aDecoder: NSCoder) {
         
         self.measurements = [TableItem]()
+        self.selectedMeasurement = TableItem()
+        self.labelClicked = String()
         
-        let row0item = TableItem(name: "Steps")
+        let row0item = TableItem(name: "Steps", nameInDatabase: "steps")
         measurements.append(row0item)
         
-        let row1item = TableItem(name: "Duration")
+        let row1item = TableItem(name: "Duration", nameInDatabase: "duration")
         measurements.append(row1item)
         
-        let row2item = TableItem(name: "Distance")
+        let row2item = TableItem(name: "Distance", nameInDatabase: "distance")
         measurements.append(row2item)
         
-        let row3item = TableItem(name: "Calories burned")
+        let row3item = TableItem(name: "Calories Burned", nameInDatabase: "caloriesOut")
         measurements.append(row3item)
         
-        let row4item = TableItem(name: "Elevation")
+        let row4item = TableItem(name: "Elevation", nameInDatabase: "elevation")
         measurements.append(row4item)
         
-        self.labelClicked = String()
+
         
         super.init(coder: aDecoder)
     }
-
     
-    override func tableView(tableView: UITableView,
-        numberOfRowsInSection section: Int) -> Int {
+    //passing the selected object to DiagrammViewController
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    
+        if segue.identifier == "goToDiagramFromFitness" {
+            
+            let destinationViewController = segue.destinationViewController as DiagramViewController
+            self.delegate = destinationViewController
+            
+        }
+    }
+    
+    //table view methods
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         return measurements.count
     }
     
@@ -55,5 +75,12 @@ class FitnessViewController: UITableViewController {
             tableView.deselectRowAtIndexPath(indexPath, animated: true)
             
             return cell
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        self.selectedMeasurement = self.measurements[indexPath.row]
+        
+        self.delegate?.fitnessViewController(self, didSelectItem: self.selectedMeasurement)
     }
 }

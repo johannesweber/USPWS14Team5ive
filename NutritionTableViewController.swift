@@ -17,13 +17,13 @@ class NutritionTableViewController: UITableViewController {
         
         self.measurements = [TableItem]()
         
-        let row0item = TableItem(name: "Food")
+        let row0item = TableItem(name: "Food", nameInDatabase: "food")
         measurements.append(row0item)
         
-        let row1item = TableItem(name: "Water")
+        let row1item = TableItem(name: "Water", nameInDatabase: "water")
         measurements.append(row1item)
         
-        let row2item = TableItem(name: "Calories eaten")
+        let row2item = TableItem(name: "Calories eaten", nameInDatabase: "caloriesIn")
         measurements.append(row2item)
         
         super.init(coder: aDecoder)

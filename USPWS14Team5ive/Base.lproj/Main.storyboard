@@ -1443,7 +1443,7 @@ password, press the button below</string>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="yNo-3s-K6V" kind="show" identifier="goToDiagram" id="CzC-dg-JFU"/>
+                                    <segue destination="yNo-3s-K6V" kind="show" identifier="goToDiagramFromFitness" id="CzC-dg-JFU"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1499,7 +1499,13 @@ password, press the button below</string>
                             <constraint firstItem="yBE-fR-cBQ" firstAttribute="leading" secondItem="PUU-2Y-HWF" secondAttribute="leadingMargin" constant="-16" id="cN5-vN-m0m"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Diagram View" id="aor-gN-IYI"/>
+                    <navigationItem key="navigationItem" title="Diagram View" id="aor-gN-IYI">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="2Zy-oU-dmd">
+                            <connections>
+                                <action selector="add:" destination="yNo-3s-K6V" id="FdU-LN-d5C"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="segmentedControl" destination="3v9-73-FRJ" id="HVo-oI-3m6"/>
                     </connections>
@@ -1531,7 +1537,7 @@ password, press the button below</string>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="yNo-3s-K6V" kind="show" id="Uwe-H5-Q6Q"/>
+                                    <segue destination="yNo-3s-K6V" kind="show" identifier="goToDiagram" id="Uwe-H5-Q6Q"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1875,7 +1881,7 @@ password, press the button below</string>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="yNo-3s-K6V" kind="show" id="TmR-DO-j6c"/>
+                                    <segue destination="yNo-3s-K6V" kind="show" identifier="goToDiagram" id="TmR-DO-j6c"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1913,7 +1919,7 @@ password, press the button below</string>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="yNo-3s-K6V" kind="show" id="AOE-pw-xrA"/>
+                                    <segue destination="yNo-3s-K6V" kind="show" identifier="goToDiagram" id="AOE-pw-xrA"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -2123,8 +2129,8 @@ password, press the button below</string>
         <image name="text-list.png" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="CzC-dg-JFU"/>
         <segue reference="MWJ-wv-yXK"/>
-        <segue reference="AOE-pw-xrA"/>
         <segue reference="IS9-Qi-81b"/>
         <segue reference="Pz4-nf-cZR"/>
     </inferredMetricsTieBreakers>

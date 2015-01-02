@@ -18,7 +18,7 @@ class GoalItem: TableItem {
     var company: String
     var progressValue: Int
     
-    override init(){
+    required init(){
 
         self.unit = String()
         self.sliderLimit = Int()
@@ -31,16 +31,21 @@ class GoalItem: TableItem {
         super.init()
     }
     
-    override convenience init(name: String) {
+    convenience required init(name: String, nameInDatabase: String) {
+        
+        self.init()
+        
+        self.name = name
+        self.nameInDatabase = nameInDatabase
+        
+    }
+    
+    convenience required init(name: String) {
         
         self.init()
         
         self.name = name
         
-    }
-
-    required init(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     func convertPeriodToInt() -> Int{

@@ -8,41 +8,36 @@
 
 import Foundation
 
-class TableItem: NSObject, NSCoding {
+class TableItem: NSObject{
     
     //variables
-    
     var text: String
     var name: String
+    var nameInDatabase: String
     var checked: Bool
-    
-    
-    //initializer    
 
-        
-    required init(coder aDecoder: NSCoder) {
-        text = aDecoder.decodeObjectForKey("Text") as String
-        checked = aDecoder.decodeBoolForKey("Checked")
-        name = aDecoder.decodeObjectForKey("Name") as String
-        super.init()
-    }
-
-    
-    override init() {
+    //initializer
+    override required init() {
         self.text = String()
         self.name = String()
-        self.checked = Bool()
+        self.checked = false
+        self.nameInDatabase = String()
         
         super.init()
     }
     
+    convenience required init(name: String){
+        
+        self.init()
+        
+        self.name = name
+    }
     
-    init(name: String){
+    convenience required init(name: String, nameInDatabase: String){
         
-        self.text = String()
-        self.name = String()
-        self.checked = Bool()
+        self.init()
         
+        self.nameInDatabase = nameInDatabase
         self.name = name
     }
     
@@ -62,16 +57,7 @@ class TableItem: NSObject, NSCoding {
             checked = true
         }
     }
-    
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(text, forKey: "Text")
-        aCoder.encodeBool(checked, forKey: "Checked")
-        aCoder.encodeObject(name, forKey: "Name")
-    }
-    
 }
-
-
 
 extension TableItem: Equatable {}
 

@@ -17,26 +17,17 @@ class VitalsTableViewController: UITableViewController {
         
         self.measurements = [TableItem]()
         
-        let row0item = TableItem(name: "Body Weight")
+        let row0item = TableItem(name: "Body Weight", nameInDatabase: "weight")
         measurements.append(row0item)
         
-        let row1item = TableItem(name: "Body Height")
+        let row1item = TableItem(name: "Body Height", nameInDatabase: "height")
         measurements.append(row1item)
         
-        let row2item = TableItem(name: "BMI")
+        let row2item = TableItem(name: "BMI", nameInDatabase: "bmi")
         measurements.append(row2item)
         
-        let row3item = TableItem(name: "Body Fat")
+        let row3item = TableItem(name: "Body Fat", nameInDatabase: "bodyFat")
         measurements.append(row3item)
-        
-        let row4item = TableItem(name: "Blood Pressure")
-        measurements.append(row4item)
-        
-        let row5item = TableItem(name: "Heart Rate")
-        measurements.append(row5item)
-        
-        let row6item = TableItem(name: "Glucose")
-        measurements.append(row6item)
         
         super.init(coder: aDecoder)
     }

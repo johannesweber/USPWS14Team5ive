@@ -11,14 +11,14 @@ import QuartzCore
 import Alamofire
 import SwiftyJSON
 
-class DiagramViewController: UIViewController, LineChartDelegate {
+class DiagramViewController: UIViewController, LineChartDelegate, FitnessViewControllerDelegate {
 
     //variables
     var label: UILabel
     var lineChart: LineChart?
     var userId: Int
     var limit: Int
-    var currentMeasurement: String
+    var currentMeasurement: TableItem
     var currentDate: String
     
     required init(coder aDecoder: NSCoder) {
@@ -26,15 +26,13 @@ class DiagramViewController: UIViewController, LineChartDelegate {
         self.lineChart = LineChart()
         self.label = UILabel()
         self.userId = prefs.integerForKey("USERID") as Int
-        self.limit = 1
-        self.currentMeasurement = String()
+        self.limit = 7
+        self.currentMeasurement = TableItem()
         var date = Date()
         self.currentDate = date.getCurrentDateAsString()
         
         super.init(coder: aDecoder)
     }
-    
-
     
     //IBOutlets
     @IBOutlet weak var segmentedControl: UISegmentedControl!
@@ -44,6 +42,13 @@ class DiagramViewController: UIViewController, LineChartDelegate {
     @IBAction func segmentChanged(sender: UISegmentedControl) {
         
         self.limit = self.convertClickedSegmentIntoLimit(sender.selectedSegmentIndex)
+        
+        self.lineChart!.clear()
+        
+        self.addDataToLineChart()
+    }
+    
+    @IBAction func add(sender: UIBarButtonItem) {
         
     }
     
@@ -58,6 +63,8 @@ class DiagramViewController: UIViewController, LineChartDelegate {
         self.lineChart!.setTranslatesAutoresizingMaskIntoConstraints(true)
                     
         self.buildDiagram()
+        
+        self.title = self.currentMeasurement.name
     }
     
     override func viewWillLayoutSubviews() {
@@ -76,22 +83,6 @@ class DiagramViewController: UIViewController, LineChartDelegate {
             height: 200)
     }
     
-    //functions
-    func buildDiagram() {
-            
-        label.textAlignment = NSTextAlignment.Center
-        self.view.addSubview(label)
-            
-        var data: Array<CGFloat> = [3, 4, 9, 11, 13, 15]
-            
-        lineChart!.areaUnderLinesVisible = true
-        lineChart!.labelsXVisible = false
-        lineChart!.addLine(data)
-        lineChart!.delegate = self
-        lineChart!.axisInset = 20
-        self.view.addSubview(lineChart!)
-    }
-    
     /**
     * Line chart delegate method.
     */
@@ -99,29 +90,60 @@ class DiagramViewController: UIViewController, LineChartDelegate {
         label.text = "x: \(x)     y: \(yValues)"
     }
     
-    func getDataForLineChart(){
+    // fitness view controller delegate methods
+    func fitnessViewController(controller: FitnessViewController, didSelectItem item: TableItem) {
+        
+        self.currentMeasurement = item
+    }
+    
+    // methods
+    func buildDiagram() {
+        
+        self.label.textAlignment = NSTextAlignment.Center
+        self.view.addSubview(label)
+        
+        self.lineChart!.areaUnderLinesVisible = true
+        self.lineChart!.labelsXVisible = false
+        self.lineChart!.delegate = self
+        self.lineChart!.axisInset = 30
+        self.view.addSubview(lineChart!)
+        
+        self.addDataToLineChart()
+    }
+    
+    func addDataToLineChart(){
         
         var company = "fitbit"
         
         var parameters: Dictionary<String, AnyObject> = [
             
-            "measurement"   : "\(self.currentMeasurement)",
+            "measurement"   : "\(self.currentMeasurement.nameInDatabase)",
             "userId"        : "\(self.userId)",
             "limit"         : "\(self.limit)",
             "endDate"       : "\(self.currentDate)"
         ]
-        
-        for param in parameters {
-            
-            println("Parameter \(param)")
-        }
 
-        
         Alamofire.request(.GET, "\(baseURL)/\(company)/time_series/", parameters: parameters)
             .responseSwiftyJSON { (request, response, json, error) in
                 
                 println(request)
                 println(json)
+                
+                var data: Array<CGFloat> = []
+                
+                for (var i = 0; i < json.count; i++) {
+                    
+                    var value = CGFloat(json[i]["value"].intValue)
+                    data.append(value)
+                    
+                }
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    
+                    self.lineChart!.addLine(data)
+                    
+                }
+                
         }
 
     }

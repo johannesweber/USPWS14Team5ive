@@ -21,48 +21,48 @@ class CompaniesTableViewController: UITableViewController, AddCompanyTableViewCo
         self.companyItems = [TableItem]()
     
         super.init(coder: aDecoder)
-        println(documentsDirectory())
     }
     
     
-    //methods to save data in the documents folder
-    func documentsDirectory() -> String {
-        let paths = NSSearchPathForDirectoriesInDomains(
-        .DocumentDirectory, .UserDomainMask, true) as [String]
-        return paths[0]
-    }
+//    //methods to save data in the documents folder
+//    func documentsDirectory() -> String {
+//        let paths = NSSearchPathForDirectoriesInDomains(
+//        .DocumentDirectory, .UserDomainMask, true) as [String]
+//        return paths[0]
+//    }
     
-    func dataFilePath() -> String {
-            return documentsDirectory().stringByAppendingPathComponent("UserCompanies.plist")
-    }
+//    func dataFilePath() -> String {
+//            return documentsDirectory().stringByAppendingPathComponent("UserCompanies.plist")
+//    }
     
-    func saveCompanyAccountItems() {
-        let dataToSave = NSMutableData()
-        let archiver = NSKeyedArchiver(forWritingWithMutableData: dataToSave)
-        archiver.encodeObject(companyItems, forKey: "UserCompany")
-        archiver.finishEncoding()
-        dataToSave.writeToFile(dataFilePath(), atomically: true)
-    }
+//    func saveCompanyAccountItems() {
+//        let dataToSave = NSMutableData()
+//        let archiver = NSKeyedArchiver(forWritingWithMutableData: dataToSave)
+//        archiver.encodeObject(companyItems, forKey: "UserCompany")
+//        archiver.finishEncoding()
+//        dataToSave.writeToFile(dataFilePath(), atomically: true)
+//    }
     
     //function to load data
     
-    func loadCompanyItems() {
-            // 1
-            let path = dataFilePath()
-            // 2
-            if NSFileManager.defaultManager().fileExistsAtPath(path) {
-            // 3
-                if let data = NSData(contentsOfFile: path) {
-                let unarchiver = NSKeyedUnarchiver(forReadingWithData: data)
-                companyItems = unarchiver.decodeObjectForKey("UserCompany") as [TableItem]
-                unarchiver.finishDecoding() }
-            } }
+//    func loadCompanyItems() {
+//            // 1
+//            let path = dataFilePath()
+//            // 2
+//            if NSFileManager.defaultManager().fileExistsAtPath(path) {
+//            // 3
+//                if let data = NSData(contentsOfFile: path) {
+//                let unarchiver = NSKeyedUnarchiver(forReadingWithData: data)
+//                companyItems = unarchiver.decodeObjectForKey("UserCompany") as [TableItem]
+//                unarchiver.finishDecoding() }
+//            }
+//    }
     
     //override methods
     
-    override func viewDidLoad() {
-        loadCompanyItems()
-    }
+//    override func viewDidLoad() {
+//        loadCompanyItems()
+//    }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -95,7 +95,7 @@ class CompaniesTableViewController: UITableViewController, AddCompanyTableViewCo
         
         let indexPaths = [indexPath]
         tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
-                    saveCompanyAccountItems()
+                    //saveCompanyAccountItems()
     }
     
     //sets the delegate for AddToDashboardtableViewController
@@ -160,6 +160,6 @@ class CompaniesTableViewController: UITableViewController, AddCompanyTableViewCo
         
         }
         
-        saveCompanyAccountItems()
+        //saveCompanyAccountItems()
     }
 }

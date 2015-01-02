@@ -17,7 +17,8 @@ class SleepTableViewController: UITableViewController {
         
         self.measurements = [TableItem]()
         
-        let row0item = TableItem(name: "Sleep Analysis")
+        //TODO what to display here ? 
+        let row0item = TableItem(name: "Sleep Analysis", nameInDatabase: "sleep")
         measurements.append(row0item)
         
         super.init(coder: aDecoder)

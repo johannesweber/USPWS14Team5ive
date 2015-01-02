@@ -74,7 +74,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                 "c_password"   : "\(confirmPassword)"
             ]
 
-            Alamofire.request(.GET, "http://141.19.142.45/~johannes/focusedhealth/signup", parameters: parameters)
+            Alamofire.request(.GET, "\(baseURL)/signup", parameters: parameters)
                 .responseSwiftyJSON { (request, response, json, error) in
                     println(request)
                     println(response)

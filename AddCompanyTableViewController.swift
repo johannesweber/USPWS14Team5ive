@@ -30,13 +30,13 @@ class AddCompanyTableViewController: UITableViewController, UIPickerViewDataSour
             
             self.company = [TableItem]()
             
-            let row0item = TableItem(name: "Fitbit")
+            let row0item = TableItem(name: "Fitbit", nameInDatabase: "fitbit")
             self.company.append(row0item)
             
-            let row1item = TableItem(name: "Medisana")
+            let row1item = TableItem(name: "Medisana", nameInDatabase: "medisana")
             self.company.append(row1item)
             
-            let row2item = TableItem(name: "Withings")
+            let row2item = TableItem(name: "Withings", nameInDatabase: "withings")
             self.company.append(row2item)
             
             super.init(coder: aDecoder)

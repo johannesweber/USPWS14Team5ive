@@ -17,11 +17,9 @@
  class AddToDashboardTableViewController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
     //Variables
-    
     var measurementPickerVisible = false
     var measurement: [TableItem]
     var measurementSelected = String()
-    
     weak var delegate: AddToDashboardTableViewControllerDelegate?
     
     //initializer
@@ -30,41 +28,37 @@
         
         self.measurement = [TableItem]()
         
-        let row0item = TableItem(name: "steps")
+        let row0item = TableItem(name: "Steps", nameInDatabase: "steps")
         self.measurement.append(row0item)
         
-        let row2item = TableItem(name: "distance")
+        let row2item = TableItem(name: "Distance", nameInDatabase: "distance")
         self.measurement.append(row2item)
         
-        let row3item = TableItem(name: "caloriesOut")
+        let row3item = TableItem(name: "Calories Burned", nameInDatabase: "caloriesOut")
         self.measurement.append(row3item)
         
-        let row4item = TableItem(name: "elevation")
+        let row4item = TableItem(name: "Elevation", nameInDatabase: "elevation")
         self.measurement.append(row4item)
         
-        let row5item = TableItem(name: "weight")
+        let row5item = TableItem(name: "Body Weight", nameInDatabase: "weight")
         self.measurement.append(row5item)
         
-        //        //user info
-        //        let row6item = TableItem(itemName: "height")
-        //        self.measurement.append(row6item)
-        
-        let row7item = TableItem(name: "bmi")
+        let row7item = TableItem(name: "BMI", nameInDatabase: "bmi")
         self.measurement.append(row7item)
         
-        let row8item = TableItem(name: "bodyFat")
+        let row8item = TableItem(name: "Body Fat", nameInDatabase: "bodyFat")
         self.measurement.append(row8item)
         
-        let row12item = TableItem(name: "water")
+        let row12item = TableItem(name: "Water", nameInDatabase: "water")
         self.measurement.append(row12item)
         
-        let row13item = TableItem(name: "caloriesIn")
+        let row13item = TableItem(name: "Calories Eaten", nameInDatabase: "caloriesIn")
         self.measurement.append(row13item)
         
-        let row14item = TableItem(name: "sleep")
+        let row14item = TableItem(name: "Sleep", nameInDatabase: "sleep")
         self.measurement.append(row14item)
         
-        let row15item = TableItem(name: "floors")
+        let row15item = TableItem(name: "Floors", nameInDatabase: "floors")
         self.measurement.append(row15item)
         
         super.init(coder: aDecoder)

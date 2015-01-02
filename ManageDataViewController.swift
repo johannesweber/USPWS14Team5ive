@@ -8,13 +8,23 @@
 
 import UIKit
 
+protocol ManageDataViewControllerDelegate: class {
+    
+    func manageDataViewController(controller: ManageDataViewController, didSelectItem item: TableItem)
+}
+
 class ManageDataViewController: UITableViewController {
 
+    //variables
     var categories: [TableItem]
+    var selectedItem: TableItem
+    weak var delegate: ManageDataViewControllerDelegate?
     
+    //initializers
     required init(coder aDecoder: NSCoder) {
         
         self.categories = [TableItem]()
+        self.selectedItem = TableItem()
         
         let row0item = TableItem(name: "Fitness")
         categories.append(row0item)
@@ -33,8 +43,8 @@ class ManageDataViewController: UITableViewController {
 
     
     
-    override func tableView(tableView: UITableView,
-        numberOfRowsInSection section: Int) -> Int {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         return categories.count
     }
     
@@ -52,22 +62,22 @@ class ManageDataViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath:NSIndexPath) {
-        var item = categories[indexPath.row]
-        var category = item.name
+        
+        self.selectedItem = categories[indexPath.row]
+        
+        self.delegate?.manageDataViewController(self, didSelectItem: self.selectedItem)
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated:true)
+    }
+    
+    //creating the delegate for ManageDataDetailViewController
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if segue.identifier == "goToManageDataDetail" {
             
-        switch category {
+            let destinationViewController = segue.destinationViewController as ManageDataDetailViewController
+            self.delegate = destinationViewController
             
-        case "Fitness":
-                self.performSegueWithIdentifier("goToFitness", sender: self)
-        case "Vitals":
-                self.performSegueWithIdentifier("goToVitals", sender: self)
-        case "Nutrition":
-                self.performSegueWithIdentifier("goToNutrition", sender: self)
-        case "Sleep":
-                self.performSegueWithIdentifier("goToSleep", sender: self)
-        default:
-            println("default (check ViewController tableView)")
         }
-            tableView.deselectRowAtIndexPath(indexPath, animated:true)
     }
 }

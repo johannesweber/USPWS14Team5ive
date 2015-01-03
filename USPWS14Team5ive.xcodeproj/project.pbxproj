@@ -12,6 +12,8 @@
 		0E1ADE871A2C852E00820ED2 /* TableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1ADE861A2C852E00820ED2 /* TableItem.swift */; };
 		0E1ADE8A1A2CD07300820ED2 /* AboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1ADE891A2CD07300820ED2 /* AboutTableViewController.swift */; };
 		0E22C8B51A5716780085DBDE /* MeasurementItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E22C8B41A5716780085DBDE /* MeasurementItem.swift */; };
+		0E22C8BB1A5891E00085DBDE /* CreateValueTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E22C8BA1A5891E00085DBDE /* CreateValueTableViewController.swift */; };
+		0E22C8C11A58921B0085DBDE /* CompanyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E22C8C01A58921B0085DBDE /* CompanyTableViewController.swift */; };
 		0E3369921A1B4ABA007F17FD /* HMACAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3369911A1B4ABA007F17FD /* HMACAlgorithm.swift */; };
 		0E3ADB701A2719690075F981 /* SignupInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3ADB6F1A2719690075F981 /* SignupInformationViewController.swift */; };
 		0E3ADB721A272AF90075F981 /* DashboardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3ADB711A272AF90075F981 /* DashboardTableViewController.swift */; };
@@ -469,6 +471,8 @@
 		0E1ADE861A2C852E00820ED2 /* TableItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableItem.swift; sourceTree = "<group>"; };
 		0E1ADE891A2CD07300820ED2 /* AboutTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutTableViewController.swift; sourceTree = "<group>"; };
 		0E22C8B41A5716780085DBDE /* MeasurementItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeasurementItem.swift; sourceTree = "<group>"; };
+		0E22C8BA1A5891E00085DBDE /* CreateValueTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateValueTableViewController.swift; sourceTree = "<group>"; };
+		0E22C8C01A58921B0085DBDE /* CompanyTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyTableViewController.swift; sourceTree = "<group>"; };
 		0E3369911A1B4ABA007F17FD /* HMACAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HMACAlgorithm.swift; path = ../../USPWS14Team5ive/HMACAlgorithm.swift; sourceTree = "<group>"; };
 		0E3ADB6F1A2719690075F981 /* SignupInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupInformationViewController.swift; sourceTree = "<group>"; };
 		0E3ADB711A272AF90075F981 /* DashboardTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardTableViewController.swift; sourceTree = "<group>"; };
@@ -977,6 +981,8 @@
 				0E6F273F1A2CF02D00F58A13 /* DiagramViewController.swift */,
 				0E3ADB731A273B790075F981 /* ManageDataViewController.swift */,
 				0E90AC661A56D8F80002D091 /* ManageDataDetailViewController.swift */,
+				0E22C8BA1A5891E00085DBDE /* CreateValueTableViewController.swift */,
+				0E22C8C01A58921B0085DBDE /* CompanyTableViewController.swift */,
 			);
 			name = "Manage Data";
 			sourceTree = "<group>";
@@ -2070,9 +2076,11 @@
 				0E90AC671A56D8F80002D091 /* ManageDataDetailViewController.swift in Sources */,
 				0E860F591A2B2D6500A9F152 /* DisclaimerViewController.swift in Sources */,
 				0E860F5F1A2B3B3200A9F152 /* PrivacyPolicyViewController.swift in Sources */,
+				0E22C8BB1A5891E00085DBDE /* CreateValueTableViewController.swift in Sources */,
 				0EF48BB71A3259C500E7BC5D /* LineChart.swift in Sources */,
 				0E6B3F4D1A2CF60D002193B2 /* EditAccountViewController.swift in Sources */,
 				0EF48BC71A3263A100E7BC5D /* PNLineChart.swift in Sources */,
+				0E22C8C11A58921B0085DBDE /* CompanyTableViewController.swift in Sources */,
 				0E6F27401A2CF02D00F58A13 /* DiagramViewController.swift in Sources */,
 				0EF48BC21A3263A100E7BC5D /* PNBar.swift in Sources */,
 				0EF48BC51A3263A100E7BC5D /* PNChartDelegate.swift in Sources */,

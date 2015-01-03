@@ -181,9 +181,11 @@ class DiagramViewController: UIViewController, LineChartDelegate, ManageDataDeta
                     
                 }
                 
+                var dataReversed = data.reverse()
+                
                 dispatch_async(dispatch_get_main_queue()) {
                     
-                    self.lineChart!.addLine(data)
+                    self.lineChart!.addLine(dataReversed)
                     
                 }
                 

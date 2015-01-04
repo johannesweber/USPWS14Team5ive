@@ -17,6 +17,8 @@ class CreateValueTableViewController: UITableViewController, CompanyTableViewCon
     var currentMeasurement: MeasurementItem
     var date: NSDate
     var datePickerVisible: Bool
+    var userId = prefs.integerForKey("USERID") as Int
+    var companySelected: TableItem
     
     //init
     required init(coder aDecoder: NSCoder) {
@@ -24,6 +26,7 @@ class CreateValueTableViewController: UITableViewController, CompanyTableViewCon
         self.currentMeasurement = MeasurementItem()
         self.date = NSDate()
         self.datePickerVisible = false
+        self.companySelected = TableItem()
         
         super.init(coder: aDecoder)
     }
@@ -44,6 +47,10 @@ class CreateValueTableViewController: UITableViewController, CompanyTableViewCon
     
     @IBAction func save(sender: UIBarButtonItem) {
         
+        self.insertValueIntoDatabase()
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
+        
     }
     
     @IBAction func sliderValueChanged(sender: UISlider) {
@@ -57,18 +64,26 @@ class CreateValueTableViewController: UITableViewController, CompanyTableViewCon
     }
     
     //methods
-    func saveValueInDatabase() {
+    func insertValueIntoDatabase() {
         
         let parameters: Dictionary<String, AnyObject> = [
-            "email"        : "",
-            "password"     : "",
+            "userId"      : "\(self.userId)",
+            "company"     : "\(self.companySelected.nameInDatabase)",
+            "measurement" : "\(self.currentMeasurement.nameInDatabase)",
+            "date"        : "\(self.dateDetailLabel.text!)",
+            "value"       : "\(self.valueLabel.text!)"
         ]
         
         Alamofire.request(.GET, "\(baseURL)/value/insert", parameters: parameters)
             .responseSwiftyJSON{ (request, response, json, error) in
-                println(request)
-                println(response)
-                println(json)
+
+                var success = json["success"].intValue
+                var message = json["message"].stringValue
+                
+                if success == 1 {
+                    
+                    showAlert("Success!", message, self)
+                }
         }
         
     }
@@ -249,6 +264,8 @@ class CreateValueTableViewController: UITableViewController, CompanyTableViewCon
     func companyViewController(controller: CompanyTableViewController, didFinishSelectingCompany item: TableItem) {
         
         self.companyDetailLabel.text = item.name
+        
+        self.companySelected = item
         
         self.checkIfFormIsComplete()
         

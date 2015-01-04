@@ -28,14 +28,17 @@ class CompanyTableViewController: UITableViewController {
         self.companies = [TableItem]()
         self.companySelected = TableItem()
         
-        let row0item = TableItem(name: "Fitbit")
+        let row0item = TableItem(name: "Fitbit", nameInDatabase: "fitbit")
         companies.append(row0item)
         
-        let row1item = TableItem(name: "Medisana")
+        let row1item = TableItem(name: "Medisana", nameInDatabase: "medisana")
         companies.append(row1item)
         
-        let row2item = TableItem(name: "Withings")
+        let row2item = TableItem(name: "Withings", nameInDatabase: "withings")
         companies.append(row2item)
+        
+        let row3item = TableItem(name: "Focused Health", nameInDatabase: "focused health")
+        companies.append(row3item)
         
         super.init(coder: aDecoder)
     }
@@ -108,7 +111,9 @@ class CompanyTableViewController: UITableViewController {
     func deselectAllCells() {
         
         for cell in self.tableView.visibleCells() as [UITableViewCell]{
+            
             if cell.accessoryType == .Checkmark {
+                
                 cell.accessoryType = .None
             }
         }

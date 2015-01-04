@@ -10,32 +10,32 @@ import UIKit
 
 protocol ManageDataViewControllerDelegate: class {
     
-    func manageDataViewController(controller: ManageDataViewController, didSelectItem item: TableItem)
+    func manageDataViewController(controller: ManageDataViewController, didSelectItem item: MeasurementItem)
 }
 
 class ManageDataViewController: UITableViewController {
 
     //variables
-    var categories: [TableItem]
-    var selectedItem: TableItem
+    var categories: [MeasurementItem]
+    var selectedItem: MeasurementItem
     weak var delegate: ManageDataViewControllerDelegate?
     
     //initializers
     required init(coder aDecoder: NSCoder) {
         
-        self.categories = [TableItem]()
-        self.selectedItem = TableItem()
+        self.categories = [MeasurementItem]()
+        self.selectedItem = MeasurementItem()
         
-        let row0item = TableItem(name: "Fitness")
+        let row0item = MeasurementItem(name: "Fitness")
         categories.append(row0item)
         
-        let row1item = TableItem(name: "Vitals")
+        let row1item = MeasurementItem(name: "Vitals")
         categories.append(row1item)
         
-        let row2item = TableItem(name: "Nutrition")
+        let row2item = MeasurementItem(name: "Nutrition")
         categories.append(row2item)
         
-        let row3item = TableItem(name: "Sleep")
+        let row3item = MeasurementItem(name: "Sleep")
         categories.append(row3item)
         
         super.init(coder: aDecoder)

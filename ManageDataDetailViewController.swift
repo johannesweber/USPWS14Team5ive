@@ -10,24 +10,24 @@ import UIKit
 
 protocol ManageDataDetailViewControllerDelegate: class {
     
-    func manageDataDetailViewController(controller: ManageDataDetailViewController, didSelectItem item: TableItem)
+    func manageDataDetailViewController(controller: ManageDataDetailViewController, didSelectItem item: MeasurementItem)
 }
 
 class ManageDataDetailViewController: UITableViewController, ManageDataViewControllerDelegate {
 
     //variables
-    var measurements: [TableItem]
+    var measurements: [MeasurementItem]
     var labelClicked: String
-    var measurementSelected: TableItem
-    var currentMeasurement: TableItem
+    var measurementSelected: MeasurementItem
+    var currentMeasurement: MeasurementItem
     weak var delegate: ManageDataDetailViewControllerDelegate?
     
     required init(coder aDecoder: NSCoder) {
         
-        self.measurements = [TableItem]()
-        self.measurementSelected = TableItem()
+        self.measurements = [MeasurementItem]()
+        self.measurementSelected = MeasurementItem()
         self.labelClicked = String()
-        self.currentMeasurement = TableItem()
+        self.currentMeasurement = MeasurementItem()
         
         super.init(coder: aDecoder)
     }
@@ -52,7 +52,7 @@ class ManageDataDetailViewController: UITableViewController, ManageDataViewContr
     }
     
     //manage data view controller delegate methods
-    func manageDataViewController(controller: ManageDataViewController, didSelectItem item: TableItem) {
+    func manageDataViewController(controller: ManageDataViewController, didSelectItem item: MeasurementItem) {
         
         self.currentMeasurement = item
         
@@ -86,7 +86,7 @@ class ManageDataDetailViewController: UITableViewController, ManageDataViewContr
     
     //methods
     
-    func populateTableView(currentMeasurement: TableItem){
+    func populateTableView(currentMeasurement: MeasurementItem){
         
         var currentMeasurementName = currentMeasurement.name
         
@@ -108,53 +108,55 @@ class ManageDataDetailViewController: UITableViewController, ManageDataViewContr
     
     func populateTableViewWithFitnessMeasurements() {
         
-        let row0item = TableItem(name: "Steps", nameInDatabase: "steps")
+        let row0item = MeasurementItem(name: "Steps", nameInDatabase: "steps")
+        row0item.sliderLimit = 15000.0
+        row0item.unit = "steps"
         measurements.append(row0item)
         
-        let row1item = TableItem(name: "Duration", nameInDatabase: "duration")
+        let row1item = MeasurementItem(name: "Duration", nameInDatabase: "duration")
         measurements.append(row1item)
         
-        let row2item = TableItem(name: "Distance", nameInDatabase: "distance")
+        let row2item = MeasurementItem(name: "Distance", nameInDatabase: "distance")
         measurements.append(row2item)
         
-        let row3item = TableItem(name: "Calories Burned", nameInDatabase: "caloriesOut")
+        let row3item = MeasurementItem(name: "Calories Burned", nameInDatabase: "caloriesOut")
         measurements.append(row3item)
         
-        let row4item = TableItem(name: "Elevation", nameInDatabase: "elevation")
+        let row4item = MeasurementItem(name: "Elevation", nameInDatabase: "elevation")
         measurements.append(row4item)
     }
     
     func populateTableViewWithVitalsMeasurements() {
         
-        let row0item = TableItem(name: "Body Weight", nameInDatabase: "weight")
+        let row0item = MeasurementItem(name: "Body Weight", nameInDatabase: "weight")
         measurements.append(row0item)
         
-        let row1item = TableItem(name: "Body Height", nameInDatabase: "height")
+        let row1item = MeasurementItem(name: "Body Height", nameInDatabase: "height")
         measurements.append(row1item)
         
-        let row2item = TableItem(name: "BMI", nameInDatabase: "bmi")
+        let row2item = MeasurementItem(name: "BMI", nameInDatabase: "bmi")
         measurements.append(row2item)
         
-        let row3item = TableItem(name: "Body Fat", nameInDatabase: "bodyFat")
+        let row3item = MeasurementItem(name: "Body Fat", nameInDatabase: "bodyFat")
         measurements.append(row3item)
     }
     
     func populateTableViewWithNutritionMeasurements() {
     
-        let row0item = TableItem(name: "Food", nameInDatabase: "food")
+        let row0item = MeasurementItem(name: "Food", nameInDatabase: "food")
         measurements.append(row0item)
         
-        let row1item = TableItem(name: "Water", nameInDatabase: "water")
+        let row1item = MeasurementItem(name: "Water", nameInDatabase: "water")
         measurements.append(row1item)
         
-        let row2item = TableItem(name: "Calories Eaten", nameInDatabase: "caloriesIn")
+        let row2item = MeasurementItem(name: "Calories Eaten", nameInDatabase: "caloriesIn")
         measurements.append(row2item)
     }
     
     func populateTableViewWithSleepMeasurements() {
         
         //TODO what to display here ?
-        let row0item = TableItem(name: "Sleep Analysis", nameInDatabase: "sleep")
+        let row0item = MeasurementItem(name: "Sleep Analysis", nameInDatabase: "sleep")
         measurements.append(row0item)
     }
     

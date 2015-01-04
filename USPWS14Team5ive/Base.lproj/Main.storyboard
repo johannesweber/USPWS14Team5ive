@@ -1781,7 +1781,7 @@ password, press the button below</string>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1500" translatesAutoresizingMaskIntoConstraints="NO" id="1K3-6N-L5u">
+                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="1K3-6N-L5u">
                                                     <rect key="frame" x="54" y="41" width="462" height="31"/>
                                                     <connections>
                                                         <action selector="sliderValueChanged:" destination="eQi-ms-s7Q" eventType="touchUpInside" id="WF7-lv-Tj0"/>

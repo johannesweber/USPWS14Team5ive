@@ -62,7 +62,7 @@ class PeriodTableViewController: UITableViewController {
     }
     
     
-    
+    //table view methods
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
             return periods.count

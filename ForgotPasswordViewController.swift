@@ -44,7 +44,7 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate{
                     println(json)
                         
                     var success = json["success"].intValue
-                    var message = json["message"].string!
+                    var message = json["message"].stringValue
                         
                         if success == 1 {
                             

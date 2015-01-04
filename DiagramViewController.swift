@@ -19,7 +19,7 @@ class DiagramViewController: UIViewController, LineChartDelegate, ManageDataDeta
     var dayLabel: UILabel
     var userId: Int
     var limit: Int
-    var currentMeasurement: TableItem
+    var currentMeasurement: MeasurementItem
     var currentDate: String
     
     required init(coder aDecoder: NSCoder) {
@@ -29,7 +29,7 @@ class DiagramViewController: UIViewController, LineChartDelegate, ManageDataDeta
         self.dayLabel = UILabel()
         self.userId = prefs.integerForKey("USERID") as Int
         self.limit = 1
-        self.currentMeasurement = TableItem()
+        self.currentMeasurement = MeasurementItem()
         var date = Date()
         self.currentDate = date.getCurrentDateAsString()
         
@@ -115,6 +115,17 @@ class DiagramViewController: UIViewController, LineChartDelegate, ManageDataDeta
             height: 200)
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if segue.identifier == "goToCreateValue" {
+            
+            let navigationController = segue.destinationViewController as UINavigationController
+            let controller = navigationController.topViewController as CreateValueTableViewController
+            
+            controller.currentMeasurement = self.currentMeasurement
+        }
+    }
+    
     /**
     * Line chart delegate method.
     */
@@ -123,7 +134,7 @@ class DiagramViewController: UIViewController, LineChartDelegate, ManageDataDeta
     }
     
     // manage data detail view controller delegate methods
-    func manageDataDetailViewController(controller: ManageDataDetailViewController, didSelectItem item: TableItem) {
+    func manageDataDetailViewController(controller: ManageDataDetailViewController, didSelectItem item: MeasurementItem) {
         
         self.currentMeasurement = item
     }

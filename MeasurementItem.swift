@@ -13,12 +13,14 @@ class MeasurementItem: TableItem {
     var value: Int
     var date: String
     var unit: String
+    var sliderLimit: Float
 
     required init() {
-        
+    
         self.value = Int()
         self.date = String()
         self.unit = String()
+        self.sliderLimit = Float()
         
         super.init()
     }

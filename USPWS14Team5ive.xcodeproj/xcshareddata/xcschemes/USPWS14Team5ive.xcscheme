@@ -20,38 +20,14 @@
                ReferencedContainer = "container:USPWS14Team5ive.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0EFF3AD119FCD22C00AB3C17"
-               BuildableName = "USPWS14Team5iveTests.xctest"
-               BlueprintName = "USPWS14Team5iveTests"
-               ReferencedContainer = "container:USPWS14Team5ive.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
-      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      selectedDebuggerIdentifier = ""
+      selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0EFF3AD119FCD22C00AB3C17"
-               BuildableName = "USPWS14Team5iveTests.xctest"
-               BlueprintName = "USPWS14Team5iveTests"
-               ReferencedContainer = "container:USPWS14Team5ive.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

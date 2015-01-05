@@ -1,0 +1,369 @@
+
+/* Class = "IBUITextField"; placeholder = "current E - Mail"; ObjectID = "0L9-kY-eRd"; */
+"0L9-kY-eRd.placeholder" = "current E - Mail";
+
+/* Class = "IBUINavigationItem"; title = "Disclaimer"; ObjectID = "0Wm-E6-d5R"; */
+"0Wm-E6-d5R.title" = "Disclaimer";
+
+/* Class = "IBUITextField"; placeholder = "E - Mail Address"; ObjectID = "0hz-82-pqK"; */
+"0hz-82-pqK.placeholder" = "E - Mail Address";
+
+/* Class = "IBUITextField"; placeholder = "E - Mail Address"; ObjectID = "0zQ-zn-BEX"; */
+"0zQ-zn-BEX.placeholder" = "E - Mail Address";
+
+/* Class = "IBUITabBarItem"; title = "Account"; ObjectID = "1Pl-Ua-mGO"; */
+"1Pl-Ua-mGO.title" = "Account";
+
+/* Class = "IBUILabel"; text = "Your Companies"; ObjectID = "1Qp-wv-NpL"; */
+"1Qp-wv-NpL.text" = "Your Companies";
+
+/* Class = "IBUILabel"; text = "Company"; ObjectID = "1YQ-uJ-5Vh"; */
+"1YQ-uJ-5Vh.text" = "Company";
+
+/* Class = "IBUITableViewSection"; headerTitle = "Choose Value"; ObjectID = "2HZ-yu-mdf"; */
+"2HZ-yu-mdf.headerTitle" = "Choose Value";
+
+/* Class = "IBUINavigationItem"; title = "Dashboard"; ObjectID = "2Ke-qI-3LA"; */
+"2Ke-qI-3LA.title" = "Dashboard";
+
+/* Class = "IBUINavigationItem"; title = "Login"; ObjectID = "2OP-Gh-Ipf"; */
+"2OP-Gh-Ipf.title" = "Login";
+
+/* Class = "IBUINavigationItem"; title = "Sign Up"; ObjectID = "2mp-aq-xdL"; */
+"2mp-aq-xdL.title" = "Sign Up";
+
+/* Class = "IBUITextField"; placeholder = "E-Mail Address"; ObjectID = "33k-CK-ILx"; */
+"33k-CK-ILx.placeholder" = "E-Mail Address";
+
+/* Class = "IBUIButton"; normalTitle = "Next"; ObjectID = "3jb-lr-4Wx"; */
+"3jb-lr-4Wx.normalTitle" = "Next";
+
+/* Class = "IBUINavigationItem"; title = "Set Favorite Company"; ObjectID = "49l-7l-Wbv"; */
+"49l-7l-Wbv.title" = "Set Favorite Company";
+
+/* Class = "IBUINavigationItem"; title = "Privacy Policy"; ObjectID = "4hk-dl-LrS"; */
+"4hk-dl-LrS.title" = "Privacy Policy";
+
+/* Class = "IBUILabel"; text = "First Time visiting us?"; ObjectID = "5Iv-rU-68S"; */
+"5Iv-rU-68S.text" = "First Time visiting us?";
+
+/* Class = "IBUITabBarItem"; title = "Manage Data"; ObjectID = "5tc-v3-HbD"; */
+"5tc-v3-HbD.title" = "Manage Data";
+
+/* Class = "IBUITextField"; placeholder = "Repeat Password"; ObjectID = "7CE-2i-xe9"; */
+"7CE-2i-xe9.placeholder" = "Repeat Password";
+
+/* Class = "IBUILabel"; text = "Focused Health Version 0.1"; ObjectID = "7Dv-R8-5lu"; */
+"7Dv-R8-5lu.text" = "Focused Health Version 0.1";
+
+/* Class = "IBUILabel"; text = "Terms of Use"; ObjectID = "7mr-7l-Dex"; */
+"7mr-7l-Dex.text" = "Terms of Use";
+
+/* Class = "IBUILabel"; text = "Value"; ObjectID = "8fl-db-MWX"; */
+"8fl-db-MWX.text" = "Value";
+
+/* Class = "IBUILabel"; text = "Detail"; ObjectID = "8rI-sa-mgs"; */
+"8rI-sa-mgs.text" = "Detail";
+
+/* Class = "IBUILabel"; text = "Unit"; ObjectID = "99B-Pi-gvy"; */
+"99B-Pi-gvy.text" = "Unit";
+
+/* Class = "IBUINavigationItem"; title = "Change Password"; ObjectID = "9kl-KG-G2m"; */
+"9kl-KG-G2m.title" = "Change Password";
+
+/* Class = "IBUIButton"; normalTitle = "Disclaimer"; ObjectID = "A11-G6-ibM"; */
+"A11-G6-ibM.normalTitle" = "Disclaimer";
+
+/* Class = "IBUILabel"; text = "Measurement"; ObjectID = "A98-3q-0vC"; */
+"A98-3q-0vC.text" = "Measurement";
+
+/* Class = "IBUITextField"; placeholder = "Password"; ObjectID = "AVz-Zj-etD"; */
+"AVz-Zj-etD.placeholder" = "Password";
+
+/* Class = "IBUITableViewController"; title = "Company"; ObjectID = "Alm-Vi-5qY"; */
+"Alm-Vi-5qY.title" = "Company";
+
+/* Class = "IBUINavigationItem"; title = "Create Value"; ObjectID = "ApS-c7-cXa"; */
+"ApS-c7-cXa.title" = "Create Value";
+
+/* Class = "IBUITextField"; placeholder = "new E - Mail"; ObjectID = "Aue-CD-uqt"; */
+"Aue-CD-uqt.placeholder" = "new E - Mail";
+
+/* Class = "IBUITextField"; placeholder = "confirm new E - Mail"; ObjectID = "Avo-OO-Nmn"; */
+"Avo-OO-Nmn.placeholder" = "confirm new E - Mail";
+
+/* Class = "IBUIButton"; normalTitle = "Continue without Login"; ObjectID = "CZW-pk-ORw"; */
+"CZW-pk-ORw.normalTitle" = "Continue without Login";
+
+/* Class = "IBUILabel"; text = "Are you sure that you want to change your \npassword? \nFor reasons of security you should use a \npassword, you do not use for any other \nservices.\n\nIf you wish to proceed and change your \npassword, press the button below"; ObjectID = "DHJ-Lc-U8B"; */
+"DHJ-Lc-U8B.text" = "Are you sure that you want to change your \npassword? \nFor reasons of security you should use a \npassword, you do not use for any other \nservices.\n\nIf you wish to proceed and change your \npassword, press the button below";
+
+/* Class = "IBUILabel"; text = "Detail"; ObjectID = "EsO-vW-4Ue"; */
+"EsO-vW-4Ue.text" = "Detail";
+
+/* Class = "IBUINavigationItem"; title = "Manage Data"; ObjectID = "FPq-1a-dJd"; */
+"FPq-1a-dJd.title" = "Manage Data";
+
+/* Class = "IBUILabel"; text = "Copyright Cyperfection GmbH"; ObjectID = "FfT-J2-uba"; */
+"FfT-J2-uba.text" = "Copyright Cyperfection GmbH";
+
+/* Class = "IBUIButton"; normalTitle = "Reset Password"; ObjectID = "HyR-FB-VXt"; */
+"HyR-FB-VXt.normalTitle" = "Reset Password";
+
+/* Class = "IBUITableViewSection"; headerTitle = "Choose Company"; ObjectID = "JVf-ti-1ii"; */
+"JVf-ti-1ii.headerTitle" = "Choose Company";
+
+/* Class = "IBUITableViewSection"; headerTitle = "Choose Measurement"; ObjectID = "Jfh-IQ-i6w"; */
+"Jfh-IQ-i6w.headerTitle" = "Choose Measurement";
+
+/* Class = "IBUILabel"; text = "Detail"; ObjectID = "KDw-Dr-SbH"; */
+"KDw-Dr-SbH.text" = "Detail";
+
+/* Class = "IBUINavigationItem"; title = "Your Goals"; ObjectID = "Kba-9D-fUq"; */
+"Kba-9D-fUq.title" = "Your Goals";
+
+/* Class = "IBUILabel"; text = "Detail"; ObjectID = "LfU-Ru-X68"; */
+"LfU-Ru-X68.text" = "Detail";
+
+/* Class = "IBUINavigationItem"; title = "Period"; ObjectID = "Lfn-Gt-8cg"; */
+"Lfn-Gt-8cg.title" = "Period";
+
+/* Class = "IBUITextField"; placeholder = "Confirm New Password"; ObjectID = "M1U-vJ-ZOo"; */
+"M1U-vJ-ZOo.placeholder" = "Confirm New Password";
+
+/* Class = "IBUILabel"; text = "Date"; ObjectID = "MXL-yY-zCP"; */
+"MXL-yY-zCP.text" = "Date";
+
+/* Class = "IBUIButton"; normalTitle = "Already Signed Up? Login Here!"; ObjectID = "Mlb-bc-wDr"; */
+"Mlb-bc-wDr.normalTitle" = "Already Signed Up? Login Here!";
+
+/* Class = "IBUILabel"; text = "ManageDataDetailItem"; ObjectID = "Mrp-zJ-fXa"; */
+"Mrp-zJ-fXa.text" = "ManageDataDetailItem";
+
+/* Class = "IBUILabel"; text = "Password"; ObjectID = "NGv-Zw-OAt"; */
+"NGv-Zw-OAt.text" = "Password";
+
+/* Class = "IBUINavigationItem"; title = "Add Goal"; ObjectID = "NQY-RI-pCm"; */
+"NQY-RI-pCm.title" = "Add Goal";
+
+/* Class = "IBUIButton"; normalTitle = "Change Password"; ObjectID = "NQv-Yx-dDt"; */
+"NQv-Yx-dDt.normalTitle" = "Change Password";
+
+/* Class = "IBUINavigationItem"; title = "Your Companies"; ObjectID = "NVe-rr-GsA"; */
+"NVe-rr-GsA.title" = "Your Companies";
+
+/* Class = "IBUILabel"; text = "GoalItem"; ObjectID = "PBq-oQ-RVr"; */
+"PBq-oQ-RVr.text" = "GoalItem";
+
+/* Class = "IBUINavigationItem"; title = "Add to Dashboard"; ObjectID = "Sq2-XS-Xg3"; */
+"Sq2-XS-Xg3.title" = "Add to Dashboard";
+
+/* Class = "IBUILabel"; text = "Detail"; ObjectID = "TX4-Pf-pIO"; */
+"TX4-Pf-pIO.text" = "Detail";
+
+/* Class = "IBUINavigationItem"; title = "Company"; ObjectID = "UvS-1s-GoU"; */
+"UvS-1s-GoU.title" = "Company";
+
+/* Class = "IBUITableViewSection"; headerTitle = "Choose Company"; ObjectID = "VFQ-xC-XxV"; */
+"VFQ-xC-XxV.headerTitle" = "Choose Company";
+
+/* Class = "IBUILabel"; text = "Detail"; ObjectID = "Va8-LB-ah9"; */
+"Va8-LB-ah9.text" = "Detail";
+
+/* Class = "IBUILabel"; text = "Company"; ObjectID = "VfW-n3-lPk"; */
+"VfW-n3-lPk.text" = "Company";
+
+/* Class = "IBUIButton"; normalTitle = "Sign Up"; ObjectID = "Wuc-dV-2CH"; */
+"Wuc-dV-2CH.normalTitle" = "Sign Up";
+
+/* Class = "IBUILabel"; text = "Unit"; ObjectID = "XWc-or-AqW"; */
+"XWc-or-AqW.text" = "Unit";
+
+/* Class = "IBUITableViewSection"; headerTitle = "Choose Date"; ObjectID = "Xir-Pb-1iq"; */
+"Xir-Pb-1iq.headerTitle" = "Choose Date";
+
+/* Class = "IBUILabel"; text = "Privacy Policy"; ObjectID = "YGE-3h-8r7"; */
+"YGE-3h-8r7.text" = "Privacy Policy";
+
+/* Class = "IBUILabel"; text = "PeriodItem"; ObjectID = "YIF-oX-l2w"; */
+"YIF-oX-l2w.text" = "PeriodItem";
+
+/* Class = "IBUILabel"; text = "Disclaimer"; ObjectID = "YhM-gn-ZbE"; */
+"YhM-gn-ZbE.text" = "Disclaimer";
+
+/* Class = "IBUIButton"; normalTitle = "Logout"; ObjectID = "ZCd-Cn-4of"; */
+"ZCd-Cn-4of.normalTitle" = "Logout";
+
+/* Class = "IBUIBarButtonItem"; title = "Login"; ObjectID = "alt-jl-DbT"; */
+"alt-jl-DbT.title" = "Login";
+
+/* Class = "IBUINavigationItem"; title = "Diagram View"; ObjectID = "aor-gN-IYI"; */
+"aor-gN-IYI.title" = "Diagram View";
+
+/* Class = "IBUINavigationItem"; title = "Change Password"; ObjectID = "bNa-g5-I4N"; */
+"bNa-g5-I4N.title" = "Change Password";
+
+/* Class = "IBUILabel"; text = "Detail"; ObjectID = "bVt-r2-wJW"; */
+"bVt-r2-wJW.text" = "Detail";
+
+/* Class = "IBUILabel"; text = "Are you sure that you want to change your \npassword? \nFor reasons of security you should use a \npassword, you do not use for any other \nservices.\n\nIf you wish to proceed and change your \npassword, press the button below"; ObjectID = "bxm-90-Qv4"; */
+"bxm-90-Qv4.text" = "Are you sure that you want to change your \npassword? \nFor reasons of security you should use a \npassword, you do not use for any other \nservices.\n\nIf you wish to proceed and change your \npassword, press the button below";
+
+/* Class = "IBUILabel"; text = "CompanyItem"; ObjectID = "cTY-de-5OU"; */
+"cTY-de-5OU.text" = "CompanyItem";
+
+/* Class = "IBUITabBarItem"; title = "Dashboard"; ObjectID = "ckU-6n-tX5"; */
+"ckU-6n-tX5.title" = "Dashboard";
+
+/* Class = "IBUILabel"; text = "CompanyItem"; ObjectID = "cot-K5-kEW"; */
+"cot-K5-kEW.text" = "CompanyItem";
+
+/* Class = "IBUINavigationItem"; title = "Manage Data Detail"; ObjectID = "djv-g1-S2c"; */
+"djv-g1-S2c.title" = "Manage Data Detail";
+
+/* Class = "IBUIBarButtonItem"; title = "Cancel"; ObjectID = "ekH-Db-Y6x"; */
+"ekH-Db-Y6x.title" = "Cancel";
+
+/* Class = "IBUITabBarItem"; title = "Goals"; ObjectID = "ekV-KH-Mfl"; */
+"ekV-KH-Mfl.title" = "Goals";
+
+/* Class = "IBUIButton"; normalTitle = "Already Signed Up? Login Here!"; ObjectID = "f3E-iW-4jE"; */
+"f3E-iW-4jE.normalTitle" = "Already Signed Up? Login Here!";
+
+/* Class = "IBUINavigationItem"; title = "Edit Account"; ObjectID = "f48-Hd-uq2"; */
+"f48-Hd-uq2.title" = "Edit Account";
+
+/* Class = "IBUILabel"; text = "If you register an new Focused Health Account, you confirm our"; ObjectID = "fig-rK-lsl"; */
+"fig-rK-lsl.text" = "If you register an new Focused Health Account, you confirm our";
+
+/* Class = "IBUILabel"; text = "DashboardItem"; ObjectID = "flc-3d-V8b"; */
+"flc-3d-V8b.text" = "DashboardItem";
+
+/* Class = "IBUINavigationItem"; title = "Change E - Mail"; ObjectID = "fnM-kv-2Qh"; */
+"fnM-kv-2Qh.title" = "Change E - Mail";
+
+/* Class = "IBUIButton"; normalTitle = "Privacy Policy"; ObjectID = "g25-tY-TCP"; */
+"g25-tY-TCP.normalTitle" = "Privacy Policy";
+
+/* Class = "IBUILabel"; text = "Measurement"; ObjectID = "gIT-wF-dUs"; */
+"gIT-wF-dUs.text" = "Measurement";
+
+/* Class = "IBUINavigationItem"; title = "About"; ObjectID = "gUe-9s-PiA"; */
+"gUe-9s-PiA.title" = "About";
+
+/* Class = "IBUILabel"; text = "and"; ObjectID = "ge2-p8-CEf"; */
+"ge2-p8-CEf.text" = "and";
+
+/* Class = "IBUIButton"; normalTitle = "Forgot Password?"; ObjectID = "gje-gV-goQ"; */
+"gje-gV-goQ.normalTitle" = "Forgot Password?";
+
+/* Class = "IBUITableViewSection"; headerTitle = "Choose Value"; ObjectID = "h2c-gn-Fi9"; */
+"h2c-gn-Fi9.headerTitle" = "Choose Value";
+
+/* Class = "IBUITableViewSection"; headerTitle = "Choose Measurement"; ObjectID = "hFa-cn-g0p"; */
+"hFa-cn-g0p.headerTitle" = "Choose Measurement";
+
+/* Class = "IBUIButton"; normalTitle = "Change Password"; ObjectID = "hZw-Fc-DCd"; */
+"hZw-Fc-DCd.normalTitle" = "Change Password";
+
+/* Class = "IBUIButton"; normalTitle = "Sign Up here!"; ObjectID = "hbP-wK-umM"; */
+"hbP-wK-umM.normalTitle" = "Sign Up here!";
+
+/* Class = "IBUIButton"; normalTitle = "Terms of Use"; ObjectID = "jHH-pX-zl1"; */
+"jHH-pX-zl1.normalTitle" = "Terms of Use";
+
+/* Class = "IBUILabel"; text = "E - Mail"; ObjectID = "jhk-GP-heN"; */
+"jhk-GP-heN.text" = "E - Mail";
+
+/* Class = "IBUITableViewController"; title = "Create Value"; ObjectID = "jup-sD-HCy"; */
+"jup-sD-HCy.title" = "Create Value";
+
+/* Class = "IBUINavigationItem"; title = "Terms of Use"; ObjectID = "kzj-Ox-bE1"; */
+"kzj-Ox-bE1.title" = "Terms of Use";
+
+/* Class = "IBUILabel"; text = "Measurement"; ObjectID = "llr-gp-URe"; */
+"llr-gp-URe.text" = "Measurement";
+
+/* Class = "IBUINavigationItem"; title = "Add Company"; ObjectID = "n9i-GT-jzq"; */
+"n9i-GT-jzq.title" = "Add Company";
+
+/* Class = "IBUIButton"; normalTitle = "Change E -Mail"; ObjectID = "n9w-Vh-vaI"; */
+"n9w-Vh-vaI.normalTitle" = "Change E -Mail";
+
+/* Class = "IBUILabel"; text = "Startdate"; ObjectID = "nRF-35-fdo"; */
+"nRF-35-fdo.text" = "Startdate";
+
+/* Class = "IBUINavigationItem"; title = "Create New Goal"; ObjectID = "nhH-Xb-uX9"; */
+"nhH-Xb-uX9.title" = "Create New Goal";
+
+/* Class = "IBUINavigationItem"; title = "Your Account"; ObjectID = "nhi-bN-TCU"; */
+"nhi-bN-TCU.title" = "Your Account";
+
+/* Class = "IBUIBarButtonItem"; title = "Login"; ObjectID = "ogP-tT-OlO"; */
+"ogP-tT-OlO.title" = "Login";
+
+/* Class = "IBUILabel"; text = "User E - Mail"; ObjectID = "pXv-Iy-yS5"; */
+"pXv-Iy-yS5.text" = "User E - Mail";
+
+/* Class = "IBUILabel"; text = "About"; ObjectID = "phq-Xl-FYD"; */
+"phq-Xl-FYD.text" = "About";
+
+/* Class = "IBUILabel"; text = "Detail"; ObjectID = "qNb-Ll-RjW"; */
+"qNb-Ll-RjW.text" = "Detail";
+
+/* Class = "IBUIButton"; normalTitle = "Cancel"; ObjectID = "qcW-2K-r41"; */
+"qcW-2K-r41.normalTitle" = "Cancel";
+
+/* Class = "IBUILabel"; text = "Detail"; ObjectID = "r3y-u9-hpJ"; */
+"r3y-u9-hpJ.text" = "Detail";
+
+/* Class = "IBUITextField"; placeholder = "E - Mail Address"; ObjectID = "rib-Jv-pLp"; */
+"rib-Jv-pLp.placeholder" = "E - Mail Address";
+
+/* Class = "IBUITextField"; placeholder = "New Password"; ObjectID = "s0m-it-fcK"; */
+"s0m-it-fcK.placeholder" = "New Password";
+
+/* Class = "IBUIButton"; normalTitle = "Sign In"; ObjectID = "s2Z-lK-ld6"; */
+"s2Z-lK-ld6.normalTitle" = "Sign In";
+
+/* Class = "IBUINavigationItem"; title = "Sign Up Information"; ObjectID = "tAH-IS-xFK"; */
+"tAH-IS-xFK.title" = "Sign Up Information";
+
+/* Class = "IBUILabel"; text = "Period"; ObjectID = "uuv-ru-NGH"; */
+"uuv-ru-NGH.text" = "Period";
+
+/* Class = "IBUIBarButtonItem"; title = "Add"; ObjectID = "vpZ-4K-vw9"; */
+"vpZ-4K-vw9.title" = "Add";
+
+/* Class = "IBUILabel"; text = "editAccountItem"; ObjectID = "w0W-Mf-WMd"; */
+"w0W-Mf-WMd.text" = "editAccountItem";
+
+/* Class = "IBUINavigationItem"; title = "Forgot Password?"; ObjectID = "w3G-oP-tCM"; */
+"w3G-oP-tCM.title" = "Forgot Password?";
+
+/* Class = "IBUISegmentedControl"; xeJ-cy-gHL.segmentTitles[0] = "Day"; ObjectID = "xeJ-cy-gHL"; */
+"xeJ-cy-gHL.segmentTitles[0]" = "Day";
+
+/* Class = "IBUISegmentedControl"; xeJ-cy-gHL.segmentTitles[1] = "Week"; ObjectID = "xeJ-cy-gHL"; */
+"xeJ-cy-gHL.segmentTitles[1]" = "Week";
+
+/* Class = "IBUISegmentedControl"; xeJ-cy-gHL.segmentTitles[2] = "Month"; ObjectID = "xeJ-cy-gHL"; */
+"xeJ-cy-gHL.segmentTitles[2]" = "Month";
+
+/* Class = "IBUISegmentedControl"; xeJ-cy-gHL.segmentTitles[3] = "Year"; ObjectID = "xeJ-cy-gHL"; */
+"xeJ-cy-gHL.segmentTitles[3]" = "Year";
+
+/* Class = "IBUITextField"; placeholder = "Password"; ObjectID = "xt8-IJ-2WU"; */
+"xt8-IJ-2WU.placeholder" = "Password";
+
+/* Class = "IBUILabel"; text = "ManageDataItem"; ObjectID = "y57-0U-1DF"; */
+"y57-0U-1DF.text" = "ManageDataItem";
+
+/* Class = "IBUILabel"; text = "Value"; ObjectID = "yoa-j9-VfD"; */
+"yoa-j9-VfD.text" = "Value";
+
+/* Class = "IBUILabel"; text = "Create New Goal"; ObjectID = "zQ4-0b-Trs"; */
+"zQ4-0b-Trs.text" = "Create New Goal";
+
+/* Class = "IBUITableViewSection"; headerTitle = "Choose Startdate"; ObjectID = "zbM-IL-B7r"; */
+"zbM-IL-B7r.headerTitle" = "Choose Startdate";

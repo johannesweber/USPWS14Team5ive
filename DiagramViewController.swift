@@ -66,7 +66,7 @@ class DiagramViewController: UIViewController, LineChartDelegate, ManageDataDeta
             
             self.tableView.reloadData()
             
-            self.dayLabel.text = "Test Test Test 123"
+            self.dayLabel.text = NSLocalizedString("Test Test Test 123", comment: "Text for Day Label")
         }
 
     }
@@ -130,7 +130,7 @@ class DiagramViewController: UIViewController, LineChartDelegate, ManageDataDeta
     * Line chart delegate method.
     */
     func didSelectDataPoint(x: CGFloat, yValues: Array<CGFloat>) {
-        self.lineChartLabel.text = "x: \(x)     y: \(yValues)"
+        self.lineChartLabel.text = NSLocalizedString("x: \(x)   y: \(yValues)", comment: "Text for LineChart Label Axis")
     }
     
     // manage data detail view controller delegate methods
@@ -204,24 +204,24 @@ class DiagramViewController: UIViewController, LineChartDelegate, ManageDataDeta
 
     }
     
-    func convertClickedSegmentIntoString(clickedSegment: Int) -> String {
-        
-        var clickedSegment = clickedSegment
-        var segmentString = String()
-        
-        switch clickedSegment {
-            
-        case 0: segmentString = "Day"
-        case 1: segmentString = "Week"
-        case 2: segmentString = "Month"
-        case 3: segmentString = "Year"
-        default: segmentString = "no segment clicked"
-            
-        }
-        
-        return segmentString
-        
-    }
+//    func convertClickedSegmentIntoString(clickedSegment: Int) -> String {
+//        
+//        var clickedSegment = clickedSegment
+//        var segmentString = String()
+//        
+//        switch clickedSegment {
+//            
+//        case 0: segmentString = "Day"
+//        case 1: segmentString = "Week"
+//        case 2: segmentString = "Month"
+//        case 3: segmentString = "Year"
+//        default: segmentString = "no segment clicked"
+//            
+//        }
+//        
+//        return segmentString
+//        
+//    }
     
     func convertClickedSegmentIntoLimit(clickedSegment: Int) -> Int {
         

@@ -92,13 +92,13 @@ class ManageDataDetailViewController: UITableViewController, ManageDataViewContr
         
         switch currentMeasurementName {
             
-            case "Fitness"  : self.populateTableViewWithFitnessMeasurements()
+            case NSLocalizedString("Fitness", comment: "Name for Manage Data Item Elevation in switch case statement")  : self.populateTableViewWithFitnessMeasurements()
             
-            case "Vitals"   : self.populateTableViewWithVitalsMeasurements()
+            case NSLocalizedString("Vitals", comment: "Name for Manage Data Item Vitals in switch case statement")   : self.populateTableViewWithVitalsMeasurements()
             
-            case "Nutrition": self.populateTableViewWithNutritionMeasurements()
+            case NSLocalizedString("Nutrition", comment: "Name for Manage Data Item Nutrition in switch case statement"): self.populateTableViewWithNutritionMeasurements()
             
-            case "Sleep"    : self.populateTableViewWithSleepMeasurements()
+            case NSLocalizedString("Sleep", comment: "Name for Manage Data Item Sleep in switch case statement")    : self.populateTableViewWithSleepMeasurements()
             
         default             : println("nothing selected")
             
@@ -108,55 +108,55 @@ class ManageDataDetailViewController: UITableViewController, ManageDataViewContr
     
     func populateTableViewWithFitnessMeasurements() {
         
-        let row0item = MeasurementItem(name: "Steps", nameInDatabase: "steps")
+        let row0item = MeasurementItem(name: NSLocalizedString("Steps", comment: "Name for Measurement Item Steps"), nameInDatabase: "steps")
         row0item.sliderLimit = 15000.0
         row0item.unit = "steps"
         measurements.append(row0item)
         
-        let row1item = MeasurementItem(name: "Duration", nameInDatabase: "duration")
+        let row1item = MeasurementItem(name: NSLocalizedString("Duration", comment: "Name for Measurement Item Duration"), nameInDatabase: "duration")
         measurements.append(row1item)
         
-        let row2item = MeasurementItem(name: "Distance", nameInDatabase: "distance")
+        let row2item = MeasurementItem(name: NSLocalizedString("Distance", comment: "Name for Measurement Item Distance"), nameInDatabase: "distance")
         measurements.append(row2item)
         
-        let row3item = MeasurementItem(name: "Calories Burned", nameInDatabase: "caloriesOut")
+        let row3item = MeasurementItem(name: NSLocalizedString("Calories Burned", comment: "Name for Measurement Item Calories Burned"), nameInDatabase: "caloriesOut")
         measurements.append(row3item)
         
-        let row4item = MeasurementItem(name: "Elevation", nameInDatabase: "elevation")
+        let row4item = MeasurementItem(name: NSLocalizedString("Elevation", comment: "Name for Measurement Item Elevation"), nameInDatabase: "elevation")
         measurements.append(row4item)
     }
     
     func populateTableViewWithVitalsMeasurements() {
         
-        let row0item = MeasurementItem(name: "Body Weight", nameInDatabase: "weight")
+        let row0item = MeasurementItem(name: NSLocalizedString("Body Weight", comment: "Name for Measurement Item Body Weight"), nameInDatabase: "weight")
         measurements.append(row0item)
         
-        let row1item = MeasurementItem(name: "Body Height", nameInDatabase: "height")
+        let row1item = MeasurementItem(name: NSLocalizedString("Body Height", comment: "Name for Measurement Item Body Height"), nameInDatabase: "height")
         measurements.append(row1item)
         
-        let row2item = MeasurementItem(name: "BMI", nameInDatabase: "bmi")
+        let row2item = MeasurementItem(name: NSLocalizedString("BMI", comment: "Name for Measurement Item BMI"), nameInDatabase: "bmi")
         measurements.append(row2item)
         
-        let row3item = MeasurementItem(name: "Body Fat", nameInDatabase: "bodyFat")
+        let row3item = MeasurementItem(name: NSLocalizedString("Body Fat", comment: "Name for Measurement Item Body Fat"), nameInDatabase: "bodyFat")
         measurements.append(row3item)
     }
     
     func populateTableViewWithNutritionMeasurements() {
     
-        let row0item = MeasurementItem(name: "Food", nameInDatabase: "food")
+        let row0item = MeasurementItem(name: NSLocalizedString("Food", comment: "Name for Measurement Item Food"), nameInDatabase: "food")
         measurements.append(row0item)
         
-        let row1item = MeasurementItem(name: "Water", nameInDatabase: "water")
+        let row1item = MeasurementItem(name: NSLocalizedString("Water", comment: "Name for Measurement Item Water"), nameInDatabase: "water")
         measurements.append(row1item)
         
-        let row2item = MeasurementItem(name: "Calories Eaten", nameInDatabase: "caloriesIn")
+        let row2item = MeasurementItem(name: NSLocalizedString("Calories Eaten", comment: "Name for Measurement Item Calories Eaten"), nameInDatabase: "caloriesIn")
         measurements.append(row2item)
     }
     
     func populateTableViewWithSleepMeasurements() {
         
         //TODO what to display here ?
-        let row0item = MeasurementItem(name: "Sleep Analysis", nameInDatabase: "sleep")
+        let row0item = MeasurementItem(name: NSLocalizedString("Sleep Analysis", comment: "Name for Measurement Item Sleep Analysis"), nameInDatabase: "sleep")
         measurements.append(row0item)
     }
     

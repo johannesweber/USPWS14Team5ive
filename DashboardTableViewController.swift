@@ -159,8 +159,8 @@ class DashboardTableViewController: UITableViewController, AddToDashboardTableVi
         
         if dashboardItems.contains(item){
             
-            showAlert("You have already added \(item.name)", "Please choose another one", self)
-            
+            showAlert(NSLocalizedString("Item already added", comment: "Title for Message which appears if Dashboard already contains that Item"), NSLocalizedString("You have already added \(item.name). Please choose another one", comment: "Message which appears if Dashboard already contains that Item"), self)
+
             self.dismissViewControllerAnimated(true, completion: nil)
             
         } else {

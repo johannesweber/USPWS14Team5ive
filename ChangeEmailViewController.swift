@@ -68,7 +68,7 @@ class ChangeEmailViewController: UIViewController, UITextFieldDelegate {
         //send changerequest to server and change the email in the database
         Alamofire.request(.GET, "\(baseURL)/", parameters: sendNewEmail).responseSwiftyJSON{(request,response,json,error) in
         
-         showAlert("Password Succesfully Changed", "An email has been sent to your new account email address. Please use the activation link given in that mail.", self)
+            showAlert(NSLocalizedString("Password Succesfully Changed", comment: "Title for Message if password change was successfull"),  NSLocalizedString("Please see your Inbox for further Instructions", comment: "Message if password change was successfull"), self)
          }
         
         //set the new email in the local userdata
@@ -110,7 +110,8 @@ class ChangeEmailViewController: UIViewController, UITextFieldDelegate {
             currentMailLabel.text = ""
             return true
         }else{
-            setLabel(currentMailLabel, message: "The email does not match the registered email for this account.")
+            
+            setLabel(currentMailLabel, message:  NSLocalizedString("The email does not match the registered email for this account.", comment: "Message if emails do not match"))
         }
         return false
     }
@@ -126,10 +127,12 @@ class ChangeEmailViewController: UIViewController, UITextFieldDelegate {
                 newMailLabel.text = ""
                 return true
             }else{
-                setLabel(newMailLabel, message: "New email cannot be identical with the current one.")
+                
+                setLabel(currentMailLabel, message:  NSLocalizedString("New email cannot be identical with the current one.", comment: "Message if emails is equal to the current one"))
             }
         }else{
-            setLabel(newMailLabel, message: "The email in the field 'New Email' is not a valid email.")
+            
+            setLabel(currentMailLabel, message:  NSLocalizedString("The email in the field 'New Email' is not a valid email.", comment: "Message if email is not valid"))
         }
         
         return false
@@ -142,6 +145,9 @@ class ChangeEmailViewController: UIViewController, UITextFieldDelegate {
             confirmNewMailLabel.text = ""
             return true
         }else{
+            
+            setLabel(currentMailLabel, message:  NSLocalizedString("The fields 'New Email' and 'Confirm New Email' do not match.", comment: "Message if emails do not match"))
+            
             setLabel(confirmNewMailLabel, message: "The fields 'New Email' and 'Confirm New Email' do not match.")
         }
         return false

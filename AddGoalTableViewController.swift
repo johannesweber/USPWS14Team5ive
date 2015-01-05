@@ -35,32 +35,32 @@ class AddGoalTableViewController: UITableViewController, CreateGoalTableViewCont
         self.goalSelected = GoalItem()
         self.newCreatedGoal = GoalItem()
         
-        let row0item = GoalItem(name: "Distance", nameInDatabase: "distance")
+        let row0item = GoalItem(name: NSLocalizedString("Distance", comment: "Name for GoalItem Distance"), nameInDatabase: "distance")
         row0item.period = "Daily"
         row0item.company = "fitbit"
         self.goal.append(row0item)
         
-        let row1item = GoalItem(name: "Steps", nameInDatabase: "steps")
+        let row1item = GoalItem(name: NSLocalizedString("Steps", comment: "Name for GoalItem Steps"), nameInDatabase: "steps")
         row1item.period = "Daily"
         row1item.company = "fitbit"
         self.goal.append(row1item)
         
-        let row2item = GoalItem(name: "Body Weight", nameInDatabase: "weight")
+        let row2item = GoalItem(name: NSLocalizedString("Body Weight", comment: "Name for GoalItem Body Weight"), nameInDatabase: "weight")
         row2item.period = "Daily"
         row2item.company = "fitbit"
         self.goal.append(row2item)
         
-        let row3item = GoalItem(name: "Calories Burned", nameInDatabase: "caloriesOut")
+        let row3item = GoalItem(name: NSLocalizedString("Calories Burned", comment: "Name for GoalItem Calories Burned"), nameInDatabase: "caloriesOut")
         row3item.period = "Daily"
         row3item.company = "fitbit"
         self.goal.append(row3item)
         
-        let row4item = GoalItem(name: "Calories Eaten", nameInDatabase: "caloriesIn")
+        let row4item = GoalItem(name: NSLocalizedString("Calories Eaten", comment: "Name for GoalItem Calories Eaten"), nameInDatabase: "caloriesIn")
         row4item.period = "Daily"
         row4item.company = "fitbit"
         self.goal.append(row4item)
         
-        let row5item = GoalItem(name: "Active Minutes", nameInDatabase: "activeMinutes")
+        let row5item = GoalItem(name: NSLocalizedString("Active Minutes", comment: "Name for GoalItem Active Minutes"), nameInDatabase: "activeMinutes")
         row5item.period = "Daily"
         row5item.company = "fitbit"
         self.goal.append(row5item)

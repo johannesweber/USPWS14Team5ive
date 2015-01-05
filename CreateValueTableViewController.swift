@@ -91,7 +91,7 @@ class CreateValueTableViewController: UITableViewController, CompanyTableViewCon
     func customizeViewController() {
         
         self.saveBarButton.enabled = false
-        self.title = "Create \(self.currentMeasurement.name)"
+        self.title = NSLocalizedString("Create \(self.currentMeasurement.name)", comment: "Title for Create Value Screen")
         self.valueSlider.maximumValue = self.currentMeasurement.sliderLimit
         self.unitLabel.text = currentMeasurement.unit
     }

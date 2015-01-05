@@ -26,11 +26,6 @@ class CompaniesTableViewController: UITableViewController, AddCompanyTableViewCo
             
             self.doOAuthCompanyItem(isSelected)
             
-        }else{
-            
-            println("asdfasdasf")
-            //messageLabel.text = "Please select a company to synchronize."
-            
         }
     }
     
@@ -88,7 +83,7 @@ class CompaniesTableViewController: UITableViewController, AddCompanyTableViewCo
         
         let indexPaths = [indexPath]
         tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
-                    //saveCompanyAccountItems()
+
     }
     
     //sets the delegate for AddToDashboardtableViewController
@@ -120,8 +115,9 @@ class CompaniesTableViewController: UITableViewController, AddCompanyTableViewCo
         
             println("FOUND")
         
-            showAlert("Company already added.", "The chosen company has already been added to your list. The action can't be executed.", self)
-        
+            
+            showAlert( NSLocalizedString("Company already added.", comment: "Title for Message if company was already added"),  NSLocalizedString("The chosen company has already been added to your list. The action can't be executed.", comment: "Message if company was already added"), self)
+            
         } else {
         
             println("NOT FOUND")

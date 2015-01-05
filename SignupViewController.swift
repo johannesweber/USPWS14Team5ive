@@ -41,30 +41,15 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         
         if ( email == "") || (password == "") {
             
-            var alertView:UIAlertView = UIAlertView()
-            alertView.title = "Sign Up Failed!"
-            alertView.message = "Please enter E-Mail Address and Password"
-            alertView.delegate = self
-            alertView.addButtonWithTitle("OK")
-            alertView.show()
+            showAlert( NSLocalizedString("Sign Up Failed!", comment: "Title for Message sign up failed"),  NSLocalizedString("Please Enter E - Mail Adress and Password", comment: "Message if sign up failed"), self)
             
         } else if (password != confirmPassword) {
             
-            var alertView:UIAlertView = UIAlertView()
-            alertView.title = "Sign Up Failed!"
-            alertView.message = "Passwords doesn't Match"
-            alertView.delegate = self
-            alertView.addButtonWithTitle("OK")
-            alertView.show()
+            showAlert( NSLocalizedString("Sign Up Failed!", comment: "Title for Message sign up failed"),  NSLocalizedString("Passwords doesn't Match", comment: "Message if sign up failed"), self)
             
         } else if (!email.isValidEmail()) {
             
-            var alertView:UIAlertView = UIAlertView()
-            alertView.title = "Sign Up Failed!"
-            alertView.message = "Your E - Mail is not correct"
-            alertView.delegate = self
-            alertView.addButtonWithTitle("OK")
-            alertView.show()
+            showAlert( NSLocalizedString("Sign Up Failed!", comment: "Title for Message sign up failed"),  NSLocalizedString("Your E - Mail is not correct", comment: "Message if sign up failed"), self)
             
         } else {
             
@@ -76,37 +61,33 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
 
             Alamofire.request(.GET, "\(baseURL)/signup", parameters: parameters)
                 .responseSwiftyJSON { (request, response, json, error) in
-                    println(request)
-                    println(response)
-                    println(json)
                     
                     var success = json["success"].intValue
                     
                     if(success == 1) {
                         
                         println("Sign Up SUCCESS");
-                        var alertView:UIAlertView = UIAlertView()
-                        alertView.title = "Sign Up Succesfull!"
+                        
                         var message = json["error_message"].string!
-                        alertView.message = message
-                        alertView.delegate = self
-                        alertView.addButtonWithTitle("OK")
-                        alertView.show()
+                        
+                        showAlert( NSLocalizedString("Sign Up Succesfull!", comment: "Title for Message sign up successfull"),  NSLocalizedString("\(message)", comment: "Message if sign up was successfull"), self)
+                        
                         self.dismissViewControllerAnimated(true, completion: nil)
+                        
                     } else {
+                        
                         var error_msg:String
                         
                         if json["error_message"].string != nil {
+                            
                             error_msg = json["error_message"].string!
+                            
                         } else {
+                            
                             error_msg = "Unknown Error"
                         }
-                        var alertView:UIAlertView = UIAlertView()
-                        alertView.title = "Sign Up Failed!"
-                        alertView.message = error_msg
-                        alertView.delegate = self
-                        alertView.addButtonWithTitle("OK")
-                        alertView.show()
+                        
+                        showAlert( NSLocalizedString("Sign Up Failed!", comment: "Title for Message sign up failed"),  NSLocalizedString("\(error_msg)", comment: "Message if sign up failed"), self)
                         
                     }
             }
@@ -115,13 +96,20 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
+        
         if (textField == self.txtMailAddress) {
+            
             textField.resignFirstResponder()
+            
         } else if (textField == self.txtPassword) {
+            
             textField.resignFirstResponder()
+            
         } else if (textField == self.txtRepeatPassword) {
+            
             textField.resignFirstResponder()
         }
+        
         return true
     }
 }

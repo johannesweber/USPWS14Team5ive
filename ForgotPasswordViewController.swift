@@ -39,21 +39,13 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate{
         
             Alamofire.request(.POST, "\(baseURL)/password/forgot/", parameters: parameters)
                     .responseSwiftyJSON { (request, response, json, error) in
-                    println(request)
-                    println(response)
-                    println(json)
                         
                     var success = json["success"].intValue
                     var message = json["message"].stringValue
                         
                         if success == 1 {
                             
-                            var alertView:UIAlertView = UIAlertView()
-                            alertView.title = "E-Mail has been successfully sent!"
-                            alertView.message = message
-                            alertView.delegate = self
-                            alertView.addButtonWithTitle("OK")
-                            alertView.show()
+                            showAlert( NSLocalizedString("E-Mail has been successfully sent!", comment: "Title for Message if email was succesfully sent"),  NSLocalizedString("\(message)", comment: "Message if sign in failed"), self)
                             
                             self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
                         }

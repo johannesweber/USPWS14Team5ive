@@ -20,13 +20,13 @@ class EditAccountTableViewController: UITableViewController {
         
         self.editItems = [TableItem]()
         
-        let row0item = TableItem(name: "Change E - Mail")
+        let row0item = TableItem(name: NSLocalizedString("Change E - Mail Adress", comment: "Name for Setting change email adress"))
         self.editItems.append(row0item)
         
-        let row1item = TableItem(name: "Change - Password")
+        let row1item = TableItem(name: NSLocalizedString("Change Password", comment: "Name for Setting change password"))
         self.editItems.append(row1item)
         
-        let row2item = TableItem(name: "Set Favorite Company")
+        let row2item = TableItem(name: NSLocalizedString("Set Favorite Company", comment: "Name for Setting set favorite Company"))
         self.editItems.append(row2item)
         
         super.init(coder: aDecoder)

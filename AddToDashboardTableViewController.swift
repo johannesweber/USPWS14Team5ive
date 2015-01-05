@@ -28,37 +28,37 @@
         
         self.measurement = [TableItem]()
         
-        let row0item = TableItem(name: "Steps", nameInDatabase: "steps")
+        let row0item = TableItem(name:  NSLocalizedString("Steps", comment: "Name of Value Steps"), nameInDatabase: "steps")
         self.measurement.append(row0item)
         
-        let row2item = TableItem(name: "Distance", nameInDatabase: "distance")
+        let row2item = TableItem(name:  NSLocalizedString("Distance", comment: "Name of Value Distance"), nameInDatabase: "distance")
         self.measurement.append(row2item)
         
-        let row3item = TableItem(name: "Calories Burned", nameInDatabase: "caloriesOut")
+        let row3item = TableItem(name: NSLocalizedString("Calories Burned", comment: "Name of Value Calories Burned"), nameInDatabase: "caloriesOut")
         self.measurement.append(row3item)
         
-        let row4item = TableItem(name: "Elevation", nameInDatabase: "elevation")
+        let row4item = TableItem(name: NSLocalizedString("Elevation", comment: "Name of Value Elevation"), nameInDatabase: "elevation")
         self.measurement.append(row4item)
         
-        let row5item = TableItem(name: "Body Weight", nameInDatabase: "weight")
+        let row5item = TableItem(name: NSLocalizedString("Body Weight", comment: "Name of Value Body Weight"), nameInDatabase: "weight")
         self.measurement.append(row5item)
         
-        let row7item = TableItem(name: "BMI", nameInDatabase: "bmi")
+        let row7item = TableItem(name: NSLocalizedString("BMI", comment: "Name of Value BMI"), nameInDatabase: "bmi")
         self.measurement.append(row7item)
         
-        let row8item = TableItem(name: "Body Fat", nameInDatabase: "bodyFat")
+        let row8item = TableItem(name: NSLocalizedString("Body Fat", comment: "Name of Value Body Fat"), nameInDatabase: "bodyFat")
         self.measurement.append(row8item)
         
-        let row12item = TableItem(name: "Water", nameInDatabase: "water")
+        let row12item = TableItem(name: NSLocalizedString("Water", comment: "Name of Value Water"), nameInDatabase: "water")
         self.measurement.append(row12item)
         
-        let row13item = TableItem(name: "Calories Eaten", nameInDatabase: "caloriesIn")
+        let row13item = TableItem(name: NSLocalizedString("Calories Eaten", comment: "Name of Value Calories Eaten"), nameInDatabase: "caloriesIn")
         self.measurement.append(row13item)
         
-        let row14item = TableItem(name: "Sleep", nameInDatabase: "sleep")
+        let row14item = TableItem(name: NSLocalizedString("Sleep", comment: "Name of Value Sleep"), nameInDatabase: "sleep")
         self.measurement.append(row14item)
         
-        let row15item = TableItem(name: "Floors", nameInDatabase: "floors")
+        let row15item = TableItem(name: NSLocalizedString("Floors", comment: "Name of Value Floors"), nameInDatabase: "floors")
         self.measurement.append(row15item)
         
         super.init(coder: aDecoder)
@@ -173,9 +173,13 @@
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         if section == 0 && self.measurementPickerVisible {
+            
             return 2
+            
         } else {
+            
             return super.tableView(tableView, numberOfRowsInSection: section)
         }
     }

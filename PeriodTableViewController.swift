@@ -46,16 +46,16 @@ class PeriodTableViewController: UITableViewController {
         self.periods = [TableItem]()
         self.periodSelected = String()
         
-        let row0item = TableItem(name: "Daily")
+        let row0item = TableItem(name: NSLocalizedString("Daily", comment: "Name for Period Daily"), nameInDatabase: "daily")
         periods.append(row0item)
         
-        let row1item = TableItem(name: "Weekly")
+        let row1item = TableItem(name:  NSLocalizedString("Weekly", comment: "Name for Period Weekly"), nameInDatabase: "weekly")
         periods.append(row1item)
         
-        let row2item = TableItem(name: "Monthly")
+        let row2item = TableItem(name:  NSLocalizedString("Monthly", comment: "Name for Period Monthly"), nameInDatabase: "monthly")
         periods.append(row2item)
         
-        let row3item = TableItem(name: "Annual")
+        let row3item = TableItem(name:  NSLocalizedString("Annual", comment: "Name for Period Annual"), nameInDatabase: "annual")
         periods.append(row3item)
         
         super.init(coder: aDecoder)

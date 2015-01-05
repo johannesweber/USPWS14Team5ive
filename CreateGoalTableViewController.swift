@@ -19,7 +19,6 @@ protocol CreateGoalTableViewControllerDelegate: class {
 class CreateGoalTableViewController: UITableViewController, PeriodTableViewControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
 
     //variables
-    
     weak var delegate: CreateGoalTableViewControllerDelegate?
     
     var startdate: NSDate
@@ -29,7 +28,6 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     var measurementSelected: GoalItem
     
     //initializers
-    
     required init(coder aDecoder: NSCoder) {
         
         self.measurement = [GoalItem]()
@@ -39,9 +37,9 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
         self.measurementPickerVisible = false
 
         
-        let row0item = GoalItem(name: "Steps", nameInDatabase: "steps")
+        let row0item = GoalItem(name: NSLocalizedString("Steps", comment: "Name for GoalItem Steps"), nameInDatabase: "steps")
         row0item.sliderLimit = 20000
-        row0item.unit = "steps"
+        row0item.unit = NSLocalizedString("Steps", comment: "Unit for GoalItem Steps")
         row0item.company = "focused health"
         self.measurement.append(row0item)
         
@@ -49,7 +47,6 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     }
     
     //IBOutlet
-    
     @IBOutlet weak var valueSlider: UISlider!
     
     @IBOutlet weak var saveBarButton: UIBarButtonItem!
@@ -61,7 +58,6 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     
     
     //IBAction
-    
     @IBAction func sliderValueChanged(sender: UISlider) {
         
         var currentValue = Int(sender.value)
@@ -89,7 +85,6 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     }
     
     //override methods
-    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -102,7 +97,6 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     }
     
     //Picker View Methods
-    
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         
         return 1

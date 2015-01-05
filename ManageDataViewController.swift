@@ -26,16 +26,16 @@ class ManageDataViewController: UITableViewController {
         self.categories = [MeasurementItem]()
         self.selectedItem = MeasurementItem()
         
-        let row0item = MeasurementItem(name: "Fitness")
+        let row0item = MeasurementItem(name: NSLocalizedString("Fitness", comment: "Name for Manage Data Item Fitness"))
         categories.append(row0item)
         
-        let row1item = MeasurementItem(name: "Vitals")
+        let row1item = MeasurementItem(name: NSLocalizedString("Vitals", comment: "Name for Manage Data Item Vitals"))
         categories.append(row1item)
         
-        let row2item = MeasurementItem(name: "Nutrition")
+        let row2item = MeasurementItem(name: NSLocalizedString("Nutrition", comment: "Name for Manage Data Item Nutrition"))
         categories.append(row2item)
         
-        let row3item = MeasurementItem(name: "Sleep")
+        let row3item = MeasurementItem(name: NSLocalizedString("Sleep", comment: "Name for Manage Data Item Sleep"))
         categories.append(row3item)
         
         super.init(coder: aDecoder)

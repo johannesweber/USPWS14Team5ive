@@ -58,12 +58,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         if ( email == "" || password == "" ) {
             
-            var alertView:UIAlertView = UIAlertView()
-            alertView.title = "Sign in Failed!"
-            alertView.message = "Please enter E - Mail Address and Password"
-            alertView.delegate = self
-            alertView.addButtonWithTitle("OK")
-            alertView.show()
+            showAlert( NSLocalizedString("Sign In Failed!", comment: "Title for Message sign in failed"),  NSLocalizedString("Please enter E - Mail Address and Password", comment: "Message if sign in failed"), self)
             
         } else {
             
@@ -106,7 +101,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                             
                         }
                         
-                        showAlert("Sign in Failed!", error_msg, self)
+                        showAlert( NSLocalizedString("Sign In Failed!", comment: "Title for Message sign in failed"),  NSLocalizedString("\(error_msg)", comment: "Message if sign in failed"), self)
 
                         
                     }

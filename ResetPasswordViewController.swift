@@ -30,9 +30,6 @@ class ResetPasswordViewController: UIViewController {
         var password = self.txtNewPassword.text
         var confirmPassword = self.txtConfirmNewPassword.text
         
-        println(password)
-        println(confirmPassword)
-        
         //why doesn't passwords match
         if email.isValidEmail() && password != "" {
             
@@ -51,30 +48,19 @@ class ResetPasswordViewController: UIViewController {
                         
                         if success == 1 {
                             
-                            var alertView:UIAlertView = UIAlertView()
-                            alertView.title = "Change Password Succesfull!"
-                            alertView.message = message
-                            alertView.delegate = self
-                            alertView.addButtonWithTitle("OK")
-                            alertView.show()
+                            showAlert( NSLocalizedString("Change Password Succesfull!", comment: "Title for Message if password was succesfully changed"),  NSLocalizedString("\(message)", comment: "Message if password succesfully changed"), self)
                         }
                 }
         
             } else {
-                var alertView:UIAlertView = UIAlertView()
-                alertView.title = "Change Password Failed!"
-                alertView.message = "Passwords don't Match."
-                alertView.delegate = self
-                alertView.addButtonWithTitle("OK")
-                alertView.show()
+                
+                showAlert( NSLocalizedString("Change Password Failed!", comment: "Title for Message if password change failed"),  NSLocalizedString("Passwords don't Match.", comment: "Message if password change failed"), self)
+
             }
         } else {
-            var alertView:UIAlertView = UIAlertView()
-            alertView.title = "Change Password Failed!"
-            alertView.message = "Please enter your E-Mail and/or Password"
-            alertView.delegate = self
-            alertView.addButtonWithTitle("OK")
-            alertView.show()
+            
+            showAlert( NSLocalizedString("Change Password Failed!", comment: "Title for Message if password change failed"),  NSLocalizedString("Please enter your E-Mail and/or Password", comment: "Message if password change failed"), self)
+            
         }
     }
     

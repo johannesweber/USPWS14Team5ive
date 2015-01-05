@@ -14,6 +14,7 @@ class MeasurementItem: TableItem {
     var date: String
     var unit: String
     var sliderLimit: Float
+    var favoriteCompany: String
 
     required init() {
     
@@ -21,11 +22,13 @@ class MeasurementItem: TableItem {
         self.date = String()
         self.unit = String()
         self.sliderLimit = Float()
+        self.favoriteCompany = String()
         
         super.init()
     }
     
-    required convenience init(name: String, nameInDatabase: String, value: Int, unit:String, date: String) {        
+    required convenience init(name: String, nameInDatabase: String, value: Int, unit:String, date: String) {
+        
         self.init()
         
         self.value = value

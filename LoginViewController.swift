@@ -17,10 +17,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     //IBOutlet
     @IBOutlet weak var txtMailAddress: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
-
+    
     //override functions    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
+        
         
         self.txtPassword.text = ""
         
@@ -43,6 +44,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         return true
     }
 
+    
+    
+    
+    
     @IBAction func continueWithoutLogin(sender: UIButton) {
         
     }
@@ -69,13 +74,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             
             Alamofire.request(.GET, "\(baseURL)/login", parameters: parameters)
                 .responseSwiftyJSON{ (request, response, json, error) in
-                    println(request)
-                    println(response)
-                    println(json)
                     
                     var success = json["success"].intValue
 
                     if(success == 1) {
+                        
                         
                         println("Login SUCCESS");
                         
@@ -102,12 +105,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                             error_msg = "Unknown Error"
                             
                         }
-                        var alertView:UIAlertView = UIAlertView()
-                        alertView.title = "Sign in Failed!"
-                        alertView.message = error_msg
-                        alertView.delegate = self
-                        alertView.addButtonWithTitle("OK")
-                        alertView.show()
+                        
+                        showAlert("Sign in Failed!", error_msg, self)
+
                         
                     }
             }

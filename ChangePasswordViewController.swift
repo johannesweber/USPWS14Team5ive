@@ -23,7 +23,7 @@ class ChangePasswordViewController: UIViewController {
         
         let parameters: Dictionary<String, String> = ["email" : "\(email)"]
         
-        Alamofire.request(.POST, "http://141.19.142.45/~johannes/focusedhealth/password/forgot/", parameters: parameters)
+        Alamofire.request(.POST, "\(baseURL)/password/forgot/", parameters: parameters)
             .responseSwiftyJSON { (request, response, json, error) in
                 println(request)
                 println(response)

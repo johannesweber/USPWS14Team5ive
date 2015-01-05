@@ -13,67 +13,60 @@ class CompaniesTableViewController: UITableViewController, AddCompanyTableViewCo
     //variables
     
     var companyItems: [TableItem]
+    var isSelected: TableItem
+    
+    //IBOutlets
+    @IBOutlet weak var syncButton: UIBarButtonItem!
+    
+    //IBActions
+    //IBActions
+    @IBAction func synchronize(){
+        
+        if isSelected.name != ""{
+            
+            self.doOAuthCompanyItem(isSelected)
+            
+        }else{
+            
+            println("asdfasdasf")
+            //messageLabel.text = "Please select a company to synchronize."
+            
+        }
+    }
     
     //initializers
     
     required init(coder aDecoder: NSCoder) {
     
         self.companyItems = [TableItem]()
-    
+        self.isSelected = TableItem()
         super.init(coder: aDecoder)
     }
-    
-    
-//    //methods to save data in the documents folder
-//    func documentsDirectory() -> String {
-//        let paths = NSSearchPathForDirectoriesInDomains(
-//        .DocumentDirectory, .UserDomainMask, true) as [String]
-//        return paths[0]
-//    }
-    
-//    func dataFilePath() -> String {
-//            return documentsDirectory().stringByAppendingPathComponent("UserCompanies.plist")
-//    }
-    
-//    func saveCompanyAccountItems() {
-//        let dataToSave = NSMutableData()
-//        let archiver = NSKeyedArchiver(forWritingWithMutableData: dataToSave)
-//        archiver.encodeObject(companyItems, forKey: "UserCompany")
-//        archiver.finishEncoding()
-//        dataToSave.writeToFile(dataFilePath(), atomically: true)
-//    }
-    
-    //function to load data
-    
-//    func loadCompanyItems() {
-//            // 1
-//            let path = dataFilePath()
-//            // 2
-//            if NSFileManager.defaultManager().fileExistsAtPath(path) {
-//            // 3
-//                if let data = NSData(contentsOfFile: path) {
-//                let unarchiver = NSKeyedUnarchiver(forReadingWithData: data)
-//                companyItems = unarchiver.decodeObjectForKey("UserCompany") as [TableItem]
-//                unarchiver.finishDecoding() }
-//            }
-//    }
-    
     //override methods
+    override func viewDidLoad() {
+        self.syncButton.enabled = false
+    }
     
-//    override func viewDidLoad() {
-//        loadCompanyItems()
-//    }
+    override func viewDidAppear(animated: Bool) {
+        self.syncButton.enabled = false
+    }
+    
+    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath?{
+        
+        self.isSelected = self.companyItems[indexPath.row]
+        self.syncButton.enabled = true
+        
+        return indexPath
+    }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return self.companyItems.count
     }
     
-    //places the TableItems in tableview rows
     
-    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-        return nil
-    }
+    
+    //places the TableItems in tableview rows
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
@@ -109,8 +102,6 @@ class CompaniesTableViewController: UITableViewController, AddCompanyTableViewCo
             controller.delegate = self
         }
     }
-
-    
     
     // Delegate Methods
     func addCompanyTableViewControllerDidCancel(controller: AddCompanyTableViewController) {
@@ -141,25 +132,29 @@ class CompaniesTableViewController: UITableViewController, AddCompanyTableViewCo
         
             self.dismissViewControllerAnimated(true, completion: nil)
         
-            switch item.name {
-                case "Withings":
-                    var withings = Withings()
-                    withings.doOAuth()
-                    break;
-                case "Medisana":
-                    var medisana = Medisana()
-                    medisana.doOAuth()
-                    break;
-                case "Fitbit":
-                    var fitbit = Fitbit()
-                    fitbit.doOAuth()
-                    break;
-                default:
-                    break;
-        }
+            self.doOAuthCompanyItem(item)
         
         }
         
-        //saveCompanyAccountItems()
+    }
+    
+    func doOAuthCompanyItem(item: TableItem){
+        
+        switch item.name {
+        case "Withings":
+            var withings = Withings()
+            withings.doOAuth()
+            break;
+        case "Medisana":
+            var medisana = Medisana()
+            medisana.doOAuth()
+            break;
+        case "Fitbit":
+            var fitbit = Fitbit()
+            fitbit.doOAuth()
+            break;
+        default:
+            break;
+        }
     }
 }

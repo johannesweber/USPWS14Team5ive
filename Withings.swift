@@ -25,7 +25,7 @@ class Withings {
     start the fitbit - oauth process and send received Credentials to Focused Health Server
     the server will receveive these credentials and store them in the focused health database
     */
-    func doOAuth(){
+    func doOAuth() {
         let oauthswift_withings = OAuth1Swift(
             consumerKey:    WithingsKey["consumerKey"]!,
             consumerSecret: WithingsKey["consumerSecret"]!,
@@ -33,6 +33,7 @@ class Withings {
             authorizeUrl:    "https://oauth.withings.com/account/authorize",
             accessTokenUrl:  "https://oauth.withings.com/account/access_token"
         )
+        
         oauthswift_withings.authorizeWithCallbackURL( NSURL(string: "oauth-callback://oauth-callback/withings")!, success: {
             credentials, response in
             

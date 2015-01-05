@@ -10,6 +10,7 @@ import Foundation
 
 import UIKit
 
+//NSUserDefaults stores userid, user email and wether user is logged in or not 
 public let prefs:NSUserDefaults = NSUserDefaults.standardUserDefaults()
 
 //Focused Health Design Color
@@ -25,5 +26,10 @@ public let PNGreyColor = UIColor(red: 186.0 / 255.0 , green: 186.0 / 255.0, blue
 public let PNLightGreyColor = UIColor(red: 246.0 / 255.0 , green: 246.0 / 255.0, blue: 246.0 / 255.0, alpha: 1)
 
 //Focused Health Server base Url
-
 public let baseURL = "https://anakin.informatik.hs-mannheim.de/uip1/~johannes/focusedhealth"
+
+//default Colors for Checkamrks in SetFavoriteCompanyViewController
+public let WithingsColor = UIColor(red: 237.0 / 255.0 , green: 59.0 / 255.0, blue: 123.0 / 255.0, alpha: 1)
+public let FitbitColor = UIColor(red: 50.0 / 255.0 , green: 50.0 / 255.0, blue: 50.0 / 255.0, alpha: 1)
+public let FocusedHealthColor = UIColor(red: 246.0 / 255.0 , green: 246.0 / 255.0, blue: 246.0 / 255.0, alpha: 1)
+public let MedisanaColor = UIColor(red: 0.0 / 255.0 , green: 121.0 / 255.0, blue: 68.0 / 255.0, alpha: 1)

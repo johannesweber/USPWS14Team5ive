@@ -70,11 +70,11 @@ class EditAccountTableViewController: UITableViewController {
         
         switch category {
 
-        case "Change E - Mail":
+        case NSLocalizedString("Change E - Mail Adress", comment: "Name for Setting change email adress in switch case statement"):
             self.performSegueWithIdentifier("goToEmail", sender: self)
-        case "Change - Password":
+        case NSLocalizedString("Change Password", comment: "Name for Setting change password in switch case statement"):
             self.performSegueWithIdentifier("goToPassword", sender: self)
-        case "Set Favorite Company":
+        case NSLocalizedString("Set Favorite Company", comment: "Name for Setting setfavorite company in switch case statement"):
             self.performSegueWithIdentifier("goToFavCompany", sender: self)
         default:
             println("default (check ViewController tableView)")

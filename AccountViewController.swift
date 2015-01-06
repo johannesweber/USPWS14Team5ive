@@ -7,15 +7,19 @@
 //
 
 import UIKit
+import CoreData
 
 class AccountViewController: UITableViewController {
+
+    //variables
     
-    var fitbit = Fitbit()
-    var medisana = Medisana()
-    var withings = Withings()
+    //variable for saving data into core data
+    var managedObjectContext: NSManagedObjectContext?
     
+    //IBOutlets
     @IBOutlet weak var txtUserMailAddress: UILabel!
     
+    //IBAction
     @IBAction func logoutTapped(sender: UIButton) {
         let appDomain = NSBundle.mainBundle().bundleIdentifier
         NSUserDefaults.standardUserDefaults().removePersistentDomainForName(appDomain!)
@@ -23,21 +27,7 @@ class AccountViewController: UITableViewController {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    @IBAction func authorizeFitbit(sender: UIButton) {
-
-        fitbit.doOAuth()
-    }
-    
-    @IBAction func authorizeWithings(sender: UIButton) {
-        
-        withings.doOAuth()
-    }
-    
-    @IBAction func authorizeMedisana(sender: AnyObject) {
-        
-        medisana.doOAuth()
-    }
-    
+    //override methods
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
@@ -55,6 +45,7 @@ class AccountViewController: UITableViewController {
         self.showCurrentUserMail()
     }
 
+    //methods
     func showCurrentUserMail(){
         var prefs:NSUserDefaults = NSUserDefaults.standardUserDefaults()
         if ((prefs.valueForKey("EMAIL")) != nil){

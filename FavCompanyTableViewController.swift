@@ -11,14 +11,14 @@ import UIKit
 class FavCompanyTableViewController: UITableViewController {
     
     //variables
-    var companies: [TableItem]
-    var companySelected: TableItem
+    var companies: [CompanyItem]
+    var companySelected: CompanyItem
     
     //Initializer
     required init(coder aDecoder: NSCoder) {
         
-        self.companies = [TableItem]()
-        self.companySelected = TableItem()
+        self.companies = [CompanyItem]()
+        self.companySelected = CompanyItem()
         
         super.init(coder: aDecoder)
     }

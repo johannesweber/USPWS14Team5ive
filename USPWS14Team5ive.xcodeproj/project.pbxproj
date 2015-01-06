@@ -16,6 +16,7 @@
 		0E3ADB701A2719690075F981 /* SignupInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3ADB6F1A2719690075F981 /* SignupInformationViewController.swift */; };
 		0E3ADB721A272AF90075F981 /* DashboardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3ADB711A272AF90075F981 /* DashboardTableViewController.swift */; };
 		0E3ADB741A273B790075F981 /* ManageDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3ADB731A273B790075F981 /* ManageDataViewController.swift */; };
+		0E3C4E161A5BFB6D006CB495 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0E3C4E141A5BFB6D006CB495 /* DataModel.xcdatamodeld */; };
 		0E47BE731A3A4E6500226527 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E47BE721A3A4E6500226527 /* ResetPasswordViewController.swift */; };
 		0E5673031A44914B0006969A /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5673021A44914B0006969A /* ArrayExtension.swift */; };
 		0E56AFB21A2C6B6F00778C01 /* GoalsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E56AFB11A2C6B6F00778C01 /* GoalsTableViewController.swift */; };
@@ -30,19 +31,18 @@
 		0E67D0051A5AB9090041AFC7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E67D0031A5AB9090041AFC7 /* Main.storyboard */; };
 		0E67D0081A5AB9960041AFC7 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E67D0061A5AB9960041AFC7 /* LaunchScreen.xib */; };
 		0E6B3F4D1A2CF60D002193B2 /* EditAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6B3F4C1A2CF60D002193B2 /* EditAccountViewController.swift */; };
-		0E6B3F561A2DAC31002193B2 /* CompaniesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6B3F551A2DAC31002193B2 /* CompaniesTableViewController.swift */; };
+		0E6B3F561A2DAC31002193B2 /* YourCompaniesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6B3F551A2DAC31002193B2 /* YourCompaniesTableViewController.swift */; };
 		0E6B3F581A2DACD9002193B2 /* ChangeEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6B3F571A2DACD9002193B2 /* ChangeEmailViewController.swift */; };
 		0E6B3F5A1A2DAD0A002193B2 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6B3F591A2DAD0A002193B2 /* ChangePasswordViewController.swift */; };
 		0E6B3F601A2DADF6002193B2 /* AddCompanyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6B3F5F1A2DADF6002193B2 /* AddCompanyTableViewController.swift */; };
 		0E6B3F631A2E4F29002193B2 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E6B3F621A2E4F29002193B2 /* background.png */; };
 		0E6B3F661A2E4F4A002193B2 /* LogoMitSchrift.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E6B3F641A2E4F4A002193B2 /* LogoMitSchrift.png */; };
 		0E6B3F671A2E4F4A002193B2 /* LogoOhneSchrift.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E6B3F651A2E4F4A002193B2 /* LogoOhneSchrift.png */; };
-		0E6D69281A3DA96F0053AF51 /* Withings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6D69271A3DA96F0053AF51 /* Withings.swift */; };
-		0E6D692A1A3DA97A0053AF51 /* Medisana.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6D69291A3DA97A0053AF51 /* Medisana.swift */; };
 		0E6D694E1A3DAA080053AF51 /* HTTPRequestSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6D694A1A3DAA080053AF51 /* HTTPRequestSerializer.swift */; };
 		0E6D694F1A3DAA080053AF51 /* HTTPResponseSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6D694B1A3DAA080053AF51 /* HTTPResponseSerializer.swift */; };
 		0E6D69501A3DAA080053AF51 /* HTTPTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6D694C1A3DAA080053AF51 /* HTTPTask.swift */; };
 		0E6D69511A3DAA080053AF51 /* HTTPUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6D694D1A3DAA080053AF51 /* HTTPUpload.swift */; };
+		0E6E8F091A5C665C0005D100 /* CompanyItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6E8F081A5C665C0005D100 /* CompanyItem.swift */; };
 		0E6F27401A2CF02D00F58A13 /* DiagramViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6F273F1A2CF02D00F58A13 /* DiagramViewController.swift */; };
 		0E7271501A34D03C00A25710 /* Weekday.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E72714F1A34D03C00A25710 /* Weekday.swift */; };
 		0E80CB3D1A5ABCF800CCCF12 /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E80CB3B1A5ABCF800CCCF12 /* LoadingCell.xib */; };
@@ -358,7 +358,6 @@
 		0E90AC671A56D8F80002D091 /* ManageDataDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E90AC661A56D8F80002D091 /* ManageDataDetailViewController.swift */; };
 		0E93F52D1A31D131003C08D9 /* OAuthSwiftClient_Vitadock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CEEE951A272B5400092BB7 /* OAuthSwiftClient_Vitadock.swift */; };
 		0E9FC1D11A347B270083BB92 /* Alamofire-SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9FC1D01A347B270083BB92 /* Alamofire-SwiftyJSON.swift */; };
-		0EB7717C1A339BFF00A1AB3D /* Fitbit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB7717B1A339BFF00A1AB3D /* Fitbit.swift */; };
 		0EF48BB21A324C6E00E7BC5D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF48BB11A324C6E00E7BC5D /* Constants.swift */; };
 		0EF48BB51A3259B600E7BC5D /* DotCALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF48BB41A3259B600E7BC5D /* DotCALayer.swift */; };
 		0EF48BB71A3259C500E7BC5D /* LineChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF48BB61A3259C500E7BC5D /* LineChart.swift */; };
@@ -476,6 +475,7 @@
 		0E3ADB6F1A2719690075F981 /* SignupInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupInformationViewController.swift; sourceTree = "<group>"; };
 		0E3ADB711A272AF90075F981 /* DashboardTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardTableViewController.swift; sourceTree = "<group>"; };
 		0E3ADB731A273B790075F981 /* ManageDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageDataViewController.swift; sourceTree = "<group>"; };
+		0E3C4E151A5BFB6D006CB495 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		0E46FFFE1A308BB1002686C3 /* USPWS14Team5ive-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "USPWS14Team5ive-Bridging-Header.h"; sourceTree = "<group>"; };
 		0E47BE721A3A4E6500226527 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		0E5673021A44914B0006969A /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
@@ -491,19 +491,19 @@
 		0E67D0041A5AB9090041AFC7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0E67D0071A5AB9960041AFC7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		0E6B3F4C1A2CF60D002193B2 /* EditAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAccountViewController.swift; sourceTree = "<group>"; };
-		0E6B3F551A2DAC31002193B2 /* CompaniesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompaniesTableViewController.swift; sourceTree = "<group>"; };
+		0E6B3F551A2DAC31002193B2 /* YourCompaniesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YourCompaniesTableViewController.swift; sourceTree = "<group>"; };
 		0E6B3F571A2DACD9002193B2 /* ChangeEmailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeEmailViewController.swift; sourceTree = "<group>"; };
 		0E6B3F591A2DAD0A002193B2 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		0E6B3F5F1A2DADF6002193B2 /* AddCompanyTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCompanyTableViewController.swift; sourceTree = "<group>"; };
 		0E6B3F621A2E4F29002193B2 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		0E6B3F641A2E4F4A002193B2 /* LogoMitSchrift.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LogoMitSchrift.png; sourceTree = "<group>"; };
 		0E6B3F651A2E4F4A002193B2 /* LogoOhneSchrift.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LogoOhneSchrift.png; sourceTree = "<group>"; };
-		0E6D69271A3DA96F0053AF51 /* Withings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Withings.swift; sourceTree = "<group>"; };
-		0E6D69291A3DA97A0053AF51 /* Medisana.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Medisana.swift; sourceTree = "<group>"; };
 		0E6D694A1A3DAA080053AF51 /* HTTPRequestSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPRequestSerializer.swift; sourceTree = "<group>"; };
 		0E6D694B1A3DAA080053AF51 /* HTTPResponseSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPResponseSerializer.swift; sourceTree = "<group>"; };
 		0E6D694C1A3DAA080053AF51 /* HTTPTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPTask.swift; sourceTree = "<group>"; };
 		0E6D694D1A3DAA080053AF51 /* HTTPUpload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPUpload.swift; sourceTree = "<group>"; };
+		0E6E8F071A5C51FF0005D100 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
+		0E6E8F081A5C665C0005D100 /* CompanyItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyItem.swift; sourceTree = "<group>"; };
 		0E6F273F1A2CF02D00F58A13 /* DiagramViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiagramViewController.swift; sourceTree = "<group>"; };
 		0E72714F1A34D03C00A25710 /* Weekday.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weekday.swift; sourceTree = "<group>"; };
 		0E80CB301A5ABC0000CCCF12 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
@@ -827,7 +827,6 @@
 		0E90AC661A56D8F80002D091 /* ManageDataDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageDataDetailViewController.swift; sourceTree = "<group>"; };
 		0E9FC1CF1A347B270083BB92 /* Alamofire-SwiftyJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Alamofire-SwiftyJSON.h"; sourceTree = "<group>"; };
 		0E9FC1D01A347B270083BB92 /* Alamofire-SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Alamofire-SwiftyJSON.swift"; sourceTree = "<group>"; };
-		0EB7717B1A339BFF00A1AB3D /* Fitbit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fitbit.swift; sourceTree = "<group>"; };
 		0EE268251A5ACA0F00A13FFF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
 		0EF48BB11A324C6E00E7BC5D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0EF48BB41A3259B600E7BC5D /* DotCALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DotCALayer.swift; sourceTree = "<group>"; };
@@ -905,6 +904,7 @@
 				0E1ADE861A2C852E00820ED2 /* TableItem.swift */,
 				0E6305311A46C6980031F179 /* GoalItem.swift */,
 				0E22C8B41A5716780085DBDE /* MeasurementItem.swift */,
+				0E6E8F081A5C665C0005D100 /* CompanyItem.swift */,
 			);
 			name = Item;
 			sourceTree = "<group>";
@@ -912,9 +912,6 @@
 		0E1ADE881A2C936700820ED2 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				0E6D69291A3DA97A0053AF51 /* Medisana.swift */,
-				0E6D69271A3DA96F0053AF51 /* Withings.swift */,
-				0EB7717B1A339BFF00A1AB3D /* Fitbit.swift */,
 				0EF48BB11A324C6E00E7BC5D /* Constants.swift */,
 				0E72714F1A34D03C00A25710 /* Weekday.swift */,
 				0E01D2201A419882008668A7 /* Date.swift */,
@@ -959,24 +956,24 @@
 			name = Login;
 			sourceTree = "<group>";
 		};
-		0E6B3F501A2DAA22002193B2 /* Account */ = {
+		0E6B3F501A2DAA22002193B2 /* About */ = {
 			isa = PBXGroup;
 			children = (
 				0E1ADE891A2CD07300820ED2 /* AboutTableViewController.swift */,
-				0E6B3F4C1A2CF60D002193B2 /* EditAccountViewController.swift */,
-				0E860F601A2B6FFB00A9F152 /* AccountViewController.swift */,
 				0E6B3F571A2DACD9002193B2 /* ChangeEmailViewController.swift */,
 				0E6B3F591A2DAD0A002193B2 /* ChangePasswordViewController.swift */,
 				A33B8A681A39B3460002F71A /* FavCompanyTableViewController.swift */,
 			);
-			name = Account;
+			name = About;
 			sourceTree = "<group>";
 		};
 		0E6B3F511A2DAA71002193B2 /* Account */ = {
 			isa = PBXGroup;
 			children = (
+				0E860F601A2B6FFB00A9F152 /* AccountViewController.swift */,
+				0E6B3F4C1A2CF60D002193B2 /* EditAccountViewController.swift */,
 				0EC007911A40D37400EEE258 /* Companies */,
-				0E6B3F501A2DAA22002193B2 /* Account */,
+				0E6B3F501A2DAA22002193B2 /* About */,
 			);
 			name = Account;
 			sourceTree = "<group>";
@@ -1333,11 +1330,11 @@
 		0E860F691A2C66D600A9F152 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				0E6B3F541A2DAB18002193B2 /* Dashboard */,
-				0E6B3F531A2DAAB2002193B2 /* Goals */,
-				0E6B3F521A2DAA91002193B2 /* Manage Data */,
-				0E6B3F511A2DAA71002193B2 /* Account */,
 				0E6161971A1F8AC8006E0AD7 /* Login */,
+				0E6B3F541A2DAB18002193B2 /* Dashboard */,
+				0E6B3F521A2DAA91002193B2 /* Manage Data */,
+				0E6B3F531A2DAAB2002193B2 /* Goals */,
+				0E6B3F511A2DAA71002193B2 /* Account */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1354,7 +1351,7 @@
 		0EC007911A40D37400EEE258 /* Companies */ = {
 			isa = PBXGroup;
 			children = (
-				0E6B3F551A2DAC31002193B2 /* CompaniesTableViewController.swift */,
+				0E6B3F551A2DAC31002193B2 /* YourCompaniesTableViewController.swift */,
 				0E6B3F5F1A2DADF6002193B2 /* AddCompanyTableViewController.swift */,
 			);
 			name = Companies;
@@ -1391,6 +1388,8 @@
 		0EFF3AB119FCD22C00AB3C17 = {
 			isa = PBXGroup;
 			children = (
+				0E6E8F071A5C51FF0005D100 /* MyPlayground.playground */,
+				0E3C4E141A5BFB6D006CB495 /* DataModel.xcdatamodeld */,
 				0E67CFFF1A5AB8100041AFC7 /* Images.xcassets */,
 				0E67CFF91A5AB7E90041AFC7 /* AppDelegate.swift */,
 				0E67D0031A5AB9090041AFC7 /* Main.storyboard */,
@@ -2070,16 +2069,16 @@
 				0E860F611A2B6FFB00A9F152 /* AccountViewController.swift in Sources */,
 				0E6305321A46C6980031F179 /* GoalItem.swift in Sources */,
 				0E6305361A46E7200031F179 /* AddGoalTableViewController.swift in Sources */,
+				0E6E8F091A5C665C0005D100 /* CompanyItem.swift in Sources */,
 				0EF48BB21A324C6E00E7BC5D /* Constants.swift in Sources */,
 				A33B8A691A39B3460002F71A /* FavCompanyTableViewController.swift in Sources */,
-				0E6B3F561A2DAC31002193B2 /* CompaniesTableViewController.swift in Sources */,
+				0E6B3F561A2DAC31002193B2 /* YourCompaniesTableViewController.swift in Sources */,
 				0E860F571A2B276C00A9F152 /* ForgotPasswordViewController.swift in Sources */,
 				0E3ADB721A272AF90075F981 /* DashboardTableViewController.swift in Sources */,
 				0EF48BB51A3259B600E7BC5D /* DotCALayer.swift in Sources */,
 				0E67D0021A5AB86B0041AFC7 /* HMACAlgorithm.swift in Sources */,
-				0E6D69281A3DA96F0053AF51 /* Withings.swift in Sources */,
-				0EB7717C1A339BFF00A1AB3D /* Fitbit.swift in Sources */,
 				0E90AC671A56D8F80002D091 /* ManageDataDetailViewController.swift in Sources */,
+				0E3C4E161A5BFB6D006CB495 /* DataModel.xcdatamodeld in Sources */,
 				0E860F591A2B2D6500A9F152 /* DisclaimerViewController.swift in Sources */,
 				0E860F5F1A2B3B3200A9F152 /* PrivacyPolicyViewController.swift in Sources */,
 				0E22C8BB1A5891E00085DBDE /* CreateValueTableViewController.swift in Sources */,
@@ -2090,7 +2089,6 @@
 				0E6F27401A2CF02D00F58A13 /* DiagramViewController.swift in Sources */,
 				0EF48BC21A3263A100E7BC5D /* PNBar.swift in Sources */,
 				0EF48BC51A3263A100E7BC5D /* PNChartDelegate.swift in Sources */,
-				0E6D692A1A3DA97A0053AF51 /* Medisana.swift in Sources */,
 				8382A3271A45B770007F4B50 /* ShowAlert.swift in Sources */,
 				0EFF3AFC19FCD4C400AB3C17 /* OAuthSwiftHTTPRequest.swift in Sources */,
 				0E1ADE871A2C852E00820ED2 /* TableItem.swift in Sources */,
@@ -2367,6 +2365,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		0E3C4E141A5BFB6D006CB495 /* DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				0E3C4E151A5BFB6D006CB495 /* DataModel.xcdatamodel */,
+			);
+			currentVersion = 0E3C4E151A5BFB6D006CB495 /* DataModel.xcdatamodel */;
+			path = DataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 0EFF3AB219FCD22C00AB3C17 /* Project object */;
 }

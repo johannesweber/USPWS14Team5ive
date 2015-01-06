@@ -7,24 +7,23 @@
 //
 
 import UIKit
-
+import CoreData
 import AlamoFire
 import SwiftyJSON
 
 class DashboardTableViewController: UITableViewController, AddToDashboardTableViewControllerDelegate {
     
     //variables
-    
-    var dashboardItems: [TableItem]
+    var dashboardItems: [MeasurementItem]
     var userId = prefs.integerForKey("USERID") as Int
     var isLoading = false
     var request: Alamofire.Request?
+    var managedObjectContext: NSManagedObjectContext?
     
     //initializers
-    
     required init(coder aDecoder: NSCoder) {
         
-        self.dashboardItems = [TableItem]()
+        self.dashboardItems = [MeasurementItem]()
         
         super.init(coder: aDecoder)
     }
@@ -35,7 +34,6 @@ class DashboardTableViewController: UITableViewController, AddToDashboardTableVi
     }
     
     //IBAction
-    
     @IBAction func refresh(sender: UIBarButtonItem) {
         
         self.isLoading = true
@@ -62,21 +60,19 @@ class DashboardTableViewController: UITableViewController, AddToDashboardTableVi
                 }
                 
                 if success == 1 {
-                    showAlert("Success!", message, self)
+                    showAlert(NSLocalizedString("Success!", comment: "Title for Message which appears if request successfully executed"), NSLocalizedString("\(message)", comment: "Message which appears if request successfully executed"), self)
                 }
                 
         }
     }
     
     //override methods
-    
     override func viewDidDisappear(animated: Bool) {
         self.request?.cancel()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.rowHeight = 80
         
         var cellNib = UINib(nibName: TableViewCellIdentifiers.loadingCell, bundle: nil)
         tableView.registerNib(cellNib, forCellReuseIdentifier: TableViewCellIdentifiers.loadingCell)
@@ -137,6 +133,8 @@ class DashboardTableViewController: UITableViewController, AddToDashboardTableVi
             let controller = navigationController.topViewController as AddToDashboardTableViewController
             
             controller.delegate = self
+            controller.managedObjectContext = managedObjectContext
+            
         }
     }
     
@@ -150,7 +148,7 @@ class DashboardTableViewController: UITableViewController, AddToDashboardTableVi
     
     //method to add new item to dashboard...the item is coming from AddToDashboardTableViewController
     
-    func addToDashboardViewController(controller: AddToDashboardTableViewController, didFinishAddingItem item: TableItem) {
+    func addToDashboardViewController(controller: AddToDashboardTableViewController, didFinishAddingItem item: MeasurementItem) {
         
         let newRowIndex = self.dashboardItems.count
         
@@ -175,7 +173,7 @@ class DashboardTableViewController: UITableViewController, AddToDashboardTableVi
         }
     }
     
-    func setValueForItem(item: TableItem) {
+    func setValueForItem(item: MeasurementItem) {
         
         //variables needed for request
         var date = Date()
@@ -201,9 +199,11 @@ class DashboardTableViewController: UITableViewController, AddToDashboardTableVi
                 var unit = json[0]["unit"].stringValue
                 var date = json[0]["DATE"].stringValue
                 
-                var text = "\(item.name): \(value) \(unit)"
+                item.value = value
+                item.unit = unit
+                item.date = date
                 
-                item.text = text
+                item.createTextForDashboard()
                 
                 dispatch_async(dispatch_get_main_queue(), {
                     self.tableView!.reloadData()

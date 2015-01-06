@@ -735,7 +735,7 @@ password, press the button below</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xYd-pA-j61" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="909" y="-1390"/>
+            <point key="canvasLocation" x="921" y="-1390"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="4vX-xB-BvX">
@@ -811,16 +811,26 @@ password, press the button below</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jDJ-I4-11Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="909" y="108"/>
+            <point key="canvasLocation" x="1" y="850"/>
         </scene>
         <!--Your Companies-->
         <scene sceneID="1nK-mA-zac">
             <objects>
-                <tableViewController id="Xhm-Iz-rks" customClass="CompaniesTableViewController" customModule="USPWS14Team5ive" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="Xhm-Iz-rks" customClass="YourCompaniesTableViewController" customModule="USPWS14Team5ive" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="fpa-Oz-oAU">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
+                        <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="0hl-4s-qFt">
+                            <rect key="frame" x="-23" y="-15" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Authorize again">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="authorize" destination="Xhm-Iz-rks" eventType="touchUpInside" id="owk-QG-gvB"/>
+                            </connections>
+                        </button>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CompanyItem" id="sfc-pg-TH7">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -844,11 +854,6 @@ password, press the button below</string>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Your Companies" id="NVe-rr-GsA">
-                        <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="jrK-nH-Sdd">
-                            <connections>
-                                <action selector="synchronize" destination="Xhm-Iz-rks" id="ivf-li-93J"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Jwt-UF-X2e">
                             <connections>
                                 <segue destination="tr7-oR-uhq" kind="presentation" identifier="goToAddCompany" id="CZu-Ml-6qg"/>
@@ -856,7 +861,7 @@ password, press the button below</string>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="syncButton" destination="jrK-nH-Sdd" id="o3K-aO-Ioc"/>
+                        <outlet property="authButton" destination="0hl-4s-qFt" id="A6R-Ec-fxY"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gqd-09-qxk" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1068,11 +1073,14 @@ password, press the button below</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="favoriteItem" id="aJx-qr-jLK">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FavoriteCompanyItem" id="aJx-qr-jLK">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aJx-qr-jLK" id="1FS-2O-Zlc">
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="wlc-Bh-h4z" kind="show" identifier="goToCompanyMeasurement" id="eqg-gn-Z2l"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <sections/>
@@ -1097,6 +1105,32 @@ password, press the button below</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D6y-aR-Yaw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3788" y="-628"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="evh-eF-sxS">
+            <objects>
+                <tableViewController id="wlc-Bh-h4z" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="6CJ-X9-rtu">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MeasurementItem" id="yml-tX-Qde">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yml-tX-Qde" id="t5j-T3-hn3">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="wlc-Bh-h4z" id="fmu-RI-ed9"/>
+                            <outlet property="delegate" destination="wlc-Bh-h4z" id="4sv-ip-Mc3"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MTt-Sx-3el" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4562" y="-628"/>
         </scene>
         <!--About-->
         <scene sceneID="U8C-To-8TJ">
@@ -1192,7 +1226,7 @@ password, press the button below</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1P0-Zz-2vt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="909" y="-621"/>
+            <point key="canvasLocation" x="921" y="-628"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="YNs-7X-4RH">
@@ -1966,7 +2000,7 @@ password, press the button below</string>
         <!--Tab Bar Controller-->
         <scene sceneID="VdJ-ns-kDJ">
             <objects>
-                <tabBarController id="NzR-Ld-IZf" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarController" id="NzR-Ld-IZf" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="7dP-7y-jir">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
@@ -1982,7 +2016,7 @@ password, press the button below</string>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GmW-so-5qN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1327.5" y="-2974.6478873239435"/>
+            <point key="canvasLocation" x="-1328" y="-3068"/>
         </scene>
         <!--Manage Data-->
         <scene sceneID="KfB-Ra-Trl">
@@ -2237,8 +2271,8 @@ password, press the button below</string>
         <image name="text-list.png" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="iRw-2N-Jrf"/>
         <segue reference="9Os-9A-MGO"/>
         <segue reference="fXr-1p-nXI"/>
+        <segue reference="iRw-2N-Jrf"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -18,7 +18,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var txtMailAddress: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
     
-    //override functions    
+    //override functions
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
         

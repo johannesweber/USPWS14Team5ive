@@ -10,7 +10,8 @@ import Foundation
 
 class MeasurementItem: TableItem {
     
-    var value: Int
+    var group: String
+    var value: Double
     var date: String
     var unit: String
     var sliderLimit: Float
@@ -18,7 +19,8 @@ class MeasurementItem: TableItem {
 
     required init() {
     
-        self.value = Int()
+        self.group = String()
+        self.value = Double()
         self.date = String()
         self.unit = String()
         self.sliderLimit = Float()
@@ -27,7 +29,16 @@ class MeasurementItem: TableItem {
         super.init()
     }
     
-    required convenience init(name: String, nameInDatabase: String, value: Int, unit:String, date: String) {
+    required convenience init(name: String, nameInDatabase: String, group: String) {
+        
+        self.init()
+        
+        self.name = name
+        self.nameInDatabase = nameInDatabase
+        self.group = group
+    }
+    
+    required convenience init(name: String, nameInDatabase: String, value: Double, unit:String, date: String) {
         
         self.init()
         
@@ -37,5 +48,10 @@ class MeasurementItem: TableItem {
         self.name = name
         self.nameInDatabase = nameInDatabase
         
+    }
+    
+    func createTextForDashboard() {
+        
+        self.text = "\(self.name): \(self.value) \(self.unit)"
     }
 }

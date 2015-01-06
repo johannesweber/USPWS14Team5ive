@@ -7,15 +7,60 @@
 //
 
 import UIKit
+import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
+    //variable for initializing core data
+    lazy var managedObjectContext: NSManagedObjectContext = {
+        if let modelURL = NSBundle.mainBundle().URLForResource("DataModel", withExtension: "momd") {
+            if let model = NSManagedObjectModel(contentsOfURL: modelURL) {
+                let coordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
+                
+                let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+                let documentsDirectory = urls[0] as NSURL
+                let storeURL = documentsDirectory.URLByAppendingPathComponent("DataStore.sqlite")
+                var error: NSError?
+                if let store = coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: storeURL, options: nil, error: &error) {
+                    let context = NSManagedObjectContext()
+                    context.persistentStoreCoordinator = coordinator
+                    return context
+                    
+                } else {
+                    println(
+                        "Error adding persistent store at \(storeURL): \(error!)")
+                }
+            } else {
+                println("Error initializing model from: \(modelURL)")
+            }
+        } else {
+            println("Could not find data model in app bundle")
+        }
+
+        abort()
+    }()
+
     
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        customizeAppearance()
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
+        
+        self.customizeAppearance()
+        
+        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let tabBarController = mainStoryboard.instantiateViewControllerWithIdentifier("TabBarController") as UITabBarController
+        
+            if let tabBarViewControllers = tabBarController.viewControllers {
+        
+            let navigationViewController = tabBarViewControllers[3] as UINavigationController
+            
+            let accountViewController = navigationViewController.topViewController as AccountViewController
+            
+            accountViewController.managedObjectContext = self.managedObjectContext
+
+            }
         
         return true
     }
@@ -55,12 +100,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 
                 var resetPasswordViewController = mainStoryboard.instantiateViewControllerWithIdentifier("ResetPasswordViewController") as ResetPasswordViewController
-                
-                //TODO how to create and display an navigation controller
-                var rootViewController = self.window!.rootViewController as? UINavigationController
-                
-                window?.rootViewController = nil
-                window?.rootViewController = resetPasswordViewController
+        
                 window?.makeKeyAndVisible()
                 return true
             }
@@ -69,7 +109,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
-    
+
+    //methods
     func customizeAppearance() {
         UINavigationBar.appearance().barTintColor = FHBlueColor
         

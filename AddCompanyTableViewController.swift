@@ -11,7 +11,7 @@ import UIKit
 protocol AddCompanyTableViewControllerDelegate: class {
     
     func addCompanyTableViewControllerDidCancel(controller: AddCompanyTableViewController)
-    func addCompanyTableViewController(controller: AddCompanyTableViewController, didFinishAddingItem item: TableItem)
+    func addCompanyTableViewController(controller: AddCompanyTableViewController, didFinishAddingItem item: CompanyItem)
 }
 
 class AddCompanyTableViewController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate {
@@ -19,8 +19,8 @@ class AddCompanyTableViewController: UITableViewController, UIPickerViewDataSour
         //Variables
         
         var companyPickerVisible = false
-        var company: [TableItem]
-        var companySelected = String()
+        var company: [CompanyItem]
+        var companySelected: CompanyItem
         
         weak var delegate: AddCompanyTableViewControllerDelegate?
         
@@ -28,15 +28,16 @@ class AddCompanyTableViewController: UITableViewController, UIPickerViewDataSour
         
         required init(coder aDecoder: NSCoder) {
             
-            self.company = [TableItem]()
+            self.company = [CompanyItem]()
+            self.companySelected = CompanyItem()
             
-            let row0item = TableItem(name: "Fitbit", nameInDatabase: "fitbit")
+            let row0item = CompanyItem(name: "Fitbit", nameInDatabase: "fitbit")
             self.company.append(row0item)
             
-            let row1item = TableItem(name: "Medisana", nameInDatabase: "medisana")
+            let row1item = CompanyItem(name: "Medisana", nameInDatabase: "medisana")
             self.company.append(row1item)
             
-            let row2item = TableItem(name: "Withings", nameInDatabase: "withings")
+            let row2item = CompanyItem(name: "Withings", nameInDatabase: "withings")
             self.company.append(row2item)
             
             super.init(coder: aDecoder)
@@ -57,11 +58,7 @@ class AddCompanyTableViewController: UITableViewController, UIPickerViewDataSour
         //TODO disable done button if no company is added
         @IBAction func add(sender: UIBarButtonItem) {
             
-            println(self.companySelected)
-            
-            let newTableItem = TableItem(name: self.companySelected)
-            
-            self.delegate?.addCompanyTableViewController(self, didFinishAddingItem: newTableItem)
+            self.delegate?.addCompanyTableViewController(self, didFinishAddingItem: self.companySelected)
             
         }
         
@@ -116,7 +113,7 @@ class AddCompanyTableViewController: UITableViewController, UIPickerViewDataSour
         
         func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
                         
-            self.companySelected = self.company[row].name
+            self.companySelected = self.company[row]
             self.addBarButton.enabled = true
         }
         

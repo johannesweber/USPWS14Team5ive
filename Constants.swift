@@ -33,3 +33,25 @@ public let WithingsColor = UIColor(red: 237.0 / 255.0 , green: 59.0 / 255.0, blu
 public let FitbitColor = UIColor(red: 50.0 / 255.0 , green: 50.0 / 255.0, blue: 50.0 / 255.0, alpha: 1)
 public let FocusedHealthColor = UIColor(red: 246.0 / 255.0 , green: 246.0 / 255.0, blue: 246.0 / 255.0, alpha: 1)
 public let MedisanaColor = UIColor(red: 0.0 / 255.0 , green: 121.0 / 255.0, blue: 68.0 / 255.0, alpha: 1)
+
+//oauth consumer key and secret for each company supported
+public let MedisanaKey =
+
+[
+    "consumerKey": "K98ZeXLehlgJDXxdA22Ygp5ix8GPiBczjiabohrA5kBCrcVZeErb42MpTvTT1ZpD",
+    "consumerSecret": "LLwnjU3LMtSzdLDfm11imRkja12sY1SF7S5M7tiCL0yaaeEkyiGMEojXqCojE0Sh"
+]
+
+public let WithingsKey =
+[
+    "consumerKey": "0b1de1b1e2473372f5e8e30d0f13e38f9b20c84320cf8243517e73c0c084",
+    "consumerSecret": "cdb631b4102893076d6feb038fd5fe7fd28431b998881d5c001307cece802"
+]
+
+public let FitbitKey = [
+    
+    "consumerKey"       : "7c39abf127964bc984aba4020845ff11",
+    "consumerSecret"    : "18c4a92f21f1458e8ac9798567d3d38c"
+]
+
+

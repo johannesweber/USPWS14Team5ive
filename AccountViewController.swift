@@ -10,11 +10,9 @@ import UIKit
 import CoreData
 
 class AccountViewController: UITableViewController {
-
-    //variables
     
     //variable for saving data into core data
-    var managedObjectContext: NSManagedObjectContext?
+    var managedObjectContext: NSManagedObjectContext!
     
     //IBOutlets
     @IBOutlet weak var txtUserMailAddress: UILabel!
@@ -28,6 +26,18 @@ class AccountViewController: UITableViewController {
     }
     
     //override methods
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if segue.identifier == "goToCompany" {
+            
+            let yourCompaniesViewController = segue.destinationViewController as YourCompaniesTableViewController
+            
+            yourCompaniesViewController.managedObjectContext = self.managedObjectContext
+            
+        }
+    }
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)

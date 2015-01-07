@@ -11,41 +11,46 @@ import Alamofire
 import SwiftyJSON
 import CoreData
 
-class YourCompaniesTableViewController: UITableViewController, AddCompanyTableViewControllerDelegate {
+class YourCompaniesTableViewController: UITableViewController {
     
     //variables
-    var companyItems: [CompanyItem]
-    var isSelected: CompanyItem
-    var userId = prefs.integerForKey("USERID") as Int
+    var companyItems = [Company]()
+    var isSelected = Company()
+    var userId = prefs.integerForKey("USERID") as Int    
+    
+    //variable for saving data into core data
+    var managedObjectContext: NSManagedObjectContext!
     
     //IBOutlets
     @IBOutlet weak var authButton: UIButton!
 
     //IBActions
     @IBAction func authorize(){
-        
-        if isSelected.name != ""{
             
-            self.doOAuthCompanyItem(isSelected)
-            
-        }
+        self.doOAuthCompanyItem(isSelected.name)
     }
     
-    //initializers
-    
-    required init(coder aDecoder: NSCoder) {
-    
-        self.companyItems = [CompanyItem]()
-        self.isSelected = CompanyItem()
-        super.init(coder: aDecoder)
-    }
     //override methods
     override func viewDidLoad() {
         self.authButton.enabled = false
+        
+        self.fetchCompaniesFromCoreData()
     }
     
     override func viewDidAppear(animated: Bool) {
         self.authButton.enabled = false
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if segue.identifier == "goToAddCompany" {
+            
+            let navigationController = segue.destinationViewController as UINavigationController
+            
+            let addCompanyViewController = navigationController.viewControllers[0] as AddCompanyTableViewController
+            
+            addCompanyViewController.managedObjectContext = self.managedObjectContext
+        }
     }
     
     override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath?{
@@ -64,7 +69,6 @@ class YourCompaniesTableViewController: UITableViewController, AddCompanyTableVi
     
     
     //places the TableItems in tableview rows
-    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("CompanyItem") as UITableViewCell
@@ -86,54 +90,6 @@ class YourCompaniesTableViewController: UITableViewController, AddCompanyTableVi
         let indexPaths = [indexPath]
         tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
 
-    }
-    
-    //sets the delegate for AddToDashboardtableViewController
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        if segue.identifier == "goToAddCompany" {
-            
-            let navigationController = segue.destinationViewController as UINavigationController
-            let controller = navigationController.topViewController as AddCompanyTableViewController
-            
-            controller.delegate = self
-        }
-    }
-    
-    // Delegate Methods
-    func addCompanyTableViewControllerDidCancel(controller: AddCompanyTableViewController) {
-        
-        self.dismissViewControllerAnimated(true, completion: nil)
-        
-    }
-    
-    func addCompanyTableViewController(controller: AddCompanyTableViewController, didFinishAddingItem item: CompanyItem) {
-        let newRowIndex = self.companyItems.count
-        
-        let indexPath = NSIndexPath(forRow: newRowIndex, inSection: 0)
-        let indexPaths = [indexPath]
-        
-        if companyItems.contains(item){
-        
-            println("FOUND")
-        
-            
-            showAlert( NSLocalizedString("Company already added.", comment: "Title for Message if company was already added"),  NSLocalizedString("The chosen company has already been added to your list. The action can't be executed.", comment: "Message if company was already added"), self)
-            
-        } else {
-        
-            println("NOT FOUND")
-        
-            self.companyItems.append(item)
-        
-            self.tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
-        
-            self.dismissViewControllerAnimated(true, completion: nil)
-        
-            self.doOAuthCompanyItem(item)
-        
-        }
-        
     }
     
     //methods
@@ -256,9 +212,9 @@ class YourCompaniesTableViewController: UITableViewController, AddCompanyTableVi
     }
 
     
-    func doOAuthCompanyItem(item: CompanyItem){
+    func doOAuthCompanyItem(companyName: String){
         
-        switch item.name {
+        switch companyName {
             
         case "Withings":
             self.doOAuthWithings()
@@ -269,5 +225,27 @@ class YourCompaniesTableViewController: UITableViewController, AddCompanyTableVi
         default:
             println("Company not found")
         }
+    }
+    
+    func fetchCompaniesFromCoreData(){
+        
+        let fetchRequest = NSFetchRequest()
+        
+        let entity = NSEntityDescription.entityForName("Company",inManagedObjectContext: self.managedObjectContext)
+        fetchRequest.entity = entity
+       
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+
+        var error: NSError?
+        let foundObjects = managedObjectContext.executeFetchRequest(fetchRequest, error: &error)
+        
+        if foundObjects == nil {
+            
+            fatalCoreDataError(error)
+            return
+        }
+
+        self.companyItems = foundObjects as [Company]
     }
 }

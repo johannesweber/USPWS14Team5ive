@@ -7,12 +7,7 @@
 //
 
 import UIKit
-
-protocol AddCompanyTableViewControllerDelegate: class {
-    
-    func addCompanyTableViewControllerDidCancel(controller: AddCompanyTableViewController)
-    func addCompanyTableViewController(controller: AddCompanyTableViewController, didFinishAddingItem item: CompanyItem)
-}
+import CoreData
 
 class AddCompanyTableViewController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate {
         
@@ -21,45 +16,45 @@ class AddCompanyTableViewController: UITableViewController, UIPickerViewDataSour
         var companyPickerVisible = false
         var company: [CompanyItem]
         var companySelected: CompanyItem
-        
-        weak var delegate: AddCompanyTableViewControllerDelegate?
-        
+    
+        //variable for saving data into core data
+        var managedObjectContext: NSManagedObjectContext!
+    
         //initializer
-        
         required init(coder aDecoder: NSCoder) {
             
             self.company = [CompanyItem]()
             self.companySelected = CompanyItem()
             
-            let row0item = CompanyItem(name: "Fitbit", nameInDatabase: "fitbit")
-            self.company.append(row0item)
+            let fitbit = CompanyItem(name: "Fitbit", nameInDatabase: "fitbit")
+            self.company.append(fitbit)
             
-            let row1item = CompanyItem(name: "Medisana", nameInDatabase: "medisana")
-            self.company.append(row1item)
+            let medisana = CompanyItem(name: "Medisana", nameInDatabase: "medisana")
+            self.company.append(medisana)
             
-            let row2item = CompanyItem(name: "Withings", nameInDatabase: "withings")
-            self.company.append(row2item)
+            let withings = CompanyItem(name: "Withings", nameInDatabase: "withings")
+            self.company.append(withings)
             
             super.init(coder: aDecoder)
         }
         
         //IBOutlet
-        
         @IBOutlet weak var cancelBarButton: UIBarButtonItem!
         @IBOutlet weak var addBarButton: UIBarButtonItem!
         
         //IBAction
-        
         @IBAction func cancel(sender: UIBarButtonItem) {
             
-            self.delegate?.addCompanyTableViewControllerDidCancel(self)
+            self.dismissViewControllerAnimated(true, completion: nil)
         }
         
         //TODO disable done button if no company is added
         @IBAction func add(sender: UIBarButtonItem) {
             
-            self.delegate?.addCompanyTableViewController(self, didFinishAddingItem: self.companySelected)
+            self.saveObjectToDatabase(self.companySelected)
             
+            self.dismissViewControllerAnimated(true, completion: nil)
+    
         }
         
         //methods
@@ -189,11 +184,11 @@ class AddCompanyTableViewController: UITableViewController, UIPickerViewDataSour
             
                 if !self.companyPickerVisible {
                     
-                    showCompanyPicker()
+                    self.showCompanyPicker()
                     
                 } else {
                     
-                    hideCompanyPicker()
+                    self.hideCompanyPicker()
                 }
             }
         }
@@ -220,5 +215,104 @@ class AddCompanyTableViewController: UITableViewController, UIPickerViewDataSour
                 
             return super.tableView(tableView, indentationLevelForRowAtIndexPath: indexPath)
         }
+    
+    func assignMeasurementsToCompany(company: CompanyItem) {
+        
+        switch company.name {
+            
+        case "Fitbit": self.createFitbitMeasurements(company)
+        case "Withings": self.createWithingsMeasurements()
+        case "Medisana": self.createMedisanaMeasurements()
+        default: println("company not known")
+            
+        }
+        
+    }
+    
+    func createFitbitMeasurements(companyItem: CompanyItem) {
+        
+        var steps = MeasurementItem(name: NSLocalizedString("Steps", comment: "Name for Measurement Item Steps"), nameInDatabase: "steps", group: "Fitness")
+        
+        var duration = MeasurementItem(name: NSLocalizedString("Duration", comment: "Name for Measurement Item Duration"), nameInDatabase: "duration", group: "Fitness")
+        
+        var distance = MeasurementItem(name: NSLocalizedString("Distance", comment: "Name for Measurement Item Distance"), nameInDatabase: "distance", group: "Fitness")
+        
+        var caloriesBurned = MeasurementItem(name: NSLocalizedString("Calories Burned", comment: "Name for Measurement Item Calories Burned"), nameInDatabase: "caloriesOut", group: "Fitness")
+        
+        var elevation = MeasurementItem(name: NSLocalizedString("Elevation", comment: "Name for Measurement Item Elevation"), nameInDatabase: "elevation", group: "Fitness")
+        
+        var floors = MeasurementItem(name: NSLocalizedString("Floors", comment: "Name for Measurement Item Floors"), nameInDatabase: "floors", group: "Fitness")
+        
+        var bodyWeight = MeasurementItem(name: NSLocalizedString("Body Weight", comment: "Name for Measurement Item Body Weight"), nameInDatabase: "weight", group: "Vitals")
+        
+        var bodyHeight = MeasurementItem(name: NSLocalizedString("Body Height", comment: "Name for Measurement Item Body Height"), nameInDatabase: "height", group: "Vitals")
+        
+        var bmi = MeasurementItem(name: NSLocalizedString("BMI", comment: "Name for Measurement Item BMI"), nameInDatabase: "bmi", group: "Vitals")
+        
+        var bodyFat = MeasurementItem(name: NSLocalizedString("Body Fat", comment: "Name for Measurement Item Body Fat"), nameInDatabase: "bodyFat", group: "Vitals")
+        
+        var food = MeasurementItem(name: NSLocalizedString("Food", comment: "Name for Measurement Item Food"), nameInDatabase: "food", group: "Nutrition")
+        
+        var water = MeasurementItem(name: NSLocalizedString("Water", comment: "Name for Measurement Item Water"), nameInDatabase: "water", group: "Nutrition")
+        
+        var caloriesEaten = MeasurementItem(name: NSLocalizedString("Calories Eaten", comment: "Name for Measurement Item Calories Eaten"), nameInDatabase: "caloriesIn", group: "Nutrition")
+        
+        //TODO What to display in group sleep
+        var sleepAnalysis = MeasurementItem(name: NSLocalizedString("Sleep Analysis", comment: "Name for Measurement Item Sleep Analysis"), nameInDatabase: "sleep", group: "Sleep")
+        
+        
+        companyItem.measurements.append(steps)
+        
+        companyItem.measurements.append(duration)
+        
+        companyItem.measurements.append(distance)
+        
+        companyItem.measurements.append(caloriesBurned)
+        
+        companyItem.measurements.append(elevation)
+        
+        companyItem.measurements.append(floors)
+        
+        companyItem.measurements.append(bodyWeight)
+        
+        companyItem.measurements.append(bodyHeight)
+        
+        companyItem.measurements.append(bmi)
+        
+        companyItem.measurements.append(bodyFat)
+        
+        companyItem.measurements.append(food)
+        
+        companyItem.measurements.append(water)
+        
+        companyItem.measurements.append(caloriesEaten)
+        
+    }
+    
+    func createWithingsMeasurements() {
+        
+    }
+    
+    func createMedisanaMeasurements() {
+        
+    }
+
+    
+    func saveObjectToDatabase(companyItem: CompanyItem){
+        
+        let company = NSEntityDescription.insertNewObjectForEntityForName("Company", inManagedObjectContext: self.managedObjectContext) as Company
+        
+        company.name = companyItem.name
+        company.nameInDatabase = companyItem.nameInDatabase
+        company.color = companyItem.color
+        company.checked = companyItem.checked
+        company.measurements = companyItem.measurements
+        
+        var error: NSError?
+        if !self.managedObjectContext.save(&error) {
+            fatalCoreDataError(error)
+            return
+        }
+    }
 
 }

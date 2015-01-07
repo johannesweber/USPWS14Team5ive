@@ -71,14 +71,6 @@ class DashboardTableViewController: UITableViewController, AddToDashboardTableVi
         self.request?.cancel()
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        var cellNib = UINib(nibName: TableViewCellIdentifiers.loadingCell, bundle: nil)
-        tableView.registerNib(cellNib, forCellReuseIdentifier: TableViewCellIdentifiers.loadingCell)
-        
-    }
-    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if self.isLoading {

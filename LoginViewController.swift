@@ -26,7 +26,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.txtPassword.text = ""
         
         let isLoggedIn:Int = prefs.integerForKey("ISLOGGEDIN") as Int
+        
         if (isLoggedIn == 1) {
+            
             self.performSegueWithIdentifier("goToDashboard", sender: self)
         }
         

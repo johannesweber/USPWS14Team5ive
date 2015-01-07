@@ -116,6 +116,16 @@
         
     }
     
+    override func viewDidAppear(animated: Bool) {
+        
+        let isLoggedIn:Int = prefs.integerForKey("ISLOGGEDIN") as Int
+        
+        if (isLoggedIn == 1) {
+            
+            self.performSegueWithIdentifier("goToLogin", sender: self)
+        }
+    }
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         if indexPath.section == 0 && indexPath.row == 1 {

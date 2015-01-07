@@ -45,7 +45,7 @@
 "4hk-dl-LrS.title" = "Police privée ";
 
 /* Class = "IBUILabel"; text = "First Time visiting us?"; ObjectID = "5Iv-rU-68S"; */
-"5Iv-rU-68S.text" = "Est ce votre premiere visite sur notre page internet?";
+"5Iv-rU-68S.text" = "Etes vous nouveau ici?";
 
 /* Class = "IBUITabBarItem"; title = "Manage Data"; ObjectID = "5tc-v3-HbD"; */
 "5tc-v3-HbD.title" = "Gestion des données";

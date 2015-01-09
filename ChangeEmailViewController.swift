@@ -12,6 +12,11 @@ import SwiftyJSON
 
 class ChangeEmailViewController: UIViewController, UITextFieldDelegate {
     
+    //variables
+    var userId = prefs.integerForKey("USERID") as Int
+    var currentEmail = prefs.valueForKey("EMAIL") as String
+    var newEmail =  String()
+    
     @IBOutlet weak var changeMailButton: UIButton!
     
     @IBOutlet weak var txtCurrentEmail: UITextField!
@@ -55,20 +60,27 @@ class ChangeEmailViewController: UIViewController, UITextFieldDelegate {
         * 7. send validation/activation email (PHP)
         * 8. show confirmation message
         */
-        var currentEmail = prefs.valueForKey("EMAIL") as String
-        var newEmail: String
-        
-        
+
         //set the new email and save it in a dictionary
-        newEmail = txtNewEmail.text
-        let sendNewEmail: Dictionary<String, AnyObject> = [
-            "email" : "\(newEmail)"
+        self.newEmail = txtNewEmail.text
+        let parameters: Dictionary<String, AnyObject> = [
+            "userId": "\(userId)",
+            "newEmail" : "\(newEmail)"
         ]
         
         //send changerequest to server and change the email in the database
-        Alamofire.request(.GET, "\(baseURL)/", parameters: sendNewEmail).responseSwiftyJSON{(request,response,json,error) in
+        Alamofire.request(.GET, "\(baseURL)/email/change", parameters: parameters)
+            .responseSwiftyJSON{(request,response,json,error) in
         
-            showAlert(NSLocalizedString("Password Succesfully Changed", comment: "Title for Message if password change was successfull"),  NSLocalizedString("Please see your Inbox for further Instructions", comment: "Message if password change was successfull"), self)
+                println(request)
+                
+                var success = json["success"].intValue
+                
+                if success == 1 {
+                    showAlert(NSLocalizedString("", comment: "Success!"),  NSLocalizedString("E - Mail Succesfully Changed", comment: "Message if email change was successfull"), self)
+                }
+                
+
          }
         
         //set the new email in the local userdata

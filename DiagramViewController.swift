@@ -19,7 +19,7 @@ class DiagramViewController: UIViewController, LineChartDelegate, ManageDataDeta
     var dayLabel: UILabel
     var userId: Int
     var limit: Int
-    var currentMeasurement: MeasurementItem
+    var currentMeasurement: Measurement
     var currentDate: String
     
     required init(coder aDecoder: NSCoder) {
@@ -29,7 +29,7 @@ class DiagramViewController: UIViewController, LineChartDelegate, ManageDataDeta
         self.dayLabel = UILabel()
         self.userId = prefs.integerForKey("USERID") as Int
         self.limit = 1
-        self.currentMeasurement = MeasurementItem()
+        self.currentMeasurement = Measurement()
         var date = Date()
         self.currentDate = date.getCurrentDateAsString()
         
@@ -63,10 +63,10 @@ class DiagramViewController: UIViewController, LineChartDelegate, ManageDataDeta
             
             self.lineChart!.removeFromSuperview()
             self.lineChartLabel.removeFromSuperview()
-            
+
             self.tableView.reloadData()
             
-            self.dayLabel.text = NSLocalizedString("Test Test Test 123", comment: "Text for Day Label")
+            self.fetchValueForDayTab()
         }
 
     }
@@ -90,6 +90,8 @@ class DiagramViewController: UIViewController, LineChartDelegate, ManageDataDeta
         self.lineChart!.setTranslatesAutoresizingMaskIntoConstraints(true)
         
         self.title = self.currentMeasurement.name
+        
+        self.fetchValueForDayTab()
     }
     
     override func viewWillLayoutSubviews() {
@@ -134,7 +136,7 @@ class DiagramViewController: UIViewController, LineChartDelegate, ManageDataDeta
     }
     
     // manage data detail view controller delegate methods
-    func manageDataDetailViewController(controller: ManageDataDetailViewController, didSelectItem item: MeasurementItem) {
+    func manageDataDetailViewController(controller: ManageDataDetailViewController, didSelectItem item: Measurement) {
         
         self.currentMeasurement = item
     }
@@ -204,24 +206,36 @@ class DiagramViewController: UIViewController, LineChartDelegate, ManageDataDeta
 
     }
     
-//    func convertClickedSegmentIntoString(clickedSegment: Int) -> String {
-//        
-//        var clickedSegment = clickedSegment
-//        var segmentString = String()
-//        
-//        switch clickedSegment {
-//            
-//        case 0: segmentString = "Day"
-//        case 1: segmentString = "Week"
-//        case 2: segmentString = "Month"
-//        case 3: segmentString = "Year"
-//        default: segmentString = "no segment clicked"
-//            
-//        }
-//        
-//        return segmentString
-//        
-//    }
+    //this method gets the value for the day tag in the segmented bar
+    func fetchValueForDayTab() {
+        
+        var company = "fitbit"
+        
+        var parameters: Dictionary<String, AnyObject> = [
+            
+            "measurement"   : "\(self.currentMeasurement.nameInDatabase)",
+            "userId"        : "\(self.userId)",
+            "limit"         : "\(self.limit)",
+            "endDate"       : "\(self.currentDate)"
+        ]
+        
+        Alamofire.request(.GET, "\(baseURL)/\(company)/time_series/", parameters: parameters)
+            .responseSwiftyJSON { (request, response, json, error) in
+                
+                var value = json[0]["value"].doubleValue
+                var unit = json[0]["unit"].stringValue
+                var date = json[0]["date"].stringValue
+                var onWord = NSLocalizedString("on", comment: "word for better reading if user clicked on day segment")
+                
+                var text = "\(value) \(unit) \(onWord) \(date)"
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    
+                    self.dayLabel.text = text
+                    
+                }
+        }
+    }
     
     func convertClickedSegmentIntoLimit(clickedSegment: Int) -> Int {
         

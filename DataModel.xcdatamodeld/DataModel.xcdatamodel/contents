@@ -1,14 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6735" systemVersion="14B25" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14B25" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Company" representedClassName="USPWS14Team5ive.Company" syncable="YES">
         <attribute name="checked" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="color" optional="YES" attributeType="Transformable" syncable="YES"/>
-        <attribute name="measurements" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="nameInDatabase" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="Goal" representedClassName="USPWS14Team5ive.Goal" syncable="YES">
+        <attribute name="company" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="period" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="progressValue" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="sliderLimit" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="startdate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="unit" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="value" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <entity name="Measurement" representedClassName="USPWS14Team5ive.Measurement" syncable="YES">
+        <attribute name="checked" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="favoriteCompany" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="groupname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="groupnameInGerman" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nameInDatabase" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sliderLimit" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="unit" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="value" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="Company" positionX="214" positionY="-213" width="128" height="135"/>
+        <element name="Company" positionX="151" positionY="90" width="128" height="103"/>
+        <element name="Goal" positionX="781" positionY="336" width="128" height="150"/>
+        <element name="Measurement" positionX="376" positionY="72" width="128" height="210"/>
     </elements>
 </model>

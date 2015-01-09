@@ -11,33 +11,23 @@ import CoreData
 
 class AccountViewController: UITableViewController {
     
-    //variable for saving data into core data
-    var managedObjectContext: NSManagedObjectContext!
-    
     //IBOutlets
     @IBOutlet weak var txtUserMailAddress: UILabel!
     
     //IBAction
     @IBAction func logoutTapped(sender: UIButton) {
+            
         let appDomain = NSBundle.mainBundle().bundleIdentifier
         NSUserDefaults.standardUserDefaults().removePersistentDomainForName(appDomain!)
+        
+        //sets key FIRSTTIMELOGIN to NO
+        prefs.setObject("NO", forKey: "FIRSTTIMELOGIN")
+        prefs.synchronize()
         
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     //override methods
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        if segue.identifier == "goToCompany" {
-            
-            let yourCompaniesViewController = segue.destinationViewController as YourCompaniesTableViewController
-            
-            yourCompaniesViewController.managedObjectContext = self.managedObjectContext
-            
-        }
-    }
-    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
@@ -56,8 +46,8 @@ class AccountViewController: UITableViewController {
     }
 
     //methods
+    //shows mail from currently logged in user
     func showCurrentUserMail(){
-        var prefs:NSUserDefaults = NSUserDefaults.standardUserDefaults()
         if ((prefs.valueForKey("EMAIL")) != nil){
             var mailAddress:String = prefs.valueForKey("EMAIL") as String
             self.txtUserMailAddress.text = mailAddress

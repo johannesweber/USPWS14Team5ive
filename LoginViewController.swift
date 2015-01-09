@@ -72,10 +72,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             Alamofire.request(.GET, "\(baseURL)/login", parameters: parameters)
                 .responseSwiftyJSON{ (request, response, json, error) in
                     
+                    println(request)
+                    println(response)
+                    println(json)
+                    
                     var success = json["success"].intValue
 
                     if(success == 1) {
-                        
                         
                         println("Login SUCCESS");
                         
@@ -84,6 +87,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                         prefs.setObject(email, forKey: "EMAIL")
                         prefs.setInteger(success, forKey: "ISLOGGEDIN")
                         prefs.setInteger(userId, forKey: "USERID")
+                        
+                        if self.isFirstLogin() {
+                            prefs.setObject("YES", forKey: "FIRSTTIMELOGIN")
+                        }
+
                         
                         prefs.synchronize()
                         
@@ -96,7 +104,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                         if json["error_message"].string != nil {
                             
                             error_msg = json["error_message"].string!
-                            
+                           
                         } else {
                             
                             error_msg = "Unknown Error"
@@ -105,10 +113,22 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                         
                         showAlert( NSLocalizedString("Sign In Failed!", comment: "Title for Message sign in failed"),  NSLocalizedString("\(error_msg)", comment: "Message if sign in failed"), self)
 
-                        
                     }
             }
             
         }
+    }
+    
+    //returns true if the user has logged in for the first time
+    func isFirstLogin() ->Bool {
+        
+        var firstTimer = false
+        
+        if prefs.stringForKey("FIRSTTIMELOGIN") == nil {
+            println("Du bist zum ersten mal hier")
+            firstTimer = true
+        }
+        
+        return firstTimer
     }
 }

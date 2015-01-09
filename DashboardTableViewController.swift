@@ -8,7 +8,7 @@
 
 import UIKit
 import CoreData
-import AlamoFire
+import Alamofire
 import SwiftyJSON
 
 class DashboardTableViewController: UITableViewController, AddToDashboardTableViewControllerDelegate {
@@ -18,7 +18,6 @@ class DashboardTableViewController: UITableViewController, AddToDashboardTableVi
     var userId = prefs.integerForKey("USERID") as Int
     var isLoading = false
     var request: Alamofire.Request?
-    var managedObjectContext: NSManagedObjectContext?
     
     //initializers
     required init(coder aDecoder: NSCoder) {
@@ -67,6 +66,13 @@ class DashboardTableViewController: UITableViewController, AddToDashboardTableVi
     }
     
     //override methods
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        var cellNib = UINib(nibName: TableViewCellIdentifiers.loadingCell, bundle: nil)
+        tableView.registerNib(cellNib, forCellReuseIdentifier: TableViewCellIdentifiers.loadingCell)
+    }
+    
     override func viewDidDisappear(animated: Bool) {
         self.request?.cancel()
     }
@@ -125,8 +131,6 @@ class DashboardTableViewController: UITableViewController, AddToDashboardTableVi
             let controller = navigationController.topViewController as AddToDashboardTableViewController
             
             controller.delegate = self
-            controller.managedObjectContext = managedObjectContext
-            
         }
     }
     

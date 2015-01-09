@@ -43,6 +43,14 @@ class ManageDataViewController: UITableViewController {
 
     
     
+    //override methods
+    override func viewDidLoad() {
+        super.viewDidLoad()
+//        //this method fetches the measurement from the current user from focused health database an stores them into core data
+//        fetchMeasurementsFromUser()
+    }
+    
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return categories.count

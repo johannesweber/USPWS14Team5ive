@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6221" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="NzR-Ld-IZf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="eUJ-EL-HVc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6213"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -149,6 +149,7 @@
                     <connections>
                         <outlet property="txtMailAddress" destination="rib-Jv-pLp" id="GRu-Vr-mNy"/>
                         <outlet property="txtPassword" destination="xt8-IJ-2WU" id="g5C-Q2-eJS"/>
+                        <segue destination="NzR-Ld-IZf" kind="presentation" identifier="goToDashboard" id="hpq-FX-Mak"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D4m-lp-EpR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -658,7 +659,7 @@ password, press the button below</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Your Companies" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Qp-wv-NpL">
-                                                    <rect key="frame" x="8" y="11" width="127" height="21"/>
+                                                    <rect key="frame" x="8" y="12" width="551" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -734,7 +735,7 @@ password, press the button below</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xYd-pA-j61" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="921" y="-1390"/>
+            <point key="canvasLocation" x="921" y="-1391"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="4vX-xB-BvX">
@@ -806,6 +807,7 @@ password, press the button below</string>
                     <connections>
                         <outlet property="addBarButton" destination="vpZ-4K-vw9" id="VTn-0I-8Ol"/>
                         <outlet property="cancelBarButton" destination="gB6-uO-FR6" id="uUL-hH-Amx"/>
+                        <outlet property="companyDetailLabel" destination="bVt-r2-wJW" id="Rx5-yI-dd2"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jDJ-I4-11Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1172,7 +1174,7 @@ password, press the button below</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Terms of Use" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7mr-7l-Dex">
-                                                    <rect key="frame" x="8" y="11" width="101" height="21"/>
+                                                    <rect key="frame" x="8" y="12" width="551" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1189,7 +1191,7 @@ password, press the button below</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Privacy Policy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YGE-3h-8r7">
-                                                    <rect key="frame" x="8" y="11" width="108" height="21"/>
+                                                    <rect key="frame" x="8" y="12" width="551" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1206,7 +1208,7 @@ password, press the button below</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Disclaimer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YhM-gn-ZbE">
-                                                    <rect key="frame" x="8" y="11" width="81" height="21"/>
+                                                    <rect key="frame" x="8" y="12" width="551" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1225,7 +1227,7 @@ password, press the button below</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1P0-Zz-2vt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="921" y="-628"/>
+            <point key="canvasLocation" x="921" y="-631"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="YNs-7X-4RH">

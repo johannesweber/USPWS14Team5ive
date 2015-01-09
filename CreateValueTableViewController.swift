@@ -14,7 +14,7 @@ class CreateValueTableViewController: UITableViewController, CompanyTableViewCon
 
 
     //variables
-    var currentMeasurement: MeasurementItem
+    var currentMeasurement: Measurement
     var date: NSDate
     var datePickerVisible: Bool
     var userId = prefs.integerForKey("USERID") as Int
@@ -23,7 +23,7 @@ class CreateValueTableViewController: UITableViewController, CompanyTableViewCon
     //init
     required init(coder aDecoder: NSCoder) {
         
-        self.currentMeasurement = MeasurementItem()
+        self.currentMeasurement = Measurement()
         self.date = NSDate()
         self.datePickerVisible = false
         self.companySelected = TableItem()
@@ -92,7 +92,7 @@ class CreateValueTableViewController: UITableViewController, CompanyTableViewCon
         
         self.saveBarButton.enabled = false
         self.title = NSLocalizedString("Create \(self.currentMeasurement.name)", comment: "Title for Create Value Screen")
-        self.valueSlider.maximumValue = self.currentMeasurement.sliderLimit
+        self.valueSlider.maximumValue = Float(self.currentMeasurement.sliderLimit)
         self.unitLabel.text = currentMeasurement.unit
     }
     

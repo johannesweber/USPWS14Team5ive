@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0E01D2211A419882008668A7 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E01D2201A419882008668A7 /* Date.swift */; };
+		0E150AE61A60766E005E2BA4 /* NSLocale+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E150AE51A60766E005E2BA4 /* NSLocale+.swift */; };
 		0E1ADE871A2C852E00820ED2 /* TableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1ADE861A2C852E00820ED2 /* TableItem.swift */; };
 		0E1ADE8A1A2CD07300820ED2 /* AboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1ADE891A2CD07300820ED2 /* AboutTableViewController.swift */; };
 		0E22C8B51A5716780085DBDE /* MeasurementItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E22C8B41A5716780085DBDE /* MeasurementItem.swift */; };
@@ -18,13 +19,14 @@
 		0E3ADB741A273B790075F981 /* ManageDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3ADB731A273B790075F981 /* ManageDataViewController.swift */; };
 		0E3C4E161A5BFB6D006CB495 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0E3C4E141A5BFB6D006CB495 /* DataModel.xcdatamodeld */; };
 		0E47BE731A3A4E6500226527 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E47BE721A3A4E6500226527 /* ResetPasswordViewController.swift */; };
-		0E5673031A44914B0006969A /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5673021A44914B0006969A /* ArrayExtension.swift */; };
+		0E5673031A44914B0006969A /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5673021A44914B0006969A /* Array+.swift */; };
 		0E56AFB21A2C6B6F00778C01 /* GoalsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E56AFB11A2C6B6F00778C01 /* GoalsTableViewController.swift */; };
 		0E61618B1A1E48B4006E0AD7 /* OAuth1Swift_Vitadock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E61618A1A1E48B4006E0AD7 /* OAuth1Swift_Vitadock.swift */; };
 		0E6305321A46C6980031F179 /* GoalItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6305311A46C6980031F179 /* GoalItem.swift */; };
 		0E6305341A46DAAF0031F179 /* CreateGoalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6305331A46DAAF0031F179 /* CreateGoalTableViewController.swift */; };
 		0E6305361A46E7200031F179 /* AddGoalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6305351A46E7200031F179 /* AddGoalTableViewController.swift */; };
 		0E6305381A4735A30031F179 /* PeriodTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6305371A4735A30031F179 /* PeriodTableViewController.swift */; };
+		0E636F9A1A5F40360048C128 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E636F991A5F40360048C128 /* Company.swift */; };
 		0E67CFFA1A5AB7E90041AFC7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E67CFF91A5AB7E90041AFC7 /* AppDelegate.swift */; };
 		0E67D0001A5AB8100041AFC7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E67CFFF1A5AB8100041AFC7 /* Images.xcassets */; };
 		0E67D0021A5AB86B0041AFC7 /* HMACAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E67D0011A5AB86B0041AFC7 /* HMACAlgorithm.swift */; };
@@ -44,7 +46,6 @@
 		0E6D69511A3DAA080053AF51 /* HTTPUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6D694D1A3DAA080053AF51 /* HTTPUpload.swift */; };
 		0E6E8F091A5C665C0005D100 /* CompanyItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6E8F081A5C665C0005D100 /* CompanyItem.swift */; };
 		0E6F27401A2CF02D00F58A13 /* DiagramViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6F273F1A2CF02D00F58A13 /* DiagramViewController.swift */; };
-		0E7271501A34D03C00A25710 /* Weekday.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E72714F1A34D03C00A25710 /* Weekday.swift */; };
 		0E80CB3D1A5ABCF800CCCF12 /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E80CB3B1A5ABCF800CCCF12 /* LoadingCell.xib */; };
 		0E818FAE1A2511AD000B9DA6 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E818FAD1A2511AD000B9DA6 /* SignupViewController.swift */; };
 		0E818FB01A25131B000B9DA6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E818FAF1A25131B000B9DA6 /* LoginViewController.swift */; };
@@ -358,9 +359,10 @@
 		0E90AC671A56D8F80002D091 /* ManageDataDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E90AC661A56D8F80002D091 /* ManageDataDetailViewController.swift */; };
 		0E93F52D1A31D131003C08D9 /* OAuthSwiftClient_Vitadock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CEEE951A272B5400092BB7 /* OAuthSwiftClient_Vitadock.swift */; };
 		0E9FC1D11A347B270083BB92 /* Alamofire-SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9FC1D01A347B270083BB92 /* Alamofire-SwiftyJSON.swift */; };
-		0EA7CCE91A5D7DA6003FA82F /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA7CCE81A5D7DA6003FA82F /* Company.swift */; };
-		0EA7CCEB1A5D7F27003FA82F /* AfterDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA7CCEA1A5D7F27003FA82F /* AfterDelay.swift */; };
 		0EA7CCFD1A5D8193003FA82F /* SwiftyJSON.framework in Copy Framework */ = {isa = PBXBuildFile; fileRef = 0EA7CCF41A5D8175003FA82F /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0EF117291A5F293500E9768F /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF117281A5F293500E9768F /* Functions.swift */; };
+		0EF1172B1A5F2E7500E9768F /* CreateMeasurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF1172A1A5F2E7500E9768F /* CreateMeasurement.swift */; };
+		0EF1172F1A5F33F500E9768F /* Measurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF1172E1A5F33F500E9768F /* Measurement.swift */; };
 		0EF48BB21A324C6E00E7BC5D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF48BB11A324C6E00E7BC5D /* Constants.swift */; };
 		0EF48BB51A3259B600E7BC5D /* DotCALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF48BB41A3259B600E7BC5D /* DotCALayer.swift */; };
 		0EF48BB71A3259C500E7BC5D /* LineChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF48BB61A3259C500E7BC5D /* LineChart.swift */; };
@@ -381,7 +383,6 @@
 		0EFF3AFA19FCD4C400AB3C17 /* OAuthSwiftClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3AF119FCD4C400AB3C17 /* OAuthSwiftClient.swift */; };
 		0EFF3AFB19FCD4C400AB3C17 /* OAuthSwiftCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3AF219FCD4C400AB3C17 /* OAuthSwiftCredential.swift */; };
 		0EFF3AFC19FCD4C400AB3C17 /* OAuthSwiftHTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3AF319FCD4C400AB3C17 /* OAuthSwiftHTTPRequest.swift */; };
-		8382A3271A45B770007F4B50 /* ShowAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8382A3261A45B770007F4B50 /* ShowAlert.swift */; };
 		A33B8A691A39B3460002F71A /* FavCompanyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33B8A681A39B3460002F71A /* FavCompanyTableViewController.swift */; };
 		A3E31B451A3EE711009CD4C8 /* Alamofire.framework in Copy Framework */ = {isa = PBXBuildFile; fileRef = A3E31B2E1A3EE6A6009CD4C8 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -469,6 +470,7 @@
 
 /* Begin PBXFileReference section */
 		0E01D2201A419882008668A7 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		0E150AE51A60766E005E2BA4 /* NSLocale+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSLocale+.swift"; sourceTree = "<group>"; };
 		0E1ADE861A2C852E00820ED2 /* TableItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableItem.swift; sourceTree = "<group>"; };
 		0E1ADE891A2CD07300820ED2 /* AboutTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutTableViewController.swift; sourceTree = "<group>"; };
 		0E22C8B41A5716780085DBDE /* MeasurementItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeasurementItem.swift; sourceTree = "<group>"; };
@@ -480,13 +482,14 @@
 		0E3C4E151A5BFB6D006CB495 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		0E46FFFE1A308BB1002686C3 /* USPWS14Team5ive-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "USPWS14Team5ive-Bridging-Header.h"; sourceTree = "<group>"; };
 		0E47BE721A3A4E6500226527 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
-		0E5673021A44914B0006969A /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
+		0E5673021A44914B0006969A /* Array+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		0E56AFB11A2C6B6F00778C01 /* GoalsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalsTableViewController.swift; sourceTree = "<group>"; };
 		0E61618A1A1E48B4006E0AD7 /* OAuth1Swift_Vitadock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth1Swift_Vitadock.swift; sourceTree = "<group>"; };
 		0E6305311A46C6980031F179 /* GoalItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalItem.swift; sourceTree = "<group>"; };
 		0E6305331A46DAAF0031F179 /* CreateGoalTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateGoalTableViewController.swift; sourceTree = "<group>"; };
 		0E6305351A46E7200031F179 /* AddGoalTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddGoalTableViewController.swift; sourceTree = "<group>"; };
 		0E6305371A4735A30031F179 /* PeriodTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeriodTableViewController.swift; sourceTree = "<group>"; };
+		0E636F991A5F40360048C128 /* Company.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
 		0E67CFF91A5AB7E90041AFC7 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0E67CFFF1A5AB8100041AFC7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		0E67D0011A5AB86B0041AFC7 /* HMACAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HMACAlgorithm.swift; sourceTree = "<group>"; };
@@ -504,10 +507,8 @@
 		0E6D694B1A3DAA080053AF51 /* HTTPResponseSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPResponseSerializer.swift; sourceTree = "<group>"; };
 		0E6D694C1A3DAA080053AF51 /* HTTPTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPTask.swift; sourceTree = "<group>"; };
 		0E6D694D1A3DAA080053AF51 /* HTTPUpload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPUpload.swift; sourceTree = "<group>"; };
-		0E6E8F071A5C51FF0005D100 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		0E6E8F081A5C665C0005D100 /* CompanyItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyItem.swift; sourceTree = "<group>"; };
 		0E6F273F1A2CF02D00F58A13 /* DiagramViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiagramViewController.swift; sourceTree = "<group>"; };
-		0E72714F1A34D03C00A25710 /* Weekday.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weekday.swift; sourceTree = "<group>"; };
 		0E80CB301A5ABC0000CCCF12 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
 		0E80CB321A5ABC1600CCCF12 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		0E80CB341A5ABC4000CCCF12 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
@@ -829,10 +830,11 @@
 		0E90AC661A56D8F80002D091 /* ManageDataDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageDataDetailViewController.swift; sourceTree = "<group>"; };
 		0E9FC1CF1A347B270083BB92 /* Alamofire-SwiftyJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Alamofire-SwiftyJSON.h"; sourceTree = "<group>"; };
 		0E9FC1D01A347B270083BB92 /* Alamofire-SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Alamofire-SwiftyJSON.swift"; sourceTree = "<group>"; };
-		0EA7CCE81A5D7DA6003FA82F /* Company.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
-		0EA7CCEA1A5D7F27003FA82F /* AfterDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AfterDelay.swift; sourceTree = "<group>"; };
 		0EA7CCEC1A5D8175003FA82F /* SwiftyJSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftyJSON.xcodeproj; path = "../../../Downloads/SwiftyJSON-master/SwiftyJSON.xcodeproj"; sourceTree = "<group>"; };
 		0EE268251A5ACA0F00A13FFF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
+		0EF117281A5F293500E9768F /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
+		0EF1172A1A5F2E7500E9768F /* CreateMeasurement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateMeasurement.swift; sourceTree = "<group>"; };
+		0EF1172E1A5F33F500E9768F /* Measurement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Measurement.swift; sourceTree = "<group>"; };
 		0EF48BB11A324C6E00E7BC5D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0EF48BB41A3259B600E7BC5D /* DotCALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DotCALayer.swift; sourceTree = "<group>"; };
 		0EF48BB61A3259C500E7BC5D /* LineChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineChart.swift; sourceTree = "<group>"; };
@@ -857,7 +859,6 @@
 		0EFF3AF119FCD4C400AB3C17 /* OAuthSwiftClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthSwiftClient.swift; sourceTree = "<group>"; };
 		0EFF3AF219FCD4C400AB3C17 /* OAuthSwiftCredential.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthSwiftCredential.swift; sourceTree = "<group>"; };
 		0EFF3AF319FCD4C400AB3C17 /* OAuthSwiftHTTPRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthSwiftHTTPRequest.swift; sourceTree = "<group>"; };
-		8382A3261A45B770007F4B50 /* ShowAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowAlert.swift; sourceTree = "<group>"; };
 		83CEEE951A272B5400092BB7 /* OAuthSwiftClient_Vitadock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthSwiftClient_Vitadock.swift; sourceTree = "<group>"; };
 		A33B8A681A39B3460002F71A /* FavCompanyTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavCompanyTableViewController.swift; sourceTree = "<group>"; };
 		A3E31B281A3EE6A6009CD4C8 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
@@ -918,10 +919,9 @@
 			isa = PBXGroup;
 			children = (
 				0EF48BB11A324C6E00E7BC5D /* Constants.swift */,
-				0E72714F1A34D03C00A25710 /* Weekday.swift */,
 				0E01D2201A419882008668A7 /* Date.swift */,
-				8382A3261A45B770007F4B50 /* ShowAlert.swift */,
-				0EA7CCEA1A5D7F27003FA82F /* AfterDelay.swift */,
+				0EF117281A5F293500E9768F /* Functions.swift */,
+				0EF1172A1A5F2E7500E9768F /* CreateMeasurement.swift */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -966,9 +966,6 @@
 			isa = PBXGroup;
 			children = (
 				0E1ADE891A2CD07300820ED2 /* AboutTableViewController.swift */,
-				0E6B3F571A2DACD9002193B2 /* ChangeEmailViewController.swift */,
-				0E6B3F591A2DAD0A002193B2 /* ChangePasswordViewController.swift */,
-				A33B8A681A39B3460002F71A /* FavCompanyTableViewController.swift */,
 			);
 			name = About;
 			sourceTree = "<group>";
@@ -976,6 +973,9 @@
 		0E6B3F511A2DAA71002193B2 /* Account */ = {
 			isa = PBXGroup;
 			children = (
+				A33B8A681A39B3460002F71A /* FavCompanyTableViewController.swift */,
+				0E6B3F591A2DAD0A002193B2 /* ChangePasswordViewController.swift */,
+				0E6B3F571A2DACD9002193B2 /* ChangeEmailViewController.swift */,
 				0E860F601A2B6FFB00A9F152 /* AccountViewController.swift */,
 				0E6B3F4C1A2CF60D002193B2 /* EditAccountViewController.swift */,
 				0EC007911A40D37400EEE258 /* Companies */,
@@ -1357,7 +1357,8 @@
 		0EA7CCE41A5D7D68003FA82F /* coreDataItem */ = {
 			isa = PBXGroup;
 			children = (
-				0EA7CCE81A5D7DA6003FA82F /* Company.swift */,
+				0E636F991A5F40360048C128 /* Company.swift */,
+				0EF1172E1A5F33F500E9768F /* Measurement.swift */,
 			);
 			name = coreDataItem;
 			sourceTree = "<group>";
@@ -1413,7 +1414,6 @@
 		0EFF3AB119FCD22C00AB3C17 = {
 			isa = PBXGroup;
 			children = (
-				0E6E8F071A5C51FF0005D100 /* MyPlayground.playground */,
 				0E3C4E141A5BFB6D006CB495 /* DataModel.xcdatamodeld */,
 				0E67CFFF1A5AB8100041AFC7 /* Images.xcassets */,
 				0E67CFF91A5AB7E90041AFC7 /* AppDelegate.swift */,
@@ -1497,7 +1497,8 @@
 				0EFF3AE919FCD4C400AB3C17 /* Dictionary+OAuthSwift.swift */,
 				0EFF3AEA19FCD4C400AB3C17 /* NSURL+OAuthSwift.swift */,
 				0EFF3AEB19FCD4C400AB3C17 /* String+OAuthSwift.swift */,
-				0E5673021A44914B0006969A /* ArrayExtension.swift */,
+				0E5673021A44914B0006969A /* Array+.swift */,
+				0E150AE51A60766E005E2BA4 /* NSLocale+.swift */,
 			);
 			name = Extension;
 			path = Oauth/extension;
@@ -2064,6 +2065,7 @@
 				0E860F5B1A2B309400A9F152 /* TermsOfUseViewController.swift in Sources */,
 				0E47BE731A3A4E6500226527 /* ResetPasswordViewController.swift in Sources */,
 				0E818FB01A25131B000B9DA6 /* LoginViewController.swift in Sources */,
+				0EF1172B1A5F2E7500E9768F /* CreateMeasurement.swift in Sources */,
 				0E6B3F601A2DADF6002193B2 /* AddCompanyTableViewController.swift in Sources */,
 				0E1ADE8A1A2CD07300820ED2 /* AboutTableViewController.swift in Sources */,
 				0EFF3AF419FCD4C400AB3C17 /* Dictionary+OAuthSwift.swift in Sources */,
@@ -2078,9 +2080,11 @@
 				0E61618B1A1E48B4006E0AD7 /* OAuth1Swift_Vitadock.swift in Sources */,
 				0E6D69511A3DAA080053AF51 /* HTTPUpload.swift in Sources */,
 				0EF48BC91A3263A100E7BC5D /* PNValue.swift in Sources */,
+				0E636F9A1A5F40360048C128 /* Company.swift in Sources */,
 				0E01D2211A419882008668A7 /* Date.swift in Sources */,
 				0E860F631A2B809F00A9F152 /* AddToDashboardTableViewController.swift in Sources */,
 				0E860F611A2B6FFB00A9F152 /* AccountViewController.swift in Sources */,
+				0E150AE61A60766E005E2BA4 /* NSLocale+.swift in Sources */,
 				0E6305321A46C6980031F179 /* GoalItem.swift in Sources */,
 				0E6305361A46E7200031F179 /* AddGoalTableViewController.swift in Sources */,
 				0E6E8F091A5C665C0005D100 /* CompanyItem.swift in Sources */,
@@ -2098,20 +2102,19 @@
 				0E22C8BB1A5891E00085DBDE /* CreateValueTableViewController.swift in Sources */,
 				0EF48BB71A3259C500E7BC5D /* LineChart.swift in Sources */,
 				0E6B3F4D1A2CF60D002193B2 /* EditAccountViewController.swift in Sources */,
-				0EA7CCEB1A5D7F27003FA82F /* AfterDelay.swift in Sources */,
 				0EF48BC71A3263A100E7BC5D /* PNLineChart.swift in Sources */,
 				0E22C8C11A58921B0085DBDE /* CompanyTableViewController.swift in Sources */,
 				0E6F27401A2CF02D00F58A13 /* DiagramViewController.swift in Sources */,
 				0EF48BC21A3263A100E7BC5D /* PNBar.swift in Sources */,
+				0EF1172F1A5F33F500E9768F /* Measurement.swift in Sources */,
 				0EF48BC51A3263A100E7BC5D /* PNChartDelegate.swift in Sources */,
-				8382A3271A45B770007F4B50 /* ShowAlert.swift in Sources */,
 				0EFF3AFC19FCD4C400AB3C17 /* OAuthSwiftHTTPRequest.swift in Sources */,
 				0E1ADE871A2C852E00820ED2 /* TableItem.swift in Sources */,
 				0E3ADB701A2719690075F981 /* SignupInformationViewController.swift in Sources */,
+				0EF117291A5F293500E9768F /* Functions.swift in Sources */,
 				0E9FC1D11A347B270083BB92 /* Alamofire-SwiftyJSON.swift in Sources */,
 				0EFF3AF519FCD4C400AB3C17 /* NSURL+OAuthSwift.swift in Sources */,
 				0E6D694F1A3DAA080053AF51 /* HTTPResponseSerializer.swift in Sources */,
-				0E7271501A34D03C00A25710 /* Weekday.swift in Sources */,
 				0E6B3F5A1A2DAD0A002193B2 /* ChangePasswordViewController.swift in Sources */,
 				0EF48BC31A3263A100E7BC5D /* PNBarChart.swift in Sources */,
 				0E6B3F581A2DACD9002193B2 /* ChangeEmailViewController.swift in Sources */,
@@ -2120,8 +2123,7 @@
 				0EFF3AF919FCD4C400AB3C17 /* OAuth2Swift.swift in Sources */,
 				0E3ADB741A273B790075F981 /* ManageDataViewController.swift in Sources */,
 				0E6D694E1A3DAA080053AF51 /* HTTPRequestSerializer.swift in Sources */,
-				0E5673031A44914B0006969A /* ArrayExtension.swift in Sources */,
-				0EA7CCE91A5D7DA6003FA82F /* Company.swift in Sources */,
+				0E5673031A44914B0006969A /* Array+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2283,7 +2285,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2303,7 +2305,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

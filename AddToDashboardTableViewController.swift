@@ -31,7 +31,11 @@
         self.measurement = [MeasurementItem]()
         self.measurementSelected = MeasurementItem()
         
+        var steps = MeasurementItem(name: NSLocalizedString("Steps", comment: "Name for Measurement Item Steps"), nameInDatabase: "steps", unit: "steps", group: "Fitness")
+        
         super.init(coder: aDecoder)
+        
+        self.measurement.append(steps)
     }
     
     //IBOutlet
@@ -114,16 +118,6 @@
         self.doneBarButton.enabled = false
         self.showMeasurementPicker()
         
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        
-        let isLoggedIn:Int = prefs.integerForKey("ISLOGGEDIN") as Int
-        
-        if (isLoggedIn == 1) {
-            
-            self.performSegueWithIdentifier("goToLogin", sender: self)
-        }
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

@@ -7,25 +7,25 @@
 //
 
 import UIKit
+import CoreData
 
 protocol ManageDataDetailViewControllerDelegate: class {
     
-    func manageDataDetailViewController(controller: ManageDataDetailViewController, didSelectItem item: MeasurementItem)
+    func manageDataDetailViewController(controller: ManageDataDetailViewController, didSelectItem item: Measurement)
 }
 
 class ManageDataDetailViewController: UITableViewController, ManageDataViewControllerDelegate {
 
     //variables
-    var measurements: [MeasurementItem]
+    var measurements: [Measurement]
     var labelClicked: String
-    var measurementSelected: MeasurementItem
     var currentMeasurement: MeasurementItem
+    
     weak var delegate: ManageDataDetailViewControllerDelegate?
     
     required init(coder aDecoder: NSCoder) {
         
-        self.measurements = [MeasurementItem]()
-        self.measurementSelected = MeasurementItem()
+        self.measurements = [Measurement]()
         self.labelClicked = String()
         self.currentMeasurement = MeasurementItem()
         
@@ -69,61 +69,67 @@ class ManageDataDetailViewController: UITableViewController, ManageDataViewContr
         let cell = tableView.dequeueReusableCellWithIdentifier("ManageDataDetailItem") as UITableViewCell
         let item = measurements[indexPath.row]
         let label = cell.viewWithTag(1010) as UILabel
-        label.text = item.name
+        
+        var currentLanguage = NSLocale.currentLanguageString
+        
+        //need to safe german names for measurements in fh database
+        switch currentLanguage {
+        case "en" : label.text = item.name
+        case "de" : label.text = item.name
+        default : println("language unknown")
+            
+        }
+        
+
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        self.measurementSelected = self.measurements[indexPath.row]
-        
-        self.delegate?.manageDataDetailViewController(self, didSelectItem: self.measurementSelected)
-        
-    }
-    
     //methods
-    
-    func populateTableView(currentMeasurement: MeasurementItem){
+    //method to fill the table view with measurements from core data
+    func populateTableView(groupSelected: MeasurementItem){
         
-        var currentMeasurementName = currentMeasurement.name
+        var groupName = groupSelected.name
         
-        switch currentMeasurementName {
+        var currentLanguage = NSLocale.currentLanguageString
+        
+        var measurementArray = self.fetchMeasurementFromCoreData()
+        
+        for meas in measurementArray {
             
-            case NSLocalizedString("Fitness", comment: "Name for Manage Data Item Elevation in switch case statement")  : self.populateTableViewWithFitnessMeasurements()
+            var measurement = meas as Measurement
             
-            case NSLocalizedString("Vitals", comment: "Name for Manage Data Item Vitals in switch case statement")   : self.populateTableViewWithVitalsMeasurements()
-            
-            case NSLocalizedString("Nutrition", comment: "Name for Manage Data Item Nutrition in switch case statement"): self.populateTableViewWithNutritionMeasurements()
-            
-            case NSLocalizedString("Sleep", comment: "Name for Manage Data Item Sleep in switch case statement")    : self.populateTableViewWithSleepMeasurements()
-            
-        default             : println("nothing selected")
-            
+            switch currentLanguage {
+            case "de": if measurement.groupnameInGerman == groupName {
+                
+                            self.measurements.append(measurement)
+                        }
+            case "en":  if measurement.groupname == groupName {
+                
+                            self.measurements.append(measurement)
+                        }
+
+            default: println("language unknown")
+                
+            }
         }
-        
     }
     
-    //TODO How to find out the "real" favorite Company ?
-    func populateTableViewWithFitnessMeasurements() {
+    func fetchMeasurementFromCoreData() -> NSArray{
         
+        var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+        var context: NSManagedObjectContext = appDel.managedObjectContext!
+        
+        var request = NSFetchRequest(entityName: "Measurement")
+        request.returnsObjectsAsFaults = false
+        
+        //TODO add error handling
+        var results: NSArray = context.executeFetchRequest(request, error: nil)!
+        
+        return results
     }
     
-    func populateTableViewWithVitalsMeasurements() {
-        
-    }
     
-    func populateTableViewWithNutritionMeasurements() {
-    
-    }
-    
-    func populateTableViewWithSleepMeasurements() {
-        
-        //TODO what to display here ?
-        
-    }
-    
-        
 }

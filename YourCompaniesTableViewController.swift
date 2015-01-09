@@ -11,36 +11,52 @@ import Alamofire
 import SwiftyJSON
 import CoreData
 
-class YourCompaniesTableViewController: UITableViewController {
+class YourCompaniesTableViewController: UITableViewController, AddCompanyTableViewControllerDelegate {
     
     //variables
-    var companyItems = [Company]()
-    var isSelected = Company()
-    var userId = prefs.integerForKey("USERID") as Int    
-    
-    //variable for saving data into core data
-    var managedObjectContext: NSManagedObjectContext!
+    var companies =  [Company]()
+    var userId = prefs.integerForKey("USERID") as Int
     
     //IBOutlets
     @IBOutlet weak var authButton: UIButton!
 
     //IBActions
     @IBAction func authorize(){
-            
-        self.doOAuthCompanyItem(isSelected.name)
+        
     }
     
     //override methods
     override func viewDidLoad() {
         self.authButton.enabled = false
         
-        self.fetchCompaniesFromCoreData()
+        var result = fetchCompanyFromCoreData()
+        
+        for res in result {
+            var result = res as Company
+            self.companies.append(result)
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
         self.authButton.enabled = false
+
     }
     
+    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath?{
+        
+        let company = self.companies[indexPath.row]
+        
+        self.authButton.enabled = true
+        
+        return indexPath
+    }
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return self.companies.count
+    }
+    
+    //prepareforsegue method for setting delegate in AddCompynViewController
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if segue.identifier == "goToAddCompany" {
@@ -49,23 +65,40 @@ class YourCompaniesTableViewController: UITableViewController {
             
             let addCompanyViewController = navigationController.viewControllers[0] as AddCompanyTableViewController
             
-            addCompanyViewController.managedObjectContext = self.managedObjectContext
+            addCompanyViewController.delegate = self
         }
     }
     
-    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath?{
+    //AddCompanyTableViewController delegate methods
+    func addCompanyTableViewController(controller: AddCompanyTableViewController, didFinishAddingItem item: CompanyItem) {
         
-        self.isSelected = self.companyItems[indexPath.row]
-        self.authButton.enabled = true
+        self.doOAuthCompanyItem(item.name)
         
-        return indexPath
+        var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+        var context: NSManagedObjectContext = appDel.managedObjectContext!
+        
+        var company = NSEntityDescription.insertNewObjectForEntityForName("Company", inManagedObjectContext: context) as Company
+        
+        company.name = item.name
+        company.nameInDatabase = item.nameInDatabase
+        company.checked = item.checked
+        company.text = item.text
+        
+        var error: NSError?
+        if context.save(&error) {
+            
+            self.dismissViewControllerAnimated(true, completion: nil)
+            
+        } else {
+            
+            println("ouch")
+        }
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func addCompanyTableViewControllerDidCancel(controller: AddCompanyTableViewController) {
         
-        return self.companyItems.count
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
-    
     
     
     //places the TableItems in tableview rows
@@ -73,8 +106,7 @@ class YourCompaniesTableViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("CompanyItem") as UITableViewCell
         
-        let item = self.companyItems[indexPath.row]
-        
+        let item = self.companies[indexPath.row]
         let label = cell.viewWithTag(4060) as UILabel
         label.text = item.name
         
@@ -85,7 +117,7 @@ class YourCompaniesTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
-        self.companyItems.removeAtIndex(indexPath.row)
+        self.companies.removeAtIndex(indexPath.row)
         
         let indexPaths = [indexPath]
         tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
@@ -180,8 +212,6 @@ class YourCompaniesTableViewController: UITableViewController {
         })
     }
 
-
-    
     //Send OAuth Credentials to Focused Health Server
     func postCredentialsToServer(parameters: Dictionary<String,AnyObject>, companyName: String){
         
@@ -193,6 +223,7 @@ class YourCompaniesTableViewController: UITableViewController {
                 var message = json["message"].stringValue
                 
                 if success == 1 {
+                    
                     showAlert(NSLocalizedString("Success!", comment: "Title for Message which appears if request successfully executed"), NSLocalizedString("\(message)", comment: "Message which appears if request successfully executed"), self)
                 }
         }
@@ -226,26 +257,5 @@ class YourCompaniesTableViewController: UITableViewController {
             println("Company not found")
         }
     }
-    
-    func fetchCompaniesFromCoreData(){
-        
-        let fetchRequest = NSFetchRequest()
-        
-        let entity = NSEntityDescription.entityForName("Company",inManagedObjectContext: self.managedObjectContext)
-        fetchRequest.entity = entity
-       
-        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-
-        var error: NSError?
-        let foundObjects = managedObjectContext.executeFetchRequest(fetchRequest, error: &error)
-        
-        if foundObjects == nil {
-            
-            fatalCoreDataError(error)
-            return
-        }
-
-        self.companyItems = foundObjects as [Company]
-    }
 }
+

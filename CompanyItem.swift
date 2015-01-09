@@ -31,21 +31,45 @@ class CompanyItem: TableItem {
         self.name = name
         self.nameInDatabase = nameInDatabase
         
-        self.color = self.createColor()
+        self.assignColorToCompany()
+    }
+    
+    func assignMeasurementsToCompany() {
+        
+        switch self.name {
+        case "Fitbit": self.createFitbitMeasurements()
+        case "Withings": self.createWithingsMeasurements()
+        case "Medisana": self.createMedisanaMeasurements()
+        default: println("company not known")
+            
+        }
         
     }
     
-    func createColor() -> UIColor{
+    func createFitbitMeasurements() {
+        
+    }
+    
+    func createWithingsMeasurements() {
+        
+    }
+    
+    func createMedisanaMeasurements() {
+        
+    }
+    
+    func assignColorToCompany() -> UIColor{
         
         var color =  UIColor()
+        
         switch self.name {
-            case "Fitbit":
+        case "Fitbit":
             color = FitbitColor
-            case "Withings":
+        case "Withings":
             color = WithingsColor
-            case "Medisana":
+        case "Medisana":
             color = MedisanaColor
-            case "Focused Health":
+        case "Focused Health":
             color = FocusedHealthColor
         default:
             println("Company not found")
@@ -53,4 +77,6 @@ class CompanyItem: TableItem {
         
         return color
     }
+    
+
 }

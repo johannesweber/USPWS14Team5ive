@@ -7,41 +7,24 @@
 //
 
 import UIKit
+import CoreData
 
 protocol CompanyTableViewControllerDelegate: class {
     
     func companyViewControllerDidCancel(controller: CompanyTableViewController)
-    func companyViewController(controller: CompanyTableViewController, didFinishSelectingCompany item: TableItem)
+    func companyViewController(controller: CompanyTableViewController, didFinishSelectingCompany item: Company)
     
 }
 
 class CompanyTableViewController: UITableViewController {
 
     //variables
-    var companies: [TableItem]
-    var companySelected: TableItem
+    var companies = [Company]()
+    var companySelected: Company!
+    
     weak var delegate: CompanyTableViewControllerDelegate?
     
-    //Initializer
-    required init(coder aDecoder: NSCoder) {
-        
-        self.companies = [TableItem]()
-        self.companySelected = TableItem()
-        
-        let row0item = TableItem(name: "Fitbit", nameInDatabase: "fitbit")
-        companies.append(row0item)
-        
-        let row1item = TableItem(name: "Medisana", nameInDatabase: "medisana")
-        companies.append(row1item)
-        
-        let row2item = TableItem(name: "Withings", nameInDatabase: "withings")
-        companies.append(row2item)
-        
-        let row3item = TableItem(name: "Focused Health", nameInDatabase: "focused health")
-        companies.append(row3item)
-        
-        super.init(coder: aDecoder)
-    }
+    var managedObjectContext: NSManagedObjectContext!
   
     //IBOUtlet
     @IBOutlet weak var saveBarButton: UIBarButtonItem!
@@ -63,7 +46,10 @@ class CompanyTableViewController: UITableViewController {
     //override methods
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        
+        self.companies = fetchCompanyFromCoreData()
         
         self.saveBarButton.enabled = false
     }
@@ -118,6 +104,4 @@ class CompanyTableViewController: UITableViewController {
             }
         }
     }
-
-    
 }

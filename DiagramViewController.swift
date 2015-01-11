@@ -11,30 +11,16 @@ import QuartzCore
 import Alamofire
 import SwiftyJSON
 
-class DiagramViewController: UIViewController, LineChartDelegate, ManageDataDetailViewControllerDelegate {
+class DiagramViewController: UIViewController, LineChartDelegate {
 
     //variables
-    var lineChartLabel: UILabel
     var lineChart: LineChart?
-    var dayLabel: UILabel
-    var userId: Int
-    var limit: Int
-    var currentMeasurement: Measurement
-    var currentDate: String
-    
-    required init(coder aDecoder: NSCoder) {
-        
-        self.lineChart = LineChart()
-        self.lineChartLabel = UILabel()
-        self.dayLabel = UILabel()
-        self.userId = prefs.integerForKey("USERID") as Int
-        self.limit = 1
-        self.currentMeasurement = Measurement()
-        var date = Date()
-        self.currentDate = date.getCurrentDateAsString()
-        
-        super.init(coder: aDecoder)
-    }
+    var lineChartLabel = UILabel()
+    var dayLabel = UILabel()
+    var userId = prefs.integerForKey("USERID") as Int
+    var limit = 1
+    var currentMeasurement: Measurement!
+    var date = Date()
     
     //IBOutlets
     @IBOutlet weak var segmentedControl: UISegmentedControl!
@@ -56,7 +42,7 @@ class DiagramViewController: UIViewController, LineChartDelegate, ManageDataDeta
         if self.limit != 1 {
 
             self.dayLabel.removeFromSuperview()
-            self.addDataToLineChart()
+            self.addDataLineToChart()
             self.tableView.reloadData()
             
         } else {
@@ -66,7 +52,7 @@ class DiagramViewController: UIViewController, LineChartDelegate, ManageDataDeta
 
             self.tableView.reloadData()
             
-            self.fetchValueForDayTab()
+            self.createTextForDayTab()
         }
 
     }
@@ -80,8 +66,14 @@ class DiagramViewController: UIViewController, LineChartDelegate, ManageDataDeta
         super.viewDidLoad()
         
         self.defineHeightForRow()
+
+        var diagram = NSLocalizedString("Diagram", comment: "Part of the Title from DiagramView")
+        
+        self.title = "\(self.currentMeasurement.name) \(diagram)"
         
         self.tableView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0)
+        
+        self.lineChart = LineChart()
         
         self.lineChartLabel.removeConstraints(lineChartLabel.constraints())
         self.lineChartLabel.setTranslatesAutoresizingMaskIntoConstraints(true)
@@ -89,11 +81,10 @@ class DiagramViewController: UIViewController, LineChartDelegate, ManageDataDeta
         self.lineChart!.removeConstraints(lineChart!.constraints())
         self.lineChart!.setTranslatesAutoresizingMaskIntoConstraints(true)
         
-        self.title = self.currentMeasurement.name
-        
-        self.fetchValueForDayTab()
+        self.createTextForDayTab()
     }
     
+    //sets the dimension of the dayLabel, lineChartLabel and lineChart
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
@@ -110,39 +101,45 @@ class DiagramViewController: UIViewController, LineChartDelegate, ManageDataDeta
             width: 280.0,
             height: 30)
         
-        self.lineChart?.frame = CGRect(
+        self.lineChart!.frame = CGRect(
             x: 20,
             y: 20,
             width: 280,
             height: 200)
     }
     
+    //passes the current measurement forward to CreateValueTableViewController
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if segue.identifier == "goToCreateValue" {
             
             let navigationController = segue.destinationViewController as UINavigationController
-            let controller = navigationController.topViewController as CreateValueTableViewController
+            let createValueTableViewController = navigationController.topViewController as CreateValueTableViewController
             
-            controller.currentMeasurement = self.currentMeasurement
+            createValueTableViewController.measurementToCreate = self.currentMeasurement
+        
         }
     }
     
     /**
     * Line chart delegate method.
     */
+    //will be executed if the user taps on a data point within the line chart
     func didSelectDataPoint(x: CGFloat, yValues: Array<CGFloat>) {
-        self.lineChartLabel.text = NSLocalizedString("x: \(x)   y: \(yValues)", comment: "Text for LineChart Label Axis")
-    }
-    
-    // manage data detail view controller delegate methods
-    func manageDataDetailViewController(controller: ManageDataDetailViewController, didSelectItem item: Measurement) {
         
-        self.currentMeasurement = item
+        var yAxisDescription = NSLocalizedString("Value", comment: "Description of Y Axis in LineChart")
+        var xAxisDescription = String(NSLocalizedString("Month", comment: "Description of X Axis in LineChart"))
+        
+        if self.limit != 365 {
+            
+            xAxisDescription = NSLocalizedString("Day", comment: "Description of X Axis in LineChart")
+            
+        }
+        
+        self.lineChartLabel.text = "\(xAxisDescription): \(x)   \(yAxisDescription): \(yValues)"
     }
     
     // methods
-    
     func defineHeightForRow(){
         
         if self.limit == 1 {
@@ -167,22 +164,22 @@ class DiagramViewController: UIViewController, LineChartDelegate, ManageDataDeta
     
     }
     
-    func addDataToLineChart(){
+    func addDataLineToChart(){
         
-        var company = "fitbit"
+        var currentDate = self.date.getCurrentDateAsString()
         
         var parameters: Dictionary<String, AnyObject> = [
             
             "measurement"   : "\(self.currentMeasurement.nameInDatabase)",
             "userId"        : "\(self.userId)",
             "limit"         : "\(self.limit)",
-            "endDate"       : "\(self.currentDate)"
+            "endDate"       : "\(currentDate)",
+            "company"       : "\(self.currentMeasurement.favoriteCompany)"
         ]
 
-        Alamofire.request(.GET, "\(baseURL)/\(company)/time_series/", parameters: parameters)
+        Alamofire.request(.GET, "\(baseURL)/value/select", parameters: parameters)
             .responseSwiftyJSON { (request, response, json, error) in
                 
-                println(request)
                 println(json)
                 
                 var data: Array<CGFloat> = []
@@ -201,31 +198,35 @@ class DiagramViewController: UIViewController, LineChartDelegate, ManageDataDeta
                     self.lineChart!.addLine(dataReversed)
                     
                 }
-                
         }
 
     }
     
     //this method gets the value for the day tag in the segmented bar
-    func fetchValueForDayTab() {
-        
-        var company = "fitbit"
+    func createTextForDayTab() {
+
+        var currentDate = self.date.getCurrentDateAsString()
         
         var parameters: Dictionary<String, AnyObject> = [
             
             "measurement"   : "\(self.currentMeasurement.nameInDatabase)",
             "userId"        : "\(self.userId)",
             "limit"         : "\(self.limit)",
-            "endDate"       : "\(self.currentDate)"
+            "endDate"       : "\(currentDate)",
+            "company"       : "\(self.currentMeasurement.favoriteCompany)"
         ]
         
-        Alamofire.request(.GET, "\(baseURL)/\(company)/time_series/", parameters: parameters)
+        Alamofire.request(.GET, "\(baseURL)/value/select", parameters: parameters)
             .responseSwiftyJSON { (request, response, json, error) in
+                
+                println(request)
+                
+                println(json)
                 
                 var value = json[0]["value"].doubleValue
                 var unit = json[0]["unit"].stringValue
                 var date = json[0]["date"].stringValue
-                var onWord = NSLocalizedString("on", comment: "word for better reading if user clicked on day segment")
+                var onWord = NSLocalizedString("on", comment: "word within the text if user clicked on day segment")
                 
                 var text = "\(value) \(unit) \(onWord) \(date)"
                 
@@ -259,6 +260,7 @@ class DiagramViewController: UIViewController, LineChartDelegate, ManageDataDeta
 
 //UITable View Delegate and Data Source extensions
 extension DiagramViewController: UITableViewDataSource {
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return 1

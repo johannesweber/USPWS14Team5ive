@@ -9,78 +9,107 @@
 import UIKit
 import CoreData
 
-protocol ManageDataDetailViewControllerDelegate: class {
-    
-    func manageDataDetailViewController(controller: ManageDataDetailViewController, didSelectItem item: Measurement)
-}
-
 class ManageDataDetailViewController: UITableViewController, ManageDataViewControllerDelegate {
 
     //variables
-    var measurements: [Measurement]
-    var labelClicked: String
-    var currentMeasurement: MeasurementItem
+    var labelClicked = String()
+    var selectedCategory =  MeasurementItem()
     
-    weak var delegate: ManageDataDetailViewControllerDelegate?
+    // variable for managing core data
+    var managedObjectContext: NSManagedObjectContext!
     
-    required init(coder aDecoder: NSCoder) {
+    lazy var fetchedResultsController: NSFetchedResultsController = {
+        let fetchRequest = NSFetchRequest()
         
-        self.measurements = [Measurement]()
-        self.labelClicked = String()
-        self.currentMeasurement = MeasurementItem()
+        let entity = NSEntityDescription.entityForName("Measurement", inManagedObjectContext: self.managedObjectContext)
+        fetchRequest.entity = entity
         
-        super.init(coder: aDecoder)
+        fetchRequest.fetchBatchSize = 20
+        
+        var selectCategoryPredicate = self.getPredicateAccordingToCurrentLanguage(self.selectedCategory.name)
+        
+        fetchRequest.predicate = selectCategoryPredicate
+        
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        let fetchedResultsController = NSFetchedResultsController(
+            fetchRequest: fetchRequest,
+            managedObjectContext: self.managedObjectContext,
+            sectionNameKeyPath: nil,
+            cacheName: "Measurements")
+        
+        fetchedResultsController.delegate = self
+        return fetchedResultsController
+        }()
+    
+    deinit {
+        fetchedResultsController.delegate = nil
     }
     
     //override methods
     override func viewDidLoad() {
+        super.viewDidLoad()
         
-        self.title = self.currentMeasurement.name
+        var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+        self.managedObjectContext = appDel.managedObjectContext!
         
-        self.populateTableView(self.currentMeasurement)
+        self.title = self.selectedCategory.name
+        
+        NSFetchedResultsController.deleteCacheWithName("Measurements")
+        
+        self.performFetch()
+        
     }
     
-    //set delegate
+    
+    //set delegate and pass measurement forward to DiagramViewController
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if segue.identifier == "goToDiagram" {
             
-            var destinationViewController = segue.destinationViewController as DiagramViewController
-            self.delegate = destinationViewController
+            var diagramViewController = segue.destinationViewController as DiagramViewController
             
+            if let indexPath = tableView.indexPathForCell(sender as UITableViewCell) {
+                let measurement = self.fetchedResultsController.objectAtIndexPath(indexPath) as Measurement
+                
+                diagramViewController.currentMeasurement = measurement
+            }
+        
         }
     }
     
     //manage data view controller delegate methods
-    func manageDataViewController(controller: ManageDataViewController, didSelectItem item: MeasurementItem) {
+    func manageDataViewController(controller: ManageDataViewController, didSelectCategory category: MeasurementItem) {
         
-        self.currentMeasurement = item
+        self.selectedCategory = category
         
     }
     
     //table view methods
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return measurements.count
+        let sectionInfo = self.fetchedResultsController.sections![section] as NSFetchedResultsSectionInfo
+        return sectionInfo.numberOfObjects
+        
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("ManageDataDetailItem") as UITableViewCell
-        let item = measurements[indexPath.row]
+        let measurement = self.fetchedResultsController.objectAtIndexPath(indexPath) as Measurement
         let label = cell.viewWithTag(1010) as UILabel
         
         var currentLanguage = NSLocale.currentLanguageString
         
-        //need to safe german names for measurements in fh database
         switch currentLanguage {
-        case "en" : label.text = item.name
-        case "de" : label.text = item.name
+        case "en" : label.text = measurement.name
+        case "de" : label.text = measurement.name
+        case "fr" : label.text = measurement.name
         default : println("language unknown")
             
         }
-        
-
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
@@ -88,48 +117,105 @@ class ManageDataDetailViewController: UITableViewController, ManageDataViewContr
     }
     
     //methods
-    //method to fill the table view with measurements from core data
-    func populateTableView(groupSelected: MeasurementItem){
+    func performFetch() {
+        var error: NSError?
         
-        var groupName = groupSelected.name
-        
-        var currentLanguage = NSLocale.currentLanguageString
-        
-        var measurementArray = self.fetchMeasurementFromCoreData()
-        
-        for meas in measurementArray {
-            
-            var measurement = meas as Measurement
-            
-            switch currentLanguage {
-            case "de": if measurement.groupnameInGerman == groupName {
-                
-                            self.measurements.append(measurement)
-                        }
-            case "en":  if measurement.groupname == groupName {
-                
-                            self.measurements.append(measurement)
-                        }
-
-            default: println("language unknown")
-                
-            }
+        if !fetchedResultsController.performFetch(&error) {
+            fatalCoreDataError(error)
         }
     }
     
-    func fetchMeasurementFromCoreData() -> NSArray{
+    //sets the predicate for the fetch from core data. A fetch is someting like the WHERE Keyword in MySQL
+    func getPredicateAccordingToCurrentLanguage(categoryName: String) -> NSPredicate{
         
-        var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
-        var context: NSManagedObjectContext = appDel.managedObjectContext!
+        var predicate = String()
         
-        var request = NSFetchRequest(entityName: "Measurement")
-        request.returnsObjectsAsFaults = false
+        var currentLanguage = NSLocale.currentLanguageString
         
-        //TODO add error handling
-        var results: NSArray = context.executeFetchRequest(request, error: nil)!
+        switch currentLanguage {
+            case "en": predicate = "groupname"
+            case "de": predicate = "groupnameInGerman"
+            case "fr": predicate = "groupnameInFrench"
+        default: println("Language not known")
+            
+        }
         
-        return results
+        var selectCategoryPredicate = NSPredicate(format: "\(predicate) = %@", categoryName)
+        
+        return selectCategoryPredicate!
+    }
+}
+
+extension ManageDataDetailViewController: NSFetchedResultsControllerDelegate {
+            
+    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+        println("*** controllerWillChangeContent")
+        tableView.beginUpdates()
+    }
+            
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+    
+        switch type {
+        case .Insert:
+            println("*** NSFetchedResultsChangeInsert (object)")
+            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+    
+        case .Delete:
+            println("*** NSFetchedResultsChangeDelete (object)")
+            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+    
+        case .Update:
+            println("*** NSFetchedResultsChangeUpdate (object)")
+            let cell = tableView.cellForRowAtIndexPath(indexPath!)!
+            let measurement = controller.objectAtIndexPath(indexPath!) as Measurement
+            let label = cell.viewWithTag(1010) as UILabel
+        
+            var currentLanguage = NSLocale.currentLanguageString
+        
+            switch currentLanguage {
+            case "en" : label.text = measurement.name
+            case "de" : label.text = measurement.name
+            case "fr" : label.text = measurement.name
+            default : println("language unknown")
+        
     }
     
-    
+        case .Move:
+            println("*** NSFetchedResultsChangeMove (object)")
+            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+        }
+    }
+            
+    func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
+                
+        switch type {
+        case .Insert:
+            println("*** NSFetchedResultsChangeInsert (section)")
+            tableView.insertSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
+        
+        case .Delete:
+            println("*** NSFetchedResultsChangeDelete (section)")
+            tableView.deleteSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
+        
+        case .Update:
+            println("*** NSFetchedResultsChangeUpdate (section)")
+        
+        case .Move:
+            println("*** NSFetchedResultsChangeMove (section)")
+        }
+    }
+            
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+        println("*** controllerDidChangeContent")
+        tableView.endUpdates()
+    }
 }
+
+
+
+
+
+
+
+

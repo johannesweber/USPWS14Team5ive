@@ -88,8 +88,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                         prefs.setInteger(success, forKey: "ISLOGGEDIN")
                         prefs.setInteger(userId, forKey: "USERID")
                         
+                        //if the user logs for the first time the default configuration for the focused health app will happen
                         if self.isFirstLogin() {
                             prefs.setObject("YES", forKey: "FIRSTTIMELOGIN")
+                            self.insertFocusedHealthCompanyIntoCoreData(userId)
+                            //this method fetches the measurement from the current user from focused health database an stores them into core data
+                            fetchMeasurementsFromUser()
                         }
 
                         
@@ -130,5 +134,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
         
         return firstTimer
+    }
+    
+    func insertFocusedHealthCompanyIntoCoreData(userId: Int) {
+        
+        var focusedHealtCompany = CompanyItem()
+        
+        focusedHealtCompany.name = "Focused Health"
+        focusedHealtCompany.nameInDatabase = "focused health"
+        focusedHealtCompany.text = "default company for every user"
+        
+        insertCompanyIntoCoreData(userId, focusedHealtCompany)
     }
 }

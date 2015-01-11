@@ -54,20 +54,5 @@ func getDayOfWeek(date:String)->String? {
     }
 }
 
-func fetchCompanyFromCoreData() -> NSArray{
-    
-    var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
-    var context: NSManagedObjectContext = appDel.managedObjectContext!
-    
-    var request = NSFetchRequest(entityName: "Company")
-    request.returnsObjectsAsFaults = false
-    
-    //TODO add error handling
-    var results: NSArray = context.executeFetchRequest(request, error: nil)!
-    
-    return results
-}
-
-
 
 

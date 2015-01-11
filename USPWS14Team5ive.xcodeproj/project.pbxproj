@@ -360,9 +360,9 @@
 		0E93F52D1A31D131003C08D9 /* OAuthSwiftClient_Vitadock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CEEE951A272B5400092BB7 /* OAuthSwiftClient_Vitadock.swift */; };
 		0E9FC1D11A347B270083BB92 /* Alamofire-SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9FC1D01A347B270083BB92 /* Alamofire-SwiftyJSON.swift */; };
 		0EA7CCFD1A5D8193003FA82F /* SwiftyJSON.framework in Copy Framework */ = {isa = PBXBuildFile; fileRef = 0EA7CCF41A5D8175003FA82F /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0EADEEBB1A61C4C0006FC923 /* Measurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EADEEBA1A61C4C0006FC923 /* Measurement.swift */; };
 		0EF117291A5F293500E9768F /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF117281A5F293500E9768F /* Functions.swift */; };
-		0EF1172B1A5F2E7500E9768F /* CreateMeasurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF1172A1A5F2E7500E9768F /* CreateMeasurement.swift */; };
-		0EF1172F1A5F33F500E9768F /* Measurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF1172E1A5F33F500E9768F /* Measurement.swift */; };
+		0EF1172B1A5F2E7500E9768F /* ManageCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF1172A1A5F2E7500E9768F /* ManageCoreData.swift */; };
 		0EF48BB21A324C6E00E7BC5D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF48BB11A324C6E00E7BC5D /* Constants.swift */; };
 		0EF48BB51A3259B600E7BC5D /* DotCALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF48BB41A3259B600E7BC5D /* DotCALayer.swift */; };
 		0EF48BB71A3259C500E7BC5D /* LineChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF48BB61A3259C500E7BC5D /* LineChart.swift */; };
@@ -422,6 +422,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 2E4FEFDA19575BE100351305;
 			remoteInfo = SwiftyJSON;
+		};
+		0EADEEB51A61C4AA006FC923 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A3E31B281A3EE6A6009CD4C8 /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4DD67C0B1A5C55C900ED2280;
+			remoteInfo = "Alamofire OSX";
 		};
 		0EFF3AD319FCD22C00AB3C17 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -831,10 +838,10 @@
 		0E9FC1CF1A347B270083BB92 /* Alamofire-SwiftyJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Alamofire-SwiftyJSON.h"; sourceTree = "<group>"; };
 		0E9FC1D01A347B270083BB92 /* Alamofire-SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Alamofire-SwiftyJSON.swift"; sourceTree = "<group>"; };
 		0EA7CCEC1A5D8175003FA82F /* SwiftyJSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftyJSON.xcodeproj; path = "../../../Downloads/SwiftyJSON-master/SwiftyJSON.xcodeproj"; sourceTree = "<group>"; };
+		0EADEEBA1A61C4C0006FC923 /* Measurement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Measurement.swift; sourceTree = "<group>"; };
 		0EE268251A5ACA0F00A13FFF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
 		0EF117281A5F293500E9768F /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
-		0EF1172A1A5F2E7500E9768F /* CreateMeasurement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateMeasurement.swift; sourceTree = "<group>"; };
-		0EF1172E1A5F33F500E9768F /* Measurement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Measurement.swift; sourceTree = "<group>"; };
+		0EF1172A1A5F2E7500E9768F /* ManageCoreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageCoreData.swift; sourceTree = "<group>"; };
 		0EF48BB11A324C6E00E7BC5D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0EF48BB41A3259B600E7BC5D /* DotCALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DotCALayer.swift; sourceTree = "<group>"; };
 		0EF48BB61A3259C500E7BC5D /* LineChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineChart.swift; sourceTree = "<group>"; };
@@ -921,7 +928,7 @@
 				0EF48BB11A324C6E00E7BC5D /* Constants.swift */,
 				0E01D2201A419882008668A7 /* Date.swift */,
 				0EF117281A5F293500E9768F /* Functions.swift */,
-				0EF1172A1A5F2E7500E9768F /* CreateMeasurement.swift */,
+				0EF1172A1A5F2E7500E9768F /* ManageCoreData.swift */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -1357,8 +1364,8 @@
 		0EA7CCE41A5D7D68003FA82F /* coreDataItem */ = {
 			isa = PBXGroup;
 			children = (
+				0EADEEBA1A61C4C0006FC923 /* Measurement.swift */,
 				0E636F991A5F40360048C128 /* Company.swift */,
-				0EF1172E1A5F33F500E9768F /* Measurement.swift */,
 			);
 			name = coreDataItem;
 			sourceTree = "<group>";
@@ -1508,6 +1515,7 @@
 			isa = PBXGroup;
 			children = (
 				A3E31B2E1A3EE6A6009CD4C8 /* Alamofire.framework */,
+				0EADEEB61A61C4AA006FC923 /* Alamofire.framework */,
 				A3E31B301A3EE6A6009CD4C8 /* AlamofireTests.xctest */,
 			);
 			name = Products;
@@ -1642,6 +1650,13 @@
 			fileType = wrapper.cfbundle;
 			path = SwiftyJSONOSXTests.xctest;
 			remoteRef = 0EA7CCF91A5D8175003FA82F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0EADEEB61A61C4AA006FC923 /* Alamofire.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Alamofire.framework;
+			remoteRef = 0EADEEB51A61C4AA006FC923 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		A3E31B2E1A3EE6A6009CD4C8 /* Alamofire.framework */ = {
@@ -2065,7 +2080,7 @@
 				0E860F5B1A2B309400A9F152 /* TermsOfUseViewController.swift in Sources */,
 				0E47BE731A3A4E6500226527 /* ResetPasswordViewController.swift in Sources */,
 				0E818FB01A25131B000B9DA6 /* LoginViewController.swift in Sources */,
-				0EF1172B1A5F2E7500E9768F /* CreateMeasurement.swift in Sources */,
+				0EF1172B1A5F2E7500E9768F /* ManageCoreData.swift in Sources */,
 				0E6B3F601A2DADF6002193B2 /* AddCompanyTableViewController.swift in Sources */,
 				0E1ADE8A1A2CD07300820ED2 /* AboutTableViewController.swift in Sources */,
 				0EFF3AF419FCD4C400AB3C17 /* Dictionary+OAuthSwift.swift in Sources */,
@@ -2106,7 +2121,6 @@
 				0E22C8C11A58921B0085DBDE /* CompanyTableViewController.swift in Sources */,
 				0E6F27401A2CF02D00F58A13 /* DiagramViewController.swift in Sources */,
 				0EF48BC21A3263A100E7BC5D /* PNBar.swift in Sources */,
-				0EF1172F1A5F33F500E9768F /* Measurement.swift in Sources */,
 				0EF48BC51A3263A100E7BC5D /* PNChartDelegate.swift in Sources */,
 				0EFF3AFC19FCD4C400AB3C17 /* OAuthSwiftHTTPRequest.swift in Sources */,
 				0E1ADE871A2C852E00820ED2 /* TableItem.swift in Sources */,
@@ -2118,6 +2132,7 @@
 				0E6B3F5A1A2DAD0A002193B2 /* ChangePasswordViewController.swift in Sources */,
 				0EF48BC31A3263A100E7BC5D /* PNBarChart.swift in Sources */,
 				0E6B3F581A2DACD9002193B2 /* ChangeEmailViewController.swift in Sources */,
+				0EADEEBB1A61C4C0006FC923 /* Measurement.swift in Sources */,
 				0E818FAE1A2511AD000B9DA6 /* SignupViewController.swift in Sources */,
 				0EF48BC81A3263A100E7BC5D /* PNLineChartData.swift in Sources */,
 				0EFF3AF919FCD4C400AB3C17 /* OAuth2Swift.swift in Sources */,

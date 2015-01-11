@@ -7,24 +7,26 @@
 //
 
 import UIKit
+import CoreData
 
 protocol ManageDataViewControllerDelegate: class {
     
-    func manageDataViewController(controller: ManageDataViewController, didSelectItem item: MeasurementItem)
+    func manageDataViewController(controller: ManageDataViewController, didSelectCategory category: MeasurementItem)
 }
 
 class ManageDataViewController: UITableViewController {
 
     //variables
     var categories: [MeasurementItem]
-    var selectedItem: MeasurementItem
+    var selectedCategory: MeasurementItem
+    
     weak var delegate: ManageDataViewControllerDelegate?
     
     //initializers
     required init(coder aDecoder: NSCoder) {
         
         self.categories = [MeasurementItem]()
-        self.selectedItem = MeasurementItem()
+        self.selectedCategory = MeasurementItem()
         
         let row0item = MeasurementItem(name: NSLocalizedString("Fitness", comment: "Name for Manage Data Item Fitness"))
         categories.append(row0item)
@@ -46,8 +48,6 @@ class ManageDataViewController: UITableViewController {
     //override methods
     override func viewDidLoad() {
         super.viewDidLoad()
-//        //this method fetches the measurement from the current user from focused health database an stores them into core data
-//        fetchMeasurementsFromUser()
     }
     
     
@@ -71,9 +71,9 @@ class ManageDataViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath:NSIndexPath) {
         
-        self.selectedItem = categories[indexPath.row]
+        self.selectedCategory = categories[indexPath.row]
         
-        self.delegate?.manageDataViewController(self, didSelectItem: self.selectedItem)
+        self.delegate?.manageDataViewController(self, didSelectCategory: self.selectedCategory)
         
         tableView.deselectRowAtIndexPath(indexPath, animated:true)
     }
@@ -83,8 +83,8 @@ class ManageDataViewController: UITableViewController {
         
         if segue.identifier == "goToManageDataDetail" {
             
-            let destinationViewController = segue.destinationViewController as ManageDataDetailViewController
-            self.delegate = destinationViewController
+            let manageDataDetailViewController = segue.destinationViewController as ManageDataDetailViewController
+            self.delegate = manageDataDetailViewController
             
         }
     }

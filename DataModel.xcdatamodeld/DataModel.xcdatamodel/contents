@@ -20,9 +20,12 @@
         <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="favoriteCompany" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="groupname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="groupnameInFrench" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="groupnameInGerman" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="nameInDatabase" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nameInFrench" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nameInGerman" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sliderLimit" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="unit" optional="YES" attributeType="String" syncable="YES"/>
@@ -31,6 +34,6 @@
     <elements>
         <element name="Company" positionX="151" positionY="90" width="128" height="103"/>
         <element name="Goal" positionX="781" positionY="336" width="128" height="150"/>
-        <element name="Measurement" positionX="376" positionY="72" width="128" height="210"/>
+        <element name="Measurement" positionX="376" positionY="72" width="128" height="253"/>
     </elements>
 </model>

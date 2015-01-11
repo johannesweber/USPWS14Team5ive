@@ -12,7 +12,7 @@ import CoreData
 protocol AddCompanyTableViewControllerDelegate: class {
     
     func addCompanyTableViewControllerDidCancel(controller: AddCompanyTableViewController)
-    func addCompanyTableViewController(controller: AddCompanyTableViewController, didFinishAddingItem item: CompanyItem)
+    func addCompanyTableViewController(controller: AddCompanyTableViewController, didFinishAddingCompany company: CompanyItem)
 }
 
 class AddCompanyTableViewController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate {
@@ -20,7 +20,7 @@ class AddCompanyTableViewController: UITableViewController, UIPickerViewDataSour
     //Variables
     var companyPickerVisible = false
     var company: [CompanyItem]
-    var companySelected: CompanyItem
+    var companySelected: CompanyItem!
     
     weak var delegate: AddCompanyTableViewControllerDelegate?
     
@@ -28,7 +28,6 @@ class AddCompanyTableViewController: UITableViewController, UIPickerViewDataSour
     required init(coder aDecoder: NSCoder) {
             
         self.company = [CompanyItem]()
-        self.companySelected = CompanyItem()
             
         let fitbit = CompanyItem(name: "Fitbit", nameInDatabase: "fitbit")
         
@@ -51,14 +50,31 @@ class AddCompanyTableViewController: UITableViewController, UIPickerViewDataSour
     //IBAction
     @IBAction func cancel(sender: UIBarButtonItem) {
             
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.delegate?.addCompanyTableViewControllerDidCancel(self)
     }
     
     //TODO disable done button if no company is added
     @IBAction func add(sender: UIBarButtonItem) {
         
-        self.delegate?.addCompanyTableViewController(self, didFinishAddingItem: self.companySelected)
-    
+        var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+        var context: NSManagedObjectContext = appDel.managedObjectContext!
+        
+        var company = NSEntityDescription.insertNewObjectForEntityForName("Company", inManagedObjectContext: context) as Company
+        
+        company.name = self.companySelected.name
+        company.nameInDatabase = self.companySelected.nameInDatabase
+        company.checked = self.companySelected.checked
+        company.text = self.companySelected.text
+        
+        var error: NSError?
+        if context.save(&error) {
+            
+            self.delegate?.addCompanyTableViewController(self, didFinishAddingCompany: self.companySelected)
+            
+        } else {
+            
+            fatalCoreDataError(error)
+        }
     }
     
     //methods

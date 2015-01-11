@@ -25,11 +25,7 @@ func fetchMeasurementsFromUser() {
     
     Alamofire.request(.GET, url, parameters: parameters)
         .responseSwiftyJSON { (request, response, json, error) in
-            
-            println(request)
-            println(response)
-            
-            println("JSON: \(json)")
+
             
             for (var i = 0; i < json.count; i++) {
                 
@@ -51,10 +47,12 @@ func insertMeasurementIntoCoreData(json: SwiftyJSON.JSON) {
     
     measurement.name = json["nameInApp"].stringValue
     measurement.nameInDatabase = json["name"].stringValue
+    measurement.nameInFrench = json["nameInFrench"].stringValue
     measurement.groupname = json["groupname"].stringValue
     measurement.groupnameInGerman = json["groupnameInGerman"].stringValue
+    measurement.groupnameInFrench = json["groupnameInFrench"].stringValue
     measurement.unit = json["unit"].stringValue
-    measurement.sliderLimit = json["sliderLimit"].intValue
+    measurement.sliderLimit = json["sliderLimit"].int64Value
     measurement.favoriteCompany = json["favoriteCompany"].stringValue
     
     
@@ -66,5 +64,50 @@ func insertMeasurementIntoCoreData(json: SwiftyJSON.JSON) {
     } else {
         
         println("ouch: \(error)")
+    }
+}
+
+func fetchCompanyFromCoreData() -> [Company]{
+    
+    var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+    var managedObjectContext: NSManagedObjectContext = appDel.managedObjectContext!
+    
+    let fetchRequest = NSFetchRequest()
+    
+    let entity = NSEntityDescription.entityForName("Company", inManagedObjectContext: managedObjectContext)
+    fetchRequest.entity = entity
+    
+    let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+    fetchRequest.sortDescriptors = [sortDescriptor]
+    
+    var error: NSError?
+    let foundObjects = managedObjectContext.executeFetchRequest(fetchRequest, error: &error)
+    if foundObjects == nil {
+        
+        fatalCoreDataError(error)
+        return foundObjects as [Company]
+    }
+    
+    return foundObjects as [Company]
+}
+
+func insertCompanyIntoCoreData(userId: Int, companyToInsert: CompanyItem) {
+    var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+    var context: NSManagedObjectContext = appDel.managedObjectContext!
+
+    var company = NSEntityDescription.insertNewObjectForEntityForName("Company", inManagedObjectContext: context) as Company
+
+    company.name = companyToInsert.name
+    company.nameInDatabase = companyToInsert.nameInDatabase
+    company.checked = companyToInsert.checked
+    company.text = companyToInsert.text
+        
+    var error: NSError?
+    if context.save(&error) {
+        
+
+    } else {
+        
+        fatalCoreDataError(error)
     }
 }

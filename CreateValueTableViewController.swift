@@ -14,22 +14,11 @@ class CreateValueTableViewController: UITableViewController, CompanyTableViewCon
 
 
     //variables
-    var currentMeasurement: Measurement
-    var date: NSDate
-    var datePickerVisible: Bool
+    var measurementToCreate: Measurement!
+    var date =  NSDate()
+    var datePickerVisible = Bool()
     var userId = prefs.integerForKey("USERID") as Int
-    var companySelected: TableItem
-    
-    //init
-    required init(coder aDecoder: NSCoder) {
-        
-        self.currentMeasurement = Measurement()
-        self.date = NSDate()
-        self.datePickerVisible = false
-        self.companySelected = TableItem()
-        
-        super.init(coder: aDecoder)
-    }
+    var companySelected: Company!
     
     //IBOutlet
     @IBOutlet weak var companyDetailLabel: UILabel!
@@ -67,9 +56,10 @@ class CreateValueTableViewController: UITableViewController, CompanyTableViewCon
     func insertValueIntoDatabase() {
         
         let parameters: Dictionary<String, AnyObject> = [
+            
             "userId"      : "\(self.userId)",
             "company"     : "\(self.companySelected.nameInDatabase)",
-            "measurement" : "\(self.currentMeasurement.nameInDatabase)",
+            "measurement" : "\(self.measurementToCreate.nameInDatabase)",
             "date"        : "\(self.dateDetailLabel.text!)",
             "value"       : "\(self.valueLabel.text!)"
         ]
@@ -91,18 +81,20 @@ class CreateValueTableViewController: UITableViewController, CompanyTableViewCon
     func customizeViewController() {
         
         self.saveBarButton.enabled = false
-        self.title = NSLocalizedString("Create \(self.currentMeasurement.name)", comment: "Title for Create Value Screen")
-        self.valueSlider.maximumValue = Float(self.currentMeasurement.sliderLimit)
-        self.unitLabel.text = currentMeasurement.unit
+        self.title = NSLocalizedString("Create \(self.measurementToCreate.name)", comment: "Title for Create Value Screen")
+        self.valueSlider.maximumValue = Float(self.measurementToCreate.sliderLimit)
+        self.unitLabel.text = measurementToCreate.unit
     }
     
     func dateChanged(datePicker: UIDatePicker) {
+        
         self.date = datePicker.date
         self.updateDueDateLabel()
         self.checkIfFormIsComplete()
     }
     
     func updateDueDateLabel() {
+        
         let formatter = NSDateFormatter()
         formatter.dateStyle = .ShortStyle
         formatter.dateFormat = "yyyy-MM-dd"
@@ -261,7 +253,7 @@ class CreateValueTableViewController: UITableViewController, CompanyTableViewCon
     }
     
     //Company Table View Delegate Methods
-    func companyViewController(controller: CompanyTableViewController, didFinishSelectingCompany item: TableItem) {
+    func companyViewController(controller: CompanyTableViewController, didFinishSelectingCompany item: Company) {
         
         self.companyDetailLabel.text = item.name
         

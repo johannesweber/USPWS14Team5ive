@@ -14,7 +14,35 @@ import CoreData
 class YourCompaniesTableViewController: UITableViewController, AddCompanyTableViewControllerDelegate {
     
     //variables
-    var companies =  [Company]()
+    // variable for managing core data
+    var managedObjectContext: NSManagedObjectContext!
+    
+    //this variable contains all company items fetched from core data
+    lazy var fetchedResultsController: NSFetchedResultsController = {
+        let fetchRequest = NSFetchRequest()
+        
+        let entity = NSEntityDescription.entityForName("Company", inManagedObjectContext: self.managedObjectContext)
+        fetchRequest.entity = entity
+        
+        fetchRequest.fetchBatchSize = 20
+        
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        let fetchedResultsController = NSFetchedResultsController(
+            fetchRequest: fetchRequest,
+            managedObjectContext: self.managedObjectContext,
+            sectionNameKeyPath: nil,
+            cacheName: "Measurements")
+        
+        fetchedResultsController.delegate = self
+        return fetchedResultsController
+        }()
+    
+    deinit {
+        fetchedResultsController.delegate = nil
+    }
     var userId = prefs.integerForKey("USERID") as Int
     
     //IBOutlets
@@ -23,37 +51,6 @@ class YourCompaniesTableViewController: UITableViewController, AddCompanyTableVi
     //IBActions
     @IBAction func authorize(){
         
-    }
-    
-    //override methods
-    override func viewDidLoad() {
-        self.authButton.enabled = false
-        
-        var result = fetchCompanyFromCoreData()
-        
-        for res in result {
-            var result = res as Company
-            self.companies.append(result)
-        }
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        self.authButton.enabled = false
-
-    }
-    
-    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath?{
-        
-        let company = self.companies[indexPath.row]
-        
-        self.authButton.enabled = true
-        
-        return indexPath
-    }
-    
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return self.companies.count
     }
     
     //prepareforsegue method for setting delegate in AddCompynViewController
@@ -70,28 +67,13 @@ class YourCompaniesTableViewController: UITableViewController, AddCompanyTableVi
     }
     
     //AddCompanyTableViewController delegate methods
-    func addCompanyTableViewController(controller: AddCompanyTableViewController, didFinishAddingItem item: CompanyItem) {
+    func addCompanyTableViewController(controller: AddCompanyTableViewController, didFinishAddingCompany company: CompanyItem) {
         
-        self.doOAuthCompanyItem(item.name)
+        self.doOAuthCompanyItem(company.name)
         
-        var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
-        var context: NSManagedObjectContext = appDel.managedObjectContext!
-        
-        var company = NSEntityDescription.insertNewObjectForEntityForName("Company", inManagedObjectContext: context) as Company
-        
-        company.name = item.name
-        company.nameInDatabase = item.nameInDatabase
-        company.checked = item.checked
-        company.text = item.text
-        
-        var error: NSError?
-        if context.save(&error) {
-            
+        //after a delay of 1s the view controller gets dismissed
+        afterDelay(0.6) {
             self.dismissViewControllerAnimated(true, completion: nil)
-            
-        } else {
-            
-            println("ouch")
         }
     }
     
@@ -100,13 +82,43 @@ class YourCompaniesTableViewController: UITableViewController, AddCompanyTableVi
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    //override methods
+    override func viewDidLoad() {
+        
+        self.authButton.enabled = false
+        
+        var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+        self.managedObjectContext = appDel.managedObjectContext!
+        
+        NSFetchedResultsController.deleteCacheWithName("Measurements")
+        
+        self.performFetch()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        self.authButton.enabled = false
+
+    }
+    
+    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath?{
+        
+        self.authButton.enabled = true
+        
+        return indexPath
+    }
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        let sectionInfo = self.fetchedResultsController.sections![section] as NSFetchedResultsSectionInfo
+        return sectionInfo.numberOfObjects
+    }
     
     //places the TableItems in tableview rows
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("CompanyItem") as UITableViewCell
         
-        let item = self.companies[indexPath.row]
+        let item: Company = self.fetchedResultsController.objectAtIndexPath(indexPath) as Company
         let label = cell.viewWithTag(4060) as UILabel
         label.text = item.name
         
@@ -115,16 +127,26 @@ class YourCompaniesTableViewController: UITableViewController, AddCompanyTableVi
         return cell
     }
     
+    //method will be executed if a cell is about to be deleted
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            let location = fetchedResultsController.objectAtIndexPath(indexPath) as Company
+            self.managedObjectContext.deleteObject(location)
         
-        self.companies.removeAtIndex(indexPath.row)
-        
-        let indexPaths = [indexPath]
-        tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
-
+            var error: NSError?
+            if !managedObjectContext.save(&error) {
+                fatalCoreDataError(error)
+            }
+        }
     }
     
     //methods
+    func performFetch() {
+        var error: NSError?
+        if !fetchedResultsController.performFetch(&error) {
+            fatalCoreDataError(error)
+        }
+    }
     
     /*
     start the medisana - oauth process and send received Credentials to Focused Health Server
@@ -258,4 +280,79 @@ class YourCompaniesTableViewController: UITableViewController, AddCompanyTableVi
         }
     }
 }
+
+extension YourCompaniesTableViewController: NSFetchedResultsControllerDelegate {
+    
+    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+        println("*** controllerWillChangeContent")
+        tableView.beginUpdates()
+    }
+    
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+        
+        switch type {
+        case .Insert:
+            println("*** NSFetchedResultsChangeInsert (object)")
+            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+            
+        case .Delete:
+            println("*** NSFetchedResultsChangeDelete (object)")
+            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+            
+        case .Update:
+            println("*** NSFetchedResultsChangeUpdate (object)")
+            let cell = tableView.cellForRowAtIndexPath(indexPath!)!
+            let measurement = controller.objectAtIndexPath(indexPath!) as Measurement
+            let label = cell.viewWithTag(1010) as UILabel
+            
+            var currentLanguage = NSLocale.currentLanguageString
+            
+            switch currentLanguage {
+            case "en" : label.text = measurement.name
+            case "de" : label.text = measurement.name
+            case "fr" : label.text = measurement.name
+            default : println("language unknown")
+                
+            }
+            
+        case .Move:
+            println("*** NSFetchedResultsChangeMove (object)")
+            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+        }
+    }
+    
+    func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
+        
+        switch type {
+        case .Insert:
+            println("*** NSFetchedResultsChangeInsert (section)")
+            tableView.insertSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
+            
+        case .Delete:
+            println("*** NSFetchedResultsChangeDelete (section)")
+            tableView.deleteSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
+            
+        case .Update:
+            println("*** NSFetchedResultsChangeUpdate (section)")
+            
+        case .Move:
+            println("*** NSFetchedResultsChangeMove (section)")
+        }
+    }
+    
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+        println("*** controllerDidChangeContent")
+        tableView.endUpdates()
+    }
+}
+
+
+
+
+
+
+
+
+
 

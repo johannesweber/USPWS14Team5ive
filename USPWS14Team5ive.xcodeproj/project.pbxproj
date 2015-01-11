@@ -359,7 +359,6 @@
 		0E90AC671A56D8F80002D091 /* ManageDataDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E90AC661A56D8F80002D091 /* ManageDataDetailViewController.swift */; };
 		0E93F52D1A31D131003C08D9 /* OAuthSwiftClient_Vitadock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CEEE951A272B5400092BB7 /* OAuthSwiftClient_Vitadock.swift */; };
 		0E953E141A62DE4500498B3E /* SwiftyJSON.framework in Copy Framework */ = {isa = PBXBuildFile; fileRef = 0E953E0B1A62DE1300498B3E /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		0E953E151A62DE4500498B3E /* SwiftyJSON.framework in Copy Framework */ = {isa = PBXBuildFile; fileRef = 0E953E0F1A62DE1300498B3E /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0E9FC1D11A347B270083BB92 /* Alamofire-SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9FC1D01A347B270083BB92 /* Alamofire-SwiftyJSON.swift */; };
 		0EADEEBB1A61C4C0006FC923 /* Measurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EADEEBA1A61C4C0006FC923 /* Measurement.swift */; };
 		0EF117291A5F293500E9768F /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF117281A5F293500E9768F /* Functions.swift */; };
@@ -469,7 +468,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				0E953E141A62DE4500498B3E /* SwiftyJSON.framework in Copy Framework */,
-				0E953E151A62DE4500498B3E /* SwiftyJSON.framework in Copy Framework */,
 				A3E31B451A3EE711009CD4C8 /* Alamofire.framework in Copy Framework */,
 			);
 			name = "Copy Framework";

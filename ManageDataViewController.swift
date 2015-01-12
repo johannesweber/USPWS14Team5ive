@@ -46,11 +46,6 @@ class ManageDataViewController: UITableViewController {
     
     
     //override methods
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
-    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return categories.count

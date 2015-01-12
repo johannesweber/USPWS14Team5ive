@@ -7,44 +7,21 @@
 //
 
 import UIKit
+import CoreData
+import Alamofire
+import SwiftyJSON
 
-protocol CreateGoalTableViewControllerDelegate: class {
-    
-    func createGoalTableViewControllerDidCancel(controller: CreateGoalTableViewController)
-    
-    func createGoalTableViewController(controller: CreateGoalTableViewController, didFinishAddingItem item: GoalItem)
-    
-}
-
-class CreateGoalTableViewController: UITableViewController, PeriodTableViewControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
+class CreateGoalTableViewController: UITableViewController, PeriodTableViewControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate, CompanyTableViewControllerDelegate {
 
     //variables
-    weak var delegate: CreateGoalTableViewControllerDelegate?
-    
-    var startdate: NSDate
-    var startDatePickerVisible: Bool
-    var measurementPickerVisible: Bool
-    var measurement: [GoalItem]
-    var measurementSelected: GoalItem
-    
-    //initializers
-    required init(coder aDecoder: NSCoder) {
-        
-        self.measurement = [GoalItem]()
-        self.measurementSelected = GoalItem()
-        self.startdate = NSDate()
-        self.startDatePickerVisible = false
-        self.measurementPickerVisible = false
-
-        
-        let row0item = GoalItem(name: NSLocalizedString("Steps", comment: "Name for GoalItem Steps"), nameInDatabase: "steps")
-        row0item.sliderLimit = 20000
-        row0item.unit = NSLocalizedString("Steps", comment: "Unit for GoalItem Steps")
-        row0item.company = "focused health"
-        self.measurement.append(row0item)
-        
-        super.init(coder: aDecoder)
-    }
+    var startdate =  NSDate()
+    var startDatePickerVisible = false
+    var measurementPickerVisible = false
+    var measurements = [Measurement]()
+    var measurementSelected: Measurement!
+    var currentValue = Int()
+    var userId = prefs.integerForKey("USERID") as Int
+    var companySelected: Company!
     
     //IBOutlet
     @IBOutlet weak var valueSlider: UISlider!
@@ -55,28 +32,44 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     @IBOutlet weak var startDateDetailLabel: UILabel!
     @IBOutlet weak var unitLabel: UILabel!
     @IBOutlet weak var valueLabel: UILabel!
+    @IBOutlet weak var companyDetailLabel: UILabel!
     
     
     //IBAction
     @IBAction func sliderValueChanged(sender: UISlider) {
         
-        var currentValue = Int(sender.value)
+        self.currentValue = Int(sender.value)
         
-        valueLabel.text = "\(currentValue)"
+        valueLabel.text = "\(self.currentValue)"
         
         self.checkIfFormIsComplete()
     }
     
     @IBAction func save(sender: UIBarButtonItem) {
-    
-        self.measurementSelected.startdate = self.startDateDetailLabel.text!
-        self.measurementSelected.period = self.periodDetailLabel.text!
-        self.measurementSelected.value = self.valueLabel.text!.toInt()!
-        self.measurementSelected.unit = measurementSelected.unit
         
-        self.delegate?.createGoalTableViewController(self, didFinishAddingItem: self.measurementSelected)
+        var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+        var context: NSManagedObjectContext = appDel.managedObjectContext!
         
-        self.navigationController?.popViewControllerAnimated(true)
+        var goal = NSEntityDescription.insertNewObjectForEntityForName("Goal", inManagedObjectContext: context) as Goal
+        
+        goal.measurement = self.measurementSelected.nameInDatabase
+        goal.period = self.periodDetailLabel.text!
+        goal.startdate = self.startDateDetailLabel.text!
+        goal.company = self.companySelected.nameInDatabase
+        goal.value = self.currentValue
+        goal.unit = self.unitLabel.text!
+        
+        var error: NSError?
+        if context.save(&error) {
+            
+            self.insertGoalIntoDatabase(goal)
+            
+            self.dismissViewControllerAnimated(true, completion: nil)
+            
+        } else {
+            
+            fatalCoreDataError(error)
+        }
     }
     
     @IBAction func cancel(sender: UIBarButtonItem) {
@@ -88,11 +81,13 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     override func viewDidLoad() {
         
         super.viewDidLoad()
-
+        
         self.saveBarButton.enabled = false
         self.valueSlider.enabled = false
         self.unitLabel.textColor = UIColor.grayColor()
         self.valueLabel.textColor = UIColor.grayColor()
+        
+        self.measurements = fetchMeasurementsFromCoreData()
         
     }
     
@@ -104,17 +99,17 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
-        return self.measurement.count
+        return self.measurements.count
     }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
         
-        return self.measurement[row].name
+        return self.measurements[row].name
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
-        var itemSelected = self.measurement[row]
+        var itemSelected = self.measurements[row]
         
         self.measurementDetailLabel.text = itemSelected.name
         
@@ -129,8 +124,29 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     }
     
     //methods
+    func insertGoalIntoDatabase(goal: Goal) {
+        
+        var url = "\(baseURL)/goals/insert/"
+        
+        let parameters: Dictionary<String, AnyObject> = [
+            
+            "userId"        : "\(self.userId)",
+            "measurement"   : "\(goal.measurement)",
+            "period"        : "\(goal.convertPeriodToInt())",
+            "startDate"     : "\(goal.startdate)",
+            "company"       : "\(goal.company)",
+            "goalValue"     : "\(goal.value)"
+        ]
+        
+        Alamofire.request(.GET, url, parameters: parameters)
+            .responseSwiftyJSON { (request, response, json, error) in
+                
+                println(json)
+                
+        }
+    }
     
-    func customizeSlider(item: GoalItem) {
+    func customizeSlider(item: Measurement) {
         
         self.valueSlider.maximumValue = Float(item.sliderLimit)
         self.valueSlider.continuous = true
@@ -162,7 +178,7 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
         
         startDatePickerVisible = true
         
-        let indexPathStartDatePicker = NSIndexPath(forRow: 2, inSection: 1)
+        let indexPathStartDatePicker = NSIndexPath(forRow: 2, inSection: 2)
         tableView.insertRowsAtIndexPaths([indexPathStartDatePicker], withRowAnimation: .Fade)
         
         if let pickerCell = tableView.cellForRowAtIndexPath(indexPathStartDatePicker) {
@@ -177,8 +193,8 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
         if startDatePickerVisible {
                 
             startDatePickerVisible = false
-            let indexPathStartDateRow = NSIndexPath(forRow: 1, inSection: 1)
-            let indexPathStartDatePicker = NSIndexPath(forRow: 2, inSection: 1)
+            let indexPathStartDateRow = NSIndexPath(forRow: 1, inSection: 2)
+            let indexPathStartDatePicker = NSIndexPath(forRow: 2, inSection: 2)
             if let cell = tableView.cellForRowAtIndexPath(indexPathStartDateRow) {
                 
                 cell.detailTextLabel!.textColor = UIColor(white: 0, alpha: 0.5)
@@ -194,7 +210,7 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     func showMeasurementPicker() {
         
         self.measurementPickerVisible = true
-        let indexPathMeasurementPicker = NSIndexPath(forRow: 1, inSection: 0)
+        let indexPathMeasurementPicker = NSIndexPath(forRow: 1, inSection: 1)
         tableView.insertRowsAtIndexPaths([indexPathMeasurementPicker], withRowAnimation: .Fade)
         
         if let pickerCell = tableView.cellForRowAtIndexPath(indexPathMeasurementPicker) {
@@ -208,8 +224,8 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
         if self.measurementPickerVisible {
                 
             self.measurementPickerVisible = false
-            let indexPathMeasurementRow = NSIndexPath(forRow: 0, inSection: 0)
-            let indexPathMeasurementPicker = NSIndexPath(forRow: 1, inSection: 0)
+            let indexPathMeasurementRow = NSIndexPath(forRow: 0, inSection: 1)
+            let indexPathMeasurementPicker = NSIndexPath(forRow: 1, inSection: 1)
                 
             tableView.beginUpdates()
             tableView.reloadRowsAtIndexPaths([indexPathMeasurementRow], withRowAnimation: .None)
@@ -221,10 +237,9 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     
     
     //table view methods
-    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
    
-        if indexPath.section == 1 && indexPath.row == 2 {
+        if indexPath.section == 2 && indexPath.row == 2 {
     
         var cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier("StartDatePickerCell") as? UITableViewCell
         
@@ -243,7 +258,7 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
         
         return cell
    
-        } else  if indexPath.section == 0 && indexPath.row == 1 {
+        } else  if indexPath.section == 1 && indexPath.row == 1 {
         
             var cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier("MeasurementPickerCell") as? UITableViewCell
         
@@ -270,11 +285,11 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if section == 1 && startDatePickerVisible {
+        if section == 2 && startDatePickerVisible {
             
             return 3
             
-        } else if section == 0 && measurementPickerVisible {
+        } else if section == 1 && measurementPickerVisible {
                 
                 return 2
                 
@@ -286,11 +301,11 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
-        if indexPath.section == 1 && indexPath.row == 2 {
+        if indexPath.section == 2 && indexPath.row == 2 {
                 
             return 217
                 
-        } else if indexPath.section == 0 && indexPath.row == 1 {
+        } else if indexPath.section == 1 && indexPath.row == 1 {
             
                 return 217
             
@@ -302,33 +317,33 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        if indexPath.section == 1 && indexPath.row == 1 {
+        if indexPath.section == 2 && indexPath.row == 1 {
         
-            if !startDatePickerVisible {
+            if !self.startDatePickerVisible {
         
-                showStartDatePicker()
+                self.showStartDatePicker()
         
             } else {
         
-                hideStartDatePicker()
+                self.hideStartDatePicker()
             }
             
-        } else if indexPath.section == 0 && indexPath.row == 0 {
+        } else if indexPath.section == 1 && indexPath.row == 0 {
             
-            if !measurementPickerVisible {
+            if !self.measurementPickerVisible {
             
-                showMeasurementPicker()
+                self.showMeasurementPicker()
                 
             } else {
                 
-                hideMeasurementPicker()
+                self.hideMeasurementPicker()
             }
         }
     }
     
     override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
     
-        if indexPath.section == 1 && indexPath.row == 1 || indexPath.section == 1 && indexPath.row == 0 || indexPath.section == 0 && indexPath.row == 0{
+        if indexPath.section == 0 && indexPath.row == 0 || indexPath.section == 1 && indexPath.row == 0 || indexPath.section == 2 && indexPath.row == 0 || indexPath.section == 2 && indexPath.row == 1 || indexPath.section == 3 && indexPath.row == 0{
             
             return indexPath
             
@@ -340,7 +355,7 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     
     override func tableView(tableView: UITableView, var indentationLevelForRowAtIndexPath indexPath: NSIndexPath) -> Int {
         
-        if indexPath.section == 1 && indexPath.row == 2 || indexPath.section == 0 && indexPath.row == 1{
+        if indexPath.section == 2 && indexPath.row == 2 || indexPath.section == 1 && indexPath.row == 1{
         
             indexPath = NSIndexPath(forRow: 0, inSection: indexPath.section)
         }
@@ -349,14 +364,19 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     }
     
     //delegate methods
-    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if segue.identifier == "goToPeriod" {
             
-            let controller = segue.destinationViewController as PeriodTableViewController
+            let periodTableViewController = segue.destinationViewController as PeriodTableViewController
             
-            controller.delegate = self
+            periodTableViewController.delegate = self
+            
+        } else if segue.identifier == "goToCompany" {
+            
+            let companytableviewController = segue.destinationViewController as CompanyTableViewController
+            
+            companytableviewController.delegate = self
         }
     }
     
@@ -373,5 +393,22 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
         
         self.checkIfFormIsComplete()
         
+    }
+        
+    func companyViewControllerDidCancel(controller: CompanyTableViewController) {
+        
+        self.navigationController?.popViewControllerAnimated(true)
+    
+    }
+        
+    func companyViewController(controller: CompanyTableViewController, didFinishSelectingCompany item: Company) {
+        
+        self.companyDetailLabel.text = item.name
+        
+        self.companySelected = item
+        
+        self.navigationController?.popViewControllerAnimated(true)
+        
+        self.checkIfFormIsComplete()
     }
 }

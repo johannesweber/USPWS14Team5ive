@@ -8,35 +8,18 @@
  
  import UIKit
  import CoreData
- 
- protocol AddToDashboardTableViewControllerDelegate: class {
-    
-    func addToDashboardViewControllerDidCancel(controller: AddToDashboardTableViewController)
-    func addToDashboardViewController(controller: AddToDashboardTableViewController, didFinishAddingItem item: MeasurementItem)
- }
+ import Alamofire
+ import SwiftyJSON
  
  class AddToDashboardTableViewController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
     //Variables
-    var measurementPickerVisible: Bool
-    var measurement: [MeasurementItem]
-    var measurementSelected: MeasurementItem
-    weak var delegate: AddToDashboardTableViewControllerDelegate?
-    var managedObjectContext: NSManagedObjectContext?
-    
-    //initializer
-    required init(coder aDecoder: NSCoder) {
-        
-        self.measurementPickerVisible = false
-        self.measurement = [MeasurementItem]()
-        self.measurementSelected = MeasurementItem()
-        
-        var steps = MeasurementItem(name: NSLocalizedString("Steps", comment: "Name for Measurement Item Steps"), nameInDatabase: "steps", unit: "steps", group: "Fitness")
-        
-        super.init(coder: aDecoder)
-        
-        self.measurement.append(steps)
-    }
+    var measurementPickerVisible = true
+    var measurements = [Measurement]()
+    var measurementSelected: Measurement!
+    var userId = prefs.integerForKey("USERID") as Int
+
+    var managedObjectContext: NSManagedObjectContext!
     
     //IBOutlet
     
@@ -48,18 +31,21 @@
     
     @IBAction func cancel(sender: UIBarButtonItem) {
         
-        self.delegate?.addToDashboardViewControllerDidCancel(self)
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     //TODO disable done button if no measurment is added
     @IBAction func done(sender: UIBarButtonItem) {
         
-        self.delegate?.addToDashboardViewController(self, didFinishAddingItem: self.measurementSelected)
+        self.setTextForMeasurement(self.measurementSelected)
+        
+        self.addMeasurementToDashboard(self.measurementSelected)
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
         
     }
     
     //Picker View Methods
-    
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         
         return 1
@@ -67,21 +53,22 @@
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
-        return self.measurement.count
+        return self.measurements.count
     }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
         
-        return self.measurement[row].name
+        return self.measurements[row].name
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
-        self.measurementSelected = self.measurement[row]
+        self.measurementSelected = self.measurements[row]
         self.measurementDetailLabel.text = self.measurementSelected.name
         self.doneBarButton.enabled = true
     }
     
+    //methods
     func showMeasurementPicker() {
         
         self.measurementPickerVisible = true
@@ -110,13 +97,16 @@
     }
     
     //Override Functions
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = 44
         
+        var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+        self.managedObjectContext = appDel.managedObjectContext!
+        
         self.doneBarButton.enabled = false
-        self.showMeasurementPicker()
+        
+        self.measurements = fetchMeasurementsFromCoreData()
         
     }
     
@@ -204,5 +194,75 @@
         
         return super.tableView(tableView, indentationLevelForRowAtIndexPath: indexPath)
     }
+    
+    func updatePropertyOfMeasurement(measurement: Measurement, property: String, newValue: AnyObject) {
+        
+        var batchRequest = NSBatchUpdateRequest(entityName: "Measurement")
+        
+        batchRequest.propertiesToUpdate = [ property : newValue]
+        batchRequest.resultType = .UpdatedObjectsCountResultType
+        
+        var selectMeasurementPredicate = NSPredicate(format: "name = %@", measurement.name)
+        
+        batchRequest.predicate = selectMeasurementPredicate
+        
+        var error : NSError?
+        var results = self.managedObjectContext!.executeRequest(batchRequest, error: &error) as NSBatchUpdateResult
+
+    }
+    
+    func addMeasurementToDashboard(measurement: Measurement) {
+        
+        var isInDashboardProperty = "isInDashboard"
+        
+        var newValue = NSNumber(bool: true)
+        
+        self.updatePropertyOfMeasurement(self.measurementSelected, property: isInDashboardProperty, newValue: newValue)
+    }
+    
+    func setTextForMeasurement(measurement: Measurement) {
+        
+        //variables needed for request
+        var date = Date()
+        var currentDate = date.getCurrentDateAsString() as String
+        var url: String = "\(baseURL)/value/select"
+        
+        let parameters: Dictionary<String, AnyObject> = [
+            
+            "company"       : "\(measurement.favoriteCompany)",
+            "endDate"       : "\(currentDate)",
+            "limit"         : "1",
+            "userId"        : "\(self.userId)",
+            "measurement"   : "\(measurement.nameInDatabase)"
+        ]
+        
+        
+        Alamofire.request(.GET, url, parameters: parameters)
+            .responseSwiftyJSON { (request, response, json, error) in
+                
+                println(request)
+                
+                println(json)
+                
+                var value = json[0]["value"].doubleValue
+                var unit = json[0]["unit"].stringValue
+                var date = json[0]["DATE"].stringValue
+                
+                measurement.value = value
+                measurement.unit = unit
+                measurement.date = date
+                
+                measurement.createTextForDashboard()
+                
+                println("Measurement Text: \(measurement.text)")
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    
+                    self.updatePropertyOfMeasurement(measurement, property: "text", newValue: measurement.text)
+                })
+        }
+        
+    }
+
     
  }

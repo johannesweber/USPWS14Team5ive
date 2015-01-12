@@ -11,7 +11,7 @@ import CoreData
 
 class Measurement: NSManagedObject {
 
-    @NSManaged var checked: Bool
+    @NSManaged var isInDashboard: Bool
     @NSManaged var date: String
     @NSManaged var favoriteCompany: String
     @NSManaged var groupname: String
@@ -21,9 +21,14 @@ class Measurement: NSManagedObject {
     @NSManaged var nameInDatabase: String
     @NSManaged var nameInGerman: String
     @NSManaged var nameInFrench: String
-    @NSManaged var sliderLimit: Int64
+    @NSManaged var sliderLimit: NSNumber
     @NSManaged var text: String
     @NSManaged var unit: String
     @NSManaged var value: Double
+    
+    func createTextForDashboard() {
+        
+        self.text = "\(self.name): \(self.value) \(self.unit)"
+    }
     
 }

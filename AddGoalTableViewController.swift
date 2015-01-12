@@ -16,7 +16,7 @@ protocol AddGoalTableViewControllerDelegate: class {
     
 }
 
-class AddGoalTableViewController: UITableViewController, CreateGoalTableViewControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
+class AddGoalTableViewController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
     //variables
     weak var delegate: AddGoalTableViewControllerDelegate?
@@ -27,8 +27,9 @@ class AddGoalTableViewController: UITableViewController, CreateGoalTableViewCont
     var newCreatedGoal: GoalItem
 
     //initializer
-    
     required init(coder aDecoder: NSCoder) {
+        
+        //which goals should we store here ? 
         
         self.goalPickerVisible = false
         self.goal = [GoalItem]()
@@ -78,28 +79,16 @@ class AddGoalTableViewController: UITableViewController, CreateGoalTableViewCont
     //IBAction
     @IBAction func cancel(sender: AnyObject) {
         
-        self.delegate?.addGoalTableViewControllerDidCancel(self)
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func done (sender: UIBarButtonItem) {
-        
-        if self.measurementDetailLabel.text != "Detail" {
             
-            self.delegate?.addGoalTableViewController(self, didFinishAddingItem: self.goalSelected)
-            
-        } else if self.goalDetailLabel.text != "Detail" {
-            
-            self.delegate?.addGoalTableViewController(self, didFinishAddingItem: self.newCreatedGoal)
-            
-        } else {
-            
-            self.delegate?.addGoalTableViewController(self, didFinishAddingItem: self.goalSelected)
-            self.delegate?.addGoalTableViewController(self, didFinishAddingItem: self.newCreatedGoal)
-        }
+        self.navigationController?.popViewControllerAnimated(true)
+
     }
     
     //Goal Picker View Methods
-    
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         
         return 1
@@ -139,21 +128,9 @@ class AddGoalTableViewController: UITableViewController, CreateGoalTableViewCont
         self.dismissViewControllerAnimated(true, completion: nil)
         
     }
-    
-    //sets the delegate 
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        if segue.identifier == "goToCreateGoal" {
-            
-            let controller = segue.destinationViewController as CreateGoalTableViewController
-            
-            controller.delegate = self
-        }
-    }
     
     //Override Function
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = 44

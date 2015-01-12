@@ -11,22 +11,49 @@ import CoreData
 import Alamofire
 import SwiftyJSON
 
-class DashboardTableViewController: UITableViewController, AddToDashboardTableViewControllerDelegate {
+class DashboardTableViewController: UITableViewController {
     
     //variables
-    var dashboardItems: [MeasurementItem]
     var userId = prefs.integerForKey("USERID") as Int
     var isLoading = false
     var request: Alamofire.Request?
     
-    //initializers
-    required init(coder aDecoder: NSCoder) {
-        
-        self.dashboardItems = [MeasurementItem]()
-        
-        super.init(coder: aDecoder)
-    }
+    // variable for managing core data
+    var managedObjectContext: NSManagedObjectContext!
     
+    lazy var fetchedResultsController: NSFetchedResultsController = {
+        let fetchRequest = NSFetchRequest()
+        
+        let entity = NSEntityDescription.entityForName("Measurement", inManagedObjectContext: self.managedObjectContext)
+        fetchRequest.entity = entity
+        
+        fetchRequest.fetchBatchSize = 20
+        
+        var isInDashboard = NSNumber(bool: true)
+        
+        var selectDashboardMeasurement = NSPredicate(format: "isInDashboard == %@", isInDashboard)
+        
+        fetchRequest.predicate = selectDashboardMeasurement
+        
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        let fetchedResultsController = NSFetchedResultsController(
+            fetchRequest: fetchRequest,
+            managedObjectContext: self.managedObjectContext,
+            sectionNameKeyPath: nil,
+            cacheName: "Measurements")
+        
+        fetchedResultsController.delegate = self
+        return fetchedResultsController
+        }()
+    
+    deinit {
+        
+        self.fetchedResultsController.delegate = nil
+    }
+
     struct TableViewCellIdentifiers {
         
         static let loadingCell = "LoadingCell"
@@ -71,10 +98,18 @@ class DashboardTableViewController: UITableViewController, AddToDashboardTableVi
         
         var cellNib = UINib(nibName: TableViewCellIdentifiers.loadingCell, bundle: nil)
         tableView.registerNib(cellNib, forCellReuseIdentifier: TableViewCellIdentifiers.loadingCell)
+        
+        var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+        self.managedObjectContext = appDel.managedObjectContext!
+        
+        NSFetchedResultsController.deleteCacheWithName("Measurements")
+
+        self.performFetch()
     }
     
     override func viewDidDisappear(animated: Bool) {
         self.request?.cancel()
+
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -85,7 +120,8 @@ class DashboardTableViewController: UITableViewController, AddToDashboardTableVi
             
         } else {
             
-            return self.dashboardItems.count
+            let sectionInfo = self.fetchedResultsController.sections![section] as NSFetchedResultsSectionInfo
+            return sectionInfo.numberOfObjects
         }
     }
     
@@ -104,9 +140,10 @@ class DashboardTableViewController: UITableViewController, AddToDashboardTableVi
         } else {
             
             let cell = tableView.dequeueReusableCellWithIdentifier("DashboardItem") as UITableViewCell
-            let item = self.dashboardItems[indexPath.row]
-            let label = cell.viewWithTag(6000) as UILabel
-            label.text = item.text
+            let measurement = self.fetchedResultsController.objectAtIndexPath(indexPath) as Measurement
+            
+            let label = cell.viewWithTag(100) as UILabel
+            label.text = measurement.text
         
             tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
@@ -114,98 +151,111 @@ class DashboardTableViewController: UITableViewController, AddToDashboardTableVi
         }
     }
     
+    //method will be executed if a cell is about to be deleted
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        
-        self.dashboardItems.removeAtIndex(indexPath.row)
-        
-        let indexPaths = [indexPath]
-        tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
-    }
-    
-    //sets the delegate for AddToDashboardtableViewController
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        if segue.identifier == "addToDashboard" {
+        if editingStyle == .Delete {
+            let measurement = fetchedResultsController.objectAtIndexPath(indexPath) as Measurement
             
-            let navigationController = segue.destinationViewController as UINavigationController
-            let controller = navigationController.topViewController as AddToDashboardTableViewController
-            
-            controller.delegate = self
+            self.removeMeasurementFromDashboard(measurement)
         }
     }
     
-    //delegate methods
-    //cancel method
-    func addToDashboardViewControllerDidCancel(controller: AddToDashboardTableViewController) {
+    //methods
+    func performFetch() {
+        var error: NSError?
         
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    
-    //method to add new item to dashboard...the item is coming from AddToDashboardTableViewController
-    
-    func addToDashboardViewController(controller: AddToDashboardTableViewController, didFinishAddingItem item: MeasurementItem) {
-        
-        let newRowIndex = self.dashboardItems.count
-        
-        let indexPath = NSIndexPath(forRow: newRowIndex, inSection: 0)
-        let indexPaths = [indexPath]
-        
-        if dashboardItems.contains(item){
-            
-            showAlert(NSLocalizedString("Item already added", comment: "Title for Message which appears if Dashboard already contains that Item"), NSLocalizedString("You have already added \(item.name). Please choose another one", comment: "Message which appears if Dashboard already contains that Item"), self)
-
-            self.dismissViewControllerAnimated(true, completion: nil)
-            
-        } else {
-            
-            self.setValueForItem(item)
-            
-            self.dashboardItems.append(item)
-            
-            self.tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
-            
-            self.dismissViewControllerAnimated(true, completion: nil)
+        if !fetchedResultsController.performFetch(&error) {
+            fatalCoreDataError(error)
         }
-    }
-    
-    func setValueForItem(item: MeasurementItem) {
-        
-        //variables needed for request
-        var date = Date()
-        var currentDate = date.getCurrentDateAsString() as String
-        var userId = prefs.integerForKey("USERID") as Int
-        var url: String = "\(baseURL)/fitbit/time_series/"
-        
-        let parameters: Dictionary<String, AnyObject> = [
-            
-            "endDate"       : "\(currentDate)",
-            "limit"         : "1",
-            "userId"        : "\(userId)",
-            "measurement"   : "\(item.name)"
-        ]
-        
-        
-        Alamofire.request(.GET, url, parameters: parameters)
-            .responseSwiftyJSON { (request, response, json, error) in
-                
-                println(json)
-                
-                var value = json[0]["value"].doubleValue
-                var unit = json[0]["unit"].stringValue
-                var date = json[0]["DATE"].stringValue
-                
-                item.value = value
-                item.unit = unit
-                item.date = date
-                
-                item.createTextForDashboard()
-                
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.tableView!.reloadData()
-                })
-        }
-        
     }
     
 }
+
+extension DashboardTableViewController: NSFetchedResultsControllerDelegate {
+    
+    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+        println("*** controllerWillChangeContent")
+        tableView.beginUpdates()
+    }
+    
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+        
+        switch type {
+        case .Insert:
+            println("*** NSFetchedResultsChangeInsert (object)")
+            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+            
+        case .Delete:
+            println("*** NSFetchedResultsChangeDelete (object)")
+            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+            
+        case .Update:
+            println("*** NSFetchedResultsChangeUpdate (object)")
+            let cell = tableView.cellForRowAtIndexPath(indexPath!)!
+            let measurement = controller.objectAtIndexPath(indexPath!) as Measurement
+            let label = cell.viewWithTag(100) as UILabel
+            label.text = measurement.text
+            
+        case .Move:
+            println("*** NSFetchedResultsChangeMove (object)")
+            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+        }
+    }
+    
+    func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
+        
+        switch type {
+        case .Insert:
+            println("*** NSFetchedResultsChangeInsert (section)")
+            tableView.insertSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
+            
+        case .Delete:
+            println("*** NSFetchedResultsChangeDelete (section)")
+            tableView.deleteSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
+            
+        case .Update:
+            println("*** NSFetchedResultsChangeUpdate (section)")
+            
+        case .Move:
+            println("*** NSFetchedResultsChangeMove (section)")
+        }
+    }
+    
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+        println("*** controllerDidChangeContent")
+        tableView.endUpdates()
+    }
+    
+    // in this method we set the "isInDashboard" Property of a given measurement to "false". So it will disappear from dashboard
+    func removeMeasurementFromDashboard(measurement: Measurement) {
+        
+        var batchRequest = NSBatchUpdateRequest(entityName: "Measurement")
+        
+        // i want to change the property "isInDashboard" to "false" or rather the variable "isInDashboard"
+        var isInDashboard = NSNumber(bool: false)
+        
+        batchRequest.propertiesToUpdate = [ "isInDashboard" : isInDashboard]
+        batchRequest.resultType = .UpdatedObjectsCountResultType
+        var error : NSError?
+        
+        var selectMeasurementPredicate = NSPredicate(format: "name = %@", measurement.name)
+        
+        batchRequest.predicate = selectMeasurementPredicate
+        
+        var results = self.managedObjectContext!.executeRequest(batchRequest, error: &error) as NSBatchUpdateResult
+
+        if !self.managedObjectContext.save(&error) {
+            fatalCoreDataError(error)
+        } else {
+            println("Object successfully removed from Dashboard")
+        }
+    }
+}
+
+
+
+
+
+
+

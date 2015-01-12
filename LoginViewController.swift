@@ -45,10 +45,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
         return true
     }
-
-    
-    
-    
     
     @IBAction func continueWithoutLogin(sender: UIButton) {
         
@@ -88,12 +84,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                         prefs.setInteger(success, forKey: "ISLOGGEDIN")
                         prefs.setInteger(userId, forKey: "USERID")
                         
-                        //if the user logs for the first time the default configuration for the focused health app will happen
+
                         if self.isFirstLogin() {
-                            prefs.setObject("YES", forKey: "FIRSTTIMELOGIN")
-                            self.insertFocusedHealthCompanyIntoCoreData(userId)
-                            //this method fetches the measurement from the current user from focused health database an stores them into core data
-                            fetchMeasurementsFromUser()
+                            
+                            self.firstTimeConfiguration(userId)
                         }
 
                         
@@ -145,5 +139,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         focusedHealtCompany.text = "default company for every user"
         
         insertCompanyIntoCoreData(userId, focusedHealtCompany)
+    }
+    
+    //this method start the daefault configuration if the user logs in for the first time
+    func firstTimeConfiguration(userId: Int) {
+        
+        prefs.setObject("YES", forKey: "FIRSTTIMELOGIN")
+        self.insertFocusedHealthCompanyIntoCoreData(userId)
+        //this method fetches the measurement from the current user from focused health database an stores them into core data
+        insertMeasurementsFromUser()
     }
 }

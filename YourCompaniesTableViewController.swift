@@ -34,7 +34,7 @@ class YourCompaniesTableViewController: UITableViewController, AddCompanyTableVi
             fetchRequest: fetchRequest,
             managedObjectContext: self.managedObjectContext,
             sectionNameKeyPath: nil,
-            cacheName: "Measurements")
+            cacheName: "Companies")
         
         fetchedResultsController.delegate = self
         return fetchedResultsController
@@ -53,7 +53,7 @@ class YourCompaniesTableViewController: UITableViewController, AddCompanyTableVi
         
     }
     
-    //prepareforsegue method for setting delegate in AddCompynViewController
+    //prepareforsegue method for setting delegate in AddCompanyViewController
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if segue.identifier == "goToAddCompany" {
@@ -67,12 +67,14 @@ class YourCompaniesTableViewController: UITableViewController, AddCompanyTableVi
     }
     
     //AddCompanyTableViewController delegate methods
+    //if the user added a company through AddCompanyTableViewController this delegate method will receive the added company and start the oauth authentication process
     func addCompanyTableViewController(controller: AddCompanyTableViewController, didFinishAddingCompany company: CompanyItem) {
         
         self.doOAuthCompanyItem(company.name)
         
         //after a delay of 1s the view controller gets dismissed
-        afterDelay(0.6) {
+        afterDelay(1.0) {
+            
             self.dismissViewControllerAnimated(true, completion: nil)
         }
     }
@@ -90,7 +92,7 @@ class YourCompaniesTableViewController: UITableViewController, AddCompanyTableVi
         var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
         self.managedObjectContext = appDel.managedObjectContext!
         
-        NSFetchedResultsController.deleteCacheWithName("Measurements")
+        NSFetchedResultsController.deleteCacheWithName("Companies")
         
         self.performFetch()
     }
@@ -302,15 +304,15 @@ extension YourCompaniesTableViewController: NSFetchedResultsControllerDelegate {
         case .Update:
             println("*** NSFetchedResultsChangeUpdate (object)")
             let cell = tableView.cellForRowAtIndexPath(indexPath!)!
-            let measurement = controller.objectAtIndexPath(indexPath!) as Measurement
-            let label = cell.viewWithTag(1010) as UILabel
+            let company = controller.objectAtIndexPath(indexPath!) as Company
+            let label = cell.viewWithTag(4060) as UILabel
             
             var currentLanguage = NSLocale.currentLanguageString
             
             switch currentLanguage {
-            case "en" : label.text = measurement.name
-            case "de" : label.text = measurement.name
-            case "fr" : label.text = measurement.name
+            case "en" : label.text = company.name
+            case "de" : label.text = company.name
+            case "fr" : label.text = company.name
             default : println("language unknown")
                 
             }

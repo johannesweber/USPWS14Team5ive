@@ -256,14 +256,15 @@ class CreateValueTableViewController: UITableViewController, CompanyTableViewCon
     func companyViewController(controller: CompanyTableViewController, didFinishSelectingCompany item: Company) {
         
         self.companyDetailLabel.text = item.name
-        
         self.companySelected = item
-        
         self.checkIfFormIsComplete()
+        
+        self.navigationController?.popViewControllerAnimated(true)
         
     }
     
     func companyViewControllerDidCancel(controller: CompanyTableViewController) {
         
+        self.navigationController?.popViewControllerAnimated(true)
     }
 }

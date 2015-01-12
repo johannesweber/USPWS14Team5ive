@@ -12,7 +12,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-func fetchMeasurementsFromUser() {
+func insertMeasurementsFromUser() {
     
     var userId = prefs.integerForKey("USERID") as Int
     
@@ -52,9 +52,10 @@ func insertMeasurementIntoCoreData(json: SwiftyJSON.JSON) {
     measurement.groupnameInGerman = json["groupnameInGerman"].stringValue
     measurement.groupnameInFrench = json["groupnameInFrench"].stringValue
     measurement.unit = json["unit"].stringValue
-    measurement.sliderLimit = json["sliderLimit"].int64Value
+    measurement.sliderLimit = json["sliderLimit"].intValue
     measurement.favoriteCompany = json["favoriteCompany"].stringValue
-    
+    measurement.isInDashboard = false
+    measurement.text = "(default text)"
     
     var error: NSError?
     if context.save(&error) {
@@ -89,6 +90,32 @@ func fetchCompanyFromCoreData() -> [Company]{
     }
     
     return foundObjects as [Company]
+}
+
+func fetchMeasurementsFromCoreData() -> [Measurement]{
+    
+    var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+    var managedObjectContext: NSManagedObjectContext = appDel.managedObjectContext!
+    
+    let fetchRequest = NSFetchRequest()
+    
+    let entity = NSEntityDescription.entityForName("Measurement", inManagedObjectContext: managedObjectContext)
+    fetchRequest.entity = entity
+    
+    let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+    fetchRequest.sortDescriptors = [sortDescriptor]
+    
+    var error: NSError?
+    let foundObjects = managedObjectContext.executeFetchRequest(fetchRequest, error: &error)
+    
+    if foundObjects == nil {
+        
+        fatalCoreDataError(error)
+        return foundObjects as [Measurement]
+    }
+    
+    return foundObjects as [Measurement]
+
 }
 
 func insertCompanyIntoCoreData(userId: Int, companyToInsert: CompanyItem) {

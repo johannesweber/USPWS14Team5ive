@@ -13,7 +13,7 @@ class ManageDataDetailViewController: UITableViewController, ManageDataViewContr
 
     //variables
     var labelClicked = String()
-    var selectedCategory =  MeasurementItem()
+    var selectedCategory: Category!
     
     // variable for managing core data
     var managedObjectContext: NSManagedObjectContext!
@@ -81,7 +81,7 @@ class ManageDataDetailViewController: UITableViewController, ManageDataViewContr
     }
     
     //manage data view controller delegate methods
-    func manageDataViewController(controller: ManageDataViewController, didSelectCategory category: MeasurementItem) {
+    func manageDataViewController(controller: ManageDataViewController, didSelectCategory category: Category) {
         
         self.selectedCategory = category
         

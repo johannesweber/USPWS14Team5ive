@@ -132,8 +132,11 @@ class YourCompaniesTableViewController: UITableViewController, AddCompanyTableVi
     //method will be executed if a cell is about to be deleted
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            let location = fetchedResultsController.objectAtIndexPath(indexPath) as Company
-            self.managedObjectContext.deleteObject(location)
+            let company = fetchedResultsController.objectAtIndexPath(indexPath) as Company
+            
+            self.deleteCompanyAccountFromDatabase(company.nameInDatabase, userId: self.userId)
+            
+            self.managedObjectContext.deleteObject(company)
         
             var error: NSError?
             if !managedObjectContext.save(&error) {
@@ -346,6 +349,25 @@ extension YourCompaniesTableViewController: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         println("*** controllerDidChangeContent")
         tableView.endUpdates()
+    }
+    
+    func deleteCompanyAccountFromDatabase(companyNameInDatabase: String, userId: Int) {
+        
+        var url = "\(baseURL)/company/delete"
+        
+        let parameters: Dictionary<String, AnyObject> = [
+            
+            "userId"        : "\(userId)",
+            "company"       : "\(companyNameInDatabase)"
+        ]
+        
+        Alamofire.request(.GET, url, parameters: parameters)
+            .responseString { (request, response, json, error) in
+                
+                println(request)
+                
+                println(json)
+        }
     }
 }
 

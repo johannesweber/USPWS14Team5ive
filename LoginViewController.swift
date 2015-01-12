@@ -27,7 +27,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         let isLoggedIn:Int = prefs.integerForKey("ISLOGGEDIN") as Int
         
-        if (isLoggedIn == 1) {
+        if isLoggedIn == 1 {
             
             self.performSegueWithIdentifier("goToDashboard", sender: self)
         }
@@ -85,12 +85,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                         prefs.setInteger(userId, forKey: "USERID")
                         
 
-                        if self.isFirstLogin() {
+                        if isFirstLogin() {
                             
                             self.firstTimeConfiguration(userId)
                         }
 
-                        
                         prefs.synchronize()
                         
                         self.performSegueWithIdentifier("goToDashboard", sender: self)
@@ -109,7 +108,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                             
                         }
                         
-                        showAlert( NSLocalizedString("Sign In Failed!", comment: "Title for Message sign in failed"),  NSLocalizedString("\(error_msg)", comment: "Message if sign in failed"), self)
+                        showAlert( NSLocalizedString("Sign In Failed!", comment: "Title for Message sign in failed"),"\(error_msg)", self)
 
                     }
             }
@@ -117,36 +116,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    //returns true if the user has logged in for the first time
-    func isFirstLogin() ->Bool {
-        
-        var firstTimer = false
-        
-        if prefs.stringForKey("FIRSTTIMELOGIN") == nil {
-            println("Du bist zum ersten mal hier")
-            firstTimer = true
-        }
-        
-        return firstTimer
-    }
-    
-    func insertFocusedHealthCompanyIntoCoreData(userId: Int) {
-        
-        var focusedHealtCompany = CompanyItem()
-        
-        focusedHealtCompany.name = "Focused Health"
-        focusedHealtCompany.nameInDatabase = "focused health"
-        focusedHealtCompany.text = "default company for every user"
-        
-        insertCompanyIntoCoreData(userId, focusedHealtCompany)
-    }
-    
     //this method start the daefault configuration if the user logs in for the first time
     func firstTimeConfiguration(userId: Int) {
         
         prefs.setObject("YES", forKey: "FIRSTTIMELOGIN")
-        self.insertFocusedHealthCompanyIntoCoreData(userId)
+        //TODO inserten von 2 mal focused health verhindern
+        insertFocusedHealthCompanyIntoCoreData()
         //this method fetches the measurement from the current user from focused health database an stores them into core data
         insertMeasurementsFromUser()
+        //this method fetches the categories from focused health database an stores them into core data
+        insertCategories()
+        insertCompaniesFromUser()
     }
 }

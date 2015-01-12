@@ -15,11 +15,11 @@ class GoalsTableViewController: UITableViewController {
     
     //variables
     var userId = prefs.integerForKey("USERID") as Int
-    //variables
+
     // variable for managing core data
     var managedObjectContext: NSManagedObjectContext!
     
-    //this variable contains all company items fetched from core data
+    //this variable contains all goal items fetched from core data
     lazy var fetchedResultsController: NSFetchedResultsController = {
         let fetchRequest = NSFetchRequest()
         
@@ -48,8 +48,9 @@ class GoalsTableViewController: UITableViewController {
     
     //IBAction
     @IBAction func refresh(sender: UIBarButtonItem) {
-        //Need to write a method for refreshing all goal items shown in table view
+        //Need to write a method for refreshing all goal items shown in table view DELETE method ????
     
+        
     }
     
     //override methods
@@ -59,7 +60,7 @@ class GoalsTableViewController: UITableViewController {
         var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
         self.managedObjectContext = appDel.managedObjectContext!
         
-        NSFetchedResultsController.deleteCacheWithName("Measurements")
+        NSFetchedResultsController.deleteCacheWithName("Goals")
         
         self.performFetch()
     }
@@ -72,53 +73,8 @@ class GoalsTableViewController: UITableViewController {
             fatalCoreDataError(error)
         }
     }
-    
-    //TODO need to rewrite insert and select goals
-    func fetchValueFromGoal(goal: Goal) {
-        
-        //variables needed for request
-        var url: String = "\(baseURL)/goals/select/"
-        
-        let parameters: Dictionary<String, AnyObject> = [
-            
-            "userId"        : "\(self.userId)",
-            "measurement"   : "\(goal.measurement)",
-            "period"        : "\(goal.convertPeriodToInt())",
-            "company"       : "\(goal.company)",
-            "limit"         : "1"
-        ]
-        
-        //wrong user ID stored in Database
-        Alamofire.request(.GET, url, parameters: parameters)
-            .responseString { (request, response, json, error) in
-                
-                println(request)
-                
-                println(json)
-                
-//                var currentValue = json[0]["current_value"].intValue
-//                var targetValue = json[0]["target_value"].intValue
-//                
-//                goal.progressValue = currentValue
-//                
-//                var text = "\(goal.measurement): \(currentValue)"
-//                
-//                goal.text = text
-//                
-//                dispatch_async(dispatch_get_main_queue(), {
-//                    self.tableView!.reloadData()
-//                })
-        }
-    
-    }
-    
+
     //override methods
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        self.fetchValueFromGoal(self.fetchedResultsController.objectAtIndexPath(indexPath) as Goal)
-    }
-    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         let sectionInfo = self.fetchedResultsController.sections![section] as NSFetchedResultsSectionInfo
@@ -136,7 +92,7 @@ class GoalsTableViewController: UITableViewController {
         
         let fractionalProgress = Float(item.progressValue) / Float(item.value)
         progressView.setProgress(fractionalProgress, animated: true)
-        label.text = item.measurement
+        label.text = item.text
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
@@ -147,8 +103,8 @@ class GoalsTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
         if editingStyle == .Delete {
-            let location = fetchedResultsController.objectAtIndexPath(indexPath) as Company
-            self.managedObjectContext.deleteObject(location)
+            let goal = fetchedResultsController.objectAtIndexPath(indexPath) as Goal
+            self.managedObjectContext.deleteObject(goal)
             
             var error: NSError?
             if !managedObjectContext.save(&error) {
@@ -186,9 +142,9 @@ extension GoalsTableViewController: NSFetchedResultsControllerDelegate {
             var currentLanguage = NSLocale.currentLanguageString
         
             switch currentLanguage {
-            case "en" : label.text = goal.measurement
-            case "de" : label.text = goal.measurement
-            case "fr" : label.text = goal.measurement
+            case "en" : label.text = goal.text
+            case "de" : label.text = goal.text
+            case "fr" : label.text = goal.text
             default : println("language unknown")
         
     }

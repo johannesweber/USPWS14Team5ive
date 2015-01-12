@@ -133,21 +133,25 @@ class FavCompanyTableViewController: UITableViewController, CompanyTableViewCont
     
     func showAlertToChooseCompany(measurement: Measurement){
         
-        let alertController = UIAlertController(title: "Choose Company!\n", message: "Please choose your favorite Company", preferredStyle: .Alert)
+        var title = NSLocalizedString("Choose Company!\n", comment: "This is the title for the message if the user has to choose a favorite company")
+        var message = NSLocalizedString("Please choose your favorite Company", comment: "This is the message if the user has to choose a favorite company")
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
         
         for (var x  = 0; x < self.companies.count; x++) {
             
             var favCompany = self.companies[x].name
             
             let companyAction = UIAlertAction(title: favCompany, style: .Default) { (_) in
-                println("I Chose \(favCompany) for \(measurement.name)")
                 self.updateMeasurement(measurement, favCompany: favCompany)
             }
             
             alertController.addAction(companyAction)
         }
-            
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (_) in }
+        
+        var cancelTitle = NSLocalizedString("Cancel", comment: "This is the title for the cancel button")
+        
+        let cancelAction = UIAlertAction(title: cancelTitle, style: .Cancel) { (_) in }
             
         alertController.addAction(cancelAction)
             

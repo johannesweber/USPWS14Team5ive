@@ -12,6 +12,43 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
+func insertCompaniesFromUser() {
+    
+    var userId = prefs.integerForKey("USERID") as Int
+    
+    var url = "\(baseURL)/company/select/"
+    
+    let parameters: Dictionary<String, AnyObject> = [
+        
+        "userId"        : "\(userId)",
+    ]
+    
+    Alamofire.request(.GET, url, parameters: parameters)
+        .responseSwiftyJSON { (request, response, json, error) in
+            
+            for(var x = 0; x < json.count; x++) {
+                
+                var appDel: AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+                var context: NSManagedObjectContext = appDel.managedObjectContext!
+                
+                var company = NSEntityDescription.insertNewObjectForEntityForName("Company", inManagedObjectContext: context) as Company
+                
+                company.name = json[x]["nameInApp"].stringValue
+                company.nameInDatabase = json[x]["name"].stringValue
+                company.checked = false
+                
+                var error: NSError?
+                if context.save(&error) {
+                    
+                } else {
+                    
+                    fatalCoreDataError(error)
+                }
+            }
+    }
+
+}
+
 func insertMeasurementsFromUser() {
     
     var userId = prefs.integerForKey("USERID") as Int
@@ -119,11 +156,12 @@ func fetchMeasurementsFromCoreData() -> [Measurement]{
 }
 
 func insertCompanyIntoCoreData(userId: Int, companyToInsert: CompanyItem) {
+        
     var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
     var context: NSManagedObjectContext = appDel.managedObjectContext!
-
+        
     var company = NSEntityDescription.insertNewObjectForEntityForName("Company", inManagedObjectContext: context) as Company
-
+    
     company.name = companyToInsert.name
     company.nameInDatabase = companyToInsert.nameInDatabase
     company.checked = companyToInsert.checked
@@ -131,10 +169,95 @@ func insertCompanyIntoCoreData(userId: Int, companyToInsert: CompanyItem) {
         
     var error: NSError?
     if context.save(&error) {
-        
-
+            
     } else {
-        
+            
         fatalCoreDataError(error)
     }
+    
+    if companyToInsert.name == "Focused Health" {
+        
+        var url = "\(baseURL)/company/insert/"
+        
+        let parameters: Dictionary<String, AnyObject> = [
+            
+            "userId"        : "\(userId)",
+            "company"       : "\(companyToInsert.nameInDatabase)"
+        ]
+        
+        Alamofire.request(.GET, url, parameters: parameters)
+            .responseString { (request, response, json, error) in
+                
+                println(request)
+                println(response)
+                println(json)
+        }
+    }
+}
+
+func insertCategories() {
+    
+    var url = "\(baseURL)/category/select/"
+    
+    Alamofire.request(.GET, url)
+        .responseSwiftyJSON { (request, response, json, error) in
+            
+            for(var x = 0; x < json.count; x++) {
+                
+                var appDel: AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+                var context: NSManagedObjectContext = appDel.managedObjectContext!
+                
+                var category = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: context) as Category
+                
+                category.name = json[x]["name"].stringValue
+                category.nameInGerman = json[x]["nameInGerman"].stringValue
+                category.nameInFrench = json[x]["nameInFrench"].stringValue
+                
+                var error: NSError?
+                if context.save(&error) {
+                    
+                } else {
+                    
+                    fatalCoreDataError(error)
+                }
+            }
+    }
+}
+
+func fetchCategoriesFromCoreData() -> [Category]{
+    
+    var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+    var managedObjectContext: NSManagedObjectContext = appDel.managedObjectContext!
+    
+    let fetchRequest = NSFetchRequest()
+    
+    let entity = NSEntityDescription.entityForName("Category", inManagedObjectContext: managedObjectContext)
+    fetchRequest.entity = entity
+    
+    let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+    fetchRequest.sortDescriptors = [sortDescriptor]
+    
+    var error: NSError?
+    let foundObjects = managedObjectContext.executeFetchRequest(fetchRequest, error: &error)
+    
+    if foundObjects == nil {
+        
+        fatalCoreDataError(error)
+        return foundObjects as [Category]
+    }
+    
+    return foundObjects as [Category]
+}
+
+func insertFocusedHealthCompanyIntoCoreData() {
+    
+    var userId = prefs.integerForKey("USERID") as Int
+    
+    var focusedHealtCompany = CompanyItem()
+    
+    focusedHealtCompany.name = "Focused Health"
+    focusedHealtCompany.nameInDatabase = "focused health"
+    focusedHealtCompany.text = "default company for every user"
+    
+    insertCompanyIntoCoreData(userId, focusedHealtCompany)
 }

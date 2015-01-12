@@ -22,6 +22,8 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     var currentValue = Int()
     var userId = prefs.integerForKey("USERID") as Int
     var companySelected: Company!
+    // variable for managing core data
+    var managedObjectContext: NSManagedObjectContext!
     
     //IBOutlet
     @IBOutlet weak var valueSlider: UISlider!
@@ -58,6 +60,12 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
         goal.company = self.companySelected.nameInDatabase
         goal.value = self.currentValue
         goal.unit = self.unitLabel.text!
+        //default values for progress value and text
+        goal.text = ""
+        goal.progressValue = 0
+        
+        //method to update text property of goal
+        self.createTextForGoal(goal)
         
         var error: NSError?
         if context.save(&error) {
@@ -79,8 +87,10 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     
     //override methods
     override func viewDidLoad() {
-        
         super.viewDidLoad()
+        
+        var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+        self.managedObjectContext = appDel.managedObjectContext!
         
         self.saveBarButton.enabled = false
         self.valueSlider.enabled = false
@@ -124,6 +134,64 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     }
     
     //methods
+    func createTextForGoal(goal: Goal) {
+        
+        //variables needed for request
+        var url: String = "\(baseURL)/goals/select/"
+        
+        let parameters: Dictionary<String, AnyObject> = [
+            
+            "userId"        : "\(self.userId)",
+            "measurement"   : "\(goal.measurement)",
+            "period"        : "\(goal.convertPeriodToInt())",
+            "company"       : "\(goal.company)",
+            "limit"         : "1"
+        ]
+        
+        //wrong user ID stored in Database
+        Alamofire.request(.GET, url, parameters: parameters)
+            .responseSwiftyJSON { (request, response, json, error) in
+                
+                println(request)
+                
+                println(json)
+                
+                var currentValue = json[0]["current_value"].intValue
+                var targetValue = json[0]["target_value"].intValue
+                
+                println("Current Value: \(currentValue)")
+                
+                println("Target Value: \(targetValue)")
+                
+                var text = "\(goal.measurement): \(currentValue)"
+                
+                println("Goal Text: \(text)")
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    
+                    self.updateGoal(goal, property: "progressValue", newValue: currentValue)
+                    self.updateGoal(goal, property: "text", newValue: text)
+                })
+        }
+        
+    }
+    
+    func updateGoal(goal: Goal, property: String, newValue: AnyObject) {
+        
+        var batchRequest = NSBatchUpdateRequest(entityName: "Goal")
+        batchRequest.propertiesToUpdate = [ property : newValue]
+        batchRequest.resultType = .UpdatedObjectsCountResultType
+        var error : NSError?
+        
+        var selectMeasurementPredicate = NSPredicate(format: "measurement = %@", goal.measurement)
+        
+        batchRequest.predicate = selectMeasurementPredicate
+        
+        var results = self.managedObjectContext!.executeRequest(batchRequest, error: &error) as NSBatchUpdateResult
+        
+    }
+
+    
     func insertGoalIntoDatabase(goal: Goal) {
         
         var url = "\(baseURL)/goals/insert/"
@@ -140,9 +208,6 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
         
         Alamofire.request(.GET, url, parameters: parameters)
             .responseSwiftyJSON { (request, response, json, error) in
-                
-                println(json)
-                
         }
     }
     

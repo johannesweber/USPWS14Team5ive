@@ -17,6 +17,7 @@ class DashboardTableViewController: UITableViewController {
     var userId = prefs.integerForKey("USERID") as Int
     var isLoading = false
     var request: Alamofire.Request?
+    var companies = [Company]()
     
     // variable for managing core data
     var managedObjectContext: NSManagedObjectContext!
@@ -62,34 +63,7 @@ class DashboardTableViewController: UITableViewController {
     //IBAction
     @IBAction func refresh(sender: UIBarButtonItem) {
         
-        self.isLoading = true
-        self.tableView.reloadData()
-        
-        let url = "\(baseURL)/fitbit/synchronize/"
-        
-        let parameters: Dictionary<String, AnyObject> = [
-            "userId"    : "\(self.userId)"
-        ]
-        
-        //remove success message from user_info in php
-        self.request = Alamofire.request(.GET, url, parameters: parameters)
-            .responseSwiftyJSON { (request, response, json, error) in
-                
-                println(json)
-         
-                var success = json["success"].intValue
-                var message = json["message"].stringValue
-                
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.isLoading = false
-                    self.tableView.reloadData()
-                }
-                
-                if success == 1 {
-                    showAlert(NSLocalizedString("Success!", comment: "Title for Message which appears if request successfully executed"), NSLocalizedString("\(message)", comment: "Message which appears if request successfully executed"), self)
-                }
-                
-        }
+        self.synchronizeData()
     }
     
     //override methods
@@ -104,6 +78,8 @@ class DashboardTableViewController: UITableViewController {
         
         NSFetchedResultsController.deleteCacheWithName("Measurements")
 
+        self.companies = fetchCompanyFromCoreData()
+        
         self.performFetch()
     }
     
@@ -168,8 +144,79 @@ class DashboardTableViewController: UITableViewController {
             fatalCoreDataError(error)
         }
     }
+
+    // in this method we set the "isInDashboard" Property of a given measurement to "false". So it will disappear from dashboard
+    func removeMeasurementFromDashboard(measurement: Measurement) {
+        
+        var batchRequest = NSBatchUpdateRequest(entityName: "Measurement")
+        
+        // i want to change the property "isInDashboard" to "false" or rather the variable "isInDashboard"
+        var isInDashboard = NSNumber(bool: false)
+        
+        batchRequest.propertiesToUpdate = [ "isInDashboard" : isInDashboard]
+        batchRequest.resultType = .UpdatedObjectsCountResultType
+        var error : NSError?
+        
+        var selectMeasurementPredicate = NSPredicate(format: "name = %@", measurement.name)
+        
+        batchRequest.predicate = selectMeasurementPredicate
+        
+        var results = self.managedObjectContext!.executeRequest(batchRequest, error: &error) as NSBatchUpdateResult
+
+        if !self.managedObjectContext.save(&error) {
+            fatalCoreDataError(error)
+        } else {
+            println("Object successfully removed from Dashboard")
+        }
+    }
     
+    func synchronizeData(){
+        
+        self.isLoading = true
+        self.tableView.reloadData()
+        
+        for (var x = 0; x < self.companies.count; x++) {
+            
+            var currentCompany = self.companies[x]
+            
+            if currentCompany.nameInDatabase != "focused health" {
+                
+                let url = "\(baseURL)/\(currentCompany.nameInDatabase)/synchronize/"
+                
+                println(url)
+                
+                let parameters: Dictionary<String, AnyObject> = [
+                    
+                    "userId"    : "\(self.userId)"
+                ]
+                
+                //remove success message from user_info in php
+                self.request = Alamofire.request(.GET, url, parameters: parameters)
+                    .responseSwiftyJSON { (request, response, json, error) in
+                        
+                    println(json)
+                    
+//                    var success = json["success"].intValue
+//                    var message = json["message"].stringValue
+//                
+//                    dispatch_async(dispatch_get_main_queue()) {
+//                        self.isLoading = false
+//                        self.tableView.reloadData()
+//                    }
+//                        
+//                    if success == 1 {
+//                        showAlert(NSLocalizedString("\(currentCompany.name) Success!", comment: "Title for Message which appears if request successfully executed"), NSLocalizedString("\(message)", comment: "Message which appears if request successfully executed"), self)
+//                    }
+
+                }
+            
+            }
+        }
+        
+    }
 }
+
+
 
 extension DashboardTableViewController: NSFetchedResultsControllerDelegate {
     
@@ -225,31 +272,6 @@ extension DashboardTableViewController: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         println("*** controllerDidChangeContent")
         tableView.endUpdates()
-    }
-    
-    // in this method we set the "isInDashboard" Property of a given measurement to "false". So it will disappear from dashboard
-    func removeMeasurementFromDashboard(measurement: Measurement) {
-        
-        var batchRequest = NSBatchUpdateRequest(entityName: "Measurement")
-        
-        // i want to change the property "isInDashboard" to "false" or rather the variable "isInDashboard"
-        var isInDashboard = NSNumber(bool: false)
-        
-        batchRequest.propertiesToUpdate = [ "isInDashboard" : isInDashboard]
-        batchRequest.resultType = .UpdatedObjectsCountResultType
-        var error : NSError?
-        
-        var selectMeasurementPredicate = NSPredicate(format: "name = %@", measurement.name)
-        
-        batchRequest.predicate = selectMeasurementPredicate
-        
-        var results = self.managedObjectContext!.executeRequest(batchRequest, error: &error) as NSBatchUpdateResult
-
-        if !self.managedObjectContext.save(&error) {
-            fatalCoreDataError(error)
-        } else {
-            println("Object successfully removed from Dashboard")
-        }
     }
 }
 

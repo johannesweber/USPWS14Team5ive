@@ -29,7 +29,7 @@ class AddGoalTableViewController: UITableViewController, UIPickerViewDataSource,
     //initializer
     required init(coder aDecoder: NSCoder) {
         
-        //which goals should we store here ? 
+        //TODO which goals should we store here ? 
         
         self.goalPickerVisible = false
         self.goal = [GoalItem]()

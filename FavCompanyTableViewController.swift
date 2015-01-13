@@ -11,17 +11,47 @@ import CoreData
 import Alamofire
 import SwiftyJSON
 
-class FavCompanyTableViewController: UITableViewController, CompanyTableViewControllerDelegate {
+class FavCompanyTableViewController: UITableViewController {
     
     //variables
-    var allMeasurements = [Measurement]()
-    var duplicateMeasurements = [Measurement]()
-    var measurementSelected: Measurement!
-    var companies = [Company]()
     var userId = prefs.integerForKey("USERID") as Int
     
-    // variable for managing core data
+    //object for managing duplicate measurements
     var managedObjectContext: NSManagedObjectContext!
+    
+    lazy var fetchedResultsController: NSFetchedResultsController = {
+        let fetchRequest = NSFetchRequest()
+        
+        let entity = NSEntityDescription.entityForName("Measurement", inManagedObjectContext: self.managedObjectContext)
+        fetchRequest.entity = entity
+        
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        var isDuplicate = NSNumber(bool: true)
+        
+        let selectDuplicatePredicate = NSPredicate(format: "isDuplicate == %@", isDuplicate)
+        
+        fetchRequest.predicate = selectDuplicatePredicate
+        
+        fetchRequest.fetchBatchSize = 20
+        
+        let fetchedResultsController = NSFetchedResultsController(
+            fetchRequest: fetchRequest,
+            managedObjectContext: self.managedObjectContext,
+            sectionNameKeyPath: nil,
+            cacheName: "Measurements")
+        
+        fetchedResultsController.delegate = self
+        
+        return fetchedResultsController
+        
+        }()
+    
+    deinit {
+        
+        fetchedResultsController.delegate = nil
+    }
     
     //override methods
     override func viewDidLoad() {
@@ -30,32 +60,41 @@ class FavCompanyTableViewController: UITableViewController, CompanyTableViewCont
         var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
         self.managedObjectContext = appDel.managedObjectContext!
         
-        self.allMeasurements = fetchMeasurementsFromCoreData()
+        updateDuplicateMeasurements()
         
-        self.fetchDuplicateMeasurements()
+        NSFetchedResultsController.deleteCacheWithName("Measurements")
         
-        self.companies = fetchCompanyFromCoreData()
+        self.performFetch()
 
-        
+    }
+    
+    func performFetch() {
+        var error: NSError?
+        if !fetchedResultsController.performFetch(&error) {
+            
+            fatalCoreDataError(error)
+            
+        }
     }
     
     //table view methods
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return self.duplicateMeasurements.count
+        let sectionInfo = self.fetchedResultsController.sections![section] as NSFetchedResultsSectionInfo
+        return sectionInfo.numberOfObjects
     }
     
     //places the TableItems in tableview rows
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("MeasurementItem") as UITableViewCell
-        let item = duplicateMeasurements[indexPath.row]
+        let duplicateMeasurement = self.fetchedResultsController.objectAtIndexPath(indexPath) as Measurement
         
         let measurementLabel = cell.viewWithTag(100) as UILabel
-        measurementLabel.text = item.name
+        measurementLabel.text = duplicateMeasurement.name
         
         let favCompanyLabel = cell.viewWithTag(101) as UILabel
-        favCompanyLabel.text = item.favoriteCompany
+        favCompanyLabel.text = duplicateMeasurement.favoriteCompany
         
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
@@ -64,119 +103,123 @@ class FavCompanyTableViewController: UITableViewController, CompanyTableViewCont
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        var selectedMeasurement = self.duplicateMeasurements[indexPath.row]
-        
-        self.showAlertToChooseCompany(selectedMeasurement)
+        self.showAlertToChooseCompany(self.fetchedResultsController.objectAtIndexPath(indexPath) as Measurement)
         
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
     }
 
-    
-    func fetchDuplicateMeasurements() {
-        
-        var url = "\(baseURL)/measurement/select/duplicate"
-        
-        let parameters: Dictionary<String, AnyObject> = [
-            
-            "userId"        : "\(self.userId)",
-        ]
-        
-        Alamofire.request(.GET, url, parameters: parameters)
-            .responseSwiftyJSON { (request, response, json, error) in
-                
-                for (var x = 0; x < self.allMeasurements.count; x++ ) {
-                    var measurement = self.allMeasurements[x]
-                    
-                    for(var y = 0; y < json.count; y++) {
-                        
-                        var duplicateMeasurementName = json[y]["nameInApp"].stringValue
-                        
-                        if duplicateMeasurementName == measurement.name {
-                            
-                            self.duplicateMeasurements.append(measurement)
-                        }
-                    }
-                }
-                
-                dispatch_async(dispatch_get_main_queue()) {
-                    
-                    self.tableView.reloadData()
-                    
-                }
-        }
-    }
-    
-    //set delegate for CompanyTableViewController
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        if segue.identifier == "goToCompany" {
-            
-            let companyTableViewController = segue.destinationViewController as CompanyTableViewController
-            
-            companyTableViewController.delegate = self
-            companyTableViewController.measurementToEdit = self.measurementSelected
-            
-        }
-    }
-    
-    //Company Table View Delegate Methods
-    func companyViewController(controller: CompanyTableViewController, didFinishSelectingCompany item: Company) {
-        
-        self.navigationController?.popViewControllerAnimated(true)
-    }
-    
-    func companyViewControllerDidCancel(controller: CompanyTableViewController) {
-        
-        self.navigationController?.popViewControllerAnimated(true)
-    }
-    
     func showAlertToChooseCompany(measurement: Measurement){
         
         var title = NSLocalizedString("Choose Company!\n", comment: "This is the title for the message if the user has to choose a favorite company")
         var message = NSLocalizedString("Please choose your favorite Company", comment: "This is the message if the user has to choose a favorite company")
         
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .ActionSheet)
+
+        var companies = self.fetchCompanyToMeasurement(measurement)
+    
+        for company in companies {
         
-        for (var x  = 0; x < self.companies.count; x++) {
+            let companyAction = UIAlertAction(title: company, style: .Default) { action -> Void in
             
-            var favCompany = self.companies[x].name
+                var success = updateMeasurement(measurement.name, "favoriteCompany", company)
             
-            let companyAction = UIAlertAction(title: favCompany, style: .Default) { (_) in
-                self.updateMeasurement(measurement, favCompany: favCompany)
+                self.tableView.reloadData()
+
             }
-            
+        
             alertController.addAction(companyAction)
         }
-        
+    
         var cancelTitle = NSLocalizedString("Cancel", comment: "This is the title for the cancel button")
         
         let cancelAction = UIAlertAction(title: cancelTitle, style: .Cancel) { (_) in }
             
         alertController.addAction(cancelAction)
-            
+    
+    
+    
         self.presentViewController(alertController, animated: true, completion: nil)
         
     }
     
-    func updateMeasurement(measurement: Measurement, favCompany: String) {
-            
-        var batchRequest = NSBatchUpdateRequest(entityName: "Measurement")
-        batchRequest.propertiesToUpdate = [ "favoriteCompany" : favCompany]
-        batchRequest.resultType = .UpdatedObjectsCountResultType
-        var error : NSError?
+    func fetchCompanyToMeasurement(measurement: Measurement) -> [String] {
         
-        var selectMeasurementPredicate = NSPredicate(format: "name = %@", measurement.name)
-            
-        batchRequest.predicate = selectMeasurementPredicate
+        var companies = [String]()
         
-        var results = self.managedObjectContext!.executeRequest(batchRequest, error: &error) as NSBatchUpdateResult
+        var companyHasMeasurement: [CompanyHasMeasurement] = fetchCompanyHasMeasurement(measurement)
+        
+        for elem in companyHasMeasurement {
             
-        self.fetchDuplicateMeasurements()
-            
-        self.tableView.reloadData()
+            companies.append(elem.company)
+        }
+        
+        return companies
+        
     }
 }
+
+
+extension FavCompanyTableViewController: NSFetchedResultsControllerDelegate {
+    
+    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+    println("*** controllerWillChangeContent")
+    tableView.beginUpdates()
+    }
+    
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+        switch type {
+    case .Insert:
+        println("*** NSFetchedResultsChangeInsert (object)")
+        tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+        
+    case .Delete:
+            println("*** NSFetchedResultsChangeDelete (object)")
+        tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+        
+    case .Update:
+            println("*** NSFetchedResultsChangeUpdate (object)")
+        let cell = tableView.cellForRowAtIndexPath(indexPath!)!
+        let duplicateMeasurement = controller.objectAtIndexPath(indexPath!) as Measurement
+        
+        let measurementLabel = cell.viewWithTag(100) as UILabel
+        measurementLabel.text = duplicateMeasurement.name
+        
+        let favCompanyLabel = cell.viewWithTag(101) as UILabel
+        favCompanyLabel.text = duplicateMeasurement.favoriteCompany
+        
+        
+    case .Move:
+            println("*** NSFetchedResultsChangeMove (object)")
+        tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+        tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+        }
+    }
+    
+    func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
+        switch type {
+    case .Insert:
+        println("*** NSFetchedResultsChangeInsert (section)")
+        tableView.insertSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
+        
+    case .Delete:
+            println("*** NSFetchedResultsChangeDelete (section)")
+        tableView.deleteSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
+        
+    case .Update:
+            println("*** NSFetchedResultsChangeUpdate (section)")
+        
+    case .Move:
+                println("*** NSFetchedResultsChangeMove (section)")
+        }
+    }
+    
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+        println("*** controllerDidChangeContent")
+        tableView.endUpdates()
+    }
+}
+
 
 
 

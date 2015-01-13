@@ -216,8 +216,6 @@ class DashboardTableViewController: UITableViewController {
     }
 }
 
-
-
 extension DashboardTableViewController: NSFetchedResultsControllerDelegate {
     
     func controllerWillChangeContent(controller: NSFetchedResultsController) {

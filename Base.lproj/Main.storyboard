@@ -1074,7 +1074,7 @@ password, press the button below</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MeasurementItem" rowHeight="57" id="aJx-qr-jLK" customClass="FavCompanyTableViewCell" customModule="USPWS14Team5ive" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MeasurementItem" rowHeight="57" id="aJx-qr-jLK">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aJx-qr-jLK" id="1FS-2O-Zlc">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -1102,10 +1102,13 @@ password, press the button below</string>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Set Favorite Company" id="49l-7l-Wbv"/>
+                    <connections>
+                        <segue destination="Alm-Vi-5qY" kind="show" identifier="goToCompany" id="qeF-E8-g5C"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D6y-aR-Yaw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4612" y="-633"/>
+            <point key="canvasLocation" x="3936" y="-628"/>
         </scene>
         <!--About-->
         <scene sceneID="U8C-To-8TJ">
@@ -1562,33 +1565,6 @@ password, press the button below</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
-                            <tableViewSection headerTitle="Choose Company" id="JVf-ti-1ii">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="CompanyDetail" textLabel="1YQ-uJ-5Vh" detailTextLabel="KDw-Dr-SbH" style="IBUITableViewCellStyleValue1" id="eVy-6c-g2X">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eVy-6c-g2X" id="TL4-Ta-3Wh">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Company" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1YQ-uJ-5Vh">
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KDw-Dr-SbH">
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="Alm-Vi-5qY" kind="show" identifier="goToCompany" id="WjE-4C-GSc"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
                             <tableViewSection headerTitle="Choose Date" id="Xir-Pb-1iq">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DateDetail" textLabel="MXL-yY-zCP" detailTextLabel="r3y-u9-hpJ" style="IBUITableViewCellStyleValue1" id="zDG-Cn-9eu">
@@ -1677,7 +1653,6 @@ password, press the button below</string>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="companyDetailLabel" destination="KDw-Dr-SbH" id="cPQ-zi-ImG"/>
                         <outlet property="dateDetailLabel" destination="r3y-u9-hpJ" id="EAS-RR-UR6"/>
                         <outlet property="saveBarButton" destination="ukq-pK-7oa" id="IjT-ze-9oF"/>
                         <outlet property="unitLabel" destination="99B-Pi-gvy" id="qFB-Aq-5MI"/>
@@ -1714,33 +1689,6 @@ password, press the button below</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
-                            <tableViewSection headerTitle="Choose Company" id="tU4-T8-giL">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="newGoalItem" textLabel="Kih-Ye-qvj" detailTextLabel="IIY-Hd-cN5" rowHeight="44" style="IBUITableViewCellStyleValue1" id="Iqf-1g-axP">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Iqf-1g-axP" id="Pb0-8i-Vho">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Company" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Kih-Ye-qvj">
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IIY-Hd-cN5">
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="Alm-Vi-5qY" kind="show" identifier="goToCompany" id="cLz-2A-Y0Z"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
                             <tableViewSection headerTitle="Choose Measurement" id="Jfh-IQ-i6w">
                                 <cells>
                                     <tableViewCell tag="3030" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="newGoalItem" textLabel="A98-3q-0vC" detailTextLabel="EsO-vW-4Ue" style="IBUITableViewCellStyleValue1" id="bRv-ge-tty">
@@ -1875,7 +1823,6 @@ password, press the button below</string>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="companyDetailLabel" destination="IIY-Hd-cN5" id="d7Q-F1-E9w"/>
                         <outlet property="measurementDetailLabel" destination="EsO-vW-4Ue" id="OJ6-Z0-2iC"/>
                         <outlet property="periodDetailLabel" destination="TX4-Pf-pIO" id="vWq-qJ-5jq"/>
                         <outlet property="saveBarButton" destination="dIK-p3-NFx" id="Im6-eM-L6c"/>
@@ -1887,7 +1834,7 @@ password, press the button below</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G2k-uL-Xgh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4208" y="-2214"/>
+            <point key="canvasLocation" x="3788" y="-2214"/>
         </scene>
         <!--Company-->
         <scene sceneID="93w-zf-rTv">
@@ -1936,7 +1883,7 @@ password, press the button below</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yqm-Ix-Js5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5470" y="-3068"/>
+            <point key="canvasLocation" x="4756" y="-631"/>
         </scene>
         <!--Period-->
         <scene sceneID="gKQ-Hs-0KM">
@@ -1987,7 +1934,7 @@ password, press the button below</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T1e-ta-E3f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4208" y="-1391"/>
+            <point key="canvasLocation" x="4612" y="-2214"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="cgw-LS-qr3">
@@ -2280,7 +2227,6 @@ password, press the button below</string>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Pz4-nf-cZR"/>
-        <segue reference="cLz-2A-Y0Z"/>
         <segue reference="MWJ-wv-yXK"/>
         <segue reference="IS9-Qi-81b"/>
     </inferredMetricsTieBreakers>

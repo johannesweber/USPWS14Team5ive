@@ -8,37 +8,60 @@
 
 import Foundation
 import CoreData
+import SwiftyJSON
+import Alamofire
 
 class Goal: NSManagedObject {
 
     @NSManaged var company: String
+    @NSManaged var userId: NSNumber
     @NSManaged var period: String
-    @NSManaged var progressValue: NSNumber
     @NSManaged var sliderLimit: NSNumber
     @NSManaged var startdate: String
     @NSManaged var unit: String
-    @NSManaged var value: NSNumber
+    @NSManaged var targetValue: NSNumber
+    @NSManaged var currentValue: NSNumber
     @NSManaged var text: String
     @NSManaged var measurement: String
     
-    func convertPeriodToInt() -> Int{
+    func createText() {
         
-        switch self.period as String{
+        //variables needed for request
+        var url: String = "\(baseURL)/goals/select/"
+        
+        let parameters: Dictionary<String, AnyObject> = [
             
-        case "Daily":
-            return 1
-            
-        case "Weekly":
-            return 2
-            
-        case "Monthly":
-            return 3
-            
-        case "Annual":
-            return 4
-        default:
-            return -1
-            
+            "userId"        : "\(self.userId)",
+            "measurement"   : "\(self.measurement)",
+            "period"        : "\(self.period)",
+            "company"       : "\(self.company)",
+            "limit"         : "1"
+        ]
+        
+        //wrong user ID stored in Database
+        Alamofire.request(.GET, url, parameters: parameters)
+            .responseSwiftyJSON { (request, response, json, error) in
+                
+                println(request)
+                
+                println(json)
+                
+                var currentValue = json[0]["current_value"].intValue
+                var targetValue = json[0]["target_value"].intValue
+                
+                println(self.currentValue)
+                println(self.targetValue)
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    
+                    self.currentValue = currentValue
+                    self.targetValue = targetValue
+                    self.text = "\(self.measurement): \(currentValue) \(self.unit)"
+                    
+                }
+                
+
+        
         }
     }
 }

@@ -95,6 +95,7 @@ class ManageDataDetailViewController: UITableViewController, ManageDataViewContr
         
     }
     
+    //this method sets the text for the label shown in table cells
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("ManageDataDetailItem") as UITableViewCell
@@ -126,6 +127,7 @@ class ManageDataDetailViewController: UITableViewController, ManageDataViewContr
     }
     
     //sets the predicate for the fetch from core data. A fetch is someting like the WHERE Keyword in MySQL
+    //depending on the language of the current device the predicate is for a different groupname
     func getPredicateAccordingToCurrentLanguage(categoryName: String) -> NSPredicate{
         
         var predicate = String()
@@ -134,8 +136,8 @@ class ManageDataDetailViewController: UITableViewController, ManageDataViewContr
         
         switch currentLanguage {
             case "en": predicate = "groupname"
-            case "de": predicate = "groupnameInGerman"
-            case "fr": predicate = "groupnameInFrench"
+            case "de": predicate = "groupname"
+            case "fr": predicate = "groupname"
         default: println("Language not known")
             
         }

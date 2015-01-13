@@ -192,7 +192,7 @@ class DiagramViewController: UIViewController, LineChartDelegate {
                     
                     let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
                     
-                    var okTitle = NSLocalizedString("OK", comment: "Tis is the title for the cancel button")
+                    var okTitle = NSLocalizedString("OK", comment: "This is the title for the cancel button")
                     
                     let okAction = UIAlertAction(title: okTitle, style: .Cancel) { (_) in }
                     

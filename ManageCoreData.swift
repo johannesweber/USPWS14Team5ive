@@ -12,7 +12,9 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-func insertCompaniesFromUser() {
+func insertCompaniesFromUser() -> Bool {
+    
+    var success = false
     
     var userId = prefs.integerForKey("USERID") as Int
     
@@ -40,16 +42,22 @@ func insertCompaniesFromUser() {
                 var error: NSError?
                 if context.save(&error) {
                     
+                    success = true
+                    
                 } else {
                     
                     fatalCoreDataError(error)
                 }
             }
     }
+    
+    return success
 
 }
 
-func insertMeasurementsFromUser() {
+func insertMeasurementsFromUser() -> Bool {
+    
+    var success = false
     
     var userId = prefs.integerForKey("USERID") as Int
     
@@ -62,18 +70,21 @@ func insertMeasurementsFromUser() {
     
     Alamofire.request(.GET, url, parameters: parameters)
         .responseSwiftyJSON { (request, response, json, error) in
-
             
             for (var i = 0; i < json.count; i++) {
                 
                 var jsonObject = json[i]
                 
-                insertMeasurementIntoCoreData(jsonObject)
+                success = insertMeasurementIntoCoreData(jsonObject)
             }
     }
+    
+    return success
 }
 
-func insertMeasurementIntoCoreData(json: SwiftyJSON.JSON) {
+func insertMeasurementIntoCoreData(json: SwiftyJSON.JSON) -> Bool {
+    
+    var success = false
     
     var appDel: AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
     var context: NSManagedObjectContext = appDel.managedObjectContext!
@@ -98,11 +109,14 @@ func insertMeasurementIntoCoreData(json: SwiftyJSON.JSON) {
     if context.save(&error) {
         
         println("\(name) successfully inserted")
+        success = true
         
     } else {
         
-        println("ouch: \(error)")
+        fatalCoreDataError(error)
     }
+    
+    return success
 }
 
 func fetchCompanyFromCoreData() -> [Company]{
@@ -155,8 +169,10 @@ func fetchMeasurementsFromCoreData() -> [Measurement]{
 
 }
 
-func insertCompanyIntoCoreData(userId: Int, companyToInsert: CompanyItem) {
-        
+func insertCompanyIntoCoreData(userId: Int, companyToInsert: CompanyItem) -> Bool{
+    
+    var success = false
+    
     var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
     var context: NSManagedObjectContext = appDel.managedObjectContext!
         
@@ -169,7 +185,9 @@ func insertCompanyIntoCoreData(userId: Int, companyToInsert: CompanyItem) {
         
     var error: NSError?
     if context.save(&error) {
-            
+        
+        success = true
+        
     } else {
             
         fatalCoreDataError(error)
@@ -193,9 +211,13 @@ func insertCompanyIntoCoreData(userId: Int, companyToInsert: CompanyItem) {
                 println(json)
         }
     }
+    
+    return success
 }
 
-func insertCategories() {
+func insertCategories() -> Bool{
+    
+    var success = false
     
     var url = "\(baseURL)/category/select/"
     
@@ -216,12 +238,16 @@ func insertCategories() {
                 var error: NSError?
                 if context.save(&error) {
                     
+                    success = true
+                    
                 } else {
                     
                     fatalCoreDataError(error)
                 }
             }
     }
+    
+    return success
 }
 
 func fetchCategoriesFromCoreData() -> [Category]{
@@ -249,15 +275,135 @@ func fetchCategoriesFromCoreData() -> [Category]{
     return foundObjects as [Category]
 }
 
-func insertFocusedHealthCompanyIntoCoreData() {
+func insertTableCompanyHasMeasurement() -> Bool{
+    
+    var success = false
+    
+    var url = "\(baseURL)/measurement/check"
+    
+    Alamofire.request(.GET, url)
+        .responseSwiftyJSON { (request, response, json, error) in
+            
+            for(var x = 0; x < json.count; x++) {
+                
+                var appDel: AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+                var context: NSManagedObjectContext = appDel.managedObjectContext!
+                
+                var companyHasMeasurement = NSEntityDescription.insertNewObjectForEntityForName("CompanyHasMeasurement", inManagedObjectContext: context) as CompanyHasMeasurement
+                
+                companyHasMeasurement.company = json[x]["company"].stringValue
+                companyHasMeasurement.measurement = json[x]["measurement"].stringValue
+                
+                var error: NSError?
+                if context.save(&error) {
+
+                    success = true
+                    
+                } else {
+                    
+                    fatalCoreDataError(error)
+                }
+            }
+    }
+    
+    return success
+}
+
+
+func fetchCompanyHasMeasurement(measurement: Measurement) -> [CompanyHasMeasurement]{
+    
+    var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+    var managedObjectContext: NSManagedObjectContext = appDel.managedObjectContext!
+    
+    let fetchRequest = NSFetchRequest()
+    
+    let entity = NSEntityDescription.entityForName("CompanyHasMeasurement", inManagedObjectContext: managedObjectContext)
+    fetchRequest.entity = entity
+    
+    let sortDescriptor = NSSortDescriptor(key: "company", ascending: true)
+    fetchRequest.sortDescriptors = [sortDescriptor]
+    
+    let selectCompanyPredicate = NSPredicate(format: "measurement = %@", measurement.nameInDatabase)
+    
+    fetchRequest.predicate = selectCompanyPredicate
+    
+    var error: NSError?
+    let foundObjects = managedObjectContext.executeFetchRequest(fetchRequest, error: &error)
+    
+    if foundObjects == nil {
+        
+        fatalCoreDataError(error)
+        return foundObjects as [CompanyHasMeasurement]
+    }
+    
+    return foundObjects as [CompanyHasMeasurement]
+}
+
+
+func updateDuplicateMeasurements() -> Bool{
+    
+    var success = false
     
     var userId = prefs.integerForKey("USERID") as Int
     
-    var focusedHealtCompany = CompanyItem()
+    var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+    var managedObjectContext: NSManagedObjectContext = appDel.managedObjectContext!
     
-    focusedHealtCompany.name = "Focused Health"
-    focusedHealtCompany.nameInDatabase = "focused health"
-    focusedHealtCompany.text = "default company for every user"
+    var url = "\(baseURL)/measurement/select/duplicate"
     
-    insertCompanyIntoCoreData(userId, focusedHealtCompany)
+    let parameters: Dictionary<String, AnyObject> = [
+        
+        "userId"        : "\(userId)",
+    ]
+    
+    Alamofire.request(.GET, url, parameters: parameters)
+        .responseSwiftyJSON { (request, response, json, error) in
+            
+        for(var y = 0; y < json.count; y++) {
+            
+            var measurementName = json[y]["nameInApp"].stringValue
+            
+            var isDuplicate = NSNumber(bool: true)
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                
+                success = updateMeasurement(measurementName, "isDuplicate", isDuplicate)
+            }
+
+        }
+    }
+    
+    return success
 }
+
+func updateMeasurement(measurementName: String, property: String, newValue: AnyObject) -> Bool{
+    
+    var success = false
+    
+    var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+    var managedObjectContext: NSManagedObjectContext = appDel.managedObjectContext!
+    
+    var batchRequest = NSBatchUpdateRequest(entityName: "Measurement")
+    batchRequest.propertiesToUpdate = [ property : newValue]
+    batchRequest.resultType = .UpdatedObjectsCountResultType
+    var error : NSError?
+    
+    var selectMeasurementPredicate = NSPredicate(format: "name = %@", measurementName)
+    
+    batchRequest.predicate = selectMeasurementPredicate
+    
+    var results = managedObjectContext.executeRequest(batchRequest, error: &error) as NSBatchUpdateResult
+    
+    if managedObjectContext.save(&error) {
+        
+        println("\(measurementName) successfully updated")
+        success = true
+        
+    } else {
+        
+        fatalCoreDataError(error)
+    }
+    
+    return success
+}
+

@@ -12,6 +12,7 @@ import CoreData
 class Measurement: NSManagedObject {
 
     @NSManaged var isInDashboard: Bool
+    @NSManaged var isDuplicate: Bool
     @NSManaged var date: String
     @NSManaged var favoriteCompany: String
     @NSManaged var groupname: String

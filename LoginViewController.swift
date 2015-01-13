@@ -13,7 +13,9 @@ import Alamofire
 import SwiftyJSON
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
-
+    
+    //variables
+    
     //IBOutlet
     @IBOutlet weak var txtMailAddress: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
@@ -22,12 +24,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
         
-        
         self.txtPassword.text = ""
         
         let isLoggedIn:Int = prefs.integerForKey("ISLOGGEDIN") as Int
         
         if isLoggedIn == 1 {
+            
+            self.startConfiguration()
             
             self.performSegueWithIdentifier("goToDashboard", sender: self)
         }
@@ -84,14 +87,18 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                         prefs.setInteger(success, forKey: "ISLOGGEDIN")
                         prefs.setInteger(userId, forKey: "USERID")
                         
-
                         if isFirstLogin() {
                             
-                            self.firstTimeConfiguration(userId)
+                            self.firstTimeConfiguration()
+                            prefs.setObject("YES", forKey: "FIRSTTIMELOGIN")
+                            
+                        } else {
+                            
+                            self.startConfiguration()
                         }
-
-                        prefs.synchronize()
                         
+                        prefs.synchronize()
+
                         self.performSegueWithIdentifier("goToDashboard", sender: self)
                         
                     } else {
@@ -116,16 +123,30 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    //this method start the daefault configuration if the user logs in for the first time
-    func firstTimeConfiguration(userId: Int) {
+    //this method start the daefault configuration if the user logs in for the first time. return true if first user configuration is ssuccessfully executed
+    func firstTimeConfiguration() -> Bool {
+        
+        var success = false
         
         prefs.setObject("YES", forKey: "FIRSTTIMELOGIN")
-        //TODO inserten von 2 mal focused health verhindern
-        insertFocusedHealthCompanyIntoCoreData()
+        prefs.synchronize()
+        
+        success = insertCategories()
         //this method fetches the measurement from the current user from focused health database an stores them into core data
-        insertMeasurementsFromUser()
+        success = insertMeasurementsFromUser()
         //this method fetches the categories from focused health database an stores them into core data
-        insertCategories()
-        insertCompaniesFromUser()
+        success = insertCompaniesFromUser()
+        success = insertTableCompanyHasMeasurement()
+        
+        return success
+    }
+    
+    func startConfiguration() -> Bool {
+        
+        var success = false
+        
+        //TODO update categories and companies from user
+        
+        return success
     }
 }

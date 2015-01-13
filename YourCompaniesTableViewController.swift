@@ -14,6 +14,8 @@ import CoreData
 class YourCompaniesTableViewController: UITableViewController, AddCompanyTableViewControllerDelegate {
     
     //variables
+    var companySelected: Company?
+    var userId = prefs.integerForKey("USERID") as Int
     // variable for managing core data
     var managedObjectContext: NSManagedObjectContext!
     
@@ -41,9 +43,9 @@ class YourCompaniesTableViewController: UITableViewController, AddCompanyTableVi
         }()
     
     deinit {
+        
         fetchedResultsController.delegate = nil
     }
-    var userId = prefs.integerForKey("USERID") as Int
     
     //IBOutlets
     @IBOutlet weak var authButton: UIButton!
@@ -51,6 +53,7 @@ class YourCompaniesTableViewController: UITableViewController, AddCompanyTableVi
     //IBActions
     @IBAction func authorize(){
         
+        self.doOAuthCompanyItem(self.companySelected!.name)
     }
     
     //prepareforsegue method for setting delegate in AddCompanyViewController
@@ -102,11 +105,11 @@ class YourCompaniesTableViewController: UITableViewController, AddCompanyTableVi
 
     }
     
-    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath?{
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        self.companySelected = self.fetchedResultsController.objectAtIndexPath(indexPath) as? Company
         
         self.authButton.enabled = true
-        
-        return indexPath
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

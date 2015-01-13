@@ -11,7 +11,7 @@ import CoreData
 import Alamofire
 import SwiftyJSON
 
-class CreateGoalTableViewController: UITableViewController, PeriodTableViewControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate, CompanyTableViewControllerDelegate {
+class CreateGoalTableViewController: UITableViewController, PeriodTableViewControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
 
     //variables
     var startdate =  NSDate()
@@ -21,7 +21,6 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     var measurementSelected: Measurement!
     var currentValue = Int()
     var userId = prefs.integerForKey("USERID") as Int
-    var companySelected: Company!
     // variable for managing core data
     var managedObjectContext: NSManagedObjectContext!
     
@@ -34,8 +33,6 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     @IBOutlet weak var startDateDetailLabel: UILabel!
     @IBOutlet weak var unitLabel: UILabel!
     @IBOutlet weak var valueLabel: UILabel!
-    @IBOutlet weak var companyDetailLabel: UILabel!
-    
     
     //IBAction
     @IBAction func sliderValueChanged(sender: UISlider) {
@@ -57,18 +54,18 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
         goal.measurement = self.measurementSelected.nameInDatabase
         goal.period = self.periodDetailLabel.text!
         goal.startdate = self.startDateDetailLabel.text!
-        goal.company = self.companySelected.nameInDatabase
-        goal.value = self.currentValue
+        goal.company = self.measurementSelected.favoriteCompany
+        goal.targetValue = self.currentValue
         goal.unit = self.unitLabel.text!
-        //default values for progress value and text
-        goal.text = ""
-        goal.progressValue = 0
-        
-        //method to update text property of goal
-        self.createTextForGoal(goal)
+        //default values for current value and text
+        goal.text = "(nothing to show)"
+        goal.currentValue = 0
+        goal.userId = self.userId
         
         var error: NSError?
         if context.save(&error) {
+            
+            goal.createText()
             
             self.insertGoalIntoDatabase(goal)
             
@@ -134,48 +131,6 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     }
     
     //methods
-    func createTextForGoal(goal: Goal) {
-        
-        //variables needed for request
-        var url: String = "\(baseURL)/goals/select/"
-        
-        let parameters: Dictionary<String, AnyObject> = [
-            
-            "userId"        : "\(self.userId)",
-            "measurement"   : "\(goal.measurement)",
-            "period"        : "\(goal.convertPeriodToInt())",
-            "company"       : "\(goal.company)",
-            "limit"         : "1"
-        ]
-        
-        //wrong user ID stored in Database
-        Alamofire.request(.GET, url, parameters: parameters)
-            .responseSwiftyJSON { (request, response, json, error) in
-                
-                println(request)
-                
-                println(json)
-                
-                var currentValue = json[0]["current_value"].intValue
-                var targetValue = json[0]["target_value"].intValue
-                
-                println("Current Value: \(currentValue)")
-                
-                println("Target Value: \(targetValue)")
-                
-                var text = "\(goal.measurement): \(currentValue)"
-                
-                println("Goal Text: \(text)")
-                
-                dispatch_async(dispatch_get_main_queue(), {
-                    
-                    self.updateGoal(goal, property: "progressValue", newValue: currentValue)
-                    self.updateGoal(goal, property: "text", newValue: text)
-                })
-        }
-        
-    }
-    
     func updateGoal(goal: Goal, property: String, newValue: AnyObject) {
         
         var batchRequest = NSBatchUpdateRequest(entityName: "Goal")
@@ -200,14 +155,16 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
             
             "userId"        : "\(self.userId)",
             "measurement"   : "\(goal.measurement)",
-            "period"        : "\(goal.convertPeriodToInt())",
+            "period"        : "\(goal.period)",
             "startDate"     : "\(goal.startdate)",
             "company"       : "\(goal.company)",
-            "goalValue"     : "\(goal.value)"
+            "goalValue"     : "\(goal.targetValue)"
         ]
         
         Alamofire.request(.GET, url, parameters: parameters)
-            .responseSwiftyJSON { (request, response, json, error) in
+            .responseString { (request, response, json, error) in
+                
+                println(json)
         }
     }
     
@@ -243,7 +200,7 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
         
         startDatePickerVisible = true
         
-        let indexPathStartDatePicker = NSIndexPath(forRow: 2, inSection: 2)
+        let indexPathStartDatePicker = NSIndexPath(forRow: 2, inSection: 1)
         tableView.insertRowsAtIndexPaths([indexPathStartDatePicker], withRowAnimation: .Fade)
         
         if let pickerCell = tableView.cellForRowAtIndexPath(indexPathStartDatePicker) {
@@ -258,8 +215,8 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
         if startDatePickerVisible {
                 
             startDatePickerVisible = false
-            let indexPathStartDateRow = NSIndexPath(forRow: 1, inSection: 2)
-            let indexPathStartDatePicker = NSIndexPath(forRow: 2, inSection: 2)
+            let indexPathStartDateRow = NSIndexPath(forRow: 1, inSection: 1)
+            let indexPathStartDatePicker = NSIndexPath(forRow: 2, inSection: 1)
             if let cell = tableView.cellForRowAtIndexPath(indexPathStartDateRow) {
                 
                 cell.detailTextLabel!.textColor = UIColor(white: 0, alpha: 0.5)
@@ -275,7 +232,7 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     func showMeasurementPicker() {
         
         self.measurementPickerVisible = true
-        let indexPathMeasurementPicker = NSIndexPath(forRow: 1, inSection: 1)
+        let indexPathMeasurementPicker = NSIndexPath(forRow: 1, inSection: 0)
         tableView.insertRowsAtIndexPaths([indexPathMeasurementPicker], withRowAnimation: .Fade)
         
         if let pickerCell = tableView.cellForRowAtIndexPath(indexPathMeasurementPicker) {
@@ -289,8 +246,8 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
         if self.measurementPickerVisible {
                 
             self.measurementPickerVisible = false
-            let indexPathMeasurementRow = NSIndexPath(forRow: 0, inSection: 1)
-            let indexPathMeasurementPicker = NSIndexPath(forRow: 1, inSection: 1)
+            let indexPathMeasurementRow = NSIndexPath(forRow: 0, inSection: 0)
+            let indexPathMeasurementPicker = NSIndexPath(forRow: 1, inSection: 0)
                 
             tableView.beginUpdates()
             tableView.reloadRowsAtIndexPaths([indexPathMeasurementRow], withRowAnimation: .None)
@@ -304,7 +261,7 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     //table view methods
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
    
-        if indexPath.section == 2 && indexPath.row == 2 {
+        if indexPath.section == 1 && indexPath.row == 2 {
     
         var cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier("StartDatePickerCell") as? UITableViewCell
         
@@ -323,7 +280,7 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
         
         return cell
    
-        } else  if indexPath.section == 1 && indexPath.row == 1 {
+        } else  if indexPath.section == 0 && indexPath.row == 1 {
         
             var cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier("MeasurementPickerCell") as? UITableViewCell
         
@@ -350,11 +307,11 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if section == 2 && startDatePickerVisible {
+        if section == 1 && startDatePickerVisible {
             
             return 3
             
-        } else if section == 1 && measurementPickerVisible {
+        } else if section == 0 && measurementPickerVisible {
                 
                 return 2
                 
@@ -366,11 +323,11 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
-        if indexPath.section == 2 && indexPath.row == 2 {
+        if indexPath.section == 1 && indexPath.row == 2 {
                 
             return 217
                 
-        } else if indexPath.section == 1 && indexPath.row == 1 {
+        } else if indexPath.section == 0 && indexPath.row == 1 {
             
                 return 217
             
@@ -382,7 +339,7 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        if indexPath.section == 2 && indexPath.row == 1 {
+        if indexPath.section == 1 && indexPath.row == 1 {
         
             if !self.startDatePickerVisible {
         
@@ -393,7 +350,7 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
                 self.hideStartDatePicker()
             }
             
-        } else if indexPath.section == 1 && indexPath.row == 0 {
+        } else if indexPath.section == 0 && indexPath.row == 0 {
             
             if !self.measurementPickerVisible {
             
@@ -408,7 +365,7 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     
     override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
     
-        if indexPath.section == 0 && indexPath.row == 0 || indexPath.section == 1 && indexPath.row == 0 || indexPath.section == 2 && indexPath.row == 0 || indexPath.section == 2 && indexPath.row == 1 || indexPath.section == 3 && indexPath.row == 0{
+        if indexPath.section == 0 && indexPath.row == 0 || indexPath.section == 1 && indexPath.row == 0 || indexPath.section == 1 && indexPath.row == 1 || indexPath.section == 2 && indexPath.row == 0 {
             
             return indexPath
             
@@ -420,7 +377,7 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     
     override func tableView(tableView: UITableView, var indentationLevelForRowAtIndexPath indexPath: NSIndexPath) -> Int {
         
-        if indexPath.section == 2 && indexPath.row == 2 || indexPath.section == 1 && indexPath.row == 1{
+        if indexPath.section == 1 && indexPath.row == 2 || indexPath.section == 0 && indexPath.row == 1{
         
             indexPath = NSIndexPath(forRow: 0, inSection: indexPath.section)
         }
@@ -437,11 +394,6 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
             
             periodTableViewController.delegate = self
             
-        } else if segue.identifier == "goToCompany" {
-            
-            let companytableviewController = segue.destinationViewController as CompanyTableViewController
-            
-            companytableviewController.delegate = self
         }
     }
     
@@ -458,22 +410,5 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
         
         self.checkIfFormIsComplete()
         
-    }
-        
-    func companyViewControllerDidCancel(controller: CompanyTableViewController) {
-        
-        self.navigationController?.popViewControllerAnimated(true)
-    
-    }
-        
-    func companyViewController(controller: CompanyTableViewController, didFinishSelectingCompany item: Company) {
-        
-        self.companyDetailLabel.text = item.name
-        
-        self.companySelected = item
-        
-        self.navigationController?.popViewControllerAnimated(true)
-        
-        self.checkIfFormIsComplete()
     }
 }

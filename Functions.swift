@@ -54,7 +54,7 @@ func getDayOfWeek(date:String)->String? {
     }
 }
 
-//returns true if the user has logged in for the first time
+//returns true if the user has logged in for the first time. false if not
 func isFirstLogin() -> Bool {
     
     var firstTimer = false
@@ -63,6 +63,8 @@ func isFirstLogin() -> Bool {
         println("Du bist zum ersten mal hier")
         firstTimer = true
     }
+    
+    println("First Timer : \(firstTimer)")
     
     return firstTimer
 }

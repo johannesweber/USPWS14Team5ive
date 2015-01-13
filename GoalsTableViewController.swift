@@ -48,9 +48,10 @@ class GoalsTableViewController: UITableViewController {
     
     //IBAction
     @IBAction func refresh(sender: UIBarButtonItem) {
-        //Need to write a method for refreshing all goal items shown in table view DELETE method ????
-    
         
+        for elem in self.fetchedResultsController.fetchedObjects as [Goal] {
+            elem.createText()
+        }
     }
     
     //override methods
@@ -63,6 +64,8 @@ class GoalsTableViewController: UITableViewController {
         NSFetchedResultsController.deleteCacheWithName("Goals")
         
         self.performFetch()
+        
+        self.tableView.reloadData()
     }
 
     
@@ -90,8 +93,11 @@ class GoalsTableViewController: UITableViewController {
         let label = cell.viewWithTag(3010) as UILabel
         let progressView = cell.viewWithTag(555) as UIProgressView
         
-        let fractionalProgress = Float(item.progressValue) / Float(item.value)
-        progressView.setProgress(fractionalProgress, animated: true)
+        println("Current \(item.currentValue)")
+        println("Target: \(item.targetValue)")
+        
+        let progress = Float(item.currentValue) / Float(item.targetValue)
+        progressView.setProgress(progress, animated: true)
         label.text = item.text
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
@@ -137,8 +143,16 @@ extension GoalsTableViewController: NSFetchedResultsControllerDelegate {
             println("*** NSFetchedResultsChangeUpdate (object)")
             let cell = tableView.cellForRowAtIndexPath(indexPath!)!
             let goal = controller.objectAtIndexPath(indexPath!) as Goal
+            
             let label = cell.viewWithTag(3010) as UILabel
+            let progressView = cell.viewWithTag(555) as UIProgressView
         
+            let progress = Float(goal.currentValue) / Float(goal.targetValue)
+            progressView.setProgress(progress, animated: true)
+            
+            println("Current \(goal.currentValue)")
+            println("Target: \(goal.targetValue)")
+            
             var currentLanguage = NSLocale.currentLanguageString
         
             switch currentLanguage {

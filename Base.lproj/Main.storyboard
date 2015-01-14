@@ -389,6 +389,12 @@
                                     <action selector="signupButton:" destination="hbZ-L3-MR2" eventType="touchUpInside" id="Tjh-XB-bFU"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="00K-7F-hOv" userLabel="errorLabel">
+                                <rect key="frame" x="156" y="307" width="288" height="75"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.90588235289999997" green="0.17423106999999999" blue="0.2028370615" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.96069163079999997" alpha="1" colorSpace="deviceWhite"/>
                         <constraints>
@@ -413,6 +419,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="buttonSignUp" destination="Wuc-dV-2CH" id="dct-ry-dBN"/>
+                        <outlet property="errorLabel" destination="00K-7F-hOv" id="8q1-Yw-Bvt"/>
                         <outlet property="txtMailAddress" destination="0zQ-zn-BEX" id="e4Q-vw-Ffl"/>
                         <outlet property="txtPassword" destination="AVz-Zj-etD" id="Giu-P9-Hrl"/>
                         <outlet property="txtRepeatPassword" destination="7CE-2i-xe9" id="BhI-h1-8Ag"/>
@@ -420,7 +428,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ebl-Xj-Oa0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2235" y="-1476.7605633802816"/>
+            <point key="canvasLocation" x="-2235" y="-1477"/>
         </scene>
         <!--Change Password-->
         <scene sceneID="o1D-vh-qsi">

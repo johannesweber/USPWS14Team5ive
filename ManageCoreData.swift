@@ -103,6 +103,7 @@ func insertMeasurementIntoCoreData(json: SwiftyJSON.JSON) -> Bool {
     measurement.sliderLimit = json["sliderLimit"].intValue
     measurement.favoriteCompany = json["favoriteCompany"].stringValue
     measurement.isInDashboard = false
+    measurement.isGoalable = json["isGoalable"].boolValue
     measurement.text = "(default text)"
     
     var error: NSError?
@@ -191,25 +192,6 @@ func insertCompanyIntoCoreData(userId: Int, companyToInsert: CompanyItem) -> Boo
     } else {
             
         fatalCoreDataError(error)
-    }
-    
-    if companyToInsert.name == "Focused Health" {
-        
-        var url = "\(baseURL)/company/insert/"
-        
-        let parameters: Dictionary<String, AnyObject> = [
-            
-            "userId"        : "\(userId)",
-            "company"       : "\(companyToInsert.nameInDatabase)"
-        ]
-        
-        Alamofire.request(.GET, url, parameters: parameters)
-            .responseString { (request, response, json, error) in
-                
-                println(request)
-                println(response)
-                println(json)
-        }
     }
     
     return success

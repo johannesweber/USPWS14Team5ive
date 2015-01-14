@@ -49,9 +49,6 @@ class GoalsTableViewController: UITableViewController {
     //IBAction
     @IBAction func refresh(sender: UIBarButtonItem) {
         
-        for elem in self.fetchedResultsController.fetchedObjects as [Goal] {
-            elem.createText()
-        }
     }
     
     //override methods
@@ -60,6 +57,16 @@ class GoalsTableViewController: UITableViewController {
         
         var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
         self.managedObjectContext = appDel.managedObjectContext!
+        
+        NSFetchedResultsController.deleteCacheWithName("Goals")
+        
+        self.performFetch()
+        
+        self.tableView.reloadData()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
         
         NSFetchedResultsController.deleteCacheWithName("Goals")
         
@@ -92,9 +99,6 @@ class GoalsTableViewController: UITableViewController {
         let item: Goal = self.fetchedResultsController.objectAtIndexPath(indexPath) as Goal
         let label = cell.viewWithTag(3010) as UILabel
         let progressView = cell.viewWithTag(555) as UIProgressView
-        
-        println("Current \(item.currentValue)")
-        println("Target: \(item.targetValue)")
         
         let progress = Float(item.currentValue) / Float(item.targetValue)
         progressView.setProgress(progress, animated: true)
@@ -149,9 +153,6 @@ extension GoalsTableViewController: NSFetchedResultsControllerDelegate {
         
             let progress = Float(goal.currentValue) / Float(goal.targetValue)
             progressView.setProgress(progress, animated: true)
-            
-            println("Current \(goal.currentValue)")
-            println("Target: \(goal.targetValue)")
             
             var currentLanguage = NSLocale.currentLanguageString
         

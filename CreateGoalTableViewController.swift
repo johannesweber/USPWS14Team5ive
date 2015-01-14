@@ -52,7 +52,7 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
         var goal = NSEntityDescription.insertNewObjectForEntityForName("Goal", inManagedObjectContext: context) as Goal
         
         goal.measurement = self.measurementSelected.nameInDatabase
-        goal.period = self.periodDetailLabel.text!
+        goal.period = self.convertPeriod(self.periodDetailLabel.text!)
         goal.startdate = self.startDateDetailLabel.text!
         goal.company = self.measurementSelected.favoriteCompany
         goal.targetValue = self.currentValue
@@ -65,9 +65,9 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
         var error: NSError?
         if context.save(&error) {
             
-            goal.createText()
-            
             self.insertGoalIntoDatabase(goal)
+            
+            self.createTextForGoal(goal)
             
             self.dismissViewControllerAnimated(true, completion: nil)
             
@@ -131,7 +131,52 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     }
     
     //methods
-    func updateGoal(goal: Goal, property: String, newValue: AnyObject) {
+    func createTextForGoal(goal: Goal) {
+        
+        //variables needed for request
+        var url: String = "\(baseURL)/goals/select/"
+        
+        let parameters: Dictionary<String, AnyObject> = [
+            
+            "userId"        : "\(self.userId)",
+            "measurement"   : "\(goal.measurement)",
+            "period"        : "\(goal.period)",
+            "company"       : "\(goal.company)",
+            "limit"         : "1"
+        ]
+        
+        //wrong user ID stored in Database
+        Alamofire.request(.GET, url, parameters: parameters)
+            .responseSwiftyJSON { (request, response, json, error) in
+                
+                println(request)
+                
+                println(json)
+                
+                var currentValue = json[0]["current_value"].intValue
+                var targetValue = json[0]["target_value"].intValue
+                var text = "\(goal.measurement): \(currentValue) \(goal.unit)"
+                
+                println(currentValue)
+                println(targetValue)
+                println(text)
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    
+                    self.updateGoal(goal, property: "currentValue", newValue: currentValue)
+                    self.updateGoal(goal, property: "text", newValue: text)
+                    self.updateGoal(goal, property: "targetValue", newValue: targetValue)
+                
+                }
+                
+                
+                
+        }
+    }
+    
+    func updateGoal(goal: Goal, property: String, newValue: AnyObject) -> Bool{
+        
+        var success = false
         
         var batchRequest = NSBatchUpdateRequest(entityName: "Goal")
         batchRequest.propertiesToUpdate = [ property : newValue]
@@ -144,9 +189,22 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
         
         var results = self.managedObjectContext!.executeRequest(batchRequest, error: &error) as NSBatchUpdateResult
         
+        if self.managedObjectContext.save(&error) {
+            
+            println("Goal for \(goal.measurement) successfully updated")
+            
+            success = true
+            
+        } else {
+            
+            fatalCoreDataError(error)
+        }
+        
+        return success
+
     }
 
-    
+
     func insertGoalIntoDatabase(goal: Goal) {
         
         var url = "\(baseURL)/goals/insert/"
@@ -164,8 +222,26 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
         Alamofire.request(.GET, url, parameters: parameters)
             .responseString { (request, response, json, error) in
                 
+                println(request)
+                
                 println(json)
         }
+    }
+    
+    //this methods convert the given period to the appropriate period name in our database
+    func convertPeriod(period: String) -> String{
+    
+        var periodNameInDatabase = String()
+        
+        switch period {
+            case "Daily", "Täglich", "Journalier": periodNameInDatabase = "daily"
+            case "Weekly", "Wöchentlich", "Hedomadaire": periodNameInDatabase = "weekly"
+            case "Monthly", "Monatlich", "Mensuel": periodNameInDatabase = "monthly"
+            case "Annual", "Jährlich", "Annuel": periodNameInDatabase = "annual"
+        default: println("period not known")
+        }
+        
+        return periodNameInDatabase
     }
     
     func customizeSlider(item: Measurement) {

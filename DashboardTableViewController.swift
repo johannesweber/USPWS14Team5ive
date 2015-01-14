@@ -85,7 +85,18 @@ class DashboardTableViewController: UITableViewController {
     
     override func viewDidDisappear(animated: Bool) {
         self.request?.cancel()
-
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
+        
+        NSFetchedResultsController.deleteCacheWithName("Measurements")
+        
+        self.performFetch()
+        
+        self.tableView.reloadData()
+        
+        
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

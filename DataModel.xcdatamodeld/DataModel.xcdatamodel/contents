@@ -18,7 +18,6 @@
     <entity name="Goal" representedClassName="USPWS14Team5ive.Goal" syncable="YES">
         <attribute name="company" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="currentValue" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="isGoalable" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="measurement" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="period" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="startdate" optional="YES" attributeType="String" syncable="YES"/>
@@ -34,6 +33,7 @@
         <attribute name="groupnameInFrench" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="groupnameInGerman" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isDuplicate" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="isGoalable" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="isInDashboard" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="nameInDatabase" optional="YES" attributeType="String" syncable="YES"/>
@@ -48,7 +48,7 @@
         <element name="Category" positionX="351" positionY="216" width="128" height="88"/>
         <element name="Company" positionX="151" positionY="90" width="128" height="103"/>
         <element name="CompanyHasMeasurement" positionX="351" positionY="216" width="128" height="75"/>
-        <element name="Goal" positionX="781" positionY="336" width="128" height="195"/>
-        <element name="Measurement" positionX="376" positionY="72" width="128" height="270"/>
+        <element name="Goal" positionX="781" positionY="336" width="128" height="178"/>
+        <element name="Measurement" positionX="376" positionY="72" width="128" height="283"/>
     </elements>
 </model>

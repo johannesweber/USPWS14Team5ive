@@ -94,7 +94,7 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
         self.unitLabel.textColor = UIColor.grayColor()
         self.valueLabel.textColor = UIColor.grayColor()
         
-        self.measurements = fetchMeasurementsFromCoreData()
+        self.measurements = fetchGoalableMeasurementsFromCoreData()
         
     }
     

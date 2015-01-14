@@ -71,6 +71,8 @@ func insertMeasurementsFromUser() -> Bool {
     Alamofire.request(.GET, url, parameters: parameters)
         .responseSwiftyJSON { (request, response, json, error) in
             
+            println(" All Measurements: \(json)")
+            
             for (var i = 0; i < json.count; i++) {
                 
                 var jsonObject = json[i]
@@ -168,6 +170,38 @@ func fetchMeasurementsFromCoreData() -> [Measurement]{
     
     return foundObjects as [Measurement]
 
+}
+
+func fetchGoalableMeasurementsFromCoreData() -> [Measurement]{
+    
+    var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+    var managedObjectContext: NSManagedObjectContext = appDel.managedObjectContext!
+    
+    let fetchRequest = NSFetchRequest()
+    
+    let entity = NSEntityDescription.entityForName("Measurement", inManagedObjectContext: managedObjectContext)
+    fetchRequest.entity = entity
+    
+    let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+    fetchRequest.sortDescriptors = [sortDescriptor]
+    
+    let isGoalable = NSNumber(bool: true)
+    
+    let selectGoalableMeasurementsPredicate = NSPredicate(format: "isGoalable = %@", isGoalable)
+    
+    fetchRequest.predicate = selectGoalableMeasurementsPredicate
+    
+    var error: NSError?
+    let foundObjects = managedObjectContext.executeFetchRequest(fetchRequest, error: &error)
+    
+    if foundObjects == nil {
+        
+        fatalCoreDataError(error)
+        return foundObjects as [Measurement]
+    }
+    
+    return foundObjects as [Measurement]
+    
 }
 
 func insertCompanyIntoCoreData(userId: Int, companyToInsert: CompanyItem) -> Bool{

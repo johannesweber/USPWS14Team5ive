@@ -186,6 +186,12 @@ class DashboardTableViewController: UITableViewController {
         self.isLoading = true
         self.tableView.reloadData()
         
+        println("Companies Anzahl: \(self.companies.count)")
+        
+        var countCompanies = 0
+        
+        println("before request: \(countCompanies)")
+        
         for (var x = 0; x < self.companies.count; x++) {
             
             var currentCompany = self.companies[x]
@@ -207,20 +213,26 @@ class DashboardTableViewController: UITableViewController {
                         
                     println(json)
                     
-//                    var success = json["success"].intValue
-//                    var message = json["message"].stringValue
-//                
-//                    dispatch_async(dispatch_get_main_queue()) {
-//                        self.isLoading = false
-//                        self.tableView.reloadData()
-//                    }
-//                        
-//                    if success == 1 {
-//                        showAlert(NSLocalizedString("\(currentCompany.name) Success!", comment: "Title for Message which appears if request successfully executed"), NSLocalizedString("\(message)", comment: "Message which appears if request successfully executed"), self)
-//                    }
+                    var success = json["success"].intValue
+                    var message = json["message"].stringValue
+                
+                    dispatch_async(dispatch_get_main_queue()) {
+                        countCompanies++
+                        
+                        println("after request: \(countCompanies)")
+                        
+                        if countCompanies == self.companies.count {
+                            self.isLoading = false
+                            self.tableView.reloadData()
+                            showAlert(NSLocalizedString("Sync Success!", comment: "Title for Message which appears if request successfully executed"), NSLocalizedString("Syncronization successfully executed", comment: "Message which appears if request successfully executed"), self)
+                        }
+                    }
 
                 }
             
+            } else {
+                
+                countCompanies = countCompanies + 1
             }
         }
         

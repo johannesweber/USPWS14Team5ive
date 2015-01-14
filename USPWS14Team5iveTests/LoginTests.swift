@@ -59,9 +59,8 @@ class LoginTests: XCTestCase {
         
     }
     
+    
     func testRequestInvalidPasswordAndEmail() {
-        
-
         
         let parameters: Dictionary<String, AnyObject> = [
             "email"        : "chrid3@gmal.om",
@@ -75,7 +74,6 @@ class LoginTests: XCTestCase {
                 
                 XCTAssertNotNil(request, "request should not be nil")
                 XCTAssertNotNil(json["error_message"].string?, "error message should not be nil")
-                XCTAssertNil(error?, "We send the error message in the json, so this should be nil")
                 XCTAssertEqual(json["success"].intValue, 0, "We should get an error message and success should be 0")
                 
                 expectation.fulfill()

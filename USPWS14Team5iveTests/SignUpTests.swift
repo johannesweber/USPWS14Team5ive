@@ -30,13 +30,13 @@ class SignUpTests: XCTestCase {
     
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
-//        var parameters: Dictionary<String, AnyObject> = [
-//            "email"     :   "\(self.email)"
-//        ]
-//        Alamofire.request(.GET, "https://anakin.informatik.hs-mannheim.de/uip1/~timon/focusedhealth/user/delete/", parameters: parameters)
-//            .responseSwiftyJSON { (request, response, json, error) in
-//        
-//        }
+        var parameters: Dictionary<String, AnyObject> = [
+            "email"     :   "\(self.email)"
+        ]
+        
+        Alamofire.request(.GET, "https://anakin.informatik.hs-mannheim.de/uip1/~timon/focusedhealth/user/delete/", parameters: parameters)
+            .responseSwiftyJSON { (request, response, json, error) in
+        }
     
         super.tearDown()
     }
@@ -96,25 +96,25 @@ class SignUpTests: XCTestCase {
     
     func testSuccessfulSignup(){
         
-//        var parameters: Dictionary<String, AnyObject> = [
-//            "email"         :       "\(self.email)",
-//            "password"      :       "asdfasdf",
-//            "c_password"    :       "asdfasdf"
-//        ]
-//        
-//        let expectation = expectationWithDescription("User will receive succes = 1, which means he is authenticated")
-//        
-//        Alamofire.request(.GET, "\(baseURL)/signup", parameters: parameters)
-//            .responseSwiftyJSON { (request, response, json, error) in
-//                
-//                var success = json["success"].intValue
-//                XCTAssertTrue(success == 1, "We make a request with valid data, so the variable success should be 1")
-//                expectation.fulfill()
-//                
-//        }
-//        waitForExpectationsWithTimeout(10) { (error) in
-//            XCTAssertNil(error, "\(error)")
-//        }        
+        var parameters: Dictionary<String, AnyObject> = [
+            "email"         :       "\(self.email)",
+            "password"      :       "asdfasdf",
+            "c_password"    :       "asdfasdf"
+        ]
+        
+        let expectation = expectationWithDescription("User will receive succes = 1, which means he is authenticated")
+        
+        Alamofire.request(.GET, "\(baseURL)/signup", parameters: parameters)
+            .responseSwiftyJSON { (request, response, json, error) in
+        
+                var success = json["success"].intValue
+                XCTAssertTrue(success == 1, "We make a request with valid data, so the variable success should be 1")
+                expectation.fulfill()
+        
+        }
+        waitForExpectationsWithTimeout(10) { (error) in
+            XCTAssertNil(error, "\(error)")
+        }
     }
     
 }

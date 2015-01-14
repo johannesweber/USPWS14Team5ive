@@ -24,7 +24,7 @@
         <!--Login-->
         <scene sceneID="uDJ-nG-saw">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="eUJ-EL-HVc" customClass="LoginViewController" customModule="USPWS14Team5ive" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginView" automaticallyAdjustsScrollViewInsets="NO" id="eUJ-EL-HVc" customClass="LoginViewController" customModule="USPWS14Team5ive" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="DMS-XK-fJs"/>
                         <viewControllerLayoutGuide type="bottom" id="MjM-lI-4cv"/>
@@ -326,7 +326,7 @@
         <!--Sign Up-->
         <scene sceneID="asO-rL-BCz">
             <objects>
-                <viewController id="hbZ-L3-MR2" customClass="SignupViewController" customModule="USPWS14Team5ive" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignUpView" id="hbZ-L3-MR2" customClass="SignupViewController" customModule="USPWS14Team5ive" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="P9M-qE-Va2"/>
                         <viewControllerLayoutGuide type="bottom" id="rIf-LH-Rvg"/>

@@ -386,6 +386,7 @@
 		0EFF3AFA19FCD4C400AB3C17 /* OAuthSwiftClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3AF119FCD4C400AB3C17 /* OAuthSwiftClient.swift */; };
 		0EFF3AFB19FCD4C400AB3C17 /* OAuthSwiftCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3AF219FCD4C400AB3C17 /* OAuthSwiftCredential.swift */; };
 		0EFF3AFC19FCD4C400AB3C17 /* OAuthSwiftHTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3AF319FCD4C400AB3C17 /* OAuthSwiftHTTPRequest.swift */; };
+		8370E21C1A66E429000FCA65 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E67D0031A5AB9090041AFC7 /* Main.storyboard */; };
 		83EF922D1A66CB8100CE0988 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E67CFF91A5AB7E90041AFC7 /* AppDelegate.swift */; };
 		83EF922E1A66CB8900CE0988 /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E80CB3B1A5ABCF800CCCF12 /* LoadingCell.xib */; };
 		83EF922F1A66CB9200CE0988 /* CompanyHasMeasurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFCBA8D1A6586AF003C709D /* CompanyHasMeasurement.swift */; };
@@ -2060,6 +2061,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				83EF922E1A66CB8900CE0988 /* LoadingCell.xib in Resources */,
+				8370E21C1A66E429000FCA65 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

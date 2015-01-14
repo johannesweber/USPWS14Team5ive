@@ -975,25 +975,18 @@
 			name = Login;
 			sourceTree = "<group>";
 		};
-		0E6B3F501A2DAA22002193B2 /* About */ = {
-			isa = PBXGroup;
-			children = (
-				0E1ADE891A2CD07300820ED2 /* AboutTableViewController.swift */,
-			);
-			name = About;
-			sourceTree = "<group>";
-		};
 		0E6B3F511A2DAA71002193B2 /* Account */ = {
 			isa = PBXGroup;
 			children = (
+				0E6B3F5F1A2DADF6002193B2 /* AddCompanyTableViewController.swift */,
+				0E6B3F551A2DAC31002193B2 /* YourCompaniesTableViewController.swift */,
+				0E1ADE891A2CD07300820ED2 /* AboutTableViewController.swift */,
 				0EB17DA61A655CA400FE4857 /* CompanyTableViewController.swift */,
 				A33B8A681A39B3460002F71A /* FavCompanyTableViewController.swift */,
 				0E6B3F591A2DAD0A002193B2 /* ChangePasswordViewController.swift */,
 				0E6B3F571A2DACD9002193B2 /* ChangeEmailViewController.swift */,
 				0E860F601A2B6FFB00A9F152 /* AccountViewController.swift */,
 				0E6B3F4C1A2CF60D002193B2 /* EditAccountViewController.swift */,
-				0EC007911A40D37400EEE258 /* Companies */,
-				0E6B3F501A2DAA22002193B2 /* About */,
 			);
 			name = Account;
 			sourceTree = "<group>";
@@ -1388,15 +1381,6 @@
 				0E636F991A5F40360048C128 /* Company.swift */,
 			);
 			name = coreDataItem;
-			sourceTree = "<group>";
-		};
-		0EC007911A40D37400EEE258 /* Companies */ = {
-			isa = PBXGroup;
-			children = (
-				0E6B3F551A2DAC31002193B2 /* YourCompaniesTableViewController.swift */,
-				0E6B3F5F1A2DADF6002193B2 /* AddCompanyTableViewController.swift */,
-			);
-			name = Companies;
 			sourceTree = "<group>";
 		};
 		0EF48BB31A32595100E7BC5D /* LineChart */ = {

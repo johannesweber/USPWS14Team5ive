@@ -116,16 +116,20 @@ class FavCompanyTableViewController: UITableViewController {
         
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .ActionSheet)
 
-        var companies = self.fetchCompanyToMeasurement(measurement)
+        var companies:[String] = self.fetchCompanyToMeasurement(measurement)
     
         for company in companies {
         
             let companyAction = UIAlertAction(title: company, style: .Default) { action -> Void in
             
                 var success = updateMeasurement(measurement.name, "favoriteCompany", company)
-            
+                
+                NSFetchedResultsController.deleteCacheWithName("Measurements")
+                
+                self.performFetch()
+                
                 self.tableView.reloadData()
-
+        
             }
         
             alertController.addAction(companyAction)
@@ -136,8 +140,6 @@ class FavCompanyTableViewController: UITableViewController {
         let cancelAction = UIAlertAction(title: cancelTitle, style: .Cancel) { (_) in }
             
         alertController.addAction(cancelAction)
-    
-    
     
         self.presentViewController(alertController, animated: true, completion: nil)
         

@@ -47,6 +47,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    //hide keyboard if user presses on done
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if (textField == self.txtMailAddress) {
             textField.resignFirstResponder()

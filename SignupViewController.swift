@@ -49,7 +49,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
             
         } else if (password != confirmPassword) {
             
-            showAlert( NSLocalizedString("Sign Up Failed!", comment: "Title for Message sign up failed"),  NSLocalizedString("Passwords doesn't Match", comment: "Message if sign up failed"), self)
+            showAlert( NSLocalizedString("Sign Up Failed!", comment: "Title for Message sign up failed"),  NSLocalizedString("Passwords don't Match", comment: "Message if sign up failed"), self)
             
             errorLabel.text = NSLocalizedString("Passwords don't Match", comment: "Message if sign up failed")
             

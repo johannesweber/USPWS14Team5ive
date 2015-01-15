@@ -152,6 +152,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     func startConfiguration() -> Bool {
         
+        prefs.setValue("START", forKey: "DASHBOARDHELP")
+        prefs.setValue("START", forKey: "GOALHELP")
+        
         var success = false
         
         self.cleanCoreData()

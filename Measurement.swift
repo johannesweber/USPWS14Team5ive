@@ -2,7 +2,7 @@
 //  USPWS14Team5ive.swift
 //  USPWS14Team5ive
 //
-//  Created by Johannes Weber on 15.01.15.
+//  Created by Christian Dorn on 15/01/15.
 //  Copyright (c) 2015 Team 5ive. All rights reserved.
 //
 
@@ -27,6 +27,6 @@ class Measurement: NSManagedObject {
     @NSManaged var text: String
     @NSManaged var unit: String
     @NSManaged var value: NSNumber
-    @NSManaged var dashboard: USPWS14Team5ive.Dashboard
+    @NSManaged var dashboard: Dashboard
 
 }

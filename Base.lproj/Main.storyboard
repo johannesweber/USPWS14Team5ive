@@ -391,7 +391,7 @@
                                     <action selector="signupButton:" destination="hbZ-L3-MR2" eventType="touchUpInside" id="Tjh-XB-bFU"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="00K-7F-hOv" userLabel="errorLabel">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="00K-7F-hOv" userLabel="errorLabel">
                                 <rect key="frame" x="156" y="307" width="288" height="75"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.90588235289999997" green="0.17423106999999999" blue="0.2028370615" alpha="1" colorSpace="calibratedRGB"/>
@@ -400,15 +400,19 @@
                         </subviews>
                         <color key="backgroundColor" white="0.96069163079999997" alpha="1" colorSpace="deviceWhite"/>
                         <constraints>
+                            <constraint firstItem="00K-7F-hOv" firstAttribute="trailing" secondItem="7CE-2i-xe9" secondAttribute="trailing" id="3GB-1Q-Xi5"/>
                             <constraint firstItem="0zQ-zn-BEX" firstAttribute="centerX" secondItem="AVz-Zj-etD" secondAttribute="centerX" id="4pR-oK-hwV"/>
                             <constraint firstAttribute="centerX" secondItem="Wuc-dV-2CH" secondAttribute="centerX" constant="-0.5" id="6HU-Rx-kIf"/>
+                            <constraint firstItem="Wuc-dV-2CH" firstAttribute="top" secondItem="00K-7F-hOv" secondAttribute="bottom" constant="8" symbolic="YES" id="6cn-vB-lMk"/>
                             <constraint firstItem="AVz-Zj-etD" firstAttribute="top" secondItem="0zQ-zn-BEX" secondAttribute="bottom" constant="34" id="FID-bw-HVG"/>
                             <constraint firstItem="Wuc-dV-2CH" firstAttribute="top" secondItem="P6A-FC-RYC" secondAttribute="top" constant="390" id="Hl5-Xz-QDT"/>
+                            <constraint firstItem="00K-7F-hOv" firstAttribute="leading" secondItem="7CE-2i-xe9" secondAttribute="leading" id="Mtn-8A-4cm"/>
                             <constraint firstItem="7CE-2i-xe9" firstAttribute="centerX" secondItem="Wuc-dV-2CH" secondAttribute="centerX" constant="-0.5" id="O11-S6-YXm"/>
                             <constraint firstItem="f3E-iW-4jE" firstAttribute="centerX" secondItem="Wuc-dV-2CH" secondAttribute="centerX" constant="-0.5" id="Pf6-gT-7dM"/>
                             <constraint firstItem="7CE-2i-xe9" firstAttribute="top" secondItem="AVz-Zj-etD" secondAttribute="bottom" constant="34" id="Ssf-07-1qG"/>
                             <constraint firstItem="Wuc-dV-2CH" firstAttribute="top" secondItem="7CE-2i-xe9" secondAttribute="bottom" constant="91" id="Thk-KY-d75"/>
                             <constraint firstItem="f3E-iW-4jE" firstAttribute="top" secondItem="Wuc-dV-2CH" secondAttribute="bottom" constant="8" id="jTG-g1-B1i"/>
+                            <constraint firstItem="00K-7F-hOv" firstAttribute="top" secondItem="7CE-2i-xe9" secondAttribute="bottom" constant="8" symbolic="YES" id="lFL-nM-SIw"/>
                             <constraint firstItem="AVz-Zj-etD" firstAttribute="centerX" secondItem="7CE-2i-xe9" secondAttribute="centerX" id="tUU-ZS-4PS"/>
                         </constraints>
                     </view>

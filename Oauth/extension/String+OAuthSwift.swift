@@ -111,55 +111,10 @@ extension String {
     }
     
     //tests if a string is a valid e mail adress using regex
-    //due to swift not supporting regular expressions yet, we decided
-    //to use the method rangeOfString() and additional commands to
-    //achieve the same functionality
     func isValidEmail() -> Bool {
-        
-        var result = true
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
         let range = self.rangeOfString(emailRegEx, options:.RegularExpressionSearch)
-        
-        let possibleRange = self.rangeOfString(emailRegEx, options: .RegularExpressionSearch)
-        
-        if possibleRange != nil{
-            if let range = possibleRange {
-                if distance(self.startIndex, range.startIndex) != 0{
-                    result = false
-                }
-                if distance(self.startIndex, range.endIndex) != self.lengthOfBytesUsingEncoding(NSUTF8StringEncoding){
-                    result = false
-                }
-            }
-        }else{
-            result = false
-        }
-        
-        return result
-    }
-    
-    //tests if a password does match certain requirements
-    func isValidPassword() -> Bool {
-        var result = true
-        let passwordRegEx = "[A-Za-z0-9._%+#!-]{6,18}"
-        let possibleRange = self.rangeOfString(passwordRegEx, options: .RegularExpressionSearch)
-        
-        if self.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) > 18 || self.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) < 6 {
-            result = false
-        }
-        if possibleRange != nil{
-            if let range = possibleRange {
-                if distance(self.startIndex, range.startIndex) != 0{
-                    result = false
-                }
-                if distance(self.startIndex, range.endIndex) != self.lengthOfBytesUsingEncoding(NSUTF8StringEncoding){
-                    result = false
-                }
-            }
-        }else{
-            result = false
-        }
-        
+        let result = range != nil ? true : false
         return result
     }
 }

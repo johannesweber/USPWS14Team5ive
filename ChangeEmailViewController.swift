@@ -77,16 +77,14 @@ class ChangeEmailViewController: UIViewController, UITextFieldDelegate {
                 var success = json["success"].intValue
                 
                 if success == 1 {
-                    showAlert(NSLocalizedString("Success!", comment: "Title for email Successfully changed!"),  NSLocalizedString("E - Mail Succesfully Changed", comment: "Message if email change was successfull"), self)
-                    
-                    //set the new email in the local userdata
-                    prefs.setObject(self.newEmail, forKey: "EMAIL")
+                    showAlert(NSLocalizedString("", comment: "Success!"),  NSLocalizedString("E - Mail Succesfully Changed", comment: "Message if email change was successfull"), self)
                 }
                 
 
          }
         
-
+        //set the new email in the local userdata
+        prefs.setObject(newEmail, forKey: "EMAIL")
     }
     
     func setLabel(label: UILabel, message: String){

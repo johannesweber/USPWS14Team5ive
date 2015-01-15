@@ -27,7 +27,7 @@ public let PNLightGreyColor = UIColor(red: 246.0 / 255.0 , green: 246.0 / 255.0,
 //Focused Health Server base Url
 public let baseURL = "https://anakin.informatik.hs-mannheim.de/uip1/~johannes/focusedhealth"
 
-//default Colors for Checkamrks in SetFavoriteCompanyViewController **unused**
+//default Colors for Checkamrks in SetFavoriteCompanyViewController
 public let WithingsColor = UIColor(red: 237.0 / 255.0 , green: 59.0 / 255.0, blue: 123.0 / 255.0, alpha: 1)
 public let FitbitColor = UIColor(red: 50.0 / 255.0 , green: 50.0 / 255.0, blue: 50.0 / 255.0, alpha: 1)
 public let FocusedHealthColor = UIColor(red: 246.0 / 255.0 , green: 246.0 / 255.0, blue: 246.0 / 255.0, alpha: 1)

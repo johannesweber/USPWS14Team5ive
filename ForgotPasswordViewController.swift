@@ -28,15 +28,6 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate{
         
     }
     
-    //hide keyboard if user presses on done
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        if (textField == self.txtEmailAddress) {
-            
-            textField.resignFirstResponder()
-        }
-        
-        return true
-    }
     
     @IBAction func resetPassword(sender: AnyObject) {
         

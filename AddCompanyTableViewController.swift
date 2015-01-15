@@ -21,7 +21,6 @@ class AddCompanyTableViewController: UITableViewController, UIPickerViewDataSour
     var companyPickerVisible = false
     var company: [CompanyItem]
     var companySelected: CompanyItem!
-    var userId = prefs.integerForKey("USERID") as Int
     
     weak var delegate: AddCompanyTableViewControllerDelegate?
     
@@ -39,11 +38,7 @@ class AddCompanyTableViewController: UITableViewController, UIPickerViewDataSour
             
         let withings = CompanyItem(name: "Withings", nameInDatabase: "withings")
         self.company.append(withings)
-        
-        let focusedHealth = CompanyItem(name: "Focused Health", nameInDatabase: "focused health")
-        focusedHealth.text = "default company for every user"
-        self.company.append(focusedHealth)
-        
+            
         super.init(coder: aDecoder)
     }
         
@@ -61,9 +56,25 @@ class AddCompanyTableViewController: UITableViewController, UIPickerViewDataSour
     //TODO disable done button if no company is added
     @IBAction func add(sender: UIBarButtonItem) {
         
-        insertCompanyIntoCoreData(self.userId, self.companySelected)
+        var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+        var context: NSManagedObjectContext = appDel.managedObjectContext!
         
-        self.delegate?.addCompanyTableViewController(self, didFinishAddingCompany: self.companySelected)
+        var company = NSEntityDescription.insertNewObjectForEntityForName("Company", inManagedObjectContext: context) as Company
+        
+        company.name = self.companySelected.name
+        company.nameInDatabase = self.companySelected.nameInDatabase
+        company.checked = self.companySelected.checked
+        company.text = self.companySelected.text
+        
+        var error: NSError?
+        if context.save(&error) {
+            
+            self.delegate?.addCompanyTableViewController(self, didFinishAddingCompany: self.companySelected)
+            
+        } else {
+            
+            fatalCoreDataError(error)
+        }
     }
     
     //methods

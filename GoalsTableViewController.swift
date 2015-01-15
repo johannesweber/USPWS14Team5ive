@@ -9,102 +9,151 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
-import CoreData
 
-class GoalsTableViewController: UITableViewController {
+class GoalsTableViewController: UITableViewController, AddGoalTableViewControllerDelegate {
     
     //variables
     var userId = prefs.integerForKey("USERID") as Int
-
-    // variable for managing core data
-    var managedObjectContext: NSManagedObjectContext!
+    var goalItems: [GoalItem]
     
-    //this variable contains all goal items fetched from core data
-    lazy var fetchedResultsController: NSFetchedResultsController = {
-        let fetchRequest = NSFetchRequest()
+    //init
+    required init(coder aDecoder: NSCoder) {
         
-        //TODO why crashes the app if clicking on logout ? 
-        let entity = NSEntityDescription.entityForName("Goal", inManagedObjectContext: self.managedObjectContext)
-        fetchRequest.entity = entity
+        self.goalItems = [GoalItem]()
         
-        fetchRequest.fetchBatchSize = 20
-        
-        let sortDescriptor = NSSortDescriptor(key: "measurement", ascending: true)
-        
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        
-        let fetchedResultsController = NSFetchedResultsController(
-            fetchRequest: fetchRequest,
-            managedObjectContext: self.managedObjectContext,
-            sectionNameKeyPath: nil,
-            cacheName: "Goals")
-        
-        fetchedResultsController.delegate = self
-        return fetchedResultsController
-        }()
-    
-    deinit {
-
-        self.fetchedResultsController.delegate = nil
+        super.init(coder: aDecoder)
     }
-    
-    //override methods
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
-        self.managedObjectContext = appDel.managedObjectContext!
-        
-        NSFetchedResultsController.deleteCacheWithName("Goals")
-        
-        self.performFetch()
-        
-        self.tableView.reloadData()
-        
-        self.showGoalHelp()
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(true)
-        
-        NSFetchedResultsController.deleteCacheWithName("Goals")
-        
-        self.performFetch()
-        
-        self.tableView.reloadData()
-    }
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-    }
-
     
     //methods
-    func performFetch() {
-        var error: NSError?
-        if !fetchedResultsController.performFetch(&error) {
-            fatalCoreDataError(error)
+    //TODO need to rewrite insert and select goals
+    func setValueForItem(goal: GoalItem) {
+        
+        //variables needed for request
+        var url: String = "\(baseURL)/goals/select/"
+        
+        //TODO do i need limit or ?!??
+        let parameters: Dictionary<String, AnyObject> = [
+            
+            "userId"        : "\(self.userId)",
+            "measurement"   : "\(goal.name)",
+            "period"        : "\(goal.convertPeriodToInt())",
+            "company"       : "\(goal.company)",
+            "limit"         : "1"
+        ]
+        
+        //wrong user ID stored in Database
+        Alamofire.request(.GET, url, parameters: parameters)
+            .responseSwiftyJSON { (request, response, json, error) in
+                
+                var currentValue = json[0]["current_value"].intValue
+                var targetValue = json[0]["target_value"].intValue
+                
+                goal.progressValue = currentValue
+                
+                var text = "\(goal.name): \(currentValue)"
+                
+                goal.text = text
+                
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.tableView!.reloadData()
+                })
+        }
+        
+    }
+    
+    func insertGoalInDatabase(goal: GoalItem) {
+        
+        var url = "\(baseURL)/goals/insert/"
+        
+        let parameters: Dictionary<String, AnyObject> = [
+            
+            "userId"        : "\(self.userId)",
+            "measurement"   : "\(goal.name)",
+            "period"        : "\(goal.convertPeriodToInt())",
+            "startDate"     : "\(goal.startdate)",
+            "company"       : "\(goal.company)",
+            "goalValue"     : "\(goal.value)"
+        ]
+        
+        //wrong user ID stored in Database
+        Alamofire.request(.GET, url, parameters: parameters)
+            .responseSwiftyJSON { (request, response, json, error) in
+
+                println(json)
+                
         }
     }
 
+    
+    //create delegate
+    
+    override func prepareForSegue(segue: UIStoryboardSegue,
+        sender: AnyObject?) {
+        
+        if segue.identifier == "goToAddGoal" {
+
+            let navigationController = segue.destinationViewController as UINavigationController
+
+            let controller = navigationController.topViewController as AddGoalTableViewController
+
+            controller.delegate = self
+        }
+    }
+    
+    //delegate methods
+    
+    func addGoalTableViewController(controller: AddGoalTableViewController, didFinishAddingItem item: GoalItem) {
+        
+        let newRowIndex = self.goalItems.count
+        
+        let indexPath = NSIndexPath(forRow: newRowIndex, inSection: 0)
+        let indexPaths = [indexPath]
+        
+        if goalItems.contains(item){
+            
+        showAlert(NSLocalizedString("Item already added", comment: "Title for Message which appears if Dashboard already contains that Item"), NSLocalizedString("You have already added \(item.name). Please choose another one", comment: "Message which appears if Dashboard already contains that Item"), self)
+            
+        } else {
+            
+            if item.company == "focused health" {
+                
+                self.insertGoalInDatabase(item)
+                
+            }
+            
+            self.setValueForItem(item)
+
+            self.goalItems.append(item)
+            
+            self.tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
+            
+            self.dismissViewControllerAnimated(true, completion: nil)
+            
+        }
+    }
+    
+    func addGoalTableViewControllerDidCancel(controller: AddGoalTableViewController) {
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     //override methods
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        let sectionInfo = self.fetchedResultsController.sections![section] as NSFetchedResultsSectionInfo
-        
-        return sectionInfo.numberOfObjects
+        return self.goalItems.count
     }
     
     //places the TableItems in tableview rows
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
+        //TODO Fix progressView 
         let cell = tableView.dequeueReusableCellWithIdentifier("GoalItem") as UITableViewCell
-        let item: Goal = self.fetchedResultsController.objectAtIndexPath(indexPath) as Goal
+        let item = self.goalItems[indexPath.row]
         let label = cell.viewWithTag(3010) as UILabel
         let progressView = cell.viewWithTag(555) as UIProgressView
-        
-        let progress = Float(item.currentValue) / Float(item.targetValue)
-        progressView.setProgress(progress, animated: true)
+        let fractionalProgress = Float(item.progressValue) / Float(item.value)
+        progressView.setProgress(fractionalProgress, animated: true)
         label.text = item.text
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
@@ -112,118 +161,15 @@ class GoalsTableViewController: UITableViewController {
         return cell
     }
     
-    //method will be executed if a cell is about to be deleted
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
-        if editingStyle == .Delete {
-            let goal = fetchedResultsController.objectAtIndexPath(indexPath) as Goal
-            self.managedObjectContext.deleteObject(goal)
-            
-            var error: NSError?
-            if !managedObjectContext.save(&error) {
-                fatalCoreDataError(error)
-            }
-        }
+        self.goalItems.removeAtIndex(indexPath.row)
+        
+        let indexPaths = [indexPath]
+        tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
     }
-    
-    //this functions shows a little helper for newly registered users
-    func showGoalHelp() {
-        
-        let first = prefs.objectForKey("FIRSTTIMELOGIN") as String
-        
-        if first == "YES"{
-            
-            println(first)
-            
-            let goalHelp = prefs.objectForKey("GOALHELP") as String
-            
-            println(goalHelp)
-            
-            if goalHelp == "YES" {
-                
-                let title = NSLocalizedString("Hi! Here you can add and create new Goals\n" ,comment: "Title for Goal Help")
-                
-                let message = NSLocalizedString("To Add a Goal Click +\nTo Delete an added Goal swipe to the left\n" ,comment: "Messsage for Goal Help")
-                
-                showAlert(title, message, self)
-            }
-        }
-        
-        prefs.setValue("NO", forKey: "GOALHELP")
-    }
+
 
 }
-
-extension GoalsTableViewController: NSFetchedResultsControllerDelegate {
-            
-    func controllerWillChangeContent(controller: NSFetchedResultsController) {
-        println("*** controllerWillChangeContent")
-        tableView.beginUpdates()
-    }
-            
-    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
-    
-        switch type {
-        case .Insert:
-            println("*** NSFetchedResultsChangeInsert (object)")
-            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
-    
-        case .Delete:
-            println("*** NSFetchedResultsChangeDelete (object)")
-            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
-    
-        case .Update:
-            println("*** NSFetchedResultsChangeUpdate (object)")
-            let cell = tableView.cellForRowAtIndexPath(indexPath!)!
-            let goal = controller.objectAtIndexPath(indexPath!) as Goal
-            
-            let label = cell.viewWithTag(3010) as UILabel
-            let progressView = cell.viewWithTag(555) as UIProgressView
-        
-            let progress = Float(goal.currentValue) / Float(goal.targetValue)
-            progressView.setProgress(progress, animated: true)
-            
-            var currentLanguage = NSLocale.currentLanguageString
-        
-            switch currentLanguage {
-            case "en" : label.text = goal.text
-            case "de" : label.text = goal.text
-            case "fr" : label.text = goal.text
-            default : println("language unknown")
-        
-    }
-    
-        case .Move:
-            println("*** NSFetchedResultsChangeMove (object)")
-            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
-            tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
-        }
-    }
-            
-    func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
-                
-        switch type {
-        case .Insert:
-            println("*** NSFetchedResultsChangeInsert (section)")
-            tableView.insertSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
-        
-        case .Delete:
-            println("*** NSFetchedResultsChangeDelete (section)")
-            tableView.deleteSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
-        
-        case .Update:
-            println("*** NSFetchedResultsChangeUpdate (section)")
-        
-        case .Move:
-            println("*** NSFetchedResultsChangeMove (section)")
-        }
-    }
-            
-    func controllerDidChangeContent(controller: NSFetchedResultsController) {
-        println("*** controllerDidChangeContent")
-        tableView.endUpdates()
-    }
-}
-
     
 

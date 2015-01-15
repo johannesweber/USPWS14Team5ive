@@ -17,8 +17,6 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var txtMailAddress: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
     @IBOutlet weak var txtRepeatPassword: UITextField!
-    @IBOutlet weak var buttonSignUp: UIButton!
-    @IBOutlet weak var errorLabel: UILabel!
     
     override func viewDidAppear(animated: Bool) {
         self.txtMailAddress.delegate = self
@@ -45,25 +43,13 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
             
             showAlert( NSLocalizedString("Sign Up Failed!", comment: "Title for Message sign up failed"),  NSLocalizedString("Please Enter E - Mail Adress and Password", comment: "Message if sign up failed"), self)
             
-            errorLabel.text = NSLocalizedString("Please Enter E - Mail Adress and Password", comment: "Message if sign up failed")
-            
         } else if (password != confirmPassword) {
             
-            showAlert( NSLocalizedString("Sign Up Failed!", comment: "Title for Message sign up failed"),  NSLocalizedString("Passwords don't Match", comment: "Message if sign up failed"), self)
-            
-            errorLabel.text = NSLocalizedString("Passwords don't Match", comment: "Message if sign up failed")
+            showAlert( NSLocalizedString("Sign Up Failed!", comment: "Title for Message sign up failed"),  NSLocalizedString("Passwords doesn't Match", comment: "Message if sign up failed"), self)
             
         } else if (!email.isValidEmail()) {
             
-            showAlert( NSLocalizedString("Sign Up Failed!", comment: "Title for Message sign up failed"),  NSLocalizedString("Your E - Mail is not valid", comment: "Message if sign up failed"), self)
-            
-            errorLabel.text = NSLocalizedString("Your E - Mail is not valid. Please enter a valid E - Mail adress.", comment: "Message if sign up failed")
-            
-        } else if (!password.isValidPassword()){
-            
-            showAlert("Sign Up Failed!", "The password does not meet the requirements. Please enter another password.", self)
-            
-            errorLabel.text = NSLocalizedString("The password does not meet the requirements. It has to be 6 to 18 characters long and consist of: A-Z, a-z, 0-9, ., _, %, +, #, !, -", comment: "Message if sign up failed")
+            showAlert( NSLocalizedString("Sign Up Failed!", comment: "Title for Message sign up failed"),  NSLocalizedString("Your E - Mail is not correct", comment: "Message if sign up failed"), self)
             
         } else {
             

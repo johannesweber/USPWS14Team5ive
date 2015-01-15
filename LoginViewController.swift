@@ -13,9 +13,6 @@ import Alamofire
 import SwiftyJSON
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
-    
-    //variables
-    var email: String?
 
     //IBOutlet
     @IBOutlet weak var txtMailAddress: UITextField!
@@ -25,21 +22,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
         
+        
         self.txtPassword.text = ""
-        
-        if (prefs.objectForKey("EMAIL") != nil) {
-            self.txtMailAddress.text = prefs.objectForKey("EMAIL") as String
-        }
-        
         
         let isLoggedIn:Int = prefs.integerForKey("ISLOGGEDIN") as Int
         
-        if isLoggedIn == 1 {
+        if (isLoggedIn == 1) {
             
-            self.startConfiguration()
-                
             self.performSegueWithIdentifier("goToDashboard", sender: self)
-        
         }
         
         self.txtMailAddress.delegate = self
@@ -47,7 +37,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-    //hide keyboard if user presses on done
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if (textField == self.txtMailAddress) {
             textField.resignFirstResponder()
@@ -56,6 +45,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
         return true
     }
+
+    
+    
+    
     
     @IBAction func continueWithoutLogin(sender: UIButton) {
         
@@ -95,18 +88,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                         prefs.setInteger(success, forKey: "ISLOGGEDIN")
                         prefs.setInteger(userId, forKey: "USERID")
                         
+                        //if the user logs for the first time the default configuration for the focused health app will happen
                         if self.isFirstLogin() {
-                            
-                            self.firstTimeConfiguration()
                             prefs.setObject("YES", forKey: "FIRSTTIMELOGIN")
-                            
-                        } else {
-                            
-                            self.startConfiguration()
+                            self.insertFocusedHealthCompanyIntoCoreData(userId)
+                            //this method fetches the measurement from the current user from focused health database an stores them into core data
+                            fetchMeasurementsFromUser()
                         }
+
                         
                         prefs.synchronize()
-
+                        
                         self.performSegueWithIdentifier("goToDashboard", sender: self)
                         
                     } else {
@@ -123,7 +115,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                             
                         }
                         
-                        showAlert( NSLocalizedString("Sign In Failed!", comment: "Title for Message sign in failed"),"\(error_msg)", self)
+                        showAlert( NSLocalizedString("Sign In Failed!", comment: "Title for Message sign in failed"),  NSLocalizedString("\(error_msg)", comment: "Message if sign in failed"), self)
 
                     }
             }
@@ -131,63 +123,27 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    //this method start the daefault configuration if the user logs in for the first time. return true if first user configuration is ssuccessfully executed
-    func firstTimeConfiguration() -> Bool {
-        
-        var success = false
-        
-        prefs.setObject("YES", forKey: "FIRSTTIMELOGIN")
-        prefs.setObject("YES", forKey: "DASHBOARDHELP")
-        prefs.setObject("YES", forKey: "GOALHELP")
-        prefs.synchronize()
-        
-        success = insertCategories()
-        //this method fetches the measurement from the current user from focused health database an stores them into core data
-        success = insertMeasurementsFromUser()
-        //this method fetches the categories from focused health database an stores them into core data
-        success = insertCompaniesFromUser()
-        success = insertTableCompanyHasMeasurement()
-        
-        return success
-    }
-    
-    func startConfiguration() -> Bool {
-        
-        prefs.setValue("START", forKey: "DASHBOARDHELP")
-        prefs.setValue("START", forKey: "GOALHELP")
-        
-        var success = false
-        
-        self.cleanCoreData()
-        success = insertCategories()
-        success = insertCompaniesFromUser()
-        success = insertTableCompanyHasMeasurement()
-        success = insertMeasurementsFromUser()
-        //TODO update categories and companies from user
-        success = updateDuplicateMeasurements()
-        
-        return success
-    }
-    
-    func cleanCoreData() {
-        deleteAllEntries("Measurement")
-        deleteAllEntries("Company")
-        deleteAllEntries("CompanyHasMeasurement")
-        deleteAllEntries("Category")
-    }
-    
-    //returns true if the user has logged in for the first time. false if not
-    func isFirstLogin() -> Bool {
+    //returns true if the user has logged in for the first time
+    func isFirstLogin() ->Bool {
         
         var firstTimer = false
         
-        if prefs.stringForKey("FIRSTTIMELOGIN") == nil{
+        if prefs.stringForKey("FIRSTTIMELOGIN") == nil {
             println("Du bist zum ersten mal hier")
             firstTimer = true
         }
         
-        println("First Timer : \(firstTimer)")
-        
         return firstTimer
+    }
+    
+    func insertFocusedHealthCompanyIntoCoreData(userId: Int) {
+        
+        var focusedHealtCompany = CompanyItem()
+        
+        focusedHealtCompany.name = "Focused Health"
+        focusedHealtCompany.nameInDatabase = "focused health"
+        focusedHealtCompany.text = "default company for every user"
+        
+        insertCompanyIntoCoreData(userId, focusedHealtCompany)
     }
 }

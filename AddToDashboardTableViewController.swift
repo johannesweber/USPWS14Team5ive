@@ -8,18 +8,35 @@
  
  import UIKit
  import CoreData
- import Alamofire
- import SwiftyJSON
+ 
+ protocol AddToDashboardTableViewControllerDelegate: class {
+    
+    func addToDashboardViewControllerDidCancel(controller: AddToDashboardTableViewController)
+    func addToDashboardViewController(controller: AddToDashboardTableViewController, didFinishAddingItem item: MeasurementItem)
+ }
  
  class AddToDashboardTableViewController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
     //Variables
-    var measurementPickerVisible = true
-    var measurements = [Measurement]()
-    var measurementSelected: Measurement!
-    var userId = prefs.integerForKey("USERID") as Int
-
-    var managedObjectContext: NSManagedObjectContext!
+    var measurementPickerVisible: Bool
+    var measurement: [MeasurementItem]
+    var measurementSelected: MeasurementItem
+    weak var delegate: AddToDashboardTableViewControllerDelegate?
+    var managedObjectContext: NSManagedObjectContext?
+    
+    //initializer
+    required init(coder aDecoder: NSCoder) {
+        
+        self.measurementPickerVisible = false
+        self.measurement = [MeasurementItem]()
+        self.measurementSelected = MeasurementItem()
+        
+        var steps = MeasurementItem(name: NSLocalizedString("Steps", comment: "Name for Measurement Item Steps"), nameInDatabase: "steps", unit: "steps", group: "Fitness")
+        
+        super.init(coder: aDecoder)
+        
+        self.measurement.append(steps)
+    }
     
     //IBOutlet
     
@@ -31,19 +48,18 @@
     
     @IBAction func cancel(sender: UIBarButtonItem) {
         
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.delegate?.addToDashboardViewControllerDidCancel(self)
     }
     
     //TODO disable done button if no measurment is added
     @IBAction func done(sender: UIBarButtonItem) {
         
-        self.addMeasurementToDashboard(self.measurementSelected)
-        
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.delegate?.addToDashboardViewController(self, didFinishAddingItem: self.measurementSelected)
         
     }
     
     //Picker View Methods
+    
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         
         return 1
@@ -51,23 +67,21 @@
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
-        return self.measurements.count
+        return self.measurement.count
     }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
         
-        return self.measurements[row].name
+        return self.measurement[row].name
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
-        self.measurementSelected = self.measurements[row]
+        self.measurementSelected = self.measurement[row]
         self.measurementDetailLabel.text = self.measurementSelected.name
         self.doneBarButton.enabled = true
-
     }
     
-    //methods
     func showMeasurementPicker() {
         
         self.measurementPickerVisible = true
@@ -96,16 +110,13 @@
     }
     
     //Override Functions
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = 44
         
-        var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
-        self.managedObjectContext = appDel.managedObjectContext!
-        
         self.doneBarButton.enabled = false
-        
-        self.measurements = fetchMeasurementsFromCoreData()
+        self.showMeasurementPicker()
         
     }
     
@@ -193,69 +204,5 @@
         
         return super.tableView(tableView, indentationLevelForRowAtIndexPath: indexPath)
     }
-        
-
-    
-    //sets the text shown on dashboard for one measurement and than add it to dashboard
-    func addMeasurementToDashboard(measurement: Measurement) {
-        
-        //variables needed for request
-        var date = Date()
-        var currentDate = date.getCurrentDateAsString() as String
-        var url: String = "\(baseURL)/value/select"
-        
-        let parameters: Dictionary<String, AnyObject> = [
-            
-            "company"       : "\(measurement.favoriteCompany)",
-            "endDate"       : "\(currentDate)",
-            "limit"         : "1",
-            "userId"        : "\(self.userId)",
-            "measurement"   : "\(measurement.nameInDatabase)"
-        ]
-        
-        
-        Alamofire.request(.GET, url, parameters: parameters)
-            .responseSwiftyJSON { (request, response, json, error) in
-                
-                println(request)
-                
-                println(json)
-
-                
-                dispatch_async(dispatch_get_main_queue(), {
-                    
-                    var value = json[0]["value"].doubleValue
-                    var unit = json[0]["unit"].stringValue
-                    var date = json[0]["DATE"].stringValue
-                    
-                    var text = "\(measurement.name): \(value) \(unit)"
-                    
-                    println(text)
-                    
-                    var dashboard = NSEntityDescription.insertNewObjectForEntityForName("Dashboard", inManagedObjectContext: self.managedObjectContext) as Dashboard
-                    
-                    var measurements = dashboard.measurement.allObjects as [Measurement]
-                    measurements.append(measurement)
-                    dashboard.company = measurement.favoriteCompany
-                    dashboard.value = value
-                    dashboard.unit = unit
-                    dashboard.date = date
-                    dashboard.text = text
-                    
-                    var error: NSError?
-                    if self.managedObjectContext.save(&error) {
-                        
-                        println("dashboard successfully updated")
-                        
-                    } else {
-                        
-                        fatalCoreDataError(error)
-                    }
-
-                })
-        }
-        
-    }
-
     
  }

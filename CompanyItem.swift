@@ -31,7 +31,31 @@ class CompanyItem: TableItem {
         self.name = name
         self.nameInDatabase = nameInDatabase
         
-        self.color = self.assignColorToCompany()
+        self.assignColorToCompany()
+    }
+    
+    func assignMeasurementsToCompany() {
+        
+        switch self.name {
+        case "Fitbit": self.createFitbitMeasurements()
+        case "Withings": self.createWithingsMeasurements()
+        case "Medisana": self.createMedisanaMeasurements()
+        default: println("company not known")
+            
+        }
+        
+    }
+    
+    func createFitbitMeasurements() {
+        
+    }
+    
+    func createWithingsMeasurements() {
+        
+    }
+    
+    func createMedisanaMeasurements() {
+        
     }
     
     func assignColorToCompany() -> UIColor{

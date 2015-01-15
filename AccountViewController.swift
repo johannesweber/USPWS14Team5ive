@@ -17,12 +17,11 @@ class AccountViewController: UITableViewController {
     //IBAction
     @IBAction func logoutTapped(sender: UIButton) {
             
-//        let appDomain = NSBundle.mainBundle().bundleIdentifier
-//        NSUserDefaults.standardUserDefaults().removePersistentDomainForName(appDomain!)
+        let appDomain = NSBundle.mainBundle().bundleIdentifier
+        NSUserDefaults.standardUserDefaults().removePersistentDomainForName(appDomain!)
         
-        //sets key FIRSTTIMELOGIN to NO and ISLOGGEDIN to 0
+        //sets key FIRSTTIMELOGIN to NO
         prefs.setObject("NO", forKey: "FIRSTTIMELOGIN")
-        prefs.setInteger(0, forKey: "ISLOGGEDIN")
         prefs.synchronize()
         
         self.dismissViewControllerAnimated(true, completion: nil)

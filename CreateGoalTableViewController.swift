@@ -46,10 +46,7 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     
     @IBAction func save(sender: UIBarButtonItem) {
         
-        var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
-        var context: NSManagedObjectContext = appDel.managedObjectContext!
-        
-        var goal = NSEntityDescription.insertNewObjectForEntityForName("Goal", inManagedObjectContext: context) as Goal
+        var goal = NSEntityDescription.insertNewObjectForEntityForName("Goal", inManagedObjectContext: self.managedObjectContext) as Goal
         
         goal.measurement = self.measurementSelected.nameInDatabase
         goal.period = self.convertPeriod(self.periodDetailLabel.text!)
@@ -57,13 +54,15 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
         goal.company = self.measurementSelected.favoriteCompany
         goal.targetValue = self.currentValue
         goal.unit = self.unitLabel.text!
+        goal.userId = self.userId
+        
         //default values for current value and text
         goal.text = "(nothing to show)"
         goal.currentValue = 0
-        goal.userId = self.userId
+
         
         var error: NSError?
-        if context.save(&error) {
+        if self.managedObjectContext.save(&error) {
             
             self.insertGoalIntoDatabase(goal)
             
@@ -94,7 +93,7 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
         self.unitLabel.textColor = UIColor.grayColor()
         self.valueLabel.textColor = UIColor.grayColor()
         
-        self.measurements = fetchMeasurementsFromCoreData()
+        self.measurements = fetchGoalableMeasurementsFromCoreData()
         
     }
     

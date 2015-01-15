@@ -43,12 +43,8 @@ class GoalsTableViewController: UITableViewController {
         }()
     
     deinit {
+
         self.fetchedResultsController.delegate = nil
-    }
-    
-    //IBAction
-    @IBAction func refresh(sender: UIBarButtonItem) {
-        
     }
     
     //override methods
@@ -63,6 +59,8 @@ class GoalsTableViewController: UITableViewController {
         self.performFetch()
         
         self.tableView.reloadData()
+        
+        self.showGoalHelp()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -73,6 +71,10 @@ class GoalsTableViewController: UITableViewController {
         self.performFetch()
         
         self.tableView.reloadData()
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 
     
@@ -121,6 +123,32 @@ class GoalsTableViewController: UITableViewController {
                 fatalCoreDataError(error)
             }
         }
+    }
+    
+    //this functions shows a little helper for newly registered users
+    func showGoalHelp() {
+        
+        let first = prefs.objectForKey("FIRSTTIMELOGIN") as String
+        
+        if first == "YES"{
+            
+            println(first)
+            
+            let goalHelp = prefs.objectForKey("GOALHELP") as String
+            
+            println(goalHelp)
+            
+            if goalHelp == "YES" {
+                
+                let title = NSLocalizedString("Hi! Here you can add and create new Goals\n" ,comment: "Title for Goal Help")
+                
+                let message = NSLocalizedString("To Add a Goal Click +\nTo Delete an added Goal swipe to the left\n" ,comment: "Messsage for Goal Help")
+                
+                showAlert(title, message, self)
+            }
+        }
+        
+        prefs.setValue("NO", forKey: "GOALHELP")
     }
 
 }

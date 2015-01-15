@@ -57,10 +57,6 @@ class DiagramViewController: UIViewController, LineChartDelegate {
 
     }
     
-    @IBAction func add(sender: UIBarButtonItem) {
-        
-    }
-    
     //override functions
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -192,7 +188,7 @@ class DiagramViewController: UIViewController, LineChartDelegate {
                     
                     let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
                     
-                    var okTitle = NSLocalizedString("OK", comment: "This is the title for the cancel button")
+                    var okTitle = "OK"
                     
                     let okAction = UIAlertAction(title: okTitle, style: .Cancel) { (_) in }
                     
@@ -247,14 +243,19 @@ class DiagramViewController: UIViewController, LineChartDelegate {
                     
                 let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
                 
-                var okTitle = NSLocalizedString("OK", comment: "Tis is the tizle for the cancel button")
+                var okTitle = "OK"
                 
-                let okAction = UIAlertAction(title: okTitle, style: .Cancel) { (_) in }
+                let okAction = UIAlertAction(title: okTitle, style: .Cancel) { action -> Void in }
+                
+                let createValueTitle = NSLocalizedString("Create Value", comment: "Title for Button")
                     
-                self.navigationController?.popViewControllerAnimated(true)
-                    
+                let createValueAction = UIAlertAction(title: createValueTitle, style: .Default) { (_) in
+                        self.performSegueWithIdentifier("goToCreateValue", sender: self)
+                }
+                
                 alertController.addAction(okAction)
-                    
+                alertController.addAction(createValueAction)
+
                 self.presentViewController(alertController, animated: true, completion: nil)
                     
                 }

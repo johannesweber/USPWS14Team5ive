@@ -37,8 +37,6 @@
     //TODO disable done button if no measurment is added
     @IBAction func done(sender: UIBarButtonItem) {
         
-        self.setTextForMeasurement(self.measurementSelected)
-        
         self.addMeasurementToDashboard(self.measurementSelected)
         
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -66,6 +64,7 @@
         self.measurementSelected = self.measurements[row]
         self.measurementDetailLabel.text = self.measurementSelected.name
         self.doneBarButton.enabled = true
+
     }
     
     //methods
@@ -194,33 +193,11 @@
         
         return super.tableView(tableView, indentationLevelForRowAtIndexPath: indexPath)
     }
-    
-    func updatePropertyOfMeasurement(measurement: Measurement, property: String, newValue: AnyObject) {
         
-        var batchRequest = NSBatchUpdateRequest(entityName: "Measurement")
-        
-        batchRequest.propertiesToUpdate = [ property : newValue]
-        batchRequest.resultType = .UpdatedObjectsCountResultType
-        
-        var selectMeasurementPredicate = NSPredicate(format: "name = %@", measurement.name)
-        
-        batchRequest.predicate = selectMeasurementPredicate
-        
-        var error : NSError?
-        var results = self.managedObjectContext!.executeRequest(batchRequest, error: &error) as NSBatchUpdateResult
 
-    }
     
+    //sets the text shown on dashboard for one measurement and than add it to dashboard
     func addMeasurementToDashboard(measurement: Measurement) {
-        
-        var isInDashboardProperty = "isInDashboard"
-        
-        var newValue = NSNumber(bool: true)
-        
-        self.updatePropertyOfMeasurement(self.measurementSelected, property: isInDashboardProperty, newValue: newValue)
-    }
-    
-    func setTextForMeasurement(measurement: Measurement) {
         
         //variables needed for request
         var date = Date()
@@ -243,22 +220,38 @@
                 println(request)
                 
                 println(json)
-                
-                var value = json[0]["value"].doubleValue
-                var unit = json[0]["unit"].stringValue
-                var date = json[0]["DATE"].stringValue
-                
-                measurement.value = value
-                measurement.unit = unit
-                measurement.date = date
-                
-                measurement.createTextForDashboard()
-                
-                println("Measurement Text: \(measurement.text)")
+
                 
                 dispatch_async(dispatch_get_main_queue(), {
                     
-                    self.updatePropertyOfMeasurement(measurement, property: "text", newValue: measurement.text)
+                    var value = json[0]["value"].doubleValue
+                    var unit = json[0]["unit"].stringValue
+                    var date = json[0]["DATE"].stringValue
+                    
+                    var text = "\(measurement.name): \(value) \(unit)"
+                    
+                    println(text)
+                    
+                    var dashboard = NSEntityDescription.insertNewObjectForEntityForName("Dashboard", inManagedObjectContext: self.managedObjectContext) as Dashboard
+                    
+                    var measurements = dashboard.measurement.allObjects as [Measurement]
+                    measurements.append(measurement)
+                    dashboard.company = measurement.favoriteCompany
+                    dashboard.value = value
+                    dashboard.unit = unit
+                    dashboard.date = date
+                    dashboard.text = text
+                    
+                    var error: NSError?
+                    if self.managedObjectContext.save(&error) {
+                        
+                        println("dashboard successfully updated")
+                        
+                    } else {
+                        
+                        fatalCoreDataError(error)
+                    }
+
                 })
         }
         

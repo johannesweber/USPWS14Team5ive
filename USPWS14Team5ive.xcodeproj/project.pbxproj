@@ -25,7 +25,6 @@
 		0E6305341A46DAAF0031F179 /* CreateGoalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6305331A46DAAF0031F179 /* CreateGoalTableViewController.swift */; };
 		0E6305361A46E7200031F179 /* AddGoalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6305351A46E7200031F179 /* AddGoalTableViewController.swift */; };
 		0E6305381A4735A30031F179 /* PeriodTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6305371A4735A30031F179 /* PeriodTableViewController.swift */; };
-		0E636F9A1A5F40360048C128 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E636F991A5F40360048C128 /* Company.swift */; };
 		0E67CFFA1A5AB7E90041AFC7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E67CFF91A5AB7E90041AFC7 /* AppDelegate.swift */; };
 		0E67D0001A5AB8100041AFC7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E67CFFF1A5AB8100041AFC7 /* Images.xcassets */; };
 		0E67D0021A5AB86B0041AFC7 /* HMACAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E67D0011A5AB86B0041AFC7 /* HMACAlgorithm.swift */; };
@@ -359,10 +358,11 @@
 		0E93F52D1A31D131003C08D9 /* OAuthSwiftClient_Vitadock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CEEE951A272B5400092BB7 /* OAuthSwiftClient_Vitadock.swift */; };
 		0E953E141A62DE4500498B3E /* SwiftyJSON.framework in Copy Framework */ = {isa = PBXBuildFile; fileRef = 0E953E0B1A62DE1300498B3E /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0E953E2B1A632FBC00498B3E /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E953E2A1A632FBC00498B3E /* Goal.swift */; };
+		0E9DE6591A67CA200010919C /* Measurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9DE6581A67CA200010919C /* Measurement.swift */; };
 		0E9FC1D11A347B270083BB92 /* Alamofire-SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9FC1D01A347B270083BB92 /* Alamofire-SwiftyJSON.swift */; };
 		0EA6DEC01A646E3300F3555B /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA6DEBF1A646E3300F3555B /* Category.swift */; };
-		0EADEEBB1A61C4C0006FC923 /* Measurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EADEEBA1A61C4C0006FC923 /* Measurement.swift */; };
 		0EB17DA71A655CA400FE4857 /* CompanyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB17DA61A655CA400FE4857 /* CompanyTableViewController.swift */; };
+		0EBB3C8D1A671A8A000023F0 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBB3C8C1A671A8A000023F0 /* Company.swift */; };
 		0EF117291A5F293500E9768F /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF117281A5F293500E9768F /* Functions.swift */; };
 		0EF1172B1A5F2E7500E9768F /* ManageCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF1172A1A5F2E7500E9768F /* ManageCoreData.swift */; };
 		0EF48BB21A324C6E00E7BC5D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF48BB11A324C6E00E7BC5D /* Constants.swift */; };
@@ -375,6 +375,7 @@
 		0EF48BC71A3263A100E7BC5D /* PNLineChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF48BBF1A3263A100E7BC5D /* PNLineChart.swift */; };
 		0EF48BC81A3263A100E7BC5D /* PNLineChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF48BC01A3263A100E7BC5D /* PNLineChartData.swift */; };
 		0EF48BC91A3263A100E7BC5D /* PNValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF48BC11A3263A100E7BC5D /* PNValue.swift */; };
+		0EFB60981A67CAD5008041F9 /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB60971A67CAD5008041F9 /* Dashboard.swift */; };
 		0EFCBA8E1A6586AF003C709D /* CompanyHasMeasurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFCBA8D1A6586AF003C709D /* CompanyHasMeasurement.swift */; };
 		0EFF3AD919FCD22C00AB3C17 /* USPWS14Team5iveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFF3AD819FCD22C00AB3C17 /* USPWS14Team5iveTests.swift */; };
 		0EFF3AE319FCD29A00AB3C17 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EFF3AE219FCD29A00AB3C17 /* Default-568h@2x.png */; };
@@ -498,7 +499,6 @@
 		0E6305331A46DAAF0031F179 /* CreateGoalTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateGoalTableViewController.swift; sourceTree = "<group>"; };
 		0E6305351A46E7200031F179 /* AddGoalTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddGoalTableViewController.swift; sourceTree = "<group>"; };
 		0E6305371A4735A30031F179 /* PeriodTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeriodTableViewController.swift; sourceTree = "<group>"; };
-		0E636F991A5F40360048C128 /* Company.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
 		0E67CFF91A5AB7E90041AFC7 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0E67CFFF1A5AB8100041AFC7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		0E67D0011A5AB86B0041AFC7 /* HMACAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HMACAlgorithm.swift; sourceTree = "<group>"; };
@@ -839,11 +839,12 @@
 		0E90AC661A56D8F80002D091 /* ManageDataDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageDataDetailViewController.swift; sourceTree = "<group>"; };
 		0E953E031A62DE1300498B3E /* SwiftyJSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftyJSON.xcodeproj; path = SwiftyJSON/SwiftyJSON.xcodeproj; sourceTree = "<group>"; };
 		0E953E2A1A632FBC00498B3E /* Goal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
+		0E9DE6581A67CA200010919C /* Measurement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Measurement.swift; sourceTree = "<group>"; };
 		0E9FC1CF1A347B270083BB92 /* Alamofire-SwiftyJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Alamofire-SwiftyJSON.h"; sourceTree = "<group>"; };
 		0E9FC1D01A347B270083BB92 /* Alamofire-SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Alamofire-SwiftyJSON.swift"; sourceTree = "<group>"; };
 		0EA6DEBF1A646E3300F3555B /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
-		0EADEEBA1A61C4C0006FC923 /* Measurement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Measurement.swift; sourceTree = "<group>"; };
 		0EB17DA61A655CA400FE4857 /* CompanyTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyTableViewController.swift; sourceTree = "<group>"; };
+		0EBB3C8C1A671A8A000023F0 /* Company.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
 		0EE268251A5ACA0F00A13FFF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
 		0EF117281A5F293500E9768F /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		0EF1172A1A5F2E7500E9768F /* ManageCoreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageCoreData.swift; sourceTree = "<group>"; };
@@ -858,6 +859,7 @@
 		0EF48BC01A3263A100E7BC5D /* PNLineChartData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PNLineChartData.swift; sourceTree = "<group>"; };
 		0EF48BC11A3263A100E7BC5D /* PNValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PNValue.swift; sourceTree = "<group>"; };
 		0EF48BCA1A3263C200E7BC5D /* PNChart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PNChart.h; sourceTree = "<group>"; };
+		0EFB60971A67CAD5008041F9 /* Dashboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
 		0EFCBA8D1A6586AF003C709D /* CompanyHasMeasurement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyHasMeasurement.swift; sourceTree = "<group>"; };
 		0EFF3ABA19FCD22C00AB3C17 /* USPWS14Team5ive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = USPWS14Team5ive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EFF3AD219FCD22C00AB3C17 /* USPWS14Team5iveTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = USPWS14Team5iveTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1374,11 +1376,12 @@
 		0EA7CCE41A5D7D68003FA82F /* coreDataItem */ = {
 			isa = PBXGroup;
 			children = (
+				0EFB60971A67CAD5008041F9 /* Dashboard.swift */,
+				0E9DE6581A67CA200010919C /* Measurement.swift */,
+				0EBB3C8C1A671A8A000023F0 /* Company.swift */,
 				0EFCBA8D1A6586AF003C709D /* CompanyHasMeasurement.swift */,
 				0EA6DEBF1A646E3300F3555B /* Category.swift */,
 				0E953E2A1A632FBC00498B3E /* Goal.swift */,
-				0EADEEBA1A61C4C0006FC923 /* Measurement.swift */,
-				0E636F991A5F40360048C128 /* Company.swift */,
 			);
 			name = coreDataItem;
 			sourceTree = "<group>";
@@ -2073,6 +2076,7 @@
 				0E860F5B1A2B309400A9F152 /* TermsOfUseViewController.swift in Sources */,
 				0E47BE731A3A4E6500226527 /* ResetPasswordViewController.swift in Sources */,
 				0E818FB01A25131B000B9DA6 /* LoginViewController.swift in Sources */,
+				0EFB60981A67CAD5008041F9 /* Dashboard.swift in Sources */,
 				0EF1172B1A5F2E7500E9768F /* ManageCoreData.swift in Sources */,
 				0E6B3F601A2DADF6002193B2 /* AddCompanyTableViewController.swift in Sources */,
 				0E1ADE8A1A2CD07300820ED2 /* AboutTableViewController.swift in Sources */,
@@ -2090,7 +2094,6 @@
 				0E6D69511A3DAA080053AF51 /* HTTPUpload.swift in Sources */,
 				0EB17DA71A655CA400FE4857 /* CompanyTableViewController.swift in Sources */,
 				0EF48BC91A3263A100E7BC5D /* PNValue.swift in Sources */,
-				0E636F9A1A5F40360048C128 /* Company.swift in Sources */,
 				0E01D2211A419882008668A7 /* Date.swift in Sources */,
 				0E953E2B1A632FBC00498B3E /* Goal.swift in Sources */,
 				0E860F631A2B809F00A9F152 /* AddToDashboardTableViewController.swift in Sources */,
@@ -2102,6 +2105,8 @@
 				0EF48BB21A324C6E00E7BC5D /* Constants.swift in Sources */,
 				A33B8A691A39B3460002F71A /* FavCompanyTableViewController.swift in Sources */,
 				0E6B3F561A2DAC31002193B2 /* YourCompaniesTableViewController.swift in Sources */,
+				0E9DE6591A67CA200010919C /* Measurement.swift in Sources */,
+				0EBB3C8D1A671A8A000023F0 /* Company.swift in Sources */,
 				0E860F571A2B276C00A9F152 /* ForgotPasswordViewController.swift in Sources */,
 				0E3ADB721A272AF90075F981 /* DashboardTableViewController.swift in Sources */,
 				0EF48BB51A3259B600E7BC5D /* DotCALayer.swift in Sources */,
@@ -2128,7 +2133,6 @@
 				0E6B3F5A1A2DAD0A002193B2 /* ChangePasswordViewController.swift in Sources */,
 				0EF48BC31A3263A100E7BC5D /* PNBarChart.swift in Sources */,
 				0E6B3F581A2DACD9002193B2 /* ChangeEmailViewController.swift in Sources */,
-				0EADEEBB1A61C4C0006FC923 /* Measurement.swift in Sources */,
 				0E818FAE1A2511AD000B9DA6 /* SignupViewController.swift in Sources */,
 				0EF48BC81A3263A100E7BC5D /* PNLineChartData.swift in Sources */,
 				0EFF3AF919FCD4C400AB3C17 /* OAuth2Swift.swift in Sources */,

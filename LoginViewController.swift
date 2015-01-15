@@ -15,7 +15,8 @@ import SwiftyJSON
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
     //variables
-    
+    var email: String?
+
     //IBOutlet
     @IBOutlet weak var txtMailAddress: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
@@ -26,13 +27,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         self.txtPassword.text = ""
         
+        if (prefs.objectForKey("EMAIL") != nil) {
+            self.txtMailAddress.text = prefs.objectForKey("EMAIL") as String
+        }
+        
+        
         let isLoggedIn:Int = prefs.integerForKey("ISLOGGEDIN") as Int
         
         if isLoggedIn == 1 {
             
             self.startConfiguration()
-            
+                
             self.performSegueWithIdentifier("goToDashboard", sender: self)
+        
         }
         
         self.txtMailAddress.delegate = self
@@ -87,7 +94,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                         prefs.setInteger(success, forKey: "ISLOGGEDIN")
                         prefs.setInteger(userId, forKey: "USERID")
                         
-                        if isFirstLogin() {
+                        if self.isFirstLogin() {
                             
                             self.firstTimeConfiguration()
                             prefs.setObject("YES", forKey: "FIRSTTIMELOGIN")
@@ -129,6 +136,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         var success = false
         
         prefs.setObject("YES", forKey: "FIRSTTIMELOGIN")
+        prefs.setObject("YES", forKey: "DASHBOARDHELP")
+        prefs.setObject("YES", forKey: "GOALHELP")
         prefs.synchronize()
         
         success = insertCategories()
@@ -145,8 +154,36 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         var success = false
         
+        self.cleanCoreData()
+        success = insertCategories()
+        success = insertCompaniesFromUser()
+        success = insertTableCompanyHasMeasurement()
+        success = insertMeasurementsFromUser()
         //TODO update categories and companies from user
+        success = updateDuplicateMeasurements()
         
         return success
+    }
+    
+    func cleanCoreData() {
+        deleteAllEntries("Measurement")
+        deleteAllEntries("Company")
+        deleteAllEntries("CompanyHasMeasurement")
+        deleteAllEntries("Category")
+    }
+    
+    //returns true if the user has logged in for the first time. false if not
+    func isFirstLogin() -> Bool {
+        
+        var firstTimer = false
+        
+        if prefs.stringForKey("FIRSTTIMELOGIN") == nil{
+            println("Du bist zum ersten mal hier")
+            firstTimer = true
+        }
+        
+        println("First Timer : \(firstTimer)")
+        
+        return firstTimer
     }
 }

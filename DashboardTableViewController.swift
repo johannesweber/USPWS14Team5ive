@@ -25,18 +25,12 @@ class DashboardTableViewController: UITableViewController {
     lazy var fetchedResultsController: NSFetchedResultsController = {
         let fetchRequest = NSFetchRequest()
         
-        let entity = NSEntityDescription.entityForName("Measurement", inManagedObjectContext: self.managedObjectContext)
+        let entity = NSEntityDescription.entityForName("Dashboard", inManagedObjectContext: self.managedObjectContext)
         fetchRequest.entity = entity
         
         fetchRequest.fetchBatchSize = 20
         
-        var isInDashboard = NSNumber(bool: true)
-        
-        var selectDashboardMeasurement = NSPredicate(format: "isInDashboard == %@", isInDashboard)
-        
-        fetchRequest.predicate = selectDashboardMeasurement
-        
-        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
         
         fetchRequest.sortDescriptors = [sortDescriptor]
         
@@ -44,7 +38,7 @@ class DashboardTableViewController: UITableViewController {
             fetchRequest: fetchRequest,
             managedObjectContext: self.managedObjectContext,
             sectionNameKeyPath: nil,
-            cacheName: "Measurements")
+            cacheName: "Dashboards")
         
         fetchedResultsController.delegate = self
         return fetchedResultsController
@@ -63,7 +57,10 @@ class DashboardTableViewController: UITableViewController {
     //IBAction
     @IBAction func refresh(sender: UIBarButtonItem) {
         
+        self.companies = fetchCompanyFromCoreData()
         self.synchronizeData()
+        
+        self.tableView.reloadData()
     }
     
     //override methods
@@ -76,11 +73,14 @@ class DashboardTableViewController: UITableViewController {
         var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
         self.managedObjectContext = appDel.managedObjectContext!
         
-        NSFetchedResultsController.deleteCacheWithName("Measurements")
+        NSFetchedResultsController.deleteCacheWithName("Dashboards")
 
         self.companies = fetchCompanyFromCoreData()
         
         self.performFetch()
+        
+        self.showDashboardHelp()
+
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -90,12 +90,11 @@ class DashboardTableViewController: UITableViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
         
-        NSFetchedResultsController.deleteCacheWithName("Measurements")
+        NSFetchedResultsController.deleteCacheWithName("Dashboards")
         
         self.performFetch()
         
         self.tableView.reloadData()
-        
         
     }
     
@@ -127,10 +126,13 @@ class DashboardTableViewController: UITableViewController {
         } else {
             
             let cell = tableView.dequeueReusableCellWithIdentifier("DashboardItem") as UITableViewCell
-            let measurement = self.fetchedResultsController.objectAtIndexPath(indexPath) as Measurement
+            let dashboard = self.fetchedResultsController.objectAtIndexPath(indexPath) as Dashboard
             
             let label = cell.viewWithTag(100) as UILabel
-            label.text = measurement.text
+            let favCompanyLabel = cell.viewWithTag(101) as UILabel
+            label.text = dashboard.text
+            var favCompanyLabelText = NSLocalizedString("Company:", comment: "Text for cell in dashboard")
+            favCompanyLabel.text = "\(favCompanyLabelText) \(dashboard.company)"
         
             tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
@@ -140,10 +142,15 @@ class DashboardTableViewController: UITableViewController {
     
     //method will be executed if a cell is about to be deleted
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
         if editingStyle == .Delete {
-            let measurement = fetchedResultsController.objectAtIndexPath(indexPath) as Measurement
+            let goal = fetchedResultsController.objectAtIndexPath(indexPath) as Dashboard
+            self.managedObjectContext.deleteObject(goal)
             
-            self.removeMeasurementFromDashboard(measurement)
+            var error: NSError?
+            if !managedObjectContext.save(&error) {
+                fatalCoreDataError(error)
+            }
         }
     }
     
@@ -155,36 +162,17 @@ class DashboardTableViewController: UITableViewController {
             fatalCoreDataError(error)
         }
     }
-
-    // in this method we set the "isInDashboard" Property of a given measurement to "false". So it will disappear from dashboard
-    func removeMeasurementFromDashboard(measurement: Measurement) {
-        
-        var batchRequest = NSBatchUpdateRequest(entityName: "Measurement")
-        
-        // i want to change the property "isInDashboard" to "false" or rather the variable "isInDashboard"
-        var isInDashboard = NSNumber(bool: false)
-        
-        batchRequest.propertiesToUpdate = [ "isInDashboard" : isInDashboard]
-        batchRequest.resultType = .UpdatedObjectsCountResultType
-        var error : NSError?
-        
-        var selectMeasurementPredicate = NSPredicate(format: "name = %@", measurement.name)
-        
-        batchRequest.predicate = selectMeasurementPredicate
-        
-        var results = self.managedObjectContext!.executeRequest(batchRequest, error: &error) as NSBatchUpdateResult
-
-        if !self.managedObjectContext.save(&error) {
-            fatalCoreDataError(error)
-        } else {
-            println("Object successfully removed from Dashboard")
-        }
-    }
     
     func synchronizeData(){
         
         self.isLoading = true
         self.tableView.reloadData()
+        
+        println("Companies Anzahl: \(self.companies.count)")
+        
+        var countCompanies = 0
+        
+        println("before request: \(countCompanies)")
         
         for (var x = 0; x < self.companies.count; x++) {
             
@@ -207,20 +195,26 @@ class DashboardTableViewController: UITableViewController {
                         
                     println(json)
                     
-//                    var success = json["success"].intValue
-//                    var message = json["message"].stringValue
-//                
-//                    dispatch_async(dispatch_get_main_queue()) {
-//                        self.isLoading = false
-//                        self.tableView.reloadData()
-//                    }
-//                        
-//                    if success == 1 {
-//                        showAlert(NSLocalizedString("\(currentCompany.name) Success!", comment: "Title for Message which appears if request successfully executed"), NSLocalizedString("\(message)", comment: "Message which appears if request successfully executed"), self)
-//                    }
+                    var success = json["success"].intValue
+                    var message = json["message"].stringValue
+                
+                    dispatch_async(dispatch_get_main_queue()) {
+                        countCompanies++
+                        
+                        println("after request: \(countCompanies)")
+                        
+                        if countCompanies == self.companies.count {
+                            self.isLoading = false
+                            self.tableView.reloadData()
+                            showAlert(NSLocalizedString("Sync Success!", comment: "Title for Message which appears if request successfully executed"), NSLocalizedString("Syncronization successfully executed", comment: "Message which appears if request successfully executed"), self)
+                        }
+                    }
 
                 }
             
+            } else {
+                
+                countCompanies = countCompanies + 1
             }
         }
         
@@ -248,9 +242,12 @@ extension DashboardTableViewController: NSFetchedResultsControllerDelegate {
         case .Update:
             println("*** NSFetchedResultsChangeUpdate (object)")
             let cell = tableView.cellForRowAtIndexPath(indexPath!)!
-            let measurement = controller.objectAtIndexPath(indexPath!) as Measurement
+            let dashboard = controller.objectAtIndexPath(indexPath!) as Dashboard
             let label = cell.viewWithTag(100) as UILabel
-            label.text = measurement.text
+            let favCompanyLabel = cell.viewWithTag(101) as UILabel
+            label.text = dashboard.text
+            var favCompanyLabelText = NSLocalizedString("Company:", comment: "Text for cell in dashboard")
+            favCompanyLabel.text = "\(favCompanyLabelText) \(dashboard.company)"
             
         case .Move:
             println("*** NSFetchedResultsChangeMove (object)")
@@ -281,6 +278,28 @@ extension DashboardTableViewController: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         println("*** controllerDidChangeContent")
         tableView.endUpdates()
+    }
+    
+    //this functions shows a little helper for newly registered users
+    func showDashboardHelp() {
+        
+        let first = prefs.objectForKey("FIRSTTIMELOGIN") as String
+        
+        if first == "YES"{
+            
+            let dashboardHelp = prefs.objectForKey("DASHBOARDHELP") as String
+            
+            if dashboardHelp == "YES" {
+                
+                let title = NSLocalizedString("Hi! This is the Dashboard\n" ,comment: "Title for Dashboard Help")
+                
+                let message = NSLocalizedString("To Add a Measurement Click +\nTo Delete an added Measurement swipe to the left\nTo Synchronize Your Data Click the refresh Button" ,comment: "Messsage for Dashboard Help")
+                
+                showAlert(title, message, self)
+            }
+        }
+        
+        prefs.setValue("NO", forKey: "DASHBOARDHELP")
     }
 }
 

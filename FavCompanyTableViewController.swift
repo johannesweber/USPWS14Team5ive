@@ -60,11 +60,11 @@ class FavCompanyTableViewController: UITableViewController {
         var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
         self.managedObjectContext = appDel.managedObjectContext!
         
-        updateDuplicateMeasurements()
-        
         NSFetchedResultsController.deleteCacheWithName("Measurements")
         
         self.performFetch()
+        
+        self.tableView.reloadData()
 
     }
     
@@ -94,7 +94,8 @@ class FavCompanyTableViewController: UITableViewController {
         measurementLabel.text = duplicateMeasurement.name
         
         let favCompanyLabel = cell.viewWithTag(101) as UILabel
-        favCompanyLabel.text = duplicateMeasurement.favoriteCompany
+        var favCompanyLabelText = NSLocalizedString("Company:", comment: "Text for cell in favorite company")
+        favCompanyLabel.text = "\(favCompanyLabelText) \(duplicateMeasurement.favoriteCompany)"
         
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
@@ -116,13 +117,13 @@ class FavCompanyTableViewController: UITableViewController {
         
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .ActionSheet)
 
-        var companies:[String] = self.fetchCompanyToMeasurement(measurement)
+        var companies:[String] = self.fetchCompanyMeasurement(measurement)
     
         for company in companies {
         
             let companyAction = UIAlertAction(title: company, style: .Default) { action -> Void in
             
-                var success = updateMeasurement(measurement.name, "favoriteCompany", company)
+                var success = updateOneMeasurement(measurement.name, "favoriteCompany", company)
                 
                 NSFetchedResultsController.deleteCacheWithName("Measurements")
                 
@@ -145,7 +146,8 @@ class FavCompanyTableViewController: UITableViewController {
         
     }
     
-    func fetchCompanyToMeasurement(measurement: Measurement) -> [String] {
+    //fetches the companies of the given measurement an stores them in a string array
+    func fetchCompanyMeasurement(measurement: Measurement) -> [String] {
         
         var companies = [String]()
         
@@ -188,7 +190,8 @@ extension FavCompanyTableViewController: NSFetchedResultsControllerDelegate {
         measurementLabel.text = duplicateMeasurement.name
         
         let favCompanyLabel = cell.viewWithTag(101) as UILabel
-        favCompanyLabel.text = duplicateMeasurement.favoriteCompany
+        var favCompanyLabelText = NSLocalizedString("Company:", comment: "Text for cell in favorite company")
+        favCompanyLabel.text = "\(favCompanyLabelText) \(duplicateMeasurement.favoriteCompany)"
         
         
     case .Move:

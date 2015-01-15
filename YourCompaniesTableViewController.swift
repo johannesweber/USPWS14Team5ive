@@ -75,6 +75,8 @@ class YourCompaniesTableViewController: UITableViewController, AddCompanyTableVi
         
         self.doOAuthCompanyItem(company.name)
         
+        updateDuplicateMeasurements()
+        
         //after a delay of 1s the view controller gets dismissed
         afterDelay(1.0) {
             
@@ -145,6 +147,8 @@ class YourCompaniesTableViewController: UITableViewController, AddCompanyTableVi
             if !managedObjectContext.save(&error) {
                 fatalCoreDataError(error)
             }
+            
+            updateDuplicateMeasurements()
         }
     }
     
@@ -172,11 +176,12 @@ class YourCompaniesTableViewController: UITableViewController, AddCompanyTableVi
             credentials, response in
             
             var parameters: Dictionary<String, AnyObject> = [
+                "userId"                    : "\(self.userId)",
                 "oauth_token"               : "\(credentials.oauth_token)",
                 "oauth_token_secret"        : "\(credentials.oauth_token_secret)",
             ]
             
-            self.postCredentialsToServer(parameters, companyName: "vitadock")
+            self.postCredentialsToServer(parameters, companyName: "medisana")
             
             }, failure: {(error:NSError!) -> Void in
                 println(error.localizedDescription)
@@ -205,6 +210,10 @@ class YourCompaniesTableViewController: UITableViewController, AddCompanyTableVi
                 "oauth_token"           : "\(credentials.oauth_token)",
                 "oauth_token_secret"    : "\(credentials.oauth_token_secret)"
             ]
+            
+            for param in parameters {
+                println(param)
+            }
             
             self.postCredentialsToServer(parameters, companyName: "withings")
             
@@ -248,6 +257,8 @@ class YourCompaniesTableViewController: UITableViewController, AddCompanyTableVi
         //TODO send success message from Focused Health Server to Smartphone
         Alamofire.request(.POST, "\(baseURL)/\(companyName)/authorize/", parameters: parameters)
             .responseSwiftyJSON { (request, response, json, error) in
+                
+                println(request)
                 
                 var success = json["success"].intValue
                 var message = json["message"].stringValue
@@ -356,20 +367,23 @@ extension YourCompaniesTableViewController: NSFetchedResultsControllerDelegate {
     
     func deleteCompanyAccountFromDatabase(companyNameInDatabase: String, userId: Int) {
         
-        var url = "\(baseURL)/company/delete"
-        
-        let parameters: Dictionary<String, AnyObject> = [
+        if companyNameInDatabase != "focused health" {
             
-            "userId"        : "\(userId)",
-            "company"       : "\(companyNameInDatabase)"
-        ]
-        
-        Alamofire.request(.GET, url, parameters: parameters)
-            .responseString { (request, response, json, error) in
+            var url = "\(baseURL)/company/delete"
+            
+            let parameters: Dictionary<String, AnyObject> = [
                 
-                println(request)
-                
-                println(json)
+                "userId"        : "\(userId)",
+                "company"       : "\(companyNameInDatabase)"
+            ]
+            
+            Alamofire.request(.GET, url, parameters: parameters)
+                .responseString { (request, response, json, error) in
+                    
+                    println(request)
+                    
+                    println(json)
+            }
         }
     }
 }

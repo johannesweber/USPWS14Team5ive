@@ -71,7 +71,7 @@ func insertMeasurementsFromUser() -> Bool {
     Alamofire.request(.GET, url, parameters: parameters)
         .responseSwiftyJSON { (request, response, json, error) in
             
-            println(" All Measurements: \(json)")
+        println(request)
             
             for (var i = 0; i < json.count; i++) {
                 
@@ -217,6 +217,7 @@ func insertCompanyIntoCoreData(userId: Int, companyToInsert: CompanyItem) -> Boo
     company.nameInDatabase = companyToInsert.nameInDatabase
     company.checked = companyToInsert.checked
     company.text = companyToInsert.text
+    
         
     var error: NSError?
     if context.save(&error) {
@@ -295,9 +296,19 @@ func insertTableCompanyHasMeasurement() -> Bool{
     
     var success = false
     
-    var url = "\(baseURL)/measurement/check"
+    var appDel: AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+    var context: NSManagedObjectContext = appDel.managedObjectContext!
     
-    Alamofire.request(.GET, url)
+    var url = "\(baseURL)/company/select/measurement"
+    
+    var userId = prefs.integerForKey("USERID") as Int
+    
+    let parameters: Dictionary<String, AnyObject> = [
+        
+        "userId"        : "\(userId)",
+    ]
+    
+    Alamofire.request(.GET, url, parameters: parameters)
         .responseSwiftyJSON { (request, response, json, error) in
             
             for(var x = 0; x < json.count; x++) {
@@ -365,6 +376,8 @@ func updateDuplicateMeasurements() -> Bool{
     var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
     var managedObjectContext: NSManagedObjectContext = appDel.managedObjectContext!
     
+    updateAllMeasurements("isDuplicate", NSNumber(bool: false))
+    
     var url = "\(baseURL)/measurement/select/duplicate"
     
     let parameters: Dictionary<String, AnyObject> = [
@@ -375,24 +388,25 @@ func updateDuplicateMeasurements() -> Bool{
     Alamofire.request(.GET, url, parameters: parameters)
         .responseSwiftyJSON { (request, response, json, error) in
             
-        for(var y = 0; y < json.count; y++) {
-            
-            var measurementName = json[y]["nameInApp"].stringValue
-            
-            var isDuplicate = NSNumber(bool: true)
-            
-            dispatch_async(dispatch_get_main_queue()) {
+            println(request)
                 
-                success = updateMeasurement(measurementName, "isDuplicate", isDuplicate)
+            for(var y = 0; y < json.count; y++) {
+                    
+                var measurementName = json[y]["nameInApp"].stringValue
+                    
+                dispatch_async(dispatch_get_main_queue()) {
+                        
+                    success = updateOneMeasurement(measurementName, "isDuplicate", NSNumber(bool: true))
+                        
+                    println(success)
+                }
             }
-
-        }
     }
     
     return success
 }
 
-func updateMeasurement(measurementName: String, property: String, newValue: AnyObject) -> Bool{
+func updateOneMeasurement(measurementName: String, property: String, newValue: AnyObject) -> Bool{
     
     var success = false
     
@@ -403,6 +417,7 @@ func updateMeasurement(measurementName: String, property: String, newValue: AnyO
     batchRequest.propertiesToUpdate = [ property : newValue]
     batchRequest.resultType = .UpdatedObjectsCountResultType
     var error : NSError?
+    
     
     var selectMeasurementPredicate = NSPredicate(format: "name = %@", measurementName)
     
@@ -423,3 +438,61 @@ func updateMeasurement(measurementName: String, property: String, newValue: AnyO
     return success
 }
 
+func updateAllMeasurements(property: String, newValue: AnyObject) -> Bool{
+    
+    var success = false
+    
+    var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+    var managedObjectContext: NSManagedObjectContext = appDel.managedObjectContext!
+    
+    var batchRequest = NSBatchUpdateRequest(entityName: "Measurement")
+    
+    batchRequest.propertiesToUpdate = [ property : newValue]
+    batchRequest.resultType = .UpdatedObjectsCountResultType
+    var error : NSError?
+    
+    var results = managedObjectContext.executeRequest(batchRequest, error: &error) as NSBatchUpdateResult
+    
+    if managedObjectContext.save(&error) {
+        
+        println("Measurements successfully updated")
+        success = true
+        
+    } else {
+        
+        fatalCoreDataError(error)
+    }
+    
+    return success
+}
+
+func deleteAllEntries(entityName: String) {
+    
+    var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+    var managedObjectContext: NSManagedObjectContext = appDel.managedObjectContext!
+    
+    let fetchRequest = NSFetchRequest()
+    let entity = NSEntityDescription.entityForName(entityName, inManagedObjectContext: managedObjectContext)
+    fetchRequest.entity = entity
+   
+    var error : NSError?
+    
+    var fetchedObjects = managedObjectContext.executeFetchRequest(fetchRequest, error: &error)
+    
+    for object:NSManagedObject in fetchedObjects as [NSManagedObject] {
+        
+        managedObjectContext.deleteObject(object)
+        println("\(object) gelöscht")
+    }
+    
+    if managedObjectContext.save(&error) {
+        
+        println("Everything deleted")
+        
+    } else {
+        
+        fatalCoreDataError(error)
+    }
+
+    
+}

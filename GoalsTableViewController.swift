@@ -23,6 +23,7 @@ class GoalsTableViewController: UITableViewController {
     lazy var fetchedResultsController: NSFetchedResultsController = {
         let fetchRequest = NSFetchRequest()
         
+        //TODO why crashes the app if clicking on logout ? 
         let entity = NSEntityDescription.entityForName("Goal", inManagedObjectContext: self.managedObjectContext)
         fetchRequest.entity = entity
         

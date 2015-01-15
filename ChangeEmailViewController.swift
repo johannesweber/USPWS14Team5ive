@@ -78,13 +78,13 @@ class ChangeEmailViewController: UIViewController, UITextFieldDelegate {
                 
                 if success == 1 {
                     showAlert(NSLocalizedString("", comment: "Success!"),  NSLocalizedString("E - Mail Succesfully Changed", comment: "Message if email change was successfull"), self)
+                    
+                    //set the new email in the local userdata
+                    prefs.setObject(self.newEmail, forKey: "EMAIL")
                 }
                 
 
          }
-        
-        //set the new email in the local userdata
-        prefs.setObject(newEmail, forKey: "EMAIL")
     }
     
     func setLabel(label: UILabel, message: String){

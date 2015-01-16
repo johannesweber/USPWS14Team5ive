@@ -21,10 +21,9 @@ class CompanyTableViewController: UITableViewController {
     //variables
     var companies = [Company]()
     var companySelected: Company!
+    var measurementToEdit: Measurement?
     
     weak var delegate: CompanyTableViewControllerDelegate?
-    
-    var managedObjectContext: NSManagedObjectContext!
   
     //IBOUtlet
     @IBOutlet weak var saveBarButton: UIBarButtonItem!
@@ -34,17 +33,15 @@ class CompanyTableViewController: UITableViewController {
     @IBAction func save(sender: UIBarButtonItem) {
         
         self.delegate?.companyViewController(self, didFinishSelectingCompany: self.companySelected)
-        
-        self.navigationController?.popViewControllerAnimated(true)
+    
     }
     
     @IBAction func cancel(sender: UIBarButtonItem) {
         
-        self.navigationController?.popViewControllerAnimated(true)
+        self.delegate?.companyViewControllerDidCancel(self)
     }
     
     //override methods
-    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -52,6 +49,7 @@ class CompanyTableViewController: UITableViewController {
         self.companies = fetchCompanyFromCoreData()
         
         self.saveBarButton.enabled = false
+
     }
     
     //table view methods

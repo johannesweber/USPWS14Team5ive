@@ -7,44 +7,22 @@
 //
 
 import UIKit
-
-protocol CreateGoalTableViewControllerDelegate: class {
-    
-    func createGoalTableViewControllerDidCancel(controller: CreateGoalTableViewController)
-    
-    func createGoalTableViewController(controller: CreateGoalTableViewController, didFinishAddingItem item: GoalItem)
-    
-}
+import CoreData
+import Alamofire
+import SwiftyJSON
 
 class CreateGoalTableViewController: UITableViewController, PeriodTableViewControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
 
     //variables
-    weak var delegate: CreateGoalTableViewControllerDelegate?
-    
-    var startdate: NSDate
-    var startDatePickerVisible: Bool
-    var measurementPickerVisible: Bool
-    var measurement: [GoalItem]
-    var measurementSelected: GoalItem
-    
-    //initializers
-    required init(coder aDecoder: NSCoder) {
-        
-        self.measurement = [GoalItem]()
-        self.measurementSelected = GoalItem()
-        self.startdate = NSDate()
-        self.startDatePickerVisible = false
-        self.measurementPickerVisible = false
-
-        
-        let row0item = GoalItem(name: NSLocalizedString("Steps", comment: "Name for GoalItem Steps"), nameInDatabase: "steps")
-        row0item.sliderLimit = 20000
-        row0item.unit = NSLocalizedString("Steps", comment: "Unit for GoalItem Steps")
-        row0item.company = "focused health"
-        self.measurement.append(row0item)
-        
-        super.init(coder: aDecoder)
-    }
+    var startdate =  NSDate()
+    var startDatePickerVisible = false
+    var measurementPickerVisible = false
+    var measurements = [Measurement]()
+    var measurementSelected: Measurement!
+    var currentValue = Int()
+    var userId = prefs.integerForKey("USERID") as Int
+    // variable for managing core data
+    var managedObjectContext: NSManagedObjectContext!
     
     //IBOutlet
     @IBOutlet weak var valueSlider: UISlider!
@@ -56,27 +34,46 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     @IBOutlet weak var unitLabel: UILabel!
     @IBOutlet weak var valueLabel: UILabel!
     
-    
     //IBAction
     @IBAction func sliderValueChanged(sender: UISlider) {
         
-        var currentValue = Int(sender.value)
+        self.currentValue = Int(sender.value)
         
-        valueLabel.text = "\(currentValue)"
+        valueLabel.text = "\(self.currentValue)"
         
         self.checkIfFormIsComplete()
     }
     
     @IBAction func save(sender: UIBarButtonItem) {
-    
-        self.measurementSelected.startdate = self.startDateDetailLabel.text!
-        self.measurementSelected.period = self.periodDetailLabel.text!
-        self.measurementSelected.value = self.valueLabel.text!.toInt()!
-        self.measurementSelected.unit = measurementSelected.unit
         
-        self.delegate?.createGoalTableViewController(self, didFinishAddingItem: self.measurementSelected)
+        var goal = NSEntityDescription.insertNewObjectForEntityForName("Goal", inManagedObjectContext: self.managedObjectContext) as Goal
         
-        self.navigationController?.popViewControllerAnimated(true)
+        goal.measurement = self.measurementSelected.nameInDatabase
+        goal.period = self.convertPeriod(self.periodDetailLabel.text!)
+        goal.startdate = self.startDateDetailLabel.text!
+        goal.company = self.measurementSelected.favoriteCompany
+        goal.targetValue = self.currentValue
+        goal.unit = self.unitLabel.text!
+        goal.userId = self.userId
+        
+        //default values for current value and text
+        goal.text = "(nothing to show)"
+        goal.currentValue = 0
+
+        
+        var error: NSError?
+        if self.managedObjectContext.save(&error) {
+            
+            self.insertGoalIntoDatabase(goal)
+            
+            self.createTextForGoal(goal)
+            
+            self.dismissViewControllerAnimated(true, completion: nil)
+            
+        } else {
+            
+            fatalCoreDataError(error)
+        }
     }
     
     @IBAction func cancel(sender: UIBarButtonItem) {
@@ -86,13 +83,17 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     
     //override methods
     override func viewDidLoad() {
-        
         super.viewDidLoad()
-
+        
+        var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+        self.managedObjectContext = appDel.managedObjectContext!
+        
         self.saveBarButton.enabled = false
         self.valueSlider.enabled = false
         self.unitLabel.textColor = UIColor.grayColor()
         self.valueLabel.textColor = UIColor.grayColor()
+        
+        self.measurements = fetchGoalableMeasurementsFromCoreData()
         
     }
     
@@ -104,17 +105,17 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
-        return self.measurement.count
+        return self.measurements.count
     }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
         
-        return self.measurement[row].name
+        return self.measurements[row].name
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
-        var itemSelected = self.measurement[row]
+        var itemSelected = self.measurements[row]
         
         self.measurementDetailLabel.text = itemSelected.name
         
@@ -129,8 +130,120 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     }
     
     //methods
+    func createTextForGoal(goal: Goal) {
+        
+        //variables needed for request
+        var url: String = "\(baseURL)/goals/select/"
+        
+        let parameters: Dictionary<String, AnyObject> = [
+            
+            "userId"        : "\(self.userId)",
+            "measurement"   : "\(goal.measurement)",
+            "period"        : "\(goal.period)",
+            "company"       : "\(goal.company)",
+            "limit"         : "1"
+        ]
+        
+        //wrong user ID stored in Database
+        Alamofire.request(.GET, url, parameters: parameters)
+            .responseSwiftyJSON { (request, response, json, error) in
+                
+                println(request)
+                
+                println(json)
+                
+                var currentValue = json[0]["current_value"].intValue
+                var targetValue = json[0]["target_value"].intValue
+                var text = "\(goal.measurement): \(currentValue) \(goal.unit)"
+                
+                println(currentValue)
+                println(targetValue)
+                println(text)
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    
+                    self.updateGoal(goal, property: "currentValue", newValue: currentValue)
+                    self.updateGoal(goal, property: "text", newValue: text)
+                    self.updateGoal(goal, property: "targetValue", newValue: targetValue)
+                
+                }
+                
+                
+                
+        }
+    }
     
-    func customizeSlider(item: GoalItem) {
+    func updateGoal(goal: Goal, property: String, newValue: AnyObject) -> Bool{
+        
+        var success = false
+        
+        var batchRequest = NSBatchUpdateRequest(entityName: "Goal")
+        batchRequest.propertiesToUpdate = [ property : newValue]
+        batchRequest.resultType = .UpdatedObjectsCountResultType
+        var error : NSError?
+        
+        var selectMeasurementPredicate = NSPredicate(format: "measurement = %@", goal.measurement)
+        
+        batchRequest.predicate = selectMeasurementPredicate
+        
+        var results = self.managedObjectContext!.executeRequest(batchRequest, error: &error) as NSBatchUpdateResult
+        
+        if self.managedObjectContext.save(&error) {
+            
+            println("Goal for \(goal.measurement) successfully updated")
+            
+            success = true
+            
+        } else {
+            
+            fatalCoreDataError(error)
+        }
+        
+        return success
+
+    }
+
+
+    func insertGoalIntoDatabase(goal: Goal) {
+        
+        var url = "\(baseURL)/goals/insert/"
+        
+        let parameters: Dictionary<String, AnyObject> = [
+            
+            "userId"        : "\(self.userId)",
+            "measurement"   : "\(goal.measurement)",
+            "period"        : "\(goal.period)",
+            "startDate"     : "\(goal.startdate)",
+            "company"       : "\(goal.company)",
+            "goalValue"     : "\(goal.targetValue)"
+        ]
+        
+        Alamofire.request(.GET, url, parameters: parameters)
+            .responseString { (request, response, json, error) in
+                
+                println(request)
+                
+                println(json)
+        }
+    }
+    
+    //this methods convert the given period to the appropriate period name in our database
+    func convertPeriod(period: String) -> String{
+    
+        var periodNameInDatabase = String()
+        
+        switch period {
+            case "Daily", "Täglich", "Journalier": periodNameInDatabase = "daily"
+            case "Weekly", "Wöchentlich", "Hedomadaire": periodNameInDatabase = "weekly"
+            case "Monthly", "Monatlich", "Mensuel": periodNameInDatabase = "monthly"
+            case "Annual", "Jährlich", "Annuel": periodNameInDatabase = "annual"
+        default: println("period not known")
+        }
+        
+        return periodNameInDatabase
+    }
+    
+    func customizeSlider(item: Measurement) {
         
         self.valueSlider.maximumValue = Float(item.sliderLimit)
         self.valueSlider.continuous = true
@@ -221,7 +334,6 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     
     
     //table view methods
-    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
    
         if indexPath.section == 1 && indexPath.row == 2 {
@@ -304,31 +416,31 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
         
         if indexPath.section == 1 && indexPath.row == 1 {
         
-            if !startDatePickerVisible {
+            if !self.startDatePickerVisible {
         
-                showStartDatePicker()
+                self.showStartDatePicker()
         
             } else {
         
-                hideStartDatePicker()
+                self.hideStartDatePicker()
             }
             
         } else if indexPath.section == 0 && indexPath.row == 0 {
             
-            if !measurementPickerVisible {
+            if !self.measurementPickerVisible {
             
-                showMeasurementPicker()
+                self.showMeasurementPicker()
                 
             } else {
                 
-                hideMeasurementPicker()
+                self.hideMeasurementPicker()
             }
         }
     }
     
     override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
     
-        if indexPath.section == 1 && indexPath.row == 1 || indexPath.section == 1 && indexPath.row == 0 || indexPath.section == 0 && indexPath.row == 0{
+        if indexPath.section == 0 && indexPath.row == 0 || indexPath.section == 1 && indexPath.row == 0 || indexPath.section == 1 && indexPath.row == 1 || indexPath.section == 2 && indexPath.row == 0 {
             
             return indexPath
             
@@ -349,14 +461,14 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     }
     
     //delegate methods
-    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if segue.identifier == "goToPeriod" {
             
-            let controller = segue.destinationViewController as PeriodTableViewController
+            let periodTableViewController = segue.destinationViewController as PeriodTableViewController
             
-            controller.delegate = self
+            periodTableViewController.delegate = self
+            
         }
     }
     

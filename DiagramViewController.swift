@@ -57,10 +57,6 @@ class DiagramViewController: UIViewController, LineChartDelegate {
 
     }
     
-    @IBAction func add(sender: UIBarButtonItem) {
-        
-    }
-    
     //override functions
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -180,23 +176,44 @@ class DiagramViewController: UIViewController, LineChartDelegate {
         Alamofire.request(.GET, "\(baseURL)/value/select", parameters: parameters)
             .responseSwiftyJSON { (request, response, json, error) in
                 
-                println(json)
-                
-                var data: Array<CGFloat> = []
-                
-                for (var i = 0; i < json.count; i++) {
+                if json.count < 2 {
                     
-                    var value = CGFloat(json[i]["value"].intValue)
-                    data.append(value)
+                    var clickedSegment = self.convertLimitIntoClicketSegment(self.limit)
                     
-                }
-                
-                var dataReversed = data.reverse()
-                
-                dispatch_async(dispatch_get_main_queue()) {
+                    self.segmentedControl.removeSegmentAtIndex(clickedSegment, animated: true)
                     
-                    self.lineChart!.addLine(dataReversed)
+                    var title = NSLocalizedString("Period Not Available!", comment: "This is the title for the message if the measuremnet has no entries")
                     
+                    var message = NSLocalizedString("There are no Values available for this Period. Sorry!", comment: "This is the message for the message if the measuremnet has no entries")
+                    
+                    let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+                    
+                    var okTitle = "OK"
+                    
+                    let okAction = UIAlertAction(title: okTitle, style: .Cancel) { (_) in }
+                    
+                    alertController.addAction(okAction)
+                    
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                    
+                } else {
+                    
+                    var data: Array<CGFloat> = []
+                    
+                    for (var i = 0; i < json.count; i++) {
+                        
+                        var value = CGFloat(json[i]["value"].intValue)
+                        data.append(value)
+                        
+                    }
+                    
+                    var dataReversed = data.reverse()
+                    
+                    dispatch_async(dispatch_get_main_queue()) {
+                        
+                        self.lineChart!.addLine(dataReversed)
+                        
+                    }
                 }
         }
 
@@ -219,9 +236,29 @@ class DiagramViewController: UIViewController, LineChartDelegate {
         Alamofire.request(.GET, "\(baseURL)/value/select", parameters: parameters)
             .responseSwiftyJSON { (request, response, json, error) in
                 
-                println(request)
+                if json.count == 0 {
+                    
+                    var title = NSLocalizedString("Measurement Not Available!", comment: "This is the title for the message if the measuremnet has no entries")
+                    var message = NSLocalizedString("There are no Values available for this measurement. Sorry!", comment: "This is the message for the message if the measuremnet has no entries")
+                    
+                let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
                 
-                println(json)
+                var okTitle = "OK"
+                
+                let okAction = UIAlertAction(title: okTitle, style: .Cancel) { action -> Void in }
+                
+                let createValueTitle = NSLocalizedString("Create Value", comment: "Title for Button")
+                    
+                let createValueAction = UIAlertAction(title: createValueTitle, style: .Default) { (_) in
+                        self.performSegueWithIdentifier("goToCreateValue", sender: self)
+                }
+                
+                alertController.addAction(okAction)
+                alertController.addAction(createValueAction)
+
+                self.presentViewController(alertController, animated: true, completion: nil)
+                    
+                }
                 
                 var value = json[0]["value"].doubleValue
                 var unit = json[0]["unit"].stringValue
@@ -249,13 +286,32 @@ class DiagramViewController: UIViewController, LineChartDelegate {
         case 1: limit = 7
         case 2: limit = 30
         case 3: limit = 365
-        default: limit = -1
+        default: println("clicked segment not known")
             
         }
         
         return limit
         
     }
+    
+    func convertLimitIntoClicketSegment(limit: Int) -> Int {
+        
+        var clickedSegmentIndex = Int()
+        
+        switch limit {
+            
+        case 1: clickedSegmentIndex = 0
+        case 7: clickedSegmentIndex = 1
+        case 30: clickedSegmentIndex = 2
+        case 365: clickedSegmentIndex = 3
+        default: println("Limit not known")
+            
+        }
+        
+        return clickedSegmentIndex
+
+    }
+    
 }
 
 //UITable View Delegate and Data Source extensions

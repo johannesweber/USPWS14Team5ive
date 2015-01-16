@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-class CreateValueTableViewController: UITableViewController, CompanyTableViewControllerDelegate {
+class CreateValueTableViewController: UITableViewController {
 
 
     //variables
@@ -18,10 +18,8 @@ class CreateValueTableViewController: UITableViewController, CompanyTableViewCon
     var date =  NSDate()
     var datePickerVisible = Bool()
     var userId = prefs.integerForKey("USERID") as Int
-    var companySelected: Company!
     
     //IBOutlet
-    @IBOutlet weak var companyDetailLabel: UILabel!
     @IBOutlet weak var dateDetailLabel: UILabel!
     @IBOutlet weak var valueLabel: UILabel!
     @IBOutlet weak var unitLabel: UILabel!
@@ -58,7 +56,7 @@ class CreateValueTableViewController: UITableViewController, CompanyTableViewCon
         let parameters: Dictionary<String, AnyObject> = [
             
             "userId"      : "\(self.userId)",
-            "company"     : "\(self.companySelected.nameInDatabase)",
+            "company"     : "\(self.measurementToCreate.favoriteCompany)",
             "measurement" : "\(self.measurementToCreate.nameInDatabase)",
             "date"        : "\(self.dateDetailLabel.text!)",
             "value"       : "\(self.valueLabel.text!)"
@@ -103,7 +101,7 @@ class CreateValueTableViewController: UITableViewController, CompanyTableViewCon
     
     func checkIfFormIsComplete() {
         
-        if dateDetailLabel.text != "Detail" && valueLabel.text != "Value" && companyDetailLabel.text != "Detail" {
+        if dateDetailLabel.text != "Detail" && valueLabel.text != "Value" {
             
             self.saveBarButton.enabled = true
         }
@@ -113,7 +111,7 @@ class CreateValueTableViewController: UITableViewController, CompanyTableViewCon
         
         self.datePickerVisible = true
         
-        let indexPathDatePicker = NSIndexPath(forRow: 1, inSection: 1)
+        let indexPathDatePicker = NSIndexPath(forRow: 1, inSection: 0)
         tableView.insertRowsAtIndexPaths([indexPathDatePicker], withRowAnimation: .Fade)
         
         if let pickerCell = tableView.cellForRowAtIndexPath(indexPathDatePicker) {
@@ -128,8 +126,8 @@ class CreateValueTableViewController: UITableViewController, CompanyTableViewCon
         if self.datePickerVisible {
             
             self.datePickerVisible = false
-            let indexPathDateRow = NSIndexPath(forRow: 0, inSection: 1)
-            let indexPathDatePicker = NSIndexPath(forRow: 1, inSection: 1)
+            let indexPathDateRow = NSIndexPath(forRow: 0, inSection: 0)
+            let indexPathDatePicker = NSIndexPath(forRow: 1, inSection: 0)
             if let cell = tableView.cellForRowAtIndexPath(indexPathDateRow) {
                 
                 cell.detailTextLabel!.textColor = UIColor(white: 0, alpha: 0.5)
@@ -146,7 +144,7 @@ class CreateValueTableViewController: UITableViewController, CompanyTableViewCon
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        if indexPath.section == 1 && indexPath.row == 1 {
+        if indexPath.section == 0 && indexPath.row == 1 {
             
             var cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier("DatePickerCell") as? UITableViewCell
             
@@ -174,7 +172,7 @@ class CreateValueTableViewController: UITableViewController, CompanyTableViewCon
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if section == 1 && self.datePickerVisible {
+        if section == 0 && self.datePickerVisible {
             
             return 2
             
@@ -186,7 +184,7 @@ class CreateValueTableViewController: UITableViewController, CompanyTableViewCon
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
-        if indexPath.section == 1 && indexPath.row == 1 {
+        if indexPath.section == 0 && indexPath.row == 1 {
             
             return 217
             
@@ -198,7 +196,7 @@ class CreateValueTableViewController: UITableViewController, CompanyTableViewCon
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        if indexPath.section == 1 && indexPath.row == 0 {
+        if indexPath.section == 0 && indexPath.row == 0 {
             
             if !self.datePickerVisible {
                 
@@ -213,7 +211,7 @@ class CreateValueTableViewController: UITableViewController, CompanyTableViewCon
     
     override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
         
-        if indexPath.section == 0 && indexPath.row == 0 || indexPath.section == 1 && indexPath.row == 0 || indexPath.section == 2 && indexPath.row == 0{
+        if indexPath.section == 0 && indexPath.row == 0 || indexPath.section == 0 && indexPath.row == 0 {
             
             return indexPath
             
@@ -225,7 +223,7 @@ class CreateValueTableViewController: UITableViewController, CompanyTableViewCon
     
     override func tableView(tableView: UITableView, var indentationLevelForRowAtIndexPath indexPath: NSIndexPath) -> Int {
         
-        if indexPath.section == 1 && indexPath.row == 1 {
+        if indexPath.section == 0 && indexPath.row == 1 {
             
             indexPath = NSIndexPath(forRow: 0, inSection: indexPath.section)
         }
@@ -241,29 +239,8 @@ class CreateValueTableViewController: UITableViewController, CompanyTableViewCon
         self.customizeViewController()
     }
     
-    //set delegate for CompanyTableViewController
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        if segue.identifier == "goToCompany" {
-            
-            let controller = segue.destinationViewController as CompanyTableViewController
-            
-            controller.delegate = self
-        }
-    }
-    
-    //Company Table View Delegate Methods
-    func companyViewController(controller: CompanyTableViewController, didFinishSelectingCompany item: Company) {
-        
-        self.companyDetailLabel.text = item.name
-        
-        self.companySelected = item
-        
-        self.checkIfFormIsComplete()
-        
-    }
-    
     func companyViewControllerDidCancel(controller: CompanyTableViewController) {
         
+        self.navigationController?.popViewControllerAnimated(true)
     }
 }

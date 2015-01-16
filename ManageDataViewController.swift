@@ -11,46 +11,22 @@ import CoreData
 
 protocol ManageDataViewControllerDelegate: class {
     
-    func manageDataViewController(controller: ManageDataViewController, didSelectCategory category: MeasurementItem)
+    func manageDataViewController(controller: ManageDataViewController, didSelectCategory category: Category)
 }
 
 class ManageDataViewController: UITableViewController {
 
     //variables
-    var categories: [MeasurementItem]
-    var selectedCategory: MeasurementItem
+    var categories =  [Category]()
+    var selectedCategory: Category!
     
     weak var delegate: ManageDataViewControllerDelegate?
-    
-    //initializers
-    required init(coder aDecoder: NSCoder) {
-        
-        self.categories = [MeasurementItem]()
-        self.selectedCategory = MeasurementItem()
-        
-        let row0item = MeasurementItem(name: NSLocalizedString("Fitness", comment: "Name for Manage Data Item Fitness"))
-        categories.append(row0item)
-        
-        let row1item = MeasurementItem(name: NSLocalizedString("Vitals", comment: "Name for Manage Data Item Vitals"))
-        categories.append(row1item)
-        
-        let row2item = MeasurementItem(name: NSLocalizedString("Nutrition", comment: "Name for Manage Data Item Nutrition"))
-        categories.append(row2item)
-        
-        let row3item = MeasurementItem(name: NSLocalizedString("Sleep", comment: "Name for Manage Data Item Sleep"))
-        categories.append(row3item)
-        
-        super.init(coder: aDecoder)
-    }
 
-    
+    override func viewDidLoad() {
+        self.categories = fetchCategoriesFromCoreData()
+    }
     
     //override methods
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
-    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return categories.count

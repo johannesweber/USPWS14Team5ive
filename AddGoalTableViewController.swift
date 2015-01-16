@@ -16,7 +16,7 @@ protocol AddGoalTableViewControllerDelegate: class {
     
 }
 
-class AddGoalTableViewController: UITableViewController, CreateGoalTableViewControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
+class AddGoalTableViewController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
     //variables
     weak var delegate: AddGoalTableViewControllerDelegate?
@@ -27,7 +27,6 @@ class AddGoalTableViewController: UITableViewController, CreateGoalTableViewCont
     var newCreatedGoal: GoalItem
 
     //initializer
-    
     required init(coder aDecoder: NSCoder) {
         
         self.goalPickerVisible = false
@@ -35,36 +34,36 @@ class AddGoalTableViewController: UITableViewController, CreateGoalTableViewCont
         self.goalSelected = GoalItem()
         self.newCreatedGoal = GoalItem()
         
-        let row0item = GoalItem(name: NSLocalizedString("Distance", comment: "Name for GoalItem Distance"), nameInDatabase: "distance")
-        row0item.period = "Daily"
-        row0item.company = "fitbit"
-        self.goal.append(row0item)
-        
-        let row1item = GoalItem(name: NSLocalizedString("Steps", comment: "Name for GoalItem Steps"), nameInDatabase: "steps")
-        row1item.period = "Daily"
-        row1item.company = "fitbit"
-        self.goal.append(row1item)
-        
-        let row2item = GoalItem(name: NSLocalizedString("Body Weight", comment: "Name for GoalItem Body Weight"), nameInDatabase: "weight")
-        row2item.period = "Daily"
-        row2item.company = "fitbit"
-        self.goal.append(row2item)
-        
-        let row3item = GoalItem(name: NSLocalizedString("Calories Burned", comment: "Name for GoalItem Calories Burned"), nameInDatabase: "caloriesOut")
-        row3item.period = "Daily"
-        row3item.company = "fitbit"
-        self.goal.append(row3item)
-        
-        let row4item = GoalItem(name: NSLocalizedString("Calories Eaten", comment: "Name for GoalItem Calories Eaten"), nameInDatabase: "caloriesIn")
-        row4item.period = "Daily"
-        row4item.company = "fitbit"
-        self.goal.append(row4item)
-        
-        let row5item = GoalItem(name: NSLocalizedString("Active Minutes", comment: "Name for GoalItem Active Minutes"), nameInDatabase: "activeMinutes")
-        row5item.period = "Daily"
-        row5item.company = "fitbit"
-        self.goal.append(row5item)
-        
+//        let row0item = GoalItem(name: NSLocalizedString("Distance", comment: "Name for GoalItem Distance"), nameInDatabase: "distance")
+//        row0item.period = "Daily"
+//        row0item.company = "fitbit"
+//        self.goal.append(row0item)
+//        
+//        let row1item = GoalItem(name: NSLocalizedString("Steps", comment: "Name for GoalItem Steps"), nameInDatabase: "steps")
+//        row1item.period = "Daily"
+//        row1item.company = "fitbit"
+//        self.goal.append(row1item)
+//        
+//        let row2item = GoalItem(name: NSLocalizedString("Body Weight", comment: "Name for GoalItem Body Weight"), nameInDatabase: "weight")
+//        row2item.period = "Daily"
+//        row2item.company = "fitbit"
+//        self.goal.append(row2item)
+//        
+//        let row3item = GoalItem(name: NSLocalizedString("Calories Burned", comment: "Name for GoalItem Calories Burned"), nameInDatabase: "caloriesOut")
+//        row3item.period = "Daily"
+//        row3item.company = "fitbit"
+//        self.goal.append(row3item)
+//        
+//        let row4item = GoalItem(name: NSLocalizedString("Calories Eaten", comment: "Name for GoalItem Calories Eaten"), nameInDatabase: "caloriesIn")
+//        row4item.period = "Daily"
+//        row4item.company = "fitbit"
+//        self.goal.append(row4item)
+//        
+//        let row5item = GoalItem(name: NSLocalizedString("Active Minutes", comment: "Name for GoalItem Active Minutes"), nameInDatabase: "activeMinutes")
+//        row5item.period = "Daily"
+//        row5item.company = "fitbit"
+//        self.goal.append(row5item)
+//        
         super.init(coder: aDecoder)
     }
 
@@ -78,28 +77,16 @@ class AddGoalTableViewController: UITableViewController, CreateGoalTableViewCont
     //IBAction
     @IBAction func cancel(sender: AnyObject) {
         
-        self.delegate?.addGoalTableViewControllerDidCancel(self)
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func done (sender: UIBarButtonItem) {
-        
-        if self.measurementDetailLabel.text != "Detail" {
             
-            self.delegate?.addGoalTableViewController(self, didFinishAddingItem: self.goalSelected)
-            
-        } else if self.goalDetailLabel.text != "Detail" {
-            
-            self.delegate?.addGoalTableViewController(self, didFinishAddingItem: self.newCreatedGoal)
-            
-        } else {
-            
-            self.delegate?.addGoalTableViewController(self, didFinishAddingItem: self.goalSelected)
-            self.delegate?.addGoalTableViewController(self, didFinishAddingItem: self.newCreatedGoal)
-        }
+        self.navigationController?.popViewControllerAnimated(true)
+
     }
     
     //Goal Picker View Methods
-    
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         
         return 1
@@ -139,21 +126,9 @@ class AddGoalTableViewController: UITableViewController, CreateGoalTableViewCont
         self.dismissViewControllerAnimated(true, completion: nil)
         
     }
-    
-    //sets the delegate 
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        if segue.identifier == "goToCreateGoal" {
-            
-            let controller = segue.destinationViewController as CreateGoalTableViewController
-            
-            controller.delegate = self
-        }
-    }
     
     //Override Function
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = 44

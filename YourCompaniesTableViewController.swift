@@ -14,6 +14,8 @@ import CoreData
 class YourCompaniesTableViewController: UITableViewController, AddCompanyTableViewControllerDelegate {
     
     //variables
+    var companySelected: Company?
+    var userId = prefs.integerForKey("USERID") as Int
     // variable for managing core data
     var managedObjectContext: NSManagedObjectContext!
     
@@ -34,16 +36,16 @@ class YourCompaniesTableViewController: UITableViewController, AddCompanyTableVi
             fetchRequest: fetchRequest,
             managedObjectContext: self.managedObjectContext,
             sectionNameKeyPath: nil,
-            cacheName: "Measurements")
+            cacheName: "Companies")
         
         fetchedResultsController.delegate = self
         return fetchedResultsController
         }()
     
     deinit {
+        
         fetchedResultsController.delegate = nil
     }
-    var userId = prefs.integerForKey("USERID") as Int
     
     //IBOutlets
     @IBOutlet weak var authButton: UIButton!
@@ -51,9 +53,10 @@ class YourCompaniesTableViewController: UITableViewController, AddCompanyTableVi
     //IBActions
     @IBAction func authorize(){
         
+        self.doOAuthCompanyItem(self.companySelected!.name)
     }
     
-    //prepareforsegue method for setting delegate in AddCompynViewController
+    //prepareforsegue method for setting delegate in AddCompanyViewController
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if segue.identifier == "goToAddCompany" {
@@ -67,12 +70,16 @@ class YourCompaniesTableViewController: UITableViewController, AddCompanyTableVi
     }
     
     //AddCompanyTableViewController delegate methods
+    //if the user added a company through AddCompanyTableViewController this delegate method will receive the added company and start the oauth authentication process
     func addCompanyTableViewController(controller: AddCompanyTableViewController, didFinishAddingCompany company: CompanyItem) {
         
         self.doOAuthCompanyItem(company.name)
         
+        updateDuplicateMeasurements()
+        
         //after a delay of 1s the view controller gets dismissed
-        afterDelay(0.6) {
+        afterDelay(1.0) {
+            
             self.dismissViewControllerAnimated(true, completion: nil)
         }
     }
@@ -90,7 +97,7 @@ class YourCompaniesTableViewController: UITableViewController, AddCompanyTableVi
         var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
         self.managedObjectContext = appDel.managedObjectContext!
         
-        NSFetchedResultsController.deleteCacheWithName("Measurements")
+        NSFetchedResultsController.deleteCacheWithName("Companies")
         
         self.performFetch()
     }
@@ -100,11 +107,11 @@ class YourCompaniesTableViewController: UITableViewController, AddCompanyTableVi
 
     }
     
-    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath?{
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        self.companySelected = self.fetchedResultsController.objectAtIndexPath(indexPath) as? Company
         
         self.authButton.enabled = true
-        
-        return indexPath
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -130,13 +137,18 @@ class YourCompaniesTableViewController: UITableViewController, AddCompanyTableVi
     //method will be executed if a cell is about to be deleted
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            let location = fetchedResultsController.objectAtIndexPath(indexPath) as Company
-            self.managedObjectContext.deleteObject(location)
+            let company = fetchedResultsController.objectAtIndexPath(indexPath) as Company
+            
+            self.deleteCompanyAccountFromDatabase(company.nameInDatabase, userId: self.userId)
+            
+            self.managedObjectContext.deleteObject(company)
         
             var error: NSError?
             if !managedObjectContext.save(&error) {
                 fatalCoreDataError(error)
             }
+            
+            updateDuplicateMeasurements()
         }
     }
     
@@ -164,11 +176,12 @@ class YourCompaniesTableViewController: UITableViewController, AddCompanyTableVi
             credentials, response in
             
             var parameters: Dictionary<String, AnyObject> = [
+                "userId"                    : "\(self.userId)",
                 "oauth_token"               : "\(credentials.oauth_token)",
                 "oauth_token_secret"        : "\(credentials.oauth_token_secret)",
             ]
             
-            self.postCredentialsToServer(parameters, companyName: "vitadock")
+            self.postCredentialsToServer(parameters, companyName: "medisana")
             
             }, failure: {(error:NSError!) -> Void in
                 println(error.localizedDescription)
@@ -197,6 +210,10 @@ class YourCompaniesTableViewController: UITableViewController, AddCompanyTableVi
                 "oauth_token"           : "\(credentials.oauth_token)",
                 "oauth_token_secret"    : "\(credentials.oauth_token_secret)"
             ]
+            
+            for param in parameters {
+                println(param)
+            }
             
             self.postCredentialsToServer(parameters, companyName: "withings")
             
@@ -240,6 +257,8 @@ class YourCompaniesTableViewController: UITableViewController, AddCompanyTableVi
         //TODO send success message from Focused Health Server to Smartphone
         Alamofire.request(.POST, "\(baseURL)/\(companyName)/authorize/", parameters: parameters)
             .responseSwiftyJSON { (request, response, json, error) in
+                
+                println(request)
                 
                 var success = json["success"].intValue
                 var message = json["message"].stringValue
@@ -302,15 +321,15 @@ extension YourCompaniesTableViewController: NSFetchedResultsControllerDelegate {
         case .Update:
             println("*** NSFetchedResultsChangeUpdate (object)")
             let cell = tableView.cellForRowAtIndexPath(indexPath!)!
-            let measurement = controller.objectAtIndexPath(indexPath!) as Measurement
-            let label = cell.viewWithTag(1010) as UILabel
+            let company = controller.objectAtIndexPath(indexPath!) as Company
+            let label = cell.viewWithTag(4060) as UILabel
             
             var currentLanguage = NSLocale.currentLanguageString
             
             switch currentLanguage {
-            case "en" : label.text = measurement.name
-            case "de" : label.text = measurement.name
-            case "fr" : label.text = measurement.name
+            case "en" : label.text = company.name
+            case "de" : label.text = company.name
+            case "fr" : label.text = company.name
             default : println("language unknown")
                 
             }
@@ -344,6 +363,28 @@ extension YourCompaniesTableViewController: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         println("*** controllerDidChangeContent")
         tableView.endUpdates()
+    }
+    
+    func deleteCompanyAccountFromDatabase(companyNameInDatabase: String, userId: Int) {
+        
+        if companyNameInDatabase != "focused health" {
+            
+            var url = "\(baseURL)/company/delete"
+            
+            let parameters: Dictionary<String, AnyObject> = [
+                
+                "userId"        : "\(userId)",
+                "company"       : "\(companyNameInDatabase)"
+            ]
+            
+            Alamofire.request(.GET, url, parameters: parameters)
+                .responseString { (request, response, json, error) in
+                    
+                    println(request)
+                    
+                    println(json)
+            }
+        }
     }
 }
 

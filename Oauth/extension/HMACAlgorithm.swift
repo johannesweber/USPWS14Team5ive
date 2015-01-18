@@ -8,6 +8,12 @@
 
 import Foundation
 
+/*
+*
+*this class extends the String class with the function to hash a given value with the HMAC Algorithms
+*
+*/
+
 enum HMACAlgorithm {
     case MD5, SHA1, SHA224, SHA256, SHA384, SHA512
     

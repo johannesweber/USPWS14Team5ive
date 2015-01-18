@@ -11,6 +11,13 @@ import CoreData
 import Alamofire
 import SwiftyJSON
 
+/*
+*
+* This controller is for managing the dashboard. A user can add all his favorite measurements to the dashboard. Further the user is able
+* to measurements to the dashboard. All Dashboard Items are stored in Core Data.
+*
+*/
+
 class DashboardTableViewController: UITableViewController {
     
     //variables
@@ -163,6 +170,7 @@ class DashboardTableViewController: UITableViewController {
         }
     }
     
+    //this function synchronies the data from all companies from the user. At the end of the synchronization a popup informs the user that the data has been successfully synchronized.
     func synchronizeData(){
         
         self.isLoading = true

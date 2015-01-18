@@ -8,8 +8,10 @@
 
 import Foundation
 import CoreData
-import SwiftyJSON
-import Alamofire
+
+/*
+* this class represents a goal in core data
+*/
 
 class Goal: NSManagedObject {
 

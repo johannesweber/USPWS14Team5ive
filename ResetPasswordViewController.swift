@@ -12,6 +12,13 @@ import Alamofire
 
 import SwiftyJSON
 
+/*
+* this controller is for the forgorPassword screen.
+* if the user want to retrieve a new password he has to fill in his email adress and confirm his old password.
+* If the user is clicking the link in the sent email he/she is able to reset his/her password and set a new one.
+*
+*/
+
 class ResetPasswordViewController: UIViewController {
 
     @IBOutlet weak var txtNewPassword: UITextField!

@@ -8,6 +8,12 @@
 
 import Foundation
 
+/**
+*
+* this class is used for easier creating a NSDate
+*
+*/
+
 class Date {
     
     func from(#year:Int, month:Int, day:Int) -> NSDate {

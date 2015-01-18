@@ -12,6 +12,8 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
+
+//insert methods: these methods are for fetching json data from focused health database and inserting them into core data
 func insertCompaniesFromUser() -> Bool {
     
     var success = false
@@ -55,6 +57,8 @@ func insertCompaniesFromUser() -> Bool {
 
 }
 
+
+// this methods fetches all measurements from the current user from our database and then inserting them into core data
 func insertMeasurementsFromUser() -> Bool {
     
     var success = false
@@ -121,6 +125,115 @@ func insertMeasurementIntoCoreData(json: SwiftyJSON.JSON) -> Bool {
     
     return success
 }
+
+func insertCompanyIntoCoreData(userId: Int, companyToInsert: CompanyItem) -> Bool{
+    
+    var success = false
+    
+    var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+    var context: NSManagedObjectContext = appDel.managedObjectContext!
+    
+    var company = NSEntityDescription.insertNewObjectForEntityForName("Company", inManagedObjectContext: context) as Company
+    
+    company.name = companyToInsert.name
+    company.nameInDatabase = companyToInsert.nameInDatabase
+    company.checked = companyToInsert.checked
+    company.text = companyToInsert.text
+    
+    
+    var error: NSError?
+    if context.save(&error) {
+        
+        success = true
+        
+    } else {
+        
+        fatalCoreDataError(error)
+    }
+    
+    return success
+}
+
+func insertCategories() -> Bool{
+    
+    var success = false
+    
+    var url = "\(baseURL)/category/select/"
+    
+    Alamofire.request(.GET, url)
+        .responseSwiftyJSON { (request, response, json, error) in
+            
+            for(var x = 0; x < json.count; x++) {
+                
+                var appDel: AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+                var context: NSManagedObjectContext = appDel.managedObjectContext!
+                
+                var category = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: context) as Category
+                
+                category.name = json[x]["name"].stringValue
+                category.nameInGerman = json[x]["nameInGerman"].stringValue
+                category.nameInFrench = json[x]["nameInFrench"].stringValue
+                
+                var error: NSError?
+                if context.save(&error) {
+                    
+                    success = true
+                    
+                } else {
+                    
+                    fatalCoreDataError(error)
+                }
+            }
+    }
+    
+    return success
+}
+
+func insertTableCompanyHasMeasurement() -> Bool{
+    
+    var success = false
+    
+    var appDel: AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+    var context: NSManagedObjectContext = appDel.managedObjectContext!
+    
+    var url = "\(baseURL)/company/select/measurement"
+    
+    var userId = prefs.integerForKey("USERID") as Int
+    
+    let parameters: Dictionary<String, AnyObject> = [
+        
+        "userId"        : "\(userId)",
+    ]
+    
+    Alamofire.request(.GET, url, parameters: parameters)
+        .responseSwiftyJSON { (request, response, json, error) in
+            
+            for(var x = 0; x < json.count; x++) {
+                
+                var appDel: AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+                var context: NSManagedObjectContext = appDel.managedObjectContext!
+                
+                var companyHasMeasurement = NSEntityDescription.insertNewObjectForEntityForName("CompanyHasMeasurement", inManagedObjectContext: context) as CompanyHasMeasurement
+                
+                companyHasMeasurement.company = json[x]["company"].stringValue
+                companyHasMeasurement.measurement = json[x]["measurement"].stringValue
+                
+                var error: NSError?
+                if context.save(&error) {
+                    
+                    success = true
+                    
+                } else {
+                    
+                    fatalCoreDataError(error)
+                }
+            }
+    }
+    
+    return success
+}
+
+//fetch methods: these methods are for fetching entities from core data
 
 func fetchCompanyFromCoreData() -> [Company]{
     
@@ -204,69 +317,6 @@ func fetchGoalableMeasurementsFromCoreData() -> [Measurement]{
     
 }
 
-func insertCompanyIntoCoreData(userId: Int, companyToInsert: CompanyItem) -> Bool{
-    
-    var success = false
-    
-    var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
-    var context: NSManagedObjectContext = appDel.managedObjectContext!
-        
-    var company = NSEntityDescription.insertNewObjectForEntityForName("Company", inManagedObjectContext: context) as Company
-    
-    company.name = companyToInsert.name
-    company.nameInDatabase = companyToInsert.nameInDatabase
-    company.checked = companyToInsert.checked
-    company.text = companyToInsert.text
-    
-        
-    var error: NSError?
-    if context.save(&error) {
-        
-        success = true
-        
-    } else {
-            
-        fatalCoreDataError(error)
-    }
-    
-    return success
-}
-
-func insertCategories() -> Bool{
-    
-    var success = false
-    
-    var url = "\(baseURL)/category/select/"
-    
-    Alamofire.request(.GET, url)
-        .responseSwiftyJSON { (request, response, json, error) in
-            
-            for(var x = 0; x < json.count; x++) {
-                
-                var appDel: AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-                var context: NSManagedObjectContext = appDel.managedObjectContext!
-                
-                var category = NSEntityDescription.insertNewObjectForEntityForName("Category", inManagedObjectContext: context) as Category
-                
-                category.name = json[x]["name"].stringValue
-                category.nameInGerman = json[x]["nameInGerman"].stringValue
-                category.nameInFrench = json[x]["nameInFrench"].stringValue
-                
-                var error: NSError?
-                if context.save(&error) {
-                    
-                    success = true
-                    
-                } else {
-                    
-                    fatalCoreDataError(error)
-                }
-            }
-    }
-    
-    return success
-}
-
 func fetchCategoriesFromCoreData() -> [Category]{
     
     var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
@@ -291,51 +341,6 @@ func fetchCategoriesFromCoreData() -> [Category]{
     
     return foundObjects as [Category]
 }
-
-func insertTableCompanyHasMeasurement() -> Bool{
-    
-    var success = false
-    
-    var appDel: AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-    var context: NSManagedObjectContext = appDel.managedObjectContext!
-    
-    var url = "\(baseURL)/company/select/measurement"
-    
-    var userId = prefs.integerForKey("USERID") as Int
-    
-    let parameters: Dictionary<String, AnyObject> = [
-        
-        "userId"        : "\(userId)",
-    ]
-    
-    Alamofire.request(.GET, url, parameters: parameters)
-        .responseSwiftyJSON { (request, response, json, error) in
-            
-            for(var x = 0; x < json.count; x++) {
-                
-                var appDel: AppDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-                var context: NSManagedObjectContext = appDel.managedObjectContext!
-                
-                var companyHasMeasurement = NSEntityDescription.insertNewObjectForEntityForName("CompanyHasMeasurement", inManagedObjectContext: context) as CompanyHasMeasurement
-                
-                companyHasMeasurement.company = json[x]["company"].stringValue
-                companyHasMeasurement.measurement = json[x]["measurement"].stringValue
-                
-                var error: NSError?
-                if context.save(&error) {
-
-                    success = true
-                    
-                } else {
-                    
-                    fatalCoreDataError(error)
-                }
-            }
-    }
-    
-    return success
-}
-
 
 func fetchCompanyHasMeasurement(measurement: Measurement) -> [CompanyHasMeasurement]{
     
@@ -367,6 +372,8 @@ func fetchCompanyHasMeasurement(measurement: Measurement) -> [CompanyHasMeasurem
 }
 
 
+
+//update methods: these methods are for updating entities from core data
 func updateDuplicateMeasurements() -> Bool{
     
     var success = false
@@ -466,6 +473,8 @@ func updateAllMeasurements(property: String, newValue: AnyObject) -> Bool{
     return success
 }
 
+
+//delete method: deletes everything from core data
 func deleteAllEntries(entityName: String) {
     
     var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)

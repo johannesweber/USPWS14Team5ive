@@ -11,6 +11,12 @@ import Alamofire
 import SwiftyJSON
 import CoreData
 
+/*
+*
+* This controller displays the user's goals.
+*
+*/
+
 class GoalsTableViewController: UITableViewController {
     
     //variables
@@ -19,11 +25,11 @@ class GoalsTableViewController: UITableViewController {
     // variable for managing core data
     var managedObjectContext: NSManagedObjectContext!
     
-    //this variable contains all goal items fetched from core data
+    //this variable contains all goal items fetched from core data.
     lazy var fetchedResultsController: NSFetchedResultsController = {
         let fetchRequest = NSFetchRequest()
         
-        //TODO why crashes the app if clicking on logout ? 
+        //TODO why crashes the app if clicking on logout ? **work in progress**
         let entity = NSEntityDescription.entityForName("Goal", inManagedObjectContext: self.managedObjectContext)
         fetchRequest.entity = entity
         
@@ -80,6 +86,7 @@ class GoalsTableViewController: UITableViewController {
 
     
     //methods
+    //if this method is called the fetchedresultscontroller gets filled with data in core data
     func performFetch() {
         var error: NSError?
         if !fetchedResultsController.performFetch(&error) {
@@ -154,6 +161,7 @@ class GoalsTableViewController: UITableViewController {
 
 }
 
+//delegate methods for the fetchedresultscontroller. These methods are called everytime the goal in core data have changed
 extension GoalsTableViewController: NSFetchedResultsControllerDelegate {
             
     func controllerWillChangeContent(controller: NSFetchedResultsController) {

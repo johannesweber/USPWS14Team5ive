@@ -9,6 +9,10 @@
 
 import Foundation
 
+/*
+*this class extends the Array Class with a method for testing an array if it contains an object
+*/
+
 extension Array {
     func contains<T where T : Equatable>(obj: T) -> Bool {
         return self.filter({$0 as? T == obj}).count > 0

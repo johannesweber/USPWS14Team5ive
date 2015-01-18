@@ -48,9 +48,4 @@ class MeasurementItem: TableItem {
         self.nameInDatabase = nameInDatabase
         
     }
-    
-    func createTextForDashboard() {
-        
-        self.text = "\(self.name): \(self.value) \(self.unit)"
-    }
 }

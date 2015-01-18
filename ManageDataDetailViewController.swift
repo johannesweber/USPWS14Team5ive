@@ -9,6 +9,13 @@
 import UIKit
 import CoreData
 
+/*
+*
+* This controller displays the measurements belonging to a the clicked measurement.
+* If the user clicked on a measurement he/she will be forwarded to the Diagram View.
+*
+*/
+
 class ManageDataDetailViewController: UITableViewController, ManageDataViewControllerDelegate {
 
     //variables
@@ -18,6 +25,7 @@ class ManageDataDetailViewController: UITableViewController, ManageDataViewContr
     // variable for managing core data
     var managedObjectContext: NSManagedObjectContext!
     
+    //this fetched results Controller contains the Measurements fetched from core data. With a predicate this controller is able to fetch only those measurements belonging to the clicked category
     lazy var fetchedResultsController: NSFetchedResultsController = {
         let fetchRequest = NSFetchRequest()
         
@@ -26,6 +34,7 @@ class ManageDataDetailViewController: UITableViewController, ManageDataViewContr
         
         fetchRequest.fetchBatchSize = 20
         
+        // A Predicate is for selecting a specific entity. A predicate is comparable with the WHERE statement in MySQL
         var selectCategoryPredicate = self.getPredicateAccordingToCurrentLanguage(self.selectedCategory.name)
         
         fetchRequest.predicate = selectCategoryPredicate
@@ -64,7 +73,7 @@ class ManageDataDetailViewController: UITableViewController, ManageDataViewContr
     }
     
     
-    //set delegate and pass measurement forward to DiagramViewController
+    //sets the delegate and passes the selected measurement forward to DiagramViewController
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if segue.identifier == "goToDiagram" {
@@ -104,6 +113,7 @@ class ManageDataDetailViewController: UITableViewController, ManageDataViewContr
         
         var currentLanguage = NSLocale.currentLanguageString
         
+        //depending on the current language the text of the shown label is different **work in progress**
         switch currentLanguage {
         case "en" : label.text = measurement.name
         case "de" : label.text = measurement.name
@@ -134,6 +144,8 @@ class ManageDataDetailViewController: UITableViewController, ManageDataViewContr
         
         var currentLanguage = NSLocale.currentLanguageString
         
+        //depending on the current language the the used predicate is different **work in progress**
+        
         switch currentLanguage {
             case "en": predicate = "groupname"
             case "de": predicate = "groupname"
@@ -148,6 +160,7 @@ class ManageDataDetailViewController: UITableViewController, ManageDataViewContr
     }
 }
 
+//delegate methods for the fetchedresultscontroller. These methods are called everytime the measurements in core data have changed
 extension ManageDataDetailViewController: NSFetchedResultsControllerDelegate {
             
     func controllerWillChangeContent(controller: NSFetchedResultsController) {

@@ -8,6 +8,11 @@
 
 import UIKit
 
+/*
+* this controller does almost nothing. All the logic is happening in the main.storyboard.
+*
+*/
+
 class SignupInformationViewController: UIViewController {
     
     @IBAction func loginTapped(sender: UIButton) {

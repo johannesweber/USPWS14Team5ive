@@ -9,6 +9,10 @@
 import Foundation
 import CoreData
 
+/*
+* this class represents a company in core data
+*/
+
 class Company: NSManagedObject {
 
     @NSManaged var checked: Bool

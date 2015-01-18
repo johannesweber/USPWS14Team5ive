@@ -30,29 +30,5 @@ class CompanyItem: TableItem {
         
         self.name = name
         self.nameInDatabase = nameInDatabase
-        
-        self.color = self.assignColorToCompany()
     }
-    
-    func assignColorToCompany() -> UIColor{
-        
-        var color =  UIColor()
-        
-        switch self.name {
-        case "Fitbit":
-            color = FitbitColor
-        case "Withings":
-            color = WithingsColor
-        case "Medisana":
-            color = MedisanaColor
-        case "Focused Health":
-            color = FocusedHealthColor
-        default:
-            println("Company not found")
-        }
-        
-        return color
-    }
-    
-
 }

@@ -9,6 +9,10 @@
 import Foundation
 import CoreData
 
+/*
+* this class represents a the table company_has_measurement from our database in core data
+*/
+
 class CompanyHasMeasurement: NSManagedObject {
 
     @NSManaged var company: String

@@ -8,6 +8,11 @@
 
 import UIKit
 
+/*
+* this controller does nothing.
+*
+*/
+
 class DisclaimerViewController: UIViewController {
     
     @IBAction func doneTapped(sender: UIBarButtonItem) {

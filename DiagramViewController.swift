@@ -11,6 +11,12 @@ import QuartzCore
 import Alamofire
 import SwiftyJSON
 
+/*
+*
+* This controller manages the diagram for each measurement. To Data for displaying the diagrams is fetched from our database.
+*
+*/
+
 class DiagramViewController: UIViewController, LineChartDelegate {
 
     //variables
@@ -28,6 +34,7 @@ class DiagramViewController: UIViewController, LineChartDelegate {
     
     
     //IBAction
+    //depending on segment which is clicked a other content is displayed. Wether the line chart or the Label for the day value. will be calles if the user click on a segment.
     @IBAction func segmentChanged(sender: UISegmentedControl) {
         
         self.limit = self.convertClickedSegmentIntoLimit(sender.selectedSegmentIndex)
@@ -149,6 +156,7 @@ class DiagramViewController: UIViewController, LineChartDelegate {
         }
     }
     
+    //method for customizing the diagram
     func buildDiagram() {
         
         self.lineChartLabel.textAlignment = NSTextAlignment.Center
@@ -160,6 +168,7 @@ class DiagramViewController: UIViewController, LineChartDelegate {
     
     }
     
+    //fetches data from pur database and appends it to an array which is needed to display the dat on the linechartr
     func addDataLineToChart(){
         
         var currentDate = self.date.getCurrentDateAsString()
@@ -176,11 +185,12 @@ class DiagramViewController: UIViewController, LineChartDelegate {
         Alamofire.request(.GET, "\(baseURL)/value/select", parameters: parameters)
             .responseSwiftyJSON { (request, response, json, error) in
                 
+                //if the json object contains to tittle values to display a chart a message is shown and the segment tapped on will disappear
                 if json.count < 2 {
                     
-                    var clickedSegment = self.convertLimitIntoClicketSegment(self.limit)
+                    var clickedSegmentIndex = self.convertLimitIntoClicketSegmentIndex(self.limit)
                     
-                    self.segmentedControl.removeSegmentAtIndex(clickedSegment, animated: true)
+                    self.segmentedControl.removeSegmentAtIndex(clickedSegmentIndex, animated: true)
                     
                     var title = NSLocalizedString("Period Not Available!", comment: "This is the title for the message if the measuremnet has no entries")
                     
@@ -219,7 +229,7 @@ class DiagramViewController: UIViewController, LineChartDelegate {
 
     }
     
-    //this method gets the value for the day tag in the segmented bar
+    //this method gets the value for the day tab in the segmented bar
     func createTextForDayTab() {
 
         var currentDate = self.date.getCurrentDateAsString()
@@ -236,6 +246,7 @@ class DiagramViewController: UIViewController, LineChartDelegate {
         Alamofire.request(.GET, "\(baseURL)/value/select", parameters: parameters)
             .responseSwiftyJSON { (request, response, json, error) in
                 
+                //if the json object contains no objects, => No Values available for this measurement, a message is shown.
                 if json.count == 0 {
                     
                     var title = NSLocalizedString("Measurement Not Available!", comment: "This is the title for the message if the measuremnet has no entries")
@@ -275,6 +286,7 @@ class DiagramViewController: UIViewController, LineChartDelegate {
         }
     }
     
+    // converts the clicked segment into a limit. The limit is used for retrieve the right amount of data from our database
     func convertClickedSegmentIntoLimit(clickedSegment: Int) -> Int {
         
         var clickedSegment = clickedSegment
@@ -294,7 +306,8 @@ class DiagramViewController: UIViewController, LineChartDelegate {
         
     }
     
-    func convertLimitIntoClicketSegment(limit: Int) -> Int {
+    //detects the index. Is used for hiding the clicked segment because there is no other way to detect which segment is clicked.
+    func convertLimitIntoClicketSegmentIndex(limit: Int) -> Int {
         
         var clickedSegmentIndex = Int()
         

@@ -7,10 +7,18 @@
 //
 
 import UIKit
-
 import Alamofire
-
 import SwiftyJSON
+
+/*
+*
+* this controller is for the first screen that will appear if user starts this app for the first time.
+* If the user didnt start the app for the first time he will be forwarded to the dashboard.
+* from here the user is allowed to login, create a new account or change his password if he forgot his old one
+* if the user presses the login button. His/Her username and password will be confirmed with the username / password combination in our database. If
+* if the combination is right the user is logged in and will be forwarded to the dashboard.
+*
+*/
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     

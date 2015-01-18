@@ -37,7 +37,7 @@ class LineChart: UIControl {
     var animationEnabled = false
     var animationDuration: CFTimeInterval = 1
     
-    var dotsBackgroundColor = FHBackgroundColor
+    var dotsBackgroundColor = UIColor.whiteColor()
     // #eeeeee
     var gridColor = UIColor(red: 238/255.0, green: 238/255.0, blue: 238/255.0, alpha: 1)
     

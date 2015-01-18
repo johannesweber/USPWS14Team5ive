@@ -9,6 +9,10 @@
 import Foundation
 import CoreData
 
+/*
+* this class represents a measurement in core data
+*/
+
 class Measurement: NSManagedObject {
 
     @NSManaged var date: String

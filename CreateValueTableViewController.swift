@@ -10,6 +10,12 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
+/*
+*
+* This controller is for creating a new value.
+*
+*/
+
 class CreateValueTableViewController: UITableViewController {
 
 
@@ -32,6 +38,7 @@ class CreateValueTableViewController: UITableViewController {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    //will be called if the user presses the save button
     @IBAction func save(sender: UIBarButtonItem) {
         
         self.insertValueIntoDatabase()
@@ -40,6 +47,7 @@ class CreateValueTableViewController: UITableViewController {
         
     }
     
+    //will be called every time the user moves the slider
     @IBAction func sliderValueChanged(sender: UISlider) {
         
         var currentValue = Int(sender.value)
@@ -76,6 +84,7 @@ class CreateValueTableViewController: UITableViewController {
         
     }
     
+    //will be called if the view loads
     func customizeViewController() {
         
         self.saveBarButton.enabled = false
@@ -84,6 +93,7 @@ class CreateValueTableViewController: UITableViewController {
         self.unitLabel.text = measurementToCreate.unit
     }
     
+    //will be called if the user picks a date.
     func dateChanged(datePicker: UIDatePicker) {
         
         self.date = datePicker.date
@@ -91,6 +101,7 @@ class CreateValueTableViewController: UITableViewController {
         self.checkIfFormIsComplete()
     }
     
+    //this method updates the "Detail" label
     func updateDueDateLabel() {
         
         let formatter = NSDateFormatter()
@@ -99,6 +110,7 @@ class CreateValueTableViewController: UITableViewController {
         self.dateDetailLabel.text = formatter.stringFromDate(date)
     }
     
+    //only if every field is filled out the save button gets enabled.
     func checkIfFormIsComplete() {
         
         if dateDetailLabel.text != "Detail" && valueLabel.text != "Value" {

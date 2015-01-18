@@ -11,6 +11,13 @@
  import Alamofire
  import SwiftyJSON
  
+/*
+*
+* This controller is for managing the addtodashboard viewcontroller. Here a user can choose a measurement and add it to the dashboard.
+* if the user clicked on Done Button the chosen measurement gets his "isInDashboard" property set to 1
+*
+*/
+ 
  class AddToDashboardTableViewController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
     //Variables
@@ -37,6 +44,7 @@
     //TODO disable done button if no measurment is added
     @IBAction func done(sender: UIBarButtonItem) {
         
+        //this method sets the "isInDashboard" property , in core data, to 1
         self.addMeasurementToDashboard(self.measurementSelected)
         
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -109,6 +117,7 @@
         
     }
     
+    //table view methods are methods to managing the content of tableviews
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         if indexPath.section == 0 && indexPath.row == 1 {

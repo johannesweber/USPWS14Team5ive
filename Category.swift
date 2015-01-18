@@ -9,6 +9,10 @@
 import Foundation
 import CoreData
 
+/*
+* this class represents a category in core data
+*/
+
 class Category: NSManagedObject {
 
     @NSManaged var name: String

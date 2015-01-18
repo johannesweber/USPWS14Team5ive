@@ -9,6 +9,10 @@
 import Foundation
 import CoreData
 
+/*
+* this class represents a dashboard in core data
+*/
+
 class Dashboard: NSManagedObject {
 
     @NSManaged var company: String

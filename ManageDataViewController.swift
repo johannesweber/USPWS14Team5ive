@@ -9,6 +9,12 @@
 import UIKit
 import CoreData
 
+/*
+*
+* This controller displays the categories. These categories are fetched from core data.
+*
+*/
+
 protocol ManageDataViewControllerDelegate: class {
     
     func manageDataViewController(controller: ManageDataViewController, didSelectCategory category: Category)

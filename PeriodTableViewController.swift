@@ -8,6 +8,12 @@
 
 import UIKit
 
+/*
+*
+* This controller displays periods which are available for the current Measurement
+*
+*/
+
 protocol PeriodTableViewControllerDelegate: class {
     
     func periodViewControllerDidCancel(controller: PeriodTableViewController)
@@ -112,6 +118,7 @@ class PeriodTableViewController: UITableViewController {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
+    //will be called if a user selects a row in the table view.
     func deselectAllCells() {
     
         for cell in self.tableView.visibleCells() as [UITableViewCell]{

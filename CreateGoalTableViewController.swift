@@ -11,6 +11,12 @@ import CoreData
 import Alamofire
 import SwiftyJSON
 
+/*
+*
+* This controller is for creating a new goal. 
+*
+*/
+
 class CreateGoalTableViewController: UITableViewController, PeriodTableViewControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
 
     //variables
@@ -34,6 +40,7 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     @IBOutlet weak var targetValueTextField: UITextField!
     
     //IBAction
+    //this method is called if the user presses on the save button. in this method a connection to core data is established and the new goal will be iunserted.
     @IBAction func save(sender: UIBarButtonItem) {
         
         var goal = NSEntityDescription.insertNewObjectForEntityForName("Goal", inManagedObjectContext: self.managedObjectContext) as Goal
@@ -161,7 +168,7 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
                 self.updateGoal(goal, property: "text", newValue: text)
                 self.updateGoal(goal, property: "targetValue", newValue: targetValue)
                 
-                if json == nil {
+                if json[0] == nil {
                     
                     var title = NSLocalizedString("No Values available", comment: "title if no values available for created goal")
                     
@@ -185,10 +192,12 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
         batchRequest.resultType = .UpdatedObjectsCountResultType
         var error : NSError?
         
+        // A Predicate is for selecting a specific entity. A predicate is comparable with the WHERE statement in MySQL
         var selectMeasurementPredicate = NSPredicate(format: "measurement = %@", goal.measurement)
         
         var selectPeriodPredicate = NSPredicate(format: "period = %@", goal.period)
         
+        // a NSCompoundPredicate is used for combine two ore more predicates
         var compoundPredicate = NSCompoundPredicate.andPredicateWithSubpredicates([selectMeasurementPredicate!, selectPeriodPredicate!])
         
         batchRequest.predicate = compoundPredicate

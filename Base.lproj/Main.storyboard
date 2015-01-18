@@ -1325,7 +1325,7 @@ password, press the button below</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="GoalItem" id="0Zq-2Q-nKL">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="GoalItem" id="0Zq-2Q-nKL">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0Zq-2Q-nKL" id="t2B-5O-i0M">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -1788,40 +1788,18 @@ password, press the button below</string>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5vq-lL-ubG" id="Hyq-6X-igY">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Value" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8fl-db-MWX">
-                                                    <rect key="frame" x="56" y="12" width="152" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="152" id="p4I-gI-bdS"/>
-                                                    </constraints>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Target Value" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="itS-2y-S1Y">
+                                                    <rect key="frame" x="8" y="28" width="114" height="30"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                </textField>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Unit" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XWc-or-AqW">
+                                                    <rect key="frame" x="130" y="32" width="80" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unit" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XWc-or-AqW">
-                                                    <rect key="frame" x="434" y="12" width="80" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="80" id="aTo-4B-8G0"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="1K3-6N-L5u">
-                                                    <rect key="frame" x="54" y="41" width="462" height="31"/>
-                                                    <connections>
-                                                        <action selector="sliderValueChanged:" destination="eQi-ms-s7Q" eventType="touchUpInside" id="WF7-lv-Tj0"/>
-                                                    </connections>
-                                                </slider>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstItem="1K3-6N-L5u" firstAttribute="leading" secondItem="8fl-db-MWX" secondAttribute="leading" id="3zC-U5-bh3"/>
-                                                <constraint firstItem="1K3-6N-L5u" firstAttribute="top" secondItem="Hyq-6X-igY" secondAttribute="top" constant="41" id="Kth-UG-CT3"/>
-                                                <constraint firstItem="1K3-6N-L5u" firstAttribute="leading" secondItem="Hyq-6X-igY" secondAttribute="leadingMargin" constant="48" id="S99-IT-TuT"/>
-                                                <constraint firstAttribute="centerX" secondItem="1K3-6N-L5u" secondAttribute="centerX" constant="15" id="WHk-0O-Xlw"/>
-                                                <constraint firstItem="1K3-6N-L5u" firstAttribute="top" secondItem="XWc-or-AqW" secondAttribute="bottom" constant="8" symbolic="YES" id="aTd-Ro-e54"/>
-                                                <constraint firstItem="1K3-6N-L5u" firstAttribute="trailing" secondItem="XWc-or-AqW" secondAttribute="trailing" id="cgT-WU-49p"/>
-                                                <constraint firstItem="1K3-6N-L5u" firstAttribute="top" secondItem="8fl-db-MWX" secondAttribute="bottom" constant="8" symbolic="YES" id="mOG-9U-LxW"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -1848,14 +1826,13 @@ password, press the button below</string>
                         <outlet property="periodDetailLabel" destination="TX4-Pf-pIO" id="vWq-qJ-5jq"/>
                         <outlet property="saveBarButton" destination="dIK-p3-NFx" id="Im6-eM-L6c"/>
                         <outlet property="startDateDetailLabel" destination="Va8-LB-ah9" id="XR4-nM-FCe"/>
+                        <outlet property="targetValueTextField" destination="itS-2y-S1Y" id="OvY-LG-zCd"/>
                         <outlet property="unitLabel" destination="XWc-or-AqW" id="fD6-2G-j46"/>
-                        <outlet property="valueLabel" destination="8fl-db-MWX" id="NZu-WF-Xha"/>
-                        <outlet property="valueSlider" destination="1K3-6N-L5u" id="M2k-w5-d65"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G2k-uL-Xgh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3788" y="-2214"/>
+            <point key="canvasLocation" x="3788" y="-2215"/>
         </scene>
         <!--Company-->
         <scene sceneID="93w-zf-rTv">
@@ -2122,7 +2099,7 @@ password, press the button below</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DashboardItem" rowHeight="57" id="KpN-Vu-xAu">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DashboardItem" rowHeight="57" id="KpN-Vu-xAu">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KpN-Vu-xAu" id="DfW-Dv-EDm">
                                     <autoresizingMask key="autoresizingMask"/>

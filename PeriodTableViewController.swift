@@ -18,8 +18,9 @@ protocol PeriodTableViewControllerDelegate: class {
 class PeriodTableViewController: UITableViewController {
 
     //variables
-    var periods: [TableItem]
-    var periodSelected: String
+    var periods =  [TableItem]()
+    var periodSelected = String()
+    var currentFavoriteCompany = String()
     
     weak var delegate: PeriodTableViewControllerDelegate?
     
@@ -40,28 +41,33 @@ class PeriodTableViewController: UITableViewController {
         self.delegate?.periodViewController(self, didFinishSelectingPeriod: newTableItem)
     }
     
-    //Initializer
-    required init(coder aDecoder: NSCoder) {
+    //methods
+    func populatePeriodTableView() {
         
-        self.periods = [TableItem]()
-        self.periodSelected = String()
+        let daily = TableItem(name: NSLocalizedString("Daily", comment: "Name for Period Daily"), nameInDatabase: "daily")
         
-        let row0item = TableItem(name: NSLocalizedString("Daily", comment: "Name for Period Daily"), nameInDatabase: "daily")
-        periods.append(row0item)
+        let weekly = TableItem(name:  NSLocalizedString("Weekly", comment: "Name for Period Weekly"), nameInDatabase: "weekly")
         
-        let row1item = TableItem(name:  NSLocalizedString("Weekly", comment: "Name for Period Weekly"), nameInDatabase: "weekly")
-        periods.append(row1item)
+        let monthly = TableItem(name:  NSLocalizedString("Monthly", comment: "Name for Period Monthly"), nameInDatabase: "monthly")
         
-        let row2item = TableItem(name:  NSLocalizedString("Monthly", comment: "Name for Period Monthly"), nameInDatabase: "monthly")
-        periods.append(row2item)
+        let annual = TableItem(name:  NSLocalizedString("Annual", comment: "Name for Period Annual"), nameInDatabase: "annual")
         
-        let row3item = TableItem(name:  NSLocalizedString("Annual", comment: "Name for Period Annual"), nameInDatabase: "annual")
-        periods.append(row3item)
+        self.periods.append(daily)
+        self.periods.append(weekly)
         
-        super.init(coder: aDecoder)
+        if self.currentFavoriteCompany != "fitbit" {
+            
+            self.periods.append(monthly)
+            self.periods.append(annual)
+        }
     }
     
-    
+    //override methods
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.populatePeriodTableView()
+    }
     //table view methods
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         

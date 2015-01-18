@@ -47,6 +47,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+        
+        self.txtMailAddress.resignFirstResponder()
+        self.txtPassword.resignFirstResponder()
+
+    }
+    
     //hide keyboard if user presses on done
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if (textField == self.txtMailAddress) {

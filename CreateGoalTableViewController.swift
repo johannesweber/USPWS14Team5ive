@@ -11,7 +11,7 @@ import CoreData
 import Alamofire
 import SwiftyJSON
 
-class CreateGoalTableViewController: UITableViewController, PeriodTableViewControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
+class CreateGoalTableViewController: UITableViewController, PeriodTableViewControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
 
     //variables
     var startdate =  NSDate()
@@ -19,7 +19,6 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     var measurementPickerVisible = false
     var measurements = [Measurement]()
     var measurementSelected: Measurement!
-    var currentValue = Int()
     var userId = prefs.integerForKey("USERID") as Int
     // variable for managing core data
     var managedObjectContext: NSManagedObjectContext!
@@ -32,18 +31,9 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     @IBOutlet weak var periodDetailLabel: UILabel!
     @IBOutlet weak var startDateDetailLabel: UILabel!
     @IBOutlet weak var unitLabel: UILabel!
-    @IBOutlet weak var valueLabel: UILabel!
+    @IBOutlet weak var targetValueTextField: UITextField!
     
     //IBAction
-    @IBAction func sliderValueChanged(sender: UISlider) {
-        
-        self.currentValue = Int(sender.value)
-        
-        valueLabel.text = "\(self.currentValue)"
-        
-        self.checkIfFormIsComplete()
-    }
-    
     @IBAction func save(sender: UIBarButtonItem) {
         
         var goal = NSEntityDescription.insertNewObjectForEntityForName("Goal", inManagedObjectContext: self.managedObjectContext) as Goal
@@ -52,7 +42,7 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
         goal.period = self.convertPeriod(self.periodDetailLabel.text!)
         goal.startdate = self.startDateDetailLabel.text!
         goal.company = self.measurementSelected.favoriteCompany
-        goal.targetValue = self.currentValue
+        goal.targetValue = self.targetValueTextField.text.toInt()!
         goal.unit = self.unitLabel.text!
         goal.userId = self.userId
         
@@ -85,15 +75,22 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.targetValueTextField.delegate = self
+        
         var appDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
         self.managedObjectContext = appDel.managedObjectContext!
         
         self.saveBarButton.enabled = false
-        self.valueSlider.enabled = false
+        self.targetValueTextField.enabled = false
         self.unitLabel.textColor = UIColor.grayColor()
-        self.valueLabel.textColor = UIColor.grayColor()
         
         self.measurements = fetchGoalableMeasurementsFromCoreData()
+        
+    }
+    
+    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+        
+        self.targetValueTextField.resignFirstResponder()
         
     }
     
@@ -121,10 +118,9 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
         
         self.measurementSelected = itemSelected
         
-        self.customizeSlider(itemSelected)
+        self.unitLabel.text = itemSelected.unit
         self.unitLabel.textColor = UIColor.blackColor()
-        self.valueLabel.textColor = UIColor.blackColor()
-        self.valueSlider.enabled = true
+        self.targetValueTextField.enabled = true
         
         self.checkIfFormIsComplete()
     }
@@ -141,6 +137,7 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
             "measurement"   : "\(goal.measurement)",
             "period"        : "\(goal.period)",
             "company"       : "\(goal.company)",
+            "startDate"     : "\(self.startDateDetailLabel.text!)",
             "limit"         : "1"
         ]
         
@@ -152,21 +149,27 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
                 
                 println(json)
                 
-                var currentValue = json[0]["current_value"].intValue
-                var targetValue = json[0]["target_value"].intValue
+                var currentValue = json[0]["currentValue"].intValue
+                var targetValue = json[0]["goalValue"].intValue
                 var text = "\(goal.measurement): \(currentValue) \(goal.unit)"
                 
                 println(currentValue)
                 println(targetValue)
                 println(text)
-                
-                dispatch_async(dispatch_get_main_queue()) {
                     
-                    self.updateGoal(goal, property: "currentValue", newValue: currentValue)
-                    self.updateGoal(goal, property: "text", newValue: text)
-                    self.updateGoal(goal, property: "targetValue", newValue: targetValue)
+                self.updateGoal(goal, property: "currentValue", newValue: currentValue)
+                self.updateGoal(goal, property: "text", newValue: text)
+                self.updateGoal(goal, property: "targetValue", newValue: targetValue)
                 
+                if json == nil {
+                    
+                    var title = NSLocalizedString("No Values available", comment: "title if no values available for created goal")
+                    
+                    var message = NSLocalizedString("Till now you dont have any values archived fot this goal, wether this date for the goal is in the future or you have to archive no values", comment: "message if no values available for created goal")
+                    
+                    showAlert(title, message, self)
                 }
+
                 
                 
                 
@@ -184,7 +187,11 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
         
         var selectMeasurementPredicate = NSPredicate(format: "measurement = %@", goal.measurement)
         
-        batchRequest.predicate = selectMeasurementPredicate
+        var selectPeriodPredicate = NSPredicate(format: "period = %@", goal.period)
+        
+        var compoundPredicate = NSCompoundPredicate.andPredicateWithSubpredicates([selectMeasurementPredicate!, selectPeriodPredicate!])
+        
+        batchRequest.predicate = compoundPredicate
         
         var results = self.managedObjectContext!.executeRequest(batchRequest, error: &error) as NSBatchUpdateResult
         
@@ -243,16 +250,9 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
         return periodNameInDatabase
     }
     
-    func customizeSlider(item: Measurement) {
-        
-        self.valueSlider.maximumValue = Float(item.sliderLimit)
-        self.valueSlider.continuous = true
-        self.unitLabel.text = item.unit
-    }
-    
     func checkIfFormIsComplete() {
         
-        if measurementDetailLabel.text != "Detail" && periodDetailLabel.text != "Detail" && startDateDetailLabel.text != "Detail" && valueLabel.text != "Value" {
+        if measurementDetailLabel.text != "Detail" && periodDetailLabel.text != "Detail" && startDateDetailLabel.text != "Detail" && self.targetValueTextField.text != "" {
             
             self.saveBarButton.enabled = true
         }
@@ -468,6 +468,7 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
             let periodTableViewController = segue.destinationViewController as PeriodTableViewController
             
             periodTableViewController.delegate = self
+            periodTableViewController.currentFavoriteCompany = self.measurementSelected.favoriteCompany
             
         }
     }

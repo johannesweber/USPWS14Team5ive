@@ -6,6 +6,11 @@
 //  Copyright (c) 2014 Johannes Weber. All rights reserved.
 //
 
+/**
+* This class represents an Item which is used for populating table views
+*/
+
+
 import Foundation
 
 class TableItem: NSObject{

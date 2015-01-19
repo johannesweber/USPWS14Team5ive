@@ -16,9 +16,6 @@ class AccountViewController: UITableViewController {
     
     //IBAction
     @IBAction func logoutTapped(sender: UIButton) {
-            
-//        let appDomain = NSBundle.mainBundle().bundleIdentifier
-//        NSUserDefaults.standardUserDefaults().removePersistentDomainForName(appDomain!)
         
         //sets key FIRSTTIMELOGIN to NO and ISLOGGEDIN to 0
         prefs.setObject("NO", forKey: "FIRSTTIMELOGIN")

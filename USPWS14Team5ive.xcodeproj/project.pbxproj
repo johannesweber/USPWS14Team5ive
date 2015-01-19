@@ -1054,7 +1054,6 @@
 				0E6B3F5F1A2DADF6002193B2 /* AddCompanyTableViewController.swift */,
 				0E6B3F551A2DAC31002193B2 /* YourCompaniesTableViewController.swift */,
 				0E1ADE891A2CD07300820ED2 /* AboutTableViewController.swift */,
-				0EB17DA61A655CA400FE4857 /* CompanyTableViewController.swift */,
 				A33B8A681A39B3460002F71A /* FavCompanyTableViewController.swift */,
 				0E6B3F591A2DAD0A002193B2 /* ChangePasswordViewController.swift */,
 				0E6B3F571A2DACD9002193B2 /* ChangeEmailViewController.swift */,
@@ -1067,6 +1066,7 @@
 		0E6B3F521A2DAA91002193B2 /* Manage Data */ = {
 			isa = PBXGroup;
 			children = (
+				0EB17DA61A655CA400FE4857 /* CompanyTableViewController.swift */,
 				0E6F273F1A2CF02D00F58A13 /* DiagramViewController.swift */,
 				0E3ADB731A273B790075F981 /* ManageDataViewController.swift */,
 				0E90AC661A56D8F80002D091 /* ManageDataDetailViewController.swift */,

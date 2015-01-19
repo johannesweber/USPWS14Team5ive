@@ -18,7 +18,6 @@ class ChangePasswordViewController: UIViewController {
     
     @IBAction func changePassword(sender: UIButton) {
         
-        
         var email = prefs.valueForKey("EMAIL") as String
         
         let parameters: Dictionary<String, String> = ["email" : "\(email)"]
@@ -33,7 +32,7 @@ class ChangePasswordViewController: UIViewController {
                 
                     showAlert(NSLocalizedString("E-Mail has been successfully sent!", comment: "Title for Message if email has been successfully changed"),  NSLocalizedString("\(message)", comment: "Message if if email has been successfully changed"), self)
                     
-                    self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+                    self.navigationController?.popViewControllerAnimated(true)
                 }
                 
         }

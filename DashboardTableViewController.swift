@@ -21,6 +21,7 @@ import SwiftyJSON
 class DashboardTableViewController: UITableViewController {
     
     //variables
+    //retrieving the user id store in NSUserDefaults
     var userId = prefs.integerForKey("USERID") as Int
     var isLoading = false
     var request: Alamofire.Request?
@@ -29,6 +30,7 @@ class DashboardTableViewController: UITableViewController {
     // variable for managing core data
     var managedObjectContext: NSManagedObjectContext!
     
+    //the fetchged results controller stores every object from the entity Dashboard fetched from Core Data
     lazy var fetchedResultsController: NSFetchedResultsController = {
         let fetchRequest = NSFetchRequest()
         
@@ -229,6 +231,7 @@ class DashboardTableViewController: UITableViewController {
     }
 }
 
+//standard delegate methods for the NSFetchedResultsControllerDelegate
 extension DashboardTableViewController: NSFetchedResultsControllerDelegate {
     
     func controllerWillChangeContent(controller: NSFetchedResultsController) {

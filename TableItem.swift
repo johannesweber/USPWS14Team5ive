@@ -64,6 +64,7 @@ class TableItem: NSObject{
     }
 }
 
+//makes the TableItem equatable: which means if the items has the same names there are equal
 extension TableItem: Equatable {}
 
 func == (lhs: TableItem, rhs: TableItem) -> Bool {

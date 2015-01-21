@@ -13,7 +13,7 @@ import SwiftyJSON
 
 /*
 *
-* This controller is for creating a new goal. 
+* This controller is for creating a new goal. In this view a user can select the startdate, the measurement, the period, and the target value of the goal and then create the new goal.
 *
 */
 
@@ -40,7 +40,7 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     @IBOutlet weak var targetValueTextField: UITextField!
     
     //IBAction
-    //this method is called if the user presses on the save button. in this method a connection to core data is established and the new goal will be iunserted.
+    //this method is called if the user presses on the save button. in this method a connection to core data is established and the new goal will be inserted.
     @IBAction func save(sender: UIBarButtonItem) {
         
         var goal = NSEntityDescription.insertNewObjectForEntityForName("Goal", inManagedObjectContext: self.managedObjectContext) as Goal
@@ -133,6 +133,7 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
     }
     
     //methods
+    //this method creates the text which will be displayed in the cells from GoalTableViewController
     func createTextForGoal(goal: Goal) {
         
         //variables needed for request
@@ -148,7 +149,6 @@ class CreateGoalTableViewController: UITableViewController, PeriodTableViewContr
             "limit"         : "1"
         ]
         
-        //wrong user ID stored in Database
         Alamofire.request(.GET, url, parameters: parameters)
             .responseSwiftyJSON { (request, response, json, error) in
                 

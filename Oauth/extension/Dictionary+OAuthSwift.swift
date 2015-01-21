@@ -8,6 +8,13 @@
 
 import Foundation
 
+
+/*
+*
+*this class extends the Dictionary class with functions to join a other Dictionary, to filter a dictionary ad a function to create a urlencoded String 
+*with the parts of s dictionary.
+*/
+
 extension Dictionary {
 
     func join(other: Dictionary) -> Dictionary {

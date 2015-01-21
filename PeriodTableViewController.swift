@@ -14,6 +14,7 @@ import UIKit
 *
 */
 
+//This is a protocol. A protocol is very similar to an interface in other languages. Every class that extends an PeriodTableViewControllerDelegate has to implement this method.
 protocol PeriodTableViewControllerDelegate: class {
     
     func periodViewControllerDidCancel(controller: PeriodTableViewController)
@@ -28,6 +29,7 @@ class PeriodTableViewController: UITableViewController {
     var periodSelected = String()
     var currentFavoriteCompany = String()
     
+    //this variable is for "communicating" with other classes which implements the protocoll above
     weak var delegate: PeriodTableViewControllerDelegate?
     
     //IBOutlets
@@ -48,6 +50,7 @@ class PeriodTableViewController: UITableViewController {
     }
     
     //methods
+    //In this Method the table view gets populated with different periods. If the favorite Company from Measuremnt of the Goal is Fitbit there are only daily and weekly in the tableview otherwise there are daily, weekly, monthly and annual in the table view.
     func populatePeriodTableView() {
         
         let daily = TableItem(name: NSLocalizedString("Daily", comment: "Name for Period Daily"), nameInDatabase: "daily")
@@ -93,6 +96,7 @@ class PeriodTableViewController: UITableViewController {
         return cell
     }
     
+    //method to checkmark the current selected row
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         var item = periods[indexPath.row]

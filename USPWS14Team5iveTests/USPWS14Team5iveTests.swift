@@ -12,8 +12,6 @@ import USPWS14Team5ive
 
 class USPWS14Team5iveTests: XCTestCase {
     
-
-    
     override func setUp() {
         super.setUp()
 

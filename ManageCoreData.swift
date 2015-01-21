@@ -13,7 +13,8 @@ import Alamofire
 import SwiftyJSON
 
 
-//insert methods: these methods are for fetching json data from focused health database and inserting them into core data
+//insert methods: these methods are for fetching json data from focused health database and inserting them into core data. Every method returns true if the insert is successfull false if not.
+
 func insertCompaniesFromUser() -> Bool {
     
     var success = false
@@ -58,7 +59,7 @@ func insertCompaniesFromUser() -> Bool {
 }
 
 
-// this methods fetches all measurements from the current user from our database and then inserting them into core data
+// this methods fetches all measurements from the current user from our database and then inserting them into core data.
 func insertMeasurementsFromUser() -> Bool {
     
     var success = false
@@ -233,7 +234,7 @@ func insertTableCompanyHasMeasurement() -> Bool{
     return success
 }
 
-//fetch methods: these methods are for fetching entities from core data
+//fetch methods: these methods are for fetching entities from core data. Every method returns an array of the fetched objects
 
 func fetchCompanyFromCoreData() -> [Company]{
     
@@ -373,7 +374,7 @@ func fetchCompanyHasMeasurement(measurement: Measurement) -> [CompanyHasMeasurem
 
 
 
-//update methods: these methods are for updating entities from core data
+//update methods: these methods are for updating entities from core data. Returns true if the update is successfull false if not
 func updateDuplicateMeasurements() -> Bool{
     
     var success = false

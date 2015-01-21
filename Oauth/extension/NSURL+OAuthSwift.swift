@@ -8,6 +8,12 @@
 
 import Foundation
 
+/*
+*
+*this class extends the NSURL class with a function for appending a query string to a url.
+*
+*/
+
 
 extension NSURL {
 

@@ -16,6 +16,7 @@ import Foundation
 
 class Date {
     
+    //creates a date from given int values for date moth year. returns the date.
     func from(#year:Int, month:Int, day:Int) -> NSDate {
         
         var components = NSDateComponents()
@@ -29,6 +30,7 @@ class Date {
         return date!
     }
     
+    //creates a date from a gicen string and format. returns the date.
     func parse(dateStr:String, format:String="yyyy-MM-dd") -> NSDate {
         
         let formatter = NSDateFormatter()
@@ -40,6 +42,7 @@ class Date {
     }
     
 
+    //creates a string from a given Date. Returns the string.
     func stringFromDate(date: NSDate) -> String{
         
         let formatter = NSDateFormatter()
@@ -50,6 +53,7 @@ class Date {
         return dateString
     }
     
+    //returns the current Date as an String. Returns the string.
     func getCurrentDateAsString() -> String{
         
         let formatter = NSDateFormatter()

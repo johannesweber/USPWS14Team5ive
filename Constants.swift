@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-//NSUserDefaults stores userid, user email and wether user is logged in or not 
+//NSUserDefaults stores userid, user email and wether user is logged in or not.
 public let prefs:NSUserDefaults = NSUserDefaults.standardUserDefaults()
 
 //Focused Health Design Color

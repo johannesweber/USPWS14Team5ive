@@ -9,7 +9,7 @@
 import UIKit
 
 /*
-* this controller does nothing.
+* this controller does almost nothing. All logic is happening in the main.storyboard.
 *
 */
 

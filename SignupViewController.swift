@@ -14,7 +14,8 @@ import SwiftyJSON
 
 /*
 *
-* This controller is fpor the sign up screen. The user has to fill in is email and password. Further he/she has to confirm his password.
+* This controller is fpor the sign up screen. The user has to fill in is email and password. Further he/she has to confirm his password. If the user
+*  has done a wrong input a message will appear on the screen.
 * if the password is the same as the password confirmed a new user will be created in our database. Now the user has to confirm his/her registration
 * with clicking the link in the sent email.
 *

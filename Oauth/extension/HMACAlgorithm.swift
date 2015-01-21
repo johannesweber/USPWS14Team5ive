@@ -10,7 +10,7 @@ import Foundation
 
 /*
 *
-*this class extends the String class with the function to hash a given value with the HMAC Algorithms
+*this class extends the String class with the function to hash a string with HMAC Algorithms
 *
 */
 

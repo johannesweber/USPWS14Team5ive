@@ -15,6 +15,8 @@ import CoreData
 *
 */
 
+
+//This is a protocol. A protocol is very similar to an interface in other languages. Every class that extends with an ManageDataViewControllerDelegate has to implement this method.
 protocol ManageDataViewControllerDelegate: class {
     
     func manageDataViewController(controller: ManageDataViewController, didSelectCategory category: Category)
@@ -26,6 +28,7 @@ class ManageDataViewController: UITableViewController {
     var categories =  [Category]()
     var selectedCategory: Category!
     
+    //this variable is for "communicating" with other classes which implements the protocoll above
     weak var delegate: ManageDataViewControllerDelegate?
 
     override func viewDidLoad() {

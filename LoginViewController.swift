@@ -146,7 +146,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    //this method start the daefault configuration if the user logs in for the first time. return true if first user configuration is ssuccessfully executed
+    //this method start the default configuration if the user logs in for the first time. return true if first user configuration is ssuccessfully executed
     func firstTimeConfiguration() -> Bool {
         
         var success = false

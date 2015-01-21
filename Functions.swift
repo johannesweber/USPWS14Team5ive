@@ -11,7 +11,7 @@ import Dispatch
 import UIKit
 import CoreData
 
-//with this function we can hold on the app for a few seconds
+//with this function we can hold on the app for a few seconds.
 func afterDelay(seconds: Double, closure: () -> ()) {
     let when = dispatch_time(DISPATCH_TIME_NOW, Int64(seconds * Double(NSEC_PER_SEC)))
     dispatch_after(when, dispatch_get_main_queue(), closure)
@@ -27,7 +27,7 @@ func showAlert(title: String, message: String, delegate: UIViewController){
     alertView.show()
 }
 
-//converts an given string from date into a weekday string
+//converts an given string date into a matching weekday. Returns the weekday as a string
 func getDayOfWeek(date:String)->String? {
     
     let dateStyler = NSDateFormatter()

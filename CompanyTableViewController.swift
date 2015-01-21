@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 
+//This is a protocol. A protocol is very similar to an interface in other languages. Every class that extends with an ComapnyTableViewControllerDelegate has to implement these two methods.
 protocol CompanyTableViewControllerDelegate: class {
     
     func companyViewControllerDidCancel(controller: CompanyTableViewController)
@@ -23,6 +24,7 @@ class CompanyTableViewController: UITableViewController {
     var companySelected: Company!
     var measurementToEdit: Measurement?
     
+    //this variable is for "communicating" with other classes which implements the CompanyTableViewControllerDelegate protocol
     weak var delegate: CompanyTableViewControllerDelegate?
   
     //IBOUtlet
@@ -94,6 +96,7 @@ class CompanyTableViewController: UITableViewController {
     
     func deselectAllCells() {
         
+        //go through all cells in the table view and remove the checkmark
         for cell in self.tableView.visibleCells() as [UITableViewCell]{
             
             if cell.accessoryType == .Checkmark {

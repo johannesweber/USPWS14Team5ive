@@ -13,7 +13,7 @@ import CoreData
 
 /*
 *
-* This controller displays the user's goals.
+* This controller displays the user's goals. From Here he/she can add a goal or create a new one.
 *
 */
 

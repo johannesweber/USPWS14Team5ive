@@ -8,6 +8,12 @@
 
 import Foundation
 
+/*
+*
+*this class extends the String class with certain functions used in the oauth process.
+*
+*/
+
 extension String {
     
     func urlEncodedStringWithEncoding(encoding: NSStringEncoding) -> String {

@@ -286,7 +286,7 @@ class DiagramViewController: UIViewController, LineChartDelegate {
         }
     }
     
-    // converts the clicked segment into a limit. The limit is used for retrieve the right amount of data from our database
+    // converts the clicked segment into a limit. The limit is used for retrieve the right amount of data from our database, Returns an Int(Limit)
     func convertClickedSegmentIntoLimit(clickedSegment: Int) -> Int {
         
         var clickedSegment = clickedSegment
